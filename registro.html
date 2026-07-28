@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitud de venta · Campus Concá UAQ</title>
+<meta name="description" content="Solicitud para vender alimentos saludables y productos sustentables en el campus Concá de la UAQ, bajo el enfoque Cero Residuos.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --ven:#B05020; --ven-l:#FDF0E5;
+}
+body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp); line-height:1.5; }
+:focus-visible { outline:3px solid var(--oc); outline-offset:3px; }
+
+.hero { background:var(--vp); color:var(--cr); padding:26px 20px 34px; text-align:center; }
+.volver { display:inline-block; font-size:13px; font-weight:600; color:var(--vc); text-decoration:none; margin-bottom:20px; }
+.volver:hover { color:var(--oc); }
+.hero-eyebrow { font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--oc); display:block; margin-bottom:10px; }
+.hero h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(27px,5.4vw,42px); line-height:1.1; }
+.hero h1 em { font-style:italic; color:var(--vc); }
+.hero p { font-size:14.5px; color:rgba(245,238,216,.85); max-width:560px; margin:14px auto 0; line-height:1.65; }
+.hero .rapido { display:inline-block; margin-top:16px; background:rgba(232,168,90,.15); border:1px solid rgba(232,168,90,.45); color:var(--oc); border-radius:24px; padding:8px 18px; font-size:13px; font-weight:600; }
+
+.wrap { max-width:720px; margin:0 auto; padding:0 20px 60px; }
+
+.pasos { display:flex; gap:6px; margin:-18px 0 26px; position:relative; z-index:2; }
+.paso-marca { flex:1; height:6px; border-radius:6px; background:#E2DEC6; transition:background .2s; }
+.paso-marca.hecho { background:var(--vv); }
+.paso-marca.activo { background:var(--oc); }
+.paso-nombre { text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#9a9784; margin-bottom:22px; }
+
+.tarjeta { background:#fff; border-radius:16px; padding:30px 28px; border:1px solid rgba(26,58,42,.08); }
+.tarjeta h2 { font-family:'Fraunces',serif; font-size:24px; font-weight:700; margin-bottom:6px; }
+.tarjeta > .paso > p.intro { font-size:14px; color:#777; line-height:1.6; margin-bottom:22px; }
+.paso[hidden] { display:none; }
+
+.campo { margin-bottom:18px; }
+.campo label, legend { display:block; font-size:14px; font-weight:600; margin-bottom:8px; color:var(--vs); }
+.campo input, .campo select, .campo textarea {
+  width:100%; padding:12px 14px; border:1.5px solid #ddd; border-radius:10px;
+  font-size:16px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff;
+}
+.campo textarea { min-height:104px; resize:vertical; line-height:1.55; }
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline:none; border-color:var(--vv); }
+.hint { font-size:12.5px; color:#aaa; margin-top:6px; line-height:1.5; }
+fieldset { border:none; margin-bottom:20px; }
+
+/* CASILLAS RÁPIDAS */
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip { position:relative; }
+.chip input { position:absolute; opacity:0; width:0; height:0; }
+.chip span {
+  display:inline-block; border:1.5px solid #E0DCC4; background:#FAF9F1; border-radius:24px;
+  padding:11px 16px; font-size:14px; line-height:1.3; cursor:pointer; transition:all .12s; user-select:none;
+}
+.chip span:hover { border-color:var(--vc); }
+.chip input:checked + span { background:var(--vp); border-color:var(--vp); color:#fff; }
+.chip input:focus-visible + span { outline:3px solid var(--oc); outline-offset:2px; }
+.otro { margin-top:10px; }
+.otro input { padding:10px 14px; font-size:15px; }
+
+/* OPCIONES LARGAS (fechas, sí/no) */
+.opcion { display:flex; gap:12px; align-items:flex-start; background:#FAF9F1; border:1.5px solid #E6E2CC; border-radius:10px; padding:13px 15px; margin-bottom:8px; cursor:pointer; }
+.opcion:hover { border-color:var(--vc); }
+.opcion input { margin-top:2px; flex-shrink:0; width:19px; height:19px; accent-color:var(--vv); }
+.opcion span { font-size:14.5px; line-height:1.5; }
+.opcion small { display:block; color:#999; font-size:12.5px; margin-top:2px; }
+.duo-si-no { display:flex; gap:8px; }
+.duo-si-no .opcion { flex:1; margin-bottom:0; }
+
+.alerta { border-radius:12px; padding:14px 18px; font-size:13.5px; line-height:1.6; margin-bottom:18px; }
+.alerta.amb { background:#FFF6E6; border:1px solid rgba(232,168,90,.5); color:#8A5A18; }
+.alerta.rojo { background:#FDECEC; border:1px solid rgba(192,48,48,.35); color:#9B2C2C; }
+.alerta.verde { background:#EAF5EC; border:1px solid rgba(74,140,92,.35); color:var(--vs); }
+.alerta[hidden] { display:none; }
+
+.acciones { display:flex; gap:10px; justify-content:space-between; margin-top:26px; }
+.btn { border:none; border-radius:28px; padding:14px 30px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Instrument Sans',sans-serif; transition:background .15s; }
+.btn-prim { background:var(--vv); color:#fff; }
+.btn-prim:hover { background:var(--vs); }
+.btn-prim:disabled { background:#ccc; cursor:not-allowed; }
+.btn-sec { background:transparent; color:var(--vs); border:1.5px solid var(--vv); }
+.btn-sec:hover { background:rgba(74,140,92,.1); }
+
+.resumen { background:#FAF9F1; border-radius:12px; padding:20px 22px; margin-bottom:20px; }
+.resumen h3 { font-family:'Fraunces',serif; font-size:18px; margin-bottom:12px; }
+.resumen dl { display:grid; grid-template-columns:auto 1fr; gap:8px 16px; font-size:13.5px; }
+.resumen dt { font-weight:600; color:var(--vs); }
+.resumen dd { color:#555; white-space:pre-wrap; }
+
+.exito { text-align:center; padding:20px 0; }
+.exito .check { font-size:56px; }
+.exito h2 { font-family:'Fraunces',serif; font-size:26px; margin:10px 0 8px; }
+.exito p { font-size:15px; color:#666; line-height:1.7; max-width:460px; margin:0 auto 8px; }
+
+footer { background:var(--vp); color:var(--vc); text-align:center; padding:26px 20px; font-size:12.5px; line-height:1.8; }
+footer strong { color:var(--oc); }
+footer a { color:var(--vc); }
+
+@media print {
+  .hero, footer, .acciones, .pasos, .paso-nombre { display:none !important; }
+  body { background:#fff; }
+  .tarjeta { border:none; padding:0; }
+}
+@media (max-width:600px) {
+  .acciones { flex-direction:column-reverse; }
+  .btn { width:100%; }
+  .resumen dl { grid-template-columns:1fr; gap:2px 0; }
+  .resumen dd { margin-bottom:10px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <a class="volver" href="mercadito.html">← Mercadito Sustentable</a>
+  <span class="hero-eyebrow">Campus Concá · UAQ · Área de Sustentabilidad</span>
+  <h1>Solicitud de <em>venta</em></h1>
+  <p>Ventas universitarias saludables &amp; sustentables + Cero Residuos. El Área de Sustentabilidad revisa tu solicitud y notifica a las coordinaciones. El registro cierra una semana antes de cada fecha y la resolución llega dos días antes, con tu ficha de proveedor.</p>
+  <span class="rapido">Una sola solicitud puede cubrir las cuatro fechas del semestre</span>
+</header>
+
+<div class="wrap">
+
+  <div class="pasos" aria-hidden="true">
+    <div class="paso-marca activo" data-marca="1"></div>
+    <div class="paso-marca" data-marca="2"></div>
+    <div class="paso-marca" data-marca="3"></div>
+  </div>
+  <p class="paso-nombre" id="paso-nombre">Paso 1 de 3 · Quién solicita</p>
+
+  <div class="tarjeta">
+
+    <!-- PASO 1 -->
+    <section class="paso" id="paso-1">
+      <h2>Quién solicita</h2>
+      <p class="intro">Los datos de la persona responsable. A este contacto llegan las observaciones y la resolución.</p>
+
+      <div class="campo">
+        <label for="nombre">Nombre completo</label>
+        <input type="text" id="nombre" autocomplete="name" placeholder="Nombre y apellidos">
+      </div>
+      <div class="campo">
+        <label for="programa">Programa educativo o área</label>
+        <select id="programa">
+          <option value="">Selecciona…</option>
+          <option>Licenciatura en Producción Agropecuaria Sustentable</option>
+          <option>Ingeniería Agroindustrial</option>
+          <option>Escuela de Bachilleres</option>
+          <option>Personal docente</option>
+          <option>Personal administrativo</option>
+          <option>Comunidad externa</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="tel">Teléfono (WhatsApp)</label>
+        <input type="tel" id="tel" inputmode="tel" autocomplete="tel" placeholder="441 123 4567">
+      </div>
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="tucorreo@uaq.mx">
+      </div>
+      <div class="campo">
+        <label for="equipo">¿Quiénes más participan? <span style="font-weight:400;color:#aaa;">(opcional)</span></label>
+        <input type="text" id="equipo" placeholder="Nombres, separados por comas">
+      </div>
+
+      <div class="acciones">
+        <span></span>
+        <button class="btn btn-prim" onclick="siguiente(1)">Continuar</button>
+      </div>
+    </section>
+
+    <!-- PASO 2 -->
+    <section class="paso" id="paso-2" hidden>
+      <h2>Qué vas a vender</h2>
+      <p class="intro">La lista de productos debe permitir distinguir con claridad qué se ofrece. Lo demás se resuelve con toques.</p>
+
+      <div class="campo">
+        <label for="proyecto">Nombre de tu proyecto de venta</label>
+        <input type="text" id="proyecto" placeholder="Ej. Panadería de la milpa">
+      </div>
+
+      <fieldset>
+        <legend>¿En qué fechas quieres vender? Puedes elegir varias.</legend>
+        <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 27 de agosto" data-cierre="2026-08-20" data-cierre-txt="jueves 20 de agosto"><span>Jueves 27 de agosto<small>Registro abierto hasta el jueves 20 de agosto</small></span></label>
+        <label class="opcion"><input type="checkbox" class="fecha" value="Martes 29 de septiembre" data-cierre="2026-09-22" data-cierre-txt="martes 22 de septiembre"><span>Martes 29 de septiembre<small>Registro abierto hasta el martes 22 de septiembre</small></span></label>
+        <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 29 de octubre" data-cierre="2026-10-22" data-cierre-txt="jueves 22 de octubre"><span>Jueves 29 de octubre<small>Registro abierto hasta el jueves 22 de octubre</small></span></label>
+        <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 26 de noviembre" data-cierre="2026-11-19" data-cierre-txt="jueves 19 de noviembre"><span>Jueves 26 de noviembre<small>Registro abierto hasta el jueves 19 de noviembre</small></span></label>
+      </fieldset>
+      <div class="alerta amb" id="alerta-plazo" hidden></div>
+
+      <div class="campo">
+        <label for="productos">¿Qué productos vas a ofrecer?</label>
+        <textarea id="productos" placeholder="Uno por línea, con sus ingredientes principales. Ej.&#10;Pan de amaranto — harina integral, amaranto, piloncillo&#10;Agua de jamaica sin azúcar"></textarea>
+      </div>
+
+      <fieldset>
+        <legend>¿Cómo los vas a entregar?</legend>
+        <div class="chips" id="chips-presentacion">
+          <label class="chip"><input type="checkbox" value="A granel, en el recipiente de quien compra"><span>A granel, en recipiente del cliente</span></label>
+          <label class="chip"><input type="checkbox" value="Loza, vidrio o vajilla propia"><span>Loza o vidrio propio</span></label>
+          <label class="chip"><input type="checkbox" value="Frasco o envase retornable"><span>Frasco retornable</span></label>
+          <label class="chip"><input type="checkbox" value="Bolsa de papel estraza"><span>Papel estraza</span></label>
+          <label class="chip"><input type="checkbox" value="Hoja de maíz o de plátano"><span>Hoja de maíz o plátano</span></label>
+          <label class="chip"><input type="checkbox" value="Utensilios de madera"><span>Utensilios de madera</span></label>
+          <label class="chip"><input type="checkbox" value="Servilleta de papel"><span>Servilleta</span></label>
+          <label class="chip"><input type="checkbox" value="Tela o morral"><span>Tela o morral</span></label>
+        </div>
+        <div class="otro"><input type="text" id="presentacion-otro" placeholder="Otra forma de entrega (opcional)"></div>
+        <p class="hint">Nada de unicel, bolsas de plástico ni plásticos de un solo uso. Los desechables permitidos son solo los 100 % compostables.</p>
+      </fieldset>
+
+      <fieldset>
+        <legend>¿Algún producto requiere refrigeración o prepararse en el campus?</legend>
+        <div class="duo-si-no">
+          <label class="opcion"><input type="radio" name="riesgo" value="No"><span>No</span></label>
+          <label class="opcion"><input type="radio" name="riesgo" value="Sí"><span>Sí</span></label>
+        </div>
+      </fieldset>
+      <div class="alerta rojo" id="alerta-riesgo" hidden>Los lineamientos no permiten preparar alimentos en el campus ni vender productos que requieran refrigeración o se descompongan con facilidad. Ajusta tu propuesta o consúltalo antes de enviar.</div>
+
+      <div class="campo">
+        <label for="ilustracion">Liga a fotos de tus productos <span style="font-weight:400;color:#aaa;">(opcional)</span></label>
+        <input type="url" id="ilustracion" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://…">
+        <p class="hint">Si no tienes liga, puedes mandarlas por WhatsApp al Área de Sustentabilidad.</p>
+      </div>
+
+      <div class="acciones">
+        <button class="btn btn-sec" onclick="anterior(2)">Atrás</button>
+        <button class="btn btn-prim" onclick="siguiente(2)">Continuar</button>
+      </div>
+    </section>
+
+    <!-- PASO 3 -->
+    <section class="paso" id="paso-3" hidden>
+      <h2>Residuos y envío</h2>
+      <p class="intro">El campus se rige por Cero Residuos: prevenir, reducir, reutilizar, reciclar y compostar antes de pensar en el bote. Cada proyecto responde por lo que genera.</p>
+
+      <fieldset>
+        <legend>¿Qué residuos va a generar tu venta?</legend>
+        <div class="chips" id="chips-residuos">
+          <label class="chip"><input type="checkbox" value="Ninguno"><span>Ninguno</span></label>
+          <label class="chip"><input type="checkbox" value="Orgánicos"><span>Orgánicos</span></label>
+          <label class="chip"><input type="checkbox" value="Papel o cartón"><span>Papel o cartón</span></label>
+          <label class="chip"><input type="checkbox" value="Vidrio"><span>Vidrio</span></label>
+          <label class="chip"><input type="checkbox" value="Metal o aluminio"><span>Metal</span></label>
+          <label class="chip"><input type="checkbox" value="Plástico reciclable"><span>Plástico reciclable</span></label>
+        </div>
+        <div class="otro"><input type="text" id="residuos-otro" placeholder="Otro residuo (opcional)"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>¿Qué vas a hacer con ellos?</legend>
+        <div class="chips" id="chips-plan">
+          <label class="chip"><input type="checkbox" value="Me los llevo del campus"><span>Me los llevo</span></label>
+          <label class="chip"><input type="checkbox" value="Composto en casa"><span>Composto en casa</span></label>
+          <label class="chip"><input type="checkbox" value="Separo y entrego en la jaula del campus"><span>Separo y entrego en la jaula</span></label>
+          <label class="chip"><input type="checkbox" value="Reutilizo los empaques"><span>Reutilizo empaques</span></label>
+          <label class="chip"><input type="checkbox" value="Los devuelvo a mi proveedor"><span>Los devuelvo al proveedor</span></label>
+          <label class="chip"><input type="checkbox" value="Los reduzco desde la compra de insumos"><span>Los reduzco desde la compra</span></label>
+        </div>
+        <div class="otro"><input type="text" id="plan-otro" placeholder="Otra medida (opcional)"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>¿Usarás desechables?</legend>
+        <div class="duo-si-no">
+          <label class="opcion"><input type="radio" name="desech" value="Ninguno"><span>Ninguno</span></label>
+          <label class="opcion"><input type="radio" name="desech" value="Solo compostables"><span>Solo compostables</span></label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>¿Tomaste la capacitación de manejo de residuos este semestre?</legend>
+        <div class="duo-si-no">
+          <label class="opcion"><input type="radio" name="capac" value="Sí"><span>Sí</span></label>
+          <label class="opcion"><input type="radio" name="capac" value="No"><span>Todavía no</span></label>
+        </div>
+      </fieldset>
+      <div class="alerta amb" id="alerta-capac" hidden>Sin la capacitación se te compartirá el reglamento y deberás firmar la carta responsiva antes de vender. Se te avisará de la siguiente capacitación del campus.</div>
+
+      <div class="resumen" id="resumen"></div>
+
+      <label class="opcion" style="margin-bottom:16px;">
+        <input type="checkbox" id="compromiso">
+        <span>Acepto los lineamientos de venta del campus.
+          <small>Me hago corresponsable de mis residuos y me los llevo; no usaré unicel, bolsas de plástico ni plásticos de un solo uso; venderé únicamente lo autorizado; y la información de esta solicitud es verídica.</small>
+        </span>
+      </label>
+
+      <div class="alerta verde">Para el Mercadito, el campus pone las mesas: trae solo tu mantel, tus productos y tus empaques. La venta es exclusivamente para beneficio de quien participa; la Universidad no obtiene ingreso alguno.</div>
+
+      <div class="acciones">
+        <button class="btn btn-sec" onclick="anterior(3)">Atrás</button>
+        <button class="btn btn-prim" id="btn-enviar" onclick="enviar()">Enviar solicitud</button>
+      </div>
+    </section>
+
+    <!-- ÉXITO -->
+    <section class="paso exito" id="paso-exito" hidden>
+      <div class="check">✅</div>
+      <h2>Solicitud enviada</h2>
+      <p>El Área de Sustentabilidad la revisa durante la semana previa y notifica a tu coordinación. La resolución llega dos días antes del Mercadito: si hay observaciones aparecerán en tu correo, y si todo está en orden recibirás tu ficha de proveedor.</p>
+      <div class="acciones" style="justify-content:center;">
+        <button class="btn btn-sec" onclick="window.print()">Imprimir una copia</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <strong>Campus Concá · UAQ</strong><br>
+  Área de Sustentabilidad · Lic. Jhoana Paola Hernández Bravo · jhoana.hernandez@uaq.mx<br>
+  Comité de Planeación · Mc. Adán Mercado Luna · adan.mercado@uaq.mx<br>
+  <a href="https://vidasaludable.gob.mx/storage/recursos/materiales/Manual-cooperativas.pdf" target="_blank" rel="noopener">Manual para quienes preparan, distribuyen y venden alimentos en las escuelas</a>
+</footer>
+
+<script>
+// ===== PASOS =====
+var nombres = ['Quién solicita','Qué vas a vender','Residuos y envío'];
+
+function verPaso(n) {
+  for (var i=1;i<=3;i++) document.getElementById('paso-'+i).hidden = (i !== n);
+  document.querySelectorAll('.paso-marca').forEach(function(m){
+    var k = parseInt(m.dataset.marca,10);
+    m.className = 'paso-marca' + (k < n ? ' hecho' : (k === n ? ' activo' : ''));
+  });
+  document.getElementById('paso-nombre').textContent = 'Paso ' + n + ' de 3 · ' + nombres[n-1];
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function anterior(n) { verPaso(n-1); }
+
+function siguiente(n) {
+  if (n === 1) {
+    if (!val('nombre') || !val('programa') || !val('tel') || !val('correo')) {
+      return alert('Faltan datos. Solo el equipo es opcional.');
+    }
+  }
+  if (n === 2) {
+    if (!val('proyecto')) return alert('Ponle nombre a tu proyecto de venta.');
+    if (fechasElegidas().length === 0) return alert('Elige al menos una fecha.');
+    if (!val('productos')) return alert('Escribe qué productos vas a ofrecer.');
+    if (marcados('chips-presentacion').length === 0 && !val('presentacion-otro')) {
+      return alert('Indica cómo vas a entregar tus productos.');
+    }
+    if (!radio('riesgo')) return alert('Indica si algún producto requiere cuidados especiales.');
+    armarResumen();
+  }
+  verPaso(n+1);
+}
+
+function val(id) { return document.getElementById(id).value.trim(); }
+function radio(nombre) {
+  var m = document.querySelector('input[name="'+nombre+'"]:checked');
+  return m ? m.value : '';
+}
+function marcados(contenedor) {
+  return Array.prototype.slice.call(document.querySelectorAll('#'+contenedor+' input:checked'))
+    .map(function(c){ return c.value; });
+}
+function junta(contenedor, idOtro) {
+  var lista = marcados(contenedor);
+  var otro = val(idOtro);
+  if (otro) lista.push(otro);
+  return lista.join('; ');
+}
+function fechasElegidas() {
+  return Array.prototype.slice.call(document.querySelectorAll('.fecha:checked'));
+}
+
+// ===== AVISOS EN VIVO =====
+document.querySelectorAll('.fecha').forEach(function(c){ c.addEventListener('change', revisarPlazo); });
+function revisarPlazo() {
+  var hoy = new Date(); hoy.setHours(0,0,0,0);
+  var vencidas = fechasElegidas().filter(function(c){
+    return new Date(c.dataset.cierre + 'T23:59:59') < hoy;
+  }).map(function(c){ return c.value + ' (cerró el ' + c.dataset.cierreTxt + ')'; });
+  var caja = document.getElementById('alerta-plazo');
+  if (vencidas.length) {
+    caja.textContent = 'El registro para ' + vencidas.join(' y ') + ' ya cerró. Puedes enviar de todas formas, pero no alcanza a revisarse para esa fecha: conviene elegir la siguiente.';
+    caja.hidden = false;
+  } else { caja.hidden = true; }
+}
+window.addEventListener('DOMContentLoaded', function(){
+  var hoy = new Date(); hoy.setHours(0,0,0,0);
+  document.querySelectorAll('.fecha').forEach(function(c){
+    if (new Date(c.dataset.cierre + 'T23:59:59') < hoy) {
+      c.closest('.opcion').style.opacity = '.55';
+      c.closest('.opcion').querySelector('small').textContent = 'Registro cerrado el ' + c.dataset.cierreTxt;
+    }
+  });
+});
+document.querySelectorAll('input[name="riesgo"]').forEach(function(r){
+  r.addEventListener('change', function(){ document.getElementById('alerta-riesgo').hidden = (radio('riesgo') !== 'Sí'); });
+});
+document.querySelectorAll('input[name="capac"]').forEach(function(r){
+  r.addEventListener('change', function(){ document.getElementById('alerta-capac').hidden = (radio('capac') !== 'No'); });
+});
+// El resumen se mantiene al día mientras se llena el último paso
+document.getElementById('paso-3').addEventListener('change', armarResumen);
+
+// ===== DATOS Y RESUMEN =====
+function datos() {
+  return {
+    tipo: 'venta',
+    nombre: val('nombre'), programa: val('programa'), equipo: val('equipo'),
+    correo: val('correo'), telefono: val('tel'),
+    proyecto: val('proyecto'),
+    fechas: fechasElegidas().map(function(c){ return c.value; }).join('; '),
+    productos: val('productos'), ilustracion: val('ilustracion'),
+    presentacion: junta('chips-presentacion','presentacion-otro'),
+    cuidadosEspeciales: radio('riesgo'),
+    residuos: junta('chips-residuos','residuos-otro'),
+    plan: junta('chips-plan','plan-otro'),
+    desechables: radio('desech'), capacitacion: radio('capac'),
+    horario: '11:00 a 12:00 h', enviada: new Date().toLocaleString('es-MX')
+  };
+}
+function armarResumen() {
+  var d = datos();
+  var filas = [
+    ['Responsable', d.nombre], ['Programa', d.programa], ['Equipo', d.equipo || '—'],
+    ['Contacto', d.correo + ' · ' + d.telefono],
+    ['Proyecto', d.proyecto], ['Fechas', d.fechas], ['Horario', d.horario],
+    ['Productos', d.productos], ['Entrega', d.presentacion],
+    ['Cuidados especiales', d.cuidadosEspeciales],
+    ['Residuos', d.residuos || '—'], ['Manejo', d.plan || '—'],
+    ['Desechables', d.desechables || '—'], ['Capacitación', d.capacitacion || '—']
+  ];
+  if (d.ilustracion) filas.splice(9, 0, ['Fotos', d.ilustracion]);
+  document.getElementById('resumen').innerHTML =
+    '<h3>Tu solicitud</h3><dl>' +
+    filas.map(function(f){ return '<dt>'+f[0]+'</dt><dd>'+escapar(f[1])+'</dd>'; }).join('') +
+    '</dl>';
+}
+function escapar(t) {
+  return String(t).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; });
+}
+
+// ===== ENVÍO (pendiente de conectar a Apps Script) =====
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcPYQHJ7IyymV-b14RfcSS1-x_cD_VpDDedOkww4WWwQ5Zul4tyaC7sWEPBaR_ezBj/exec";
+
+function enviar() {
+  if (marcados('chips-residuos').length === 0 && !val('residuos-otro')) {
+    return alert('Indica qué residuos generará tu venta. Si no genera ninguno, marca “Ninguno”.');
+  }
+  if (marcados('chips-plan').length === 0 && !val('plan-otro')) {
+    return alert('Indica qué vas a hacer con tus residuos.');
+  }
+  if (!radio('desech')) return alert('Indica si usarás desechables.');
+  if (!radio('capac')) return alert('Indica si ya tomaste la capacitación.');
+  if (!document.getElementById('compromiso').checked) {
+    return alert('Falta aceptar los lineamientos de venta.');
+  }
+
+  var btn = document.getElementById('btn-enviar');
+  btn.disabled = true; btn.textContent = 'Enviando…';
+
+  if (!SCRIPT_URL) { verExito(); return; }
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(datos())
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    btn.disabled = false; btn.textContent = 'Enviar solicitud';
+    if (data.ok) { verExito(); } else { alert('Hubo un problema al enviar. Intenta de nuevo.'); }
+  })
+  .catch(function(){
+    btn.disabled = false; btn.textContent = 'Enviar solicitud';
+    alert('No se pudo enviar la solicitud. Revisa tu conexión.');
+  });
+}
+function verExito() {
+  for (var i=1;i<=3;i++) document.getElementById('paso-'+i).hidden = true;
+  document.getElementById('paso-exito').hidden = false;
+  document.querySelectorAll('.paso-marca').forEach(function(m){ m.className = 'paso-marca hecho'; });
+  document.getElementById('paso-nombre').textContent = 'Solicitud enviada';
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+</script>
+
+</body>
+</html>
