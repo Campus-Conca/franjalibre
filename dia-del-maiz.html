@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día del Maíz — Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="29 de septiembre de 2026. Concurso de platillos de maíz, concurso de vestimenta hecha a base de maíz y presentación del grupo de danza del campus, en la Franja Libre del Campus Concá de la UAQ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --tierra:#241a14;
+  --tierra-2:#3a2a1f;
+  --crema:#f6efdf;
+  --crema-2:#efe4cd;
+  --amarillo:#e2a221;
+  --amarillo-claro:#f2c761;
+  --morado:#6e2743;
+  --morado-claro:#933d58;
+  --azul:#39476f;
+  --verde:#4a6b3a;
+  --verde-claro:#6d8f56;
+  --tinta:#1b1410;
+  --linea:rgba(36,26,20,.16);
+  --sombra:0 2px 4px rgba(36,26,20,.06),0 12px 32px rgba(36,26,20,.10);
+  --radio:14px;
+  --ancho:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--crema);
+  color:var(--tinta);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:17px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Fraunces','Iowan Old Style',Georgia,serif;line-height:1.12;margin:0;font-weight:800;letter-spacing:-.01em}
+p{margin:0 0 1em}
+a{color:var(--morado)}
+.envoltura{max-width:var(--ancho);margin:0 auto;padding:0 26px}
+
+/* ---------- Navegación ---------- */
+.nav{
+  position:sticky;top:0;z-index:60;
+  background:rgba(246,239,223,.93);
+  backdrop-filter:saturate(160%) blur(12px);
+  border-bottom:1px solid var(--linea);
+}
+.nav-in{max-width:var(--ancho);margin:0 auto;padding:11px 26px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.marca{font-family:'Fraunces',serif;font-weight:800;font-size:1.03rem;letter-spacing:-.02em;margin-right:auto;display:flex;align-items:center;gap:9px}
+.marca .grano{width:15px;height:19px;border-radius:50% 50% 46% 46%;background:linear-gradient(160deg,var(--amarillo-claro),var(--amarillo));box-shadow:inset 0 -3px 5px rgba(110,39,67,.25);flex:none}
+.nav a.link{color:var(--tierra-2);text-decoration:none;font-size:.87rem;font-weight:600;letter-spacing:.01em;opacity:.82;white-space:nowrap}
+.nav a.link:hover{opacity:1;color:var(--morado)}
+.nav .btn-nav{
+  background:var(--morado);color:#fff;text-decoration:none;
+  padding:8px 17px;border-radius:999px;font-size:.85rem;font-weight:700;white-space:nowrap;
+}
+.nav .btn-nav:hover{background:#571e34}
+
+/* ---------- Portada ---------- */
+.portada{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(1100px 520px at 78% -10%,rgba(226,162,33,.30),transparent 60%),
+    radial-gradient(760px 480px at 6% 110%,rgba(110,39,67,.45),transparent 62%),
+    linear-gradient(165deg,#2c2017,#1a1310);
+  color:var(--crema);
+  padding:76px 0 68px;
+}
+.portada::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.10;
+  background-image:radial-gradient(circle at 50% 45%,#f2c761 0 2.1px,transparent 2.4px);
+  background-size:19px 23px;
+}
+.portada .envoltura{position:relative;z-index:2}
+.cinta{
+  display:inline-flex;align-items:center;gap:9px;
+  border:1px solid rgba(242,199,97,.45);
+  color:var(--amarillo-claro);
+  padding:6px 15px;border-radius:999px;
+  font-size:.76rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+  margin-bottom:24px;
+}
+.portada h1{font-size:clamp(2.45rem,7.4vw,5.4rem);color:#fff;margin-bottom:18px}
+.portada h1 em{font-style:normal;color:var(--amarillo-claro)}
+.entrada{font-size:clamp(1.05rem,2vw,1.24rem);max-width:59ch;color:rgba(246,239,223,.90);margin-bottom:34px}
+.datos{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:34px}
+.dato{
+  background:rgba(246,239,223,.09);
+  border:1px solid rgba(246,239,223,.18);
+  border-radius:12px;padding:12px 18px;flex:1 1 158px;
+}
+.dato .et{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amarillo-claro);font-weight:700;margin-bottom:3px}
+.dato .vl{font-family:'Fraunces',serif;font-size:1.06rem;font-weight:600;color:#fff}
+.acciones{display:flex;flex-wrap:wrap;gap:13px}
+.btn{
+  display:inline-block;text-decoration:none;border:0;cursor:pointer;
+  padding:14px 28px;border-radius:999px;
+  font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;letter-spacing:.01em;
+  transition:transform .14s ease,box-shadow .14s ease,background .14s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn-sol{background:var(--amarillo);color:#241a14;box-shadow:0 8px 22px rgba(226,162,33,.32)}
+.btn-sol:hover{background:var(--amarillo-claro)}
+.btn-linea{background:transparent;color:var(--crema);border:1.5px solid rgba(246,239,223,.42)}
+.btn-linea:hover{border-color:var(--amarillo-claro);color:var(--amarillo-claro)}
+
+/* ---------- Secciones ---------- */
+section{padding:74px 0;border-top:1px solid var(--linea);scroll-margin-top:72px}
+section:first-of-type{border-top:0}
+.rotulo{
+  font-size:.72rem;letter-spacing:.17em;text-transform:uppercase;font-weight:800;
+  color:var(--morado);margin-bottom:12px;
+}
+.titulo{font-size:clamp(1.85rem,4.1vw,2.75rem);margin-bottom:16px;max-width:22ch}
+.bajada{font-size:1.06rem;max-width:66ch;color:#4a3a30;margin-bottom:38px}
+
+/* ---------- Programa ---------- */
+.linea-tiempo{border-left:2px solid var(--linea);margin-left:8px}
+.hito{position:relative;padding:0 0 30px 30px}
+.hito::before{
+  content:"";position:absolute;left:-9px;top:6px;width:16px;height:16px;border-radius:50%;
+  background:var(--crema);border:3px solid var(--amarillo);
+}
+.hito.eje::before{border-color:var(--morado);background:var(--morado)}
+.hito .hora{font-family:'Fraunces',serif;font-weight:700;font-size:1.02rem;color:var(--morado);letter-spacing:.01em}
+.hito h4{font-size:1.16rem;margin:2px 0 5px}
+.hito p{color:#5a4739;margin:0;font-size:.97rem}
+
+/* ---------- Tarjetas ---------- */
+.rejilla{display:grid;gap:22px}
+.r3{grid-template-columns:repeat(auto-fit,minmax(258px,1fr))}
+.r2{grid-template-columns:repeat(auto-fit,minmax(330px,1fr))}
+.tarjeta{
+  background:#fff;border:1px solid var(--linea);border-radius:var(--radio);
+  padding:26px;box-shadow:var(--sombra);
+}
+.tarjeta h4{font-size:1.2rem;margin-bottom:9px}
+.tarjeta p{font-size:.96rem;color:#544236;margin:0}
+.num{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:31px;height:31px;border-radius:9px;margin-bottom:13px;
+  background:var(--crema-2);color:var(--morado);
+  font-family:'Fraunces',serif;font-weight:800;font-size:1rem;
+}
+
+/* ---------- Bloques de concurso ---------- */
+.concurso{border-radius:20px;padding:38px;margin-bottom:30px;border:1px solid var(--linea)}
+.concurso.uno{background:linear-gradient(158deg,#fdf7e8,#f6ead0)}
+.concurso.dos{background:linear-gradient(158deg,#f7eef1,#f0e2e6)}
+.concurso .encabezado{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:8px}
+.concurso h3{font-size:clamp(1.5rem,3.2vw,2.05rem)}
+.lema{font-family:'Fraunces',serif;font-style:italic;font-size:1.06rem;color:var(--morado);font-weight:400}
+.sub{font-size:.73rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:var(--verde);margin:30px 0 13px}
+
+table{width:100%;border-collapse:collapse;font-size:.94rem;background:#fff;border-radius:11px;overflow:hidden;box-shadow:0 1px 3px rgba(36,26,20,.07)}
+th,td{text-align:left;padding:11px 15px;border-bottom:1px solid var(--linea);vertical-align:top}
+th{background:var(--tierra);color:var(--crema);font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700}
+tr:last-child td{border-bottom:0}
+td.pts{text-align:right;font-family:'Fraunces',serif;font-weight:700;white-space:nowrap;width:88px}
+tfoot td{background:var(--crema-2);font-weight:700}
+
+.requisitos{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.requisitos li{
+  background:#fff;border:1px solid var(--linea);border-left:3px solid var(--amarillo);
+  border-radius:9px;padding:11px 16px;font-size:.94rem;color:#4a3a30;
+}
+.concurso.dos .requisitos li{border-left-color:var(--morado)}
+
+/* ---------- Premios ---------- */
+.premios{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));margin-top:6px}
+.premio{
+  background:#fff;border:1px solid var(--linea);border-radius:13px;padding:20px;text-align:center;
+}
+.premio .lugar{font-size:.71rem;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:var(--morado);margin-bottom:10px}
+.monto{
+  display:flex;align-items:flex-end;justify-content:center;gap:8px;
+  font-family:'Fraunces',serif;font-size:1.55rem;font-weight:800;color:#b9a894;
+  margin:0 auto 8px;max-width:200px;
+}
+.monto .signo{color:var(--amarillo);line-height:1}
+.monto .hueco{
+  flex:1;height:0;border-bottom:2.5px dashed var(--amarillo);margin-bottom:8px;
+}
+.etq-pendiente{
+  display:inline-block;font-size:.66rem;letter-spacing:.13em;text-transform:uppercase;font-weight:800;
+  color:#8a6a1f;background:rgba(226,162,33,.16);border-radius:999px;padding:3px 11px;margin-bottom:11px;
+}
+.premio .nota{font-size:.83rem;color:#6b584a;margin:0}
+.aviso-monto{
+  display:flex;gap:11px;align-items:flex-start;
+  background:rgba(226,162,33,.13);border:1px dashed var(--amarillo);
+  border-radius:11px;padding:13px 17px;margin-top:20px;font-size:.9rem;color:#5a4739;
+}
+.aviso-monto strong{color:var(--tierra)}
+
+/* ---------- Danza ---------- */
+.danza{
+  background:linear-gradient(150deg,var(--azul),#26304d);
+  color:var(--crema);border-radius:20px;padding:44px;position:relative;overflow:hidden;
+}
+.danza::after{
+  content:"";position:absolute;inset:0;opacity:.13;pointer-events:none;
+  background-image:radial-gradient(circle at 50% 45%,#f2c761 0 2px,transparent 2.3px);
+  background-size:21px 25px;
+}
+.danza>*{position:relative;z-index:2}
+.danza h3{font-size:clamp(1.55rem,3.4vw,2.2rem);color:#fff;margin-bottom:14px}
+.danza p{color:rgba(246,239,223,.9);max-width:62ch}
+.danza .ficha{display:flex;gap:28px;flex-wrap:wrap;margin-top:24px;padding-top:22px;border-top:1px solid rgba(246,239,223,.22)}
+.danza .ficha div span{display:block;font-size:.69rem;letter-spacing:.14em;text-transform:uppercase;color:var(--amarillo-claro);font-weight:700}
+.danza .ficha div b{font-family:'Fraunces',serif;font-weight:600;font-size:1.04rem;color:#fff}
+
+/* ---------- Mercadito ---------- */
+.mercadito{background:var(--crema-2)}
+.mercadito .tarjeta{background:#fff}
+.etiqueta-verde{display:inline-block;background:var(--verde);color:#fff;font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;font-weight:800;padding:4px 11px;border-radius:999px;margin-bottom:12px}
+
+/* ---------- Formulario ---------- */
+.inscripcion{background:var(--tierra);color:var(--crema)}
+.inscripcion .rotulo{color:var(--amarillo-claro)}
+.inscripcion .titulo{color:#fff}
+.inscripcion .bajada{color:rgba(246,239,223,.82)}
+.caja-form{
+  background:rgba(246,239,223,.055);
+  border:1px solid rgba(246,239,223,.16);
+  border-radius:20px;padding:34px;max-width:820px;
+}
+.campos{display:grid;gap:19px;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.campo{display:flex;flex-direction:column;gap:7px}
+.campo.ancho{grid-column:1/-1}
+label{font-size:.79rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--amarillo-claro)}
+label .op{color:rgba(246,239,223,.5);text-transform:none;letter-spacing:0;font-weight:500}
+input,select,textarea{
+  font-family:'Inter',sans-serif;font-size:.97rem;
+  background:rgba(246,239,223,.07);color:var(--crema);
+  border:1px solid rgba(246,239,223,.24);border-radius:10px;
+  padding:12px 14px;width:100%;
+}
+input::placeholder,textarea::placeholder{color:rgba(246,239,223,.4)}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--amarillo);outline-offset:1px;border-color:transparent}
+select option{background:#2c2017;color:var(--crema)}
+textarea{resize:vertical;min-height:88px}
+.pista{font-size:.82rem;color:rgba(246,239,223,.6)}
+.acepto{display:flex;gap:11px;align-items:flex-start;font-size:.9rem;color:rgba(246,239,223,.85);grid-column:1/-1}
+.acepto input{width:18px;height:18px;flex:none;margin-top:2px;accent-color:var(--amarillo)}
+.acepto label{text-transform:none;letter-spacing:0;font-size:.9rem;color:rgba(246,239,223,.85);font-weight:400}
+.pie-form{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:26px}
+.mensaje{border-radius:11px;padding:13px 17px;font-size:.93rem;display:none;margin-top:20px}
+.mensaje.ok{display:block;background:rgba(109,143,86,.2);border:1px solid var(--verde-claro);color:#d7e8c6}
+.mensaje.error{display:block;background:rgba(147,61,88,.22);border:1px solid #b3617f;color:#f4d3de}
+.mensaje.demo{display:block;background:rgba(226,162,33,.15);border:1px dashed var(--amarillo);color:var(--amarillo-claro)}
+.oculto{display:none !important}
+
+/* ---------- Pie ---------- */
+footer{background:#1a1310;color:rgba(246,239,223,.65);padding:44px 0;font-size:.9rem}
+footer .envoltura{display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;align-items:center}
+footer b{color:var(--crema);font-family:'Fraunces',serif}
+
+@media(max-width:700px){
+  section{padding:56px 0}
+  .concurso{padding:26px 20px}
+  .danza{padding:30px 24px}
+  .caja-form{padding:24px 20px}
+  .nav a.link{display:none}
+}
+</style>
+
+<!-- ================= CERROJO DE VISTA PREVIA ================= -->
+<style id="cerrojo-css">body{visibility:hidden}</style>
+<script>
+(function () {
+  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
+
+  function abrir() {
+    var css = document.getElementById('cerrojo-css');
+    if (css) css.remove();
+    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
+      if (a.getAttribute('href').indexOf('preview') === -1) {
+        a.setAttribute('href', a.getAttribute('href') + '?preview');
+      }
+    });
+    var aviso = document.createElement('div');
+    aviso.className = 'cinta-preview';
+    aviso.textContent = 'Vista previa · esta página todavía no se publica';
+    document.body.insertBefore(aviso, document.body.firstChild);
+  }
+
+  function cerrar() {
+    document.body.innerHTML =
+      '<div class="espera">' +
+        '<span class="espera-emoji">🌽</span>' +
+        '<h1>Próximamente</h1>' +
+        '<p>Esta página todavía no se publica. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
+        '<a href="index.html">← Volver a Franja Libre</a>' +
+      '</div>';
+    var css = document.getElementById('cerrojo-css');
+    if (css) css.remove();
+  }
+
+  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
+})();
+</script>
+<style>
+.cinta-preview{background:var(--amarillo);color:#241a14;text-align:center;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px}
+.espera{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;background:#241a14;color:#f6efdf;font-family:'Inter',sans-serif}
+.espera-emoji{font-size:54px;margin-bottom:14px}
+.espera h1{font-family:'Fraunces',serif;font-size:38px;font-weight:800;margin-bottom:12px}
+.espera p{font-size:15.5px;color:rgba(246,239,223,.8);max-width:420px;line-height:1.7;margin-bottom:26px}
+.espera a{color:#f2c761;font-size:14px;font-weight:600;text-decoration:none}
+.espera a:hover{color:#fff}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="marca"><span class="grano"></span>Franja&nbsp;Libre · Día&nbsp;del&nbsp;Maíz</div>
+    <a class="link" href="index.html">← Franja Libre</a>
+    <a class="link" href="#programa">Programa</a>
+    <a class="link" href="#platillos">Platillos</a>
+    <a class="link" href="#vestimenta">Vestimenta</a>
+    <a class="link" href="#premios">Premios</a>
+    <a class="link" href="#danza">Danza</a>
+    <a class="btn-nav" href="#inscripcion">Inscribirse</a>
+  </div>
+</nav>
+
+<header class="portada">
+  <div class="envoltura">
+    <span class="cinta">Martes 29 de septiembre · 2026</span>
+    <h1>Día del <em>Maíz</em><br>en Campus&nbsp;Concá</h1>
+    <p class="entrada">Una jornada para celebrar la planta que sostiene la mesa y la memoria de la Sierra&nbsp;Gorda. Dos concursos abiertos a toda la comunidad universitaria y la presentación del grupo de danza del campus, en una sola fecha.</p>
+    <div class="datos">
+      <div class="dato"><span class="et">Fecha</span><span class="vl">Mar 29 · septiembre</span></div>
+      <div class="dato"><span class="et">Horario</span><span class="vl">10:30 – 12:40&nbsp;h</span></div>
+      <div class="dato"><span class="et">Sede</span><span class="vl">Explanada y bancas</span></div>
+      <div class="dato"><span class="et">Cierre de registro</span><span class="vl">Vie 25 · septiembre</span></div>
+    </div>
+    <div class="acciones">
+      <a class="btn btn-sol" href="#inscripcion">Registrar mi participación</a>
+      <a class="btn btn-linea" href="#programa">Ver el programa</a>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PROGRAMA ================= -->
+<section id="programa">
+  <div class="envoltura">
+    <div class="rotulo">El día completo</div>
+    <h2 class="titulo">Programa del 29 de&nbsp;septiembre</h2>
+    <p class="bajada">La Franja Libre se suspende por completo ese martes. Ningún taller permanente sesiona: la jornada entera se dedica al Día del Maíz.</p>
+
+    <div class="linea-tiempo">
+      <div class="hito">
+        <div class="hora">10:30 – 11:00</div>
+        <h4>Montaje y recepción</h4>
+        <p>Entrega de platillos y trajes en la mesa de registro. Cada participación recibe un número anónimo: el jurado califica sin conocer autoría ni grupo.</p>
+      </div>
+      <div class="hito eje">
+        <div class="hora">11:00 – 11:15</div>
+        <h4>Apertura de la jornada</h4>
+        <p>Palabras de bienvenida, presentación del jurado y recorrido inicial por las mesas de exhibición.</p>
+      </div>
+      <div class="hito">
+        <div class="hora">11:15 – 11:35</div>
+        <h4>Pasarela · Vestir la milpa</h4>
+        <p>Desfile del concurso de vestimenta hecha a base de maíz. Cada participante recorre la pasarela y presenta su pieza en menos de un minuto.</p>
+      </div>
+      <div class="hito eje">
+        <div class="hora">11:35 – 11:55</div>
+        <h4>Grupo de danza del campus</h4>
+        <p>Presentación del grupo de danza de la Franja Libre con repertorio ligado al ciclo del maíz.</p>
+      </div>
+      <div class="hito">
+        <div class="hora">11:55 – 12:10</div>
+        <h4>Degustación y deliberación</h4>
+        <p>Se abre la degustación de los platillos al público mientras el jurado cierra su calificación.</p>
+      </div>
+      <div class="hito eje">
+        <div class="hora">12:10 – 12:25</div>
+        <h4>Premiación</h4>
+        <p>Resultados de los dos concursos y entrega de reconocimientos.</p>
+      </div>
+      <div class="hito">
+        <div class="hora">12:25 – 12:40</div>
+        <h4>Cierre y balance Cero Residuos</h4>
+        <p>Desmontaje, pesaje de lo compostable y lectura del balance de residuos de la jornada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONCURSO 1 ================= -->
+<section id="platillos">
+  <div class="envoltura">
+    <div class="concurso uno">
+      <div class="encabezado">
+        <h3>Concurso de platillos de&nbsp;maíz</h3>
+        <span class="lema">«De la milpa a la mesa»</span>
+      </div>
+      <p class="bajada" style="margin-bottom:0">Cocinar con maíz es citar una conversación de milenios. El concurso premia tanto a quien sostiene una receta heredada como a quien la empuja hacia un lugar nuevo, siempre que el maíz sea el protagonista y no el acompañante.</p>
+
+      <div class="sub">Categorías</div>
+      <div class="rejilla r3">
+        <div class="tarjeta">
+          <div class="num">A</div>
+          <h4>Tradicional de la Sierra&nbsp;Gorda</h4>
+          <p>Recetas heredadas de la región: gorditas de horno, tamales, pemoles, enchiladas serranas, guisos de elote. Se valora la fidelidad al procedimiento y la historia detrás del plato.</p>
+        </div>
+        <div class="tarjeta">
+          <div class="num">B</div>
+          <h4>Innovación con&nbsp;maíz</h4>
+          <p>Reinterpretación contemporánea: técnicas, formatos o cruces poco habituales. La libertad es amplia siempre que el maíz siga siendo el ingrediente central y verificable.</p>
+        </div>
+        <div class="tarjeta">
+          <div class="num">C</div>
+          <h4>Bebidas de&nbsp;maíz</h4>
+          <p>Atoles, champurrado, chileatole, pozol, tejuino y cualquier fermento o infusión de base maíz. Se sirve en porción de degustación.</p>
+        </div>
+      </div>
+
+      <div class="sub">Criterios de evaluación</div>
+      <table>
+        <thead><tr><th>Criterio</th><th>Qué observa el jurado</th><th class="pts">Puntos</th></tr></thead>
+        <tbody>
+          <tr><td>Sabor y ejecución</td><td>Punto de cocción, equilibrio, textura y consistencia del resultado</td><td class="pts">30</td></tr>
+          <tr><td>Protagonismo del maíz</td><td>El maíz sostiene el plato: variedad empleada, nixtamalización, uso de distintas partes de la planta</td><td class="pts">25</td></tr>
+          <tr><td>Raíz cultural o creatividad</td><td>Historia de la receta en la categoría A; justificación del cruce en la B; carácter del fermento en la C</td><td class="pts">20</td></tr>
+          <tr><td>Presentación y montaje</td><td>Limpieza, coherencia del emplatado y cuidado del espacio de exhibición</td><td class="pts">15</td></tr>
+          <tr><td>Cero Residuos</td><td>Ausencia de desechables de un solo uso y manejo de lo orgánico al cierre</td><td class="pts">10</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Total</td><td class="pts">100</td></tr></tfoot>
+      </table>
+
+      <div class="sub">Requisitos</div>
+      <ul class="requisitos">
+        <li>Participación individual o en equipo de hasta tres personas. Cada equipo se inscribe una sola vez.</li>
+        <li>Porción suficiente para al menos veinte degustaciones. El platillo llega listo: en la sede solo se permite mantener la temperatura, no cocinar.</li>
+        <li>Ficha de receta entregada al registrar: ingredientes, procedimiento breve, variedad de maíz y procedencia del grano.</li>
+        <li>Menaje propio: cada participación lleva su charola, cucharón y recipientes de servicio.</li>
+        <li>Prohibidos los desechables de un solo uso. La degustación se sirve en hoja de maíz, barro, peltre o loza, en línea con el eje Cero Residuos de la jornada.</li>
+        <li>Los sobrantes orgánicos se destinan a la composta del campus. Nada se va a la basura común.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONCURSO 2 ================= -->
+<section id="vestimenta" style="border-top:0;padding-top:0">
+  <div class="envoltura">
+    <div class="concurso dos">
+      <div class="encabezado">
+        <h3>Concurso de vestimenta de&nbsp;maíz</h3>
+        <span class="lema">«Vestir la milpa»</span>
+      </div>
+      <p class="bajada" style="margin-bottom:0">El totomoxtle, el olote, el cabello de elote y la fibra del tallo son materiales textiles antes de ser desecho. El concurso invita a construir con ellos una pieza portable, y a devolverlos a la tierra al terminar la jornada.</p>
+
+      <div class="sub">Categorías</div>
+      <div class="rejilla r3">
+        <div class="tarjeta">
+          <div class="num">A</div>
+          <h4>Traje ceremonial</h4>
+          <p>Piezas de aliento ritual o festivo, con referencias a la indumentaria tradicional, a la fiesta patronal o al ciclo agrícola.</p>
+        </div>
+        <div class="tarjeta">
+          <div class="num">B</div>
+          <h4>Prenda cotidiana reinterpretada</h4>
+          <p>Una prenda de uso común —camisa, falda, chaleco, bolso— construida con materiales del maíz y pensada para portarse de verdad.</p>
+        </div>
+        <div class="tarjeta">
+          <div class="num">C</div>
+          <h4>Escultura corporal y tocado</h4>
+          <p>Piezas de volumen: tocados, máscaras, alas, estructuras de olote. Aquí manda la ambición formal por encima de la funcionalidad.</p>
+        </div>
+      </div>
+
+      <div class="sub">Criterios de evaluación</div>
+      <table>
+        <thead><tr><th>Criterio</th><th>Qué observa el jurado</th><th class="pts">Puntos</th></tr></thead>
+        <tbody>
+          <tr><td>Trabajo con el material</td><td>Proporción de maíz en la pieza, técnicas de unión, aprovechamiento de hoja, olote, cabello y fibra</td><td class="pts">30</td></tr>
+          <tr><td>Originalidad del concepto</td><td>Idea que sostiene la pieza y su relación con la milpa</td><td class="pts">25</td></tr>
+          <tr><td>Ejecución y acabado</td><td>Resistencia, limpieza del acabado y solvencia constructiva</td><td class="pts">20</td></tr>
+          <tr><td>Puesta en escena</td><td>Presencia en la pasarela y claridad de la presentación oral de un minuto</td><td class="pts">15</td></tr>
+          <tr><td>Destino final</td><td>Plan de composta o reutilización de los materiales al cierre de la jornada</td><td class="pts">10</td></tr>
+        </tbody>
+        <tfoot><tr><td colspan="2">Total</td><td class="pts">100</td></tr></tfoot>
+      </table>
+
+      <div class="sub">Requisitos</div>
+      <ul class="requisitos">
+        <li>Al menos el setenta por ciento de la superficie visible debe estar hecha con materiales derivados del maíz: hoja o totomoxtle, olote, cabello de elote, tallo, fibra y grano.</li>
+        <li>La estructura interna puede ser de otro material, pero debe ser natural o reutilizado. Se prohíbe la estructura de unicel y la pintura sintética en aerosol.</li>
+        <li>La pieza debe portarse y permitir caminar quince metros sin asistencia. Se admite acompañante para el montaje, no para la pasarela.</li>
+        <li>Participación individual o en equipo de hasta cuatro personas, con una sola persona modelando.</li>
+        <li>Ficha técnica al registrar: materiales, técnica principal y destino previsto de la pieza tras el evento.</li>
+        <li>Al cierre, los materiales orgánicos se llevan a composta o se entregan a la biblioteca de materiales del campus.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PREMIOS ================= -->
+<section id="premios">
+  <div class="envoltura">
+    <div class="rotulo">Reconocimientos</div>
+    <h2 class="titulo">Premios de los dos&nbsp;concursos</h2>
+    <p class="bajada">Cada concurso premia los tres primeros lugares por categoría, con jurado independiente. Los montos se confirman una vez cerrada la gestión de patrocinios y presupuesto.</p>
+
+    <div class="premios">
+      <div class="premio">
+        <div class="lugar">Primer lugar</div>
+        <div class="monto" data-monto="pendiente"><span class="signo">$</span><span class="hueco"></span></div>
+        <span class="etq-pendiente">Monto por definir</span>
+        <p class="nota">Más reconocimiento impreso y canasta de maíces criollos de la región.</p>
+      </div>
+      <div class="premio">
+        <div class="lugar">Segundo lugar</div>
+        <div class="monto" data-monto="pendiente"><span class="signo">$</span><span class="hueco"></span></div>
+        <span class="etq-pendiente">Monto por definir</span>
+        <p class="nota">Más reconocimiento impreso.</p>
+      </div>
+      <div class="premio">
+        <div class="lugar">Tercer lugar</div>
+        <div class="monto" data-monto="pendiente"><span class="signo">$</span><span class="hueco"></span></div>
+        <span class="etq-pendiente">Monto por definir</span>
+        <p class="nota">Más reconocimiento impreso.</p>
+      </div>
+      <div class="premio">
+        <div class="lugar">Mención honorífica</div>
+        <div class="monto" data-monto="pendiente"><span class="signo">$</span><span class="hueco"></span></div>
+        <span class="etq-pendiente">Monto por definir</span>
+        <p class="nota">Una por concurso, a criterio del jurado.</p>
+      </div>
+    </div>
+
+    <div class="aviso-monto">
+      <span aria-hidden="true">⌾</span>
+      <div><strong>Montos por definir.</strong> Los espacios en blanco corresponden a las cantidades pendientes de autorización. Esta versión de la página se publica con los montos vacíos y señalados; se sustituyen en cuanto la coordinación confirme la bolsa de premiación.</div>
+    </div>
+
+    <div class="sub" style="color:var(--morado)">Jurado</div>
+    <div class="rejilla r3">
+      <div class="tarjeta">
+        <h4>Cocina tradicional</h4>
+        <p>Una cocinera o cocinero de la comunidad de Concá, con trayectoria reconocida en cocina de maíz.</p>
+      </div>
+      <div class="tarjeta">
+        <h4>Academia</h4>
+        <p>Personal docente del campus: una persona del área agroindustrial y una del área socioambiental.</p>
+      </div>
+      <div class="tarjeta">
+        <h4>Estudiantado</h4>
+        <p>Una persona por cada grupo —Prepa, PAS y Agroindustrial— sin participación inscrita en el concurso que califica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DANZA ================= -->
+<section id="danza">
+  <div class="envoltura">
+    <div class="danza">
+      <div class="rotulo" style="color:var(--amarillo-claro)">Presentación central</div>
+      <h3>Grupo de danza del&nbsp;campus</h3>
+      <p>El grupo de danza de la Franja Libre presenta el repertorio trabajado durante el semestre en el auditorio de Concá, esta vez al aire libre y frente a la comunidad completa. La presentación ocupa el centro del programa, entre la pasarela y la degustación, para que ningún otro punto compita con ella.</p>
+      <p style="margin-bottom:0">El repertorio se liga al ciclo del maíz: siembra, crecimiento, cosecha y fiesta. La selección final queda a cargo de la persona que coordina el taller.</p>
+      <div class="ficha">
+        <div><span>Horario</span><b>11:35 – 11:55&nbsp;h</b></div>
+        <div><span>Espacio</span><b>Explanada</b></div>
+        <div><span>Duración</span><b>20 minutos</b></div>
+        <div><span>Origen</span><b>Taller permanente de danza</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSCRIPCIÓN ================= -->
+<section id="inscripcion" class="inscripcion">
+  <div class="envoltura">
+    <div class="rotulo">Registro</div>
+    <h2 class="titulo">Inscribir una&nbsp;participación</h2>
+    <p class="bajada">Abierto a estudiantes de Prepa, PAS y Agroindustrial, y a personal docente y administrativo del campus. Una inscripción por participación: quien concurse en los dos certámenes llena el formulario dos veces.</p>
+
+    <form class="caja-form" id="formInscripcion" autocomplete="off">
+      <div class="campos">
+        <div class="campo ancho">
+          <label for="nombre">Nombre completo</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Nombre y apellidos">
+        </div>
+
+        <div class="campo">
+          <label for="grupo">Grupo al que perteneces</label>
+          <select id="grupo" name="grupo" required>
+            <option value="">Selecciona…</option>
+            <option>Prepa</option>
+            <option>PAS</option>
+            <option>Agroindustrial</option>
+            <option>Docente</option>
+            <option>Administrativo</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="contacto">Correo o WhatsApp</label>
+          <input type="text" id="contacto" name="contacto" required placeholder="Para confirmarte el registro">
+        </div>
+
+        <div class="campo">
+          <label for="concurso">Concurso</label>
+          <select id="concurso" name="concurso" required>
+            <option value="">Selecciona…</option>
+            <option value="Platillos">Platillos de maíz</option>
+            <option value="Vestimenta">Vestimenta de maíz</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="categoria">Categoría</label>
+          <select id="categoria" name="categoria" required disabled>
+            <option value="">Elige primero el concurso</option>
+          </select>
+        </div>
+
+        <div class="campo ancho">
+          <label for="titulo">Nombre del platillo o de la pieza</label>
+          <input type="text" id="titulo" name="titulo" required placeholder="Cómo se llama tu participación">
+        </div>
+
+        <div class="campo">
+          <label for="modalidad">Modalidad</label>
+          <select id="modalidad" name="modalidad" required>
+            <option value="">Selecciona…</option>
+            <option value="Individual">Individual</option>
+            <option value="Equipo">Equipo</option>
+          </select>
+        </div>
+
+        <div class="campo" id="cajaIntegrantes">
+          <label for="integrantes">Integrantes del equipo <span class="op">(si aplica)</span></label>
+          <input type="text" id="integrantes" name="integrantes" placeholder="Nombres separados por coma">
+        </div>
+
+        <div class="campo ancho" id="cajaMaiz">
+          <label for="maiz">Variedad y procedencia del maíz</label>
+          <input type="text" id="maiz" name="maiz" placeholder="Ej. maíz azul de temporal, parcela familiar en Purísima de Arista">
+          <span class="pista">Obligatorio para el concurso de platillos. Si desconoces la variedad, indica dónde se compró el grano.</span>
+        </div>
+
+        <div class="campo ancho" id="cajaMateriales">
+          <label for="materiales">Materiales y técnica principal</label>
+          <input type="text" id="materiales" name="materiales" placeholder="Ej. totomoxtle teñido con muicle, cosido a mano sobre base de yute">
+          <span class="pista">Obligatorio para el concurso de vestimenta.</span>
+        </div>
+
+        <div class="campo ancho">
+          <label for="descripcion">Descripción breve <span class="op">(opcional)</span></label>
+          <textarea id="descripcion" name="descripcion" placeholder="Receta resumida, historia del plato o idea que sostiene la pieza"></textarea>
+        </div>
+
+        <div class="campo ancho">
+          <label for="apoyo">Apoyo que necesitas <span class="op">(opcional)</span></label>
+          <input type="text" id="apoyo" name="apoyo" placeholder="Ej. mesa adicional, toma de corriente, espacio para montaje">
+        </div>
+
+        <div class="acepto">
+          <input type="checkbox" id="bases" name="bases" required>
+          <label for="bases">Acepto las bases del concurso, incluida la regla de Cero Residuos y el destino a composta de los materiales orgánicos al cierre de la jornada.</label>
+        </div>
+      </div>
+
+      <div class="pie-form">
+        <button type="submit" class="btn btn-sol" id="btnEnviar">Enviar inscripción</button>
+        <span class="pista">Cierre de registro: viernes 25 de septiembre, 18:00&nbsp;h.</span>
+      </div>
+
+      <div class="mensaje" id="mensaje" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="envoltura">
+    <div><b>Franja Libre</b> · Campus Concá, Universidad Autónoma de Querétaro</div>
+    <div>Día del Maíz · martes 29 de septiembre de 2026</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var CATEGORIAS = {
+    Platillos: [
+      "A · Tradicional de la Sierra Gorda",
+      "B · Innovación con maíz",
+      "C · Bebidas de maíz"
+    ],
+    Vestimenta: [
+      "A · Traje ceremonial",
+      "B · Prenda cotidiana reinterpretada",
+      "C · Escultura corporal y tocado"
+    ]
+  };
+
+  var elConcurso   = document.getElementById("concurso");
+  var elCategoria  = document.getElementById("categoria");
+  var elModalidad  = document.getElementById("modalidad");
+  var cajaIntegra  = document.getElementById("cajaIntegrantes");
+  var cajaMaiz     = document.getElementById("cajaMaiz");
+  var cajaMater    = document.getElementById("cajaMateriales");
+  var elMaiz       = document.getElementById("maiz");
+  var elMater      = document.getElementById("materiales");
+  var form         = document.getElementById("formInscripcion");
+  var msg          = document.getElementById("mensaje");
+  var btn          = document.getElementById("btnEnviar");
+
+  function pintarCategorias(){
+    var valor = elConcurso.value;
+    elCategoria.innerHTML = "";
+    if(!valor){
+      elCategoria.disabled = true;
+      elCategoria.appendChild(new Option("Elige primero el concurso",""));
+      return;
+    }
+    elCategoria.disabled = false;
+    elCategoria.appendChild(new Option("Selecciona…",""));
+    CATEGORIAS[valor].forEach(function(c){ elCategoria.appendChild(new Option(c,c)); });
+  }
+
+  function alternarCampos(){
+    var esPlatillo = elConcurso.value === "Platillos";
+    var esVestido  = elConcurso.value === "Vestimenta";
+    cajaMaiz.classList.toggle("oculto", !esPlatillo);
+    cajaMater.classList.toggle("oculto", !esVestido);
+    elMaiz.required  = esPlatillo;
+    elMater.required = esVestido;
+    if(!esPlatillo) elMaiz.value = "";
+    if(!esVestido)  elMater.value = "";
+  }
+
+  elConcurso.addEventListener("change", function(){ pintarCategorias(); alternarCampos(); });
+  elModalidad.addEventListener("change", function(){
+    cajaIntegra.classList.toggle("oculto", elModalidad.value !== "Equipo");
+  });
+
+  function mostrar(tipo, texto){
+    msg.className = "mensaje " + tipo;
+    msg.textContent = texto;
+    msg.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+
+    var datos = {
+      nombre:      document.getElementById("nombre").value.trim(),
+      grupo:       document.getElementById("grupo").value,
+      contacto:    document.getElementById("contacto").value.trim(),
+      concurso:    elConcurso.value,
+      categoria:   elCategoria.value,
+      titulo:      document.getElementById("titulo").value.trim(),
+      modalidad:   elModalidad.value,
+      integrantes: document.getElementById("integrantes").value.trim(),
+      maiz:        elMaiz.value.trim(),
+      materiales:  elMater.value.trim(),
+      descripcion: document.getElementById("descripcion").value.trim(),
+      apoyo:       document.getElementById("apoyo").value.trim()
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Enviando…";
+
+    var hayBackend = (typeof google !== "undefined") && google.script && google.script.run;
+
+    if(!hayBackend){
+      setTimeout(function(){
+        btn.disabled = false;
+        btn.textContent = "Enviar inscripción";
+        mostrar("demo",
+          "Vista previa sin conexión al servidor. Al desplegar esta página como aplicación web de Apps Script, la inscripción se guarda en la hoja de respuestas. Datos capturados: " +
+          datos.nombre + " — " + datos.concurso + " — " + datos.categoria + ".");
+      }, 500);
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(r){
+        btn.disabled = false;
+        btn.textContent = "Enviar inscripción";
+        if(r && r.ok){
+          form.reset();
+          pintarCategorias();
+          alternarCampos();
+          cajaIntegra.classList.remove("oculto");
+          mostrar("ok","Inscripción registrada. Folio " + r.folio + ". Se confirmará por el medio de contacto que indicaste.");
+        }else{
+          mostrar("error", (r && r.mensaje) || "No fue posible registrar la inscripción.");
+        }
+      })
+      .withFailureHandler(function(err){
+        btn.disabled = false;
+        btn.textContent = "Enviar inscripción";
+        mostrar("error","Error de conexión: " + (err && err.message ? err.message : "intenta de nuevo en un momento."));
+      })
+      .registrarInscripcion(datos);
+  });
+
+  pintarCategorias();
+  alternarCampos();
+  cajaIntegra.classList.add("oculto");
+})();
+</script>
+</body>
+</html>

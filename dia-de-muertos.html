@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Día de Muertos — Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="29 de octubre de 2026. Ofrenda a lo que se está muriendo y Museo de objetos huérfanos: dos piezas colectivas para el Día de Muertos en la Franja Libre del Campus Concá, UAQ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#e9e5da;
+  --papel-2:#ded9cb;
+  --hueso:#f7f4ec;
+  --tinta:#15140f;
+  --tinta-2:#3c392e;
+  --gris:#8b8677;
+  --cempa:#c05712;
+  --morado:#3d2036;
+  --regla:rgba(21,20,15,.20);
+  --regla-suave:rgba(21,20,15,.11);
+  --ancho:1080px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--papel);color:var(--tinta);
+  font-family:'Spectral',Georgia,serif;font-size:17.5px;line-height:1.72;font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{font-family:'Bodoni Moda','Didot',Georgia,serif;font-weight:800;line-height:1.06;margin:0;letter-spacing:-.005em}
+h4{font-family:'Bodoni Moda',Georgia,serif;font-weight:600;margin:0;line-height:1.2}
+p{margin:0 0 1.05em}
+a{color:var(--cempa)}
+.mono{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace}
+.env{max-width:var(--ancho);margin:0 auto;padding:0 28px}
+
+/* ---------- Navegación ---------- */
+.nav{position:sticky;top:0;z-index:60;background:rgba(233,229,218,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--regla)}
+.nav-in{max-width:var(--ancho);margin:0 auto;padding:12px 28px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.nav .sello{
+  font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.19em;text-transform:uppercase;
+  font-weight:600;margin-right:auto;
+}
+.nav .sello b{color:var(--cempa);font-weight:600}
+.nav a.l{
+  font-family:'IBM Plex Mono',monospace;font-size:.69rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--tinta-2);text-decoration:none;white-space:nowrap;padding-bottom:2px;border-bottom:1px solid transparent;
+}
+.nav a.l:hover{border-bottom-color:var(--cempa);color:var(--tinta)}
+.nav a.cta{
+  font-family:'IBM Plex Mono',monospace;font-size:.69rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  background:var(--tinta);color:var(--papel);text-decoration:none;padding:9px 16px;white-space:nowrap;
+}
+.nav a.cta:hover{background:var(--cempa)}
+
+/* ---------- Portada ---------- */
+.portada{background:var(--tinta);color:var(--hueso);padding:84px 0 0;position:relative;overflow:hidden}
+.portada::before{
+  content:"";position:absolute;inset:0;opacity:.055;pointer-events:none;
+  background-image:linear-gradient(var(--hueso) 1px,transparent 1px);background-size:100% 34px;
+}
+.portada .env{position:relative;z-index:2}
+.folio{font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;color:var(--cempa);margin-bottom:34px}
+.portada h1{font-size:clamp(3.1rem,10.5vw,7.6rem);color:var(--hueso);margin-bottom:6px}
+.portada .sub{
+  font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:400;
+  font-size:clamp(1.2rem,3vw,1.75rem);color:rgba(247,244,236,.7);margin-bottom:38px;
+}
+.portada .glosa{font-size:1.1rem;max-width:56ch;color:rgba(247,244,236,.82);font-weight:300;margin-bottom:44px}
+.ficha-cabecera{
+  border-top:1px solid rgba(247,244,236,.24);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+}
+.ficha-cabecera div{padding:20px 22px 26px 0;border-right:1px solid rgba(247,244,236,.14)}
+.ficha-cabecera div:last-child{border-right:0}
+.ficha-cabecera span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.19em;text-transform:uppercase;color:var(--cempa);margin-bottom:7px}
+.ficha-cabecera b{font-family:'Bodoni Moda',Georgia,serif;font-weight:600;font-size:1.08rem;color:var(--hueso)}
+.aviso-franja{
+  margin:46px 0 0;padding:16px 0 84px;border-top:1px solid rgba(247,244,236,.24);
+  font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.05em;color:rgba(247,244,236,.72);
+}
+.aviso-franja b{color:var(--cempa);font-weight:600}
+
+/* ---------- Secciones ---------- */
+section{padding:82px 0;border-top:1px solid var(--regla);scroll-margin-top:64px}
+.marca-seccion{
+  font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cempa);margin-bottom:18px;
+}
+.tit{font-size:clamp(2rem,5vw,3.3rem);max-width:19ch;margin-bottom:20px}
+.tit-sub{font-family:'Bodoni Moda',Georgia,serif;font-style:italic;font-weight:400;font-size:1.25rem;color:var(--tinta-2);margin-bottom:30px}
+.parrafo{max-width:64ch;font-size:1.06rem}
+.parrafo.ancho{max-width:72ch}
+
+.regla-h{border:0;border-top:1px solid var(--regla);margin:44px 0}
+.sub-t{
+  font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;
+  font-weight:600;color:var(--tinta);border-bottom:1px solid var(--tinta);padding-bottom:8px;margin:52px 0 26px;
+}
+
+/* ---------- Nota de sala ---------- */
+.nota-sala{background:var(--papel-2)}
+.nota-sala .caja{border-left:2px solid var(--cempa);padding-left:26px;max-width:70ch}
+.nota-sala .caja p:last-child{margin-bottom:0}
+
+/* ---------- Difuntos ---------- */
+.difuntos{display:grid;gap:0;border-top:1px solid var(--regla)}
+.difunto{
+  display:grid;grid-template-columns:64px 1fr;gap:26px;
+  padding:24px 0;border-bottom:1px solid var(--regla-suave);align-items:start;
+}
+.difunto .n{font-family:'Bodoni Moda',Georgia,serif;font-size:2.1rem;font-weight:800;color:var(--cempa);line-height:1}
+.difunto h4{font-size:1.22rem;margin-bottom:5px}
+.difunto p{margin:0;color:var(--tinta-2);font-size:1rem;max-width:62ch}
+.difunto .ej{display:block;margin-top:7px;font-family:'IBM Plex Mono',monospace;font-size:.79rem;color:var(--gris);letter-spacing:.02em}
+
+/* ---------- Cédula de museo ---------- */
+.cedula{
+  background:var(--hueso);border:1px solid var(--regla);padding:0;max-width:560px;
+  box-shadow:6px 6px 0 rgba(21,20,15,.055);
+}
+.cedula .cab{background:var(--tinta);color:var(--hueso);padding:11px 20px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase}
+.cedula dl{margin:0;padding:22px 20px}
+.cedula dt{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:15px}
+.cedula dt:first-child{margin-top:0}
+.cedula dd{margin:3px 0 0;font-size:1rem;line-height:1.5}
+.cedula dd em{font-style:italic;color:var(--tinta-2)}
+
+/* ---------- Acta ---------- */
+.acta{
+  background:var(--hueso);border:1px solid var(--tinta);padding:30px 32px;max-width:640px;
+  font-family:'IBM Plex Mono',monospace;font-size:.87rem;line-height:1.85;
+}
+.acta .enc{text-align:center;letter-spacing:.2em;text-transform:uppercase;font-weight:600;font-size:.74rem;padding-bottom:16px;margin-bottom:20px;border-bottom:1px solid var(--regla)}
+.acta .cita{color:var(--tinta-2);font-style:italic}
+.acta .fin{margin-top:20px;padding-top:16px;border-top:1px solid var(--regla);font-size:.78rem;color:var(--gris)}
+
+/* ---------- Tablas ---------- */
+table{width:100%;border-collapse:collapse;font-size:.97rem;font-family:'Spectral',Georgia,serif}
+caption{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.17em;text-transform:uppercase;color:var(--gris);padding-bottom:11px}
+th,td{text-align:left;padding:13px 14px 13px 0;border-bottom:1px solid var(--regla-suave);vertical-align:top}
+thead th{border-bottom:1px solid var(--tinta);font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600}
+td.p{text-align:right;font-family:'IBM Plex Mono',monospace;font-weight:600;width:76px;padding-right:0}
+tfoot td{border-bottom:0;border-top:1px solid var(--tinta);font-weight:600;font-family:'IBM Plex Mono',monospace;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase}
+
+/* ---------- Reglas numeradas ---------- */
+.reglas{counter-reset:r;list-style:none;margin:0;padding:0;display:grid;gap:0}
+.reglas li{
+  counter-increment:r;position:relative;padding:20px 0 20px 62px;border-bottom:1px solid var(--regla-suave);
+  font-size:1.03rem;
+}
+.reglas li::before{
+  content:counter(r,decimal-leading-zero);position:absolute;left:0;top:20px;
+  font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.1em;color:var(--cempa);font-weight:600;
+}
+.reglas li b{font-weight:600}
+
+/* ---------- Calendario ---------- */
+.calendario{border-top:1px solid var(--regla)}
+.etapa{display:grid;grid-template-columns:190px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid var(--regla-suave)}
+.etapa .cuando{font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.06em;color:var(--cempa);text-transform:uppercase}
+.etapa h4{font-size:1.08rem;margin-bottom:4px}
+.etapa p{margin:0;font-size:.99rem;color:var(--tinta-2);max-width:60ch}
+
+/* ---------- Museo (invertido) ---------- */
+.museo{background:var(--tinta);color:var(--hueso);border-top:0}
+.museo .marca-seccion{color:var(--cempa)}
+.museo .tit{color:var(--hueso)}
+.museo .tit-sub{color:rgba(247,244,236,.62)}
+.museo .parrafo{color:rgba(247,244,236,.84);font-weight:300}
+.museo .sub-t{color:var(--hueso);border-bottom-color:rgba(247,244,236,.5)}
+.museo .reglas li{border-bottom-color:rgba(247,244,236,.14)}
+.museo .reglas li b{color:var(--hueso)}
+.museo .regla-h{border-top-color:rgba(247,244,236,.22)}
+.museo table th,.museo table td{border-bottom-color:rgba(247,244,236,.14)}
+.museo thead th{border-bottom-color:rgba(247,244,236,.5)}
+.museo caption{color:rgba(247,244,236,.55)}
+
+.etiqueta-objeto{
+  background:var(--hueso);color:var(--tinta);max-width:420px;
+  border:1px solid rgba(247,244,236,.3);display:grid;grid-template-columns:1fr 104px;
+}
+.etiqueta-objeto .txt{padding:20px}
+.etiqueta-objeto .txt span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:12px}
+.etiqueta-objeto .txt span:first-child{margin-top:0}
+.etiqueta-objeto .txt b{font-family:'Bodoni Moda',Georgia,serif;font-weight:600;font-size:1.02rem;display:block;line-height:1.3}
+.etiqueta-objeto .qr{
+  border-left:1px solid var(--regla);display:flex;align-items:center;justify-content:center;
+  background:repeating-linear-gradient(45deg,#15140f 0 4px,#f7f4ec 4px 8px);
+  opacity:.85;
+}
+.etiqueta-objeto .qr i{
+  font-style:normal;background:var(--hueso);padding:5px 7px;font-family:'IBM Plex Mono',monospace;
+  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;
+}
+
+/* ---------- Programa ---------- */
+.programa .fila{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:19px 0;border-bottom:1px solid var(--regla-suave)}
+.programa .fila:first-of-type{border-top:1px solid var(--regla)}
+.programa .h{font-family:'IBM Plex Mono',monospace;font-size:.83rem;letter-spacing:.04em;color:var(--cempa)}
+.programa h4{font-size:1.1rem;margin-bottom:4px}
+.programa p{margin:0;color:var(--tinta-2);font-size:.99rem;max-width:62ch}
+.paralelo{margin-top:26px;padding:15px 18px;border:1px dashed var(--cempa);font-family:'IBM Plex Mono',monospace;font-size:.79rem;color:var(--tinta-2);max-width:62ch}
+
+/* ---------- Reconocimientos ---------- */
+.recos{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));border-top:1px solid var(--tinta)}
+.reco{padding:26px 22px 26px 0;border-right:1px solid var(--regla-suave)}
+.reco:last-child{border-right:0}
+.reco .lugar{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--gris);margin-bottom:16px}
+.monto{display:flex;align-items:flex-end;gap:8px;margin-bottom:12px;max-width:170px}
+.monto .s{font-family:'Bodoni Moda',Georgia,serif;font-size:1.5rem;font-weight:800;color:var(--cempa);line-height:1}
+.monto .hueco{flex:1;height:0;border-bottom:2px dashed var(--cempa);margin-bottom:7px}
+.etq-pend{
+  display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--cempa);border:1px solid var(--cempa);padding:3px 9px;margin-bottom:13px;
+}
+.reco p{margin:0;font-size:.93rem;color:var(--tinta-2)}
+.aviso-monto{
+  margin-top:26px;border:1px dashed var(--cempa);padding:16px 20px;max-width:74ch;
+  font-size:.96rem;color:var(--tinta-2);
+}
+.aviso-monto b{color:var(--tinta)}
+
+/* ---------- Formulario ---------- */
+.registro{background:var(--papel-2)}
+.caja-form{background:var(--hueso);border:1px solid var(--tinta);padding:34px;max-width:840px}
+.selector{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--tinta);margin-bottom:30px}
+.selector button{
+  font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  background:transparent;border:0;padding:16px 12px;cursor:pointer;color:var(--tinta-2);
+  border-right:1px solid var(--tinta);
+}
+.selector button:last-child{border-right:0}
+.selector button[aria-pressed="true"]{background:var(--tinta);color:var(--hueso)}
+.campos{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(292px,1fr))}
+.campo{display:flex;flex-direction:column;gap:7px}
+.campo.ancho{grid-column:1/-1}
+label{font-family:'IBM Plex Mono',monospace;font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-2);font-weight:600}
+label .op{text-transform:none;letter-spacing:0;color:var(--gris);font-weight:400}
+input,select,textarea{
+  font-family:'Spectral',Georgia,serif;font-size:1rem;color:var(--tinta);
+  background:transparent;border:0;border-bottom:1px solid var(--regla);padding:9px 2px;width:100%;
+}
+input:focus,select:focus,textarea:focus{outline:0;border-bottom-color:var(--cempa)}
+input::placeholder,textarea::placeholder{color:var(--gris)}
+select{font-family:'Spectral',Georgia,serif}
+textarea{resize:vertical;min-height:76px;border:1px solid var(--regla);padding:11px}
+.pista{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--gris);letter-spacing:.02em;line-height:1.55}
+.acepto{grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;font-size:.95rem;color:var(--tinta-2)}
+.acepto input{width:17px;height:17px;flex:none;margin-top:4px;accent-color:var(--cempa);border:0}
+.acepto label{text-transform:none;letter-spacing:0;font-family:'Spectral',Georgia,serif;font-size:.95rem;font-weight:400;color:var(--tinta-2)}
+.pie-form{display:flex;gap:20px;align-items:center;flex-wrap:wrap;margin-top:30px;padding-top:24px;border-top:1px solid var(--regla)}
+.btn{
+  font-family:'IBM Plex Mono',monospace;font-size:.73rem;letter-spacing:.15em;text-transform:uppercase;font-weight:600;
+  background:var(--tinta);color:var(--hueso);border:0;padding:15px 30px;cursor:pointer;
+}
+.btn:hover{background:var(--cempa)}
+.btn:disabled{opacity:.55;cursor:wait}
+.msj{display:none;margin-top:22px;padding:14px 18px;font-family:'IBM Plex Mono',monospace;font-size:.82rem;line-height:1.65}
+.msj.ok{display:block;border:1px solid #4f6b3e;background:rgba(79,107,62,.09);color:#33472a}
+.msj.error{display:block;border:1px solid #9a3520;background:rgba(154,53,32,.08);color:#7c2b19}
+.msj.demo{display:block;border:1px dashed var(--cempa);color:#8c4310}
+.oculto{display:none !important}
+
+footer{background:var(--tinta);color:rgba(247,244,236,.6);padding:46px 0;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.09em}
+footer .env{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer b{color:var(--hueso);font-weight:500}
+
+@media(max-width:760px){
+  section{padding:58px 0}
+  .nav a.l{display:none}
+  .etapa,.programa .fila{grid-template-columns:1fr;gap:6px}
+  .difunto{grid-template-columns:44px 1fr;gap:16px}
+  .caja-form{padding:22px 18px}
+  .recos{grid-template-columns:1fr}
+  .reco{border-right:0;border-bottom:1px solid var(--regla-suave);padding-right:0}
+  .ficha-cabecera div{border-right:0;padding-bottom:18px}
+}
+</style>
+
+<!-- ================= CERROJO DE VISTA PREVIA ================= -->
+<style id="cerrojo-css">body{visibility:hidden}</style>
+<script>
+(function () {
+  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
+
+  function abrir() {
+    var css = document.getElementById('cerrojo-css');
+    if (css) css.remove();
+    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
+      if (a.getAttribute('href').indexOf('preview') === -1) {
+        a.setAttribute('href', a.getAttribute('href') + '?preview');
+      }
+    });
+    var aviso = document.createElement('div');
+    aviso.className = 'cinta-preview';
+    aviso.textContent = 'Vista previa · esta página todavía no se publica';
+    document.body.insertBefore(aviso, document.body.firstChild);
+  }
+
+  function cerrar() {
+    document.body.innerHTML =
+      '<div class="espera">' +
+        '<span class="espera-emoji">💀</span>' +
+        '<h1>Próximamente</h1>' +
+        '<p>Esta página todavía no se publica. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
+        '<a href="index.html">← Volver a Franja Libre</a>' +
+      '</div>';
+    var css = document.getElementById('cerrojo-css');
+    if (css) css.remove();
+  }
+
+  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
+})();
+</script>
+<style>
+.cinta-preview{background:var(--cempa);color:#f7f4ec;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px}
+.espera{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;background:#15140f;color:#f7f4ec;font-family:'Spectral',Georgia,serif}
+.espera-emoji{font-size:54px;margin-bottom:14px}
+.espera h1{font-family:'Bodoni Moda',Georgia,serif;font-size:38px;font-weight:800;margin-bottom:12px}
+.espera p{font-size:15.5px;color:rgba(247,244,236,.78);max-width:420px;line-height:1.7;margin-bottom:26px}
+.espera a{color:#c05712;font-size:13px;font-family:'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase;text-decoration:none}
+.espera a:hover{color:#f7f4ec}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="sello">Franja Libre · <b>Día de Muertos</b></div>
+    <a class="l" href="index.html">← Franja Libre</a>
+    <a class="l" href="#nota">Nota de sala</a>
+    <a class="l" href="#ofrenda">Pieza I</a>
+    <a class="l" href="#museo">Pieza II</a>
+    <a class="l" href="#programa">Programa</a>
+    <a class="cta" href="#registro">Registro</a>
+  </div>
+</nav>
+
+<header class="portada">
+  <div class="env">
+    <div class="folio">Campus Concá · UAQ — Jueves 29 de octubre de 2026</div>
+    <h1>Día de Muertos</h1>
+    <p class="sub">Dos velorios simultáneos</p>
+    <p class="glosa">Este año no se vela a nadie que haya tenido nombre en un acta. Se vela lo que se está apagando en la Sierra Gorda sin que nadie firme su defunción, y se vela lo que quedó huérfano cuando alguien se fue: los objetos que sobrevivieron a sus dueños.</p>
+
+    <div class="ficha-cabecera">
+      <div><span>Fecha</span><b>Jue 29 · octubre</b></div>
+      <div><span>Horario</span><b>09:30 – 13:10&nbsp;h</b></div>
+      <div><span>Piezas</span><b>Dos, simultáneas</b></div>
+      <div><span>Cierre de registro</span><b>Vie 9 · octubre</b></div>
+    </div>
+
+    <p class="aviso-franja"><b>Aviso:</b> la Franja Libre se suspende por completo ese jueves. Ningún taller permanente sesiona. La jornada entera pertenece a las dos piezas.</p>
+  </div>
+</header>
+
+<!-- ================= NOTA DE SALA ================= -->
+<section id="nota" class="nota-sala">
+  <div class="env">
+    <div class="marca-seccion">Nota de sala</div>
+    <h2 class="tit">Por qué no hay concurso de altares</h2>
+    <div class="caja">
+      <p>El concurso de altares premia la destreza decorativa y termina cuando se barre el papel picado. Funciona, pero enseña poco y no deja nada. La propuesta de este año conserva el gesto central de la fecha —poner una mesa para quien ya no está— y le cambia el destinatario, para que el trabajo de octubre produzca conocimiento sobre el territorio y no solo una fotografía bonita.</p>
+      <p>La primera pieza convierte el altar en una investigación: cada equipo elige algo que se esté extinguiendo en el municipio, busca a quien lo recuerde, graba su testimonio y monta la ofrenda con una cédula verificable. La segunda pieza hace lo contrario: quita toda explicación, deja el objeto solo con la voz de su dueño en un audífono, y prohíbe que nadie hable encima. Una investiga; la otra escucha.</p>
+      <p>Las dos ocurren al mismo tiempo, en espacios distintos, y se recorren en cualquier orden. Al terminar la jornada, una deja un documento y la otra deja un archivo sonoro. Nada de lo que se monta se va a la basura.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PIEZA I ================= -->
+<section id="ofrenda">
+  <div class="env">
+    <div class="marca-seccion">Pieza I · Por equipos · Con reconocimiento</div>
+    <h2 class="tit">Ofrenda a lo que se está&nbsp;muriendo</h2>
+    <p class="tit-sub">Un altar para lo que nadie declaró muerto</p>
+    <p class="parrafo">Cada equipo elige una cosa que se esté extinguiendo en Concá o en el municipio de Arroyo Seco, la investiga durante octubre y le monta una ofrenda el día 29. No se trata de una metáfora: se trata de identificar algo concreto, fechar su desaparición con la mayor precisión posible, encontrar a alguien que todavía lo recuerde y dejar constancia. La ofrenda es el resultado visible de esa investigación, no su sustituto.</p>
+
+    <div class="sub-t">Qué se puede velar</div>
+    <div class="difuntos">
+      <div class="difunto">
+        <div class="n">01</div>
+        <div>
+          <h4>Un oficio</h4>
+          <p>Trabajos que se practicaban en la zona y hoy no tienen quien los continúe, ya sea porque los sustituyó una máquina, porque desapareció la materia prima o porque nadie quiso aprenderlos.</p>
+          <span class="ej">Ejemplos: arriero · molendera de nixtamal · talabartero · partera · cerero</span>
+        </div>
+      </div>
+      <div class="difunto">
+        <div class="n">02</div>
+        <div>
+          <h4>Una semilla</h4>
+          <p>Variedades criollas que se sembraban en las parcelas familiares y ya no aparecen en el ciclo agrícola, o que sobreviven en un solo traspatio.</p>
+          <span class="ej">Ejemplos: un maíz de color · un frijol de temporal · una calabaza local · un chile de la región</span>
+        </div>
+      </div>
+      <div class="difunto">
+        <div class="n">03</div>
+        <div>
+          <h4>Un agua</h4>
+          <p>Manantiales, ojos de agua, norias, arroyos o pozas que existían y hoy están secos, entubados o inaccesibles. Se pide ubicarlos en un croquis, aunque sea a mano.</p>
+          <span class="ej">Ejemplos: un manantial que se secó · una poza donde se nadaba · una noria tapada</span>
+        </div>
+      </div>
+      <div class="difunto">
+        <div class="n">04</div>
+        <div>
+          <h4>Una palabra</h4>
+          <p>Voces, dichos o expresiones de la región que las generaciones jóvenes ya no usan ni entienden. Se registra su significado, su contexto de uso y una frase completa donde aparezca.</p>
+          <span class="ej">Ejemplos: un nombre local de planta · un dicho de la faena · un modo de medir</span>
+        </div>
+      </div>
+      <div class="difunto">
+        <div class="n">05</div>
+        <div>
+          <h4>Un ser vivo</h4>
+          <p>Animales, plantas u hongos que la gente mayor recuerda haber visto con frecuencia y que hoy no se ven, dentro o alrededor de la Reserva de la Biosfera.</p>
+          <span class="ej">Ejemplos: un ave que anidaba en el arroyo · un árbol de sombra · un pez del río</span>
+        </div>
+      </div>
+    </div>
+    <p class="parrafo" style="margin-top:22px"><span class="mono" style="font-size:.85rem;color:var(--cempa)">CATEGORÍA LIBRE:</span> se admite velar algo fuera de estas cinco categorías —una fiesta, una ruta, una forma de organizarse— siempre que se plantee al registrarse y la coordinación lo apruebe antes del 16 de octubre.</p>
+
+    <hr class="regla-h">
+
+    <div class="sub-t">El requisito que sostiene todo: el testimonio</div>
+    <p class="parrafo">Ninguna ofrenda se acepta sin una entrevista grabada a una persona que recuerde de primera mano aquello que se vela. Esa es la regla que separa esta pieza de una manualidad: sin voz que lo sostenga, lo que se monta es una decoración con tema. La entrevista puede durar diez minutos y grabarse con un teléfono; lo que se exige es que exista, que la persona haya dado su consentimiento y que al menos un fragmento textual aparezca en la cédula.</p>
+    <p class="parrafo">Se recomienda entrevistar a alguien mayor de sesenta años que haya vivido en la zona la mayor parte de su vida, aunque no es obligatorio: para una palabra en desuso puede bastar con quien la usaba en casa. Si el equipo no encuentra a nadie, eso también es un hallazgo y debe declararse en la cédula, porque significa que lo velado murió con su última memoria.</p>
+
+    <div class="sub-t">La cédula</div>
+    <p class="parrafo">Cada ofrenda lleva una cédula impresa en tamaño carta, colocada a la vista, con los campos que se muestran abajo. La cédula es lo que después se compila: de ella sale el documento que queda al final de la jornada.</p>
+
+    <div class="cedula">
+      <div class="cab">Cédula 03 · Categoría: oficio</div>
+      <dl>
+        <dt>Difunto</dt>
+        <dd>El oficio de molendera de nixtamal</dd>
+        <dt>Fecha aproximada de defunción</dt>
+        <dd>Entre 1998 y 2012</dd>
+        <dt>Causa</dt>
+        <dd>Molino eléctrico y llegada de la harina industrial</dd>
+        <dt>Quién lo recuerda</dt>
+        <dd>Mujer de 78 años, vecina de Concá, entrevistada el 14 de octubre</dd>
+        <dt>Fragmento del testimonio</dt>
+        <dd><em>«Me levantaba a las cuatro. El maíz ya estaba cocido desde la noche. Para las siete tenía la masa de tres casas.»</em></dd>
+        <dt>Se le sobrevive</dt>
+        <dd>Dos metates guardados en la comunidad, ninguno en uso</dd>
+        <dt>Fuentes consultadas</dt>
+        <dd>Entrevista propia; padrón de molinos del municipio</dd>
+        <dt>Equipo</dt>
+        <dd>Cuatro integrantes · grupo PAS</dd>
+      </dl>
+    </div>
+
+    <div class="sub-t">El acta de defunción</div>
+    <p class="parrafo">Además de la cédula, cada equipo redacta un acta de defunción de máximo ciento cincuenta palabras y la lee en voz alta frente a su ofrenda durante el recorrido, en menos de noventa segundos. El acta es el momento público de la pieza: convierte la investigación en un acto, y le da a la fecha el tono de velorio que le corresponde. El tono puede ser solemne, irónico o afectuoso, pero los datos que contenga deben ser los mismos de la cédula.</p>
+
+    <div class="acta">
+      <div class="enc">Acta de defunción n.º 03</div>
+      <div>Se hace constar que el oficio de <b>molendera de nixtamal</b> dejó de practicarse en Concá entre los años 1998 y 2012, sin que mediara aviso ni ceremonia.</div>
+      <div style="margin-top:14px">Se le atribuye como causa el molino eléctrico, y como cómplice la harina de bulto.</div>
+      <div style="margin-top:14px" class="cita">Su última practicante conocida declara: «Me levantaba a las cuatro. Para las siete tenía la masa de tres casas.»</div>
+      <div style="margin-top:14px">Le sobreviven dos metates, ninguno en uso, y el modo de decir que la masa «ya está de punto», que también agoniza.</div>
+      <div class="fin">Declarado muerto en Concá, Arroyo Seco, Querétaro, a 29 de octubre de 2026.</div>
+    </div>
+
+    <div class="sub-t">Cómo se evalúa</div>
+    <table>
+      <caption>Escala de cien puntos · jurado de tres personas</caption>
+      <thead><tr><th>Criterio</th><th>Qué se observa</th><th class="p">Puntos</th></tr></thead>
+      <tbody>
+        <tr><td>Testimonio</td><td>Pertinencia de la persona entrevistada, profundidad de lo que aporta y calidad del fragmento seleccionado</td><td class="p">30</td></tr>
+        <tr><td>Rigor de la cédula</td><td>Precisión de fechas y causas, verificabilidad de los datos y honestidad al declarar lo que no se pudo averiguar</td><td class="p">25</td></tr>
+        <tr><td>Acta y lectura</td><td>Escritura del acta y solvencia de la lectura en voz alta frente al público</td><td class="p">20</td></tr>
+        <tr><td>Montaje</td><td>Composición de la ofrenda, uso de materiales locales y coherencia entre lo que se vela y cómo se vela</td><td class="p">15</td></tr>
+        <tr><td>Reversibilidad</td><td>La ofrenda se desmonta sin dejar residuo: todo se reutiliza, se composta o vuelve a su dueño</td><td class="p">10</td></tr>
+      </tbody>
+      <tfoot><tr><td colspan="2">Total</td><td class="p">100</td></tr></tfoot>
+    </table>
+
+    <div class="sub-t">Reglas de montaje</div>
+    <ol class="reglas">
+      <li><b>Equipos de tres a cinco personas.</b> Se admiten equipos mixtos entre Prepa, PAS y Agroindustrial, y equipos con personal docente siempre que la mayoría sea estudiantado.</li>
+      <li><b>Superficie máxima de un metro por un metro veinte.</b> La escuela provee una mesa por equipo. Lo que exceda la mesa debe sostenerse solo, sin clavarse ni pegarse a muros, árboles o pisos.</li>
+      <li><b>Sin unicel, sin plástico de un solo uso y sin pintura en aerosol.</b> Se privilegian materiales de la región, prestados o recuperados.</li>
+      <li><b>Nada de fuego vivo sin autorización.</b> Las veladoras se sustituyen por luz de pila o se solicitan por escrito al registrarse.</li>
+      <li><b>Todo objeto prestado se devuelve el mismo día.</b> Si la ofrenda incluye una pieza de alguien de la comunidad, se registra su nombre y se le entrega de vuelta al cierre.</li>
+      <li><b>La cédula debe estar impresa y legible a un metro de distancia.</b> Sin cédula, la ofrenda se exhibe pero no se evalúa.</li>
+    </ol>
+
+    <div class="sub-t">Calendario de preparación</div>
+    <div class="calendario">
+      <div class="etapa">
+        <div class="cuando">5 al 9 de octubre</div>
+        <div>
+          <h4>Elección y registro</h4>
+          <p>El equipo decide qué va a velar y se registra en línea. La coordinación revisa que no haya dos equipos con el mismo difunto y confirma por el medio de contacto indicado.</p>
+        </div>
+      </div>
+      <div class="etapa">
+        <div class="cuando">12 al 16 de octubre</div>
+        <div>
+          <h4>Búsqueda y entrevista</h4>
+          <p>Se identifica a quien recuerda y se realiza la entrevista grabada, con consentimiento explícito al inicio del audio. Se recomienda llevar tres preguntas escritas y dejar que la conversación se desvíe.</p>
+        </div>
+      </div>
+      <div class="etapa">
+        <div class="cuando">19 al 23 de octubre</div>
+        <div>
+          <h4>Cédula y acta</h4>
+          <p>Redacción de los dos textos y revisión con la persona docente asignada. Es la etapa donde se corrigen fechas dudosas y se decide qué fragmento del testimonio se cita.</p>
+        </div>
+      </div>
+      <div class="etapa">
+        <div class="cuando">26 al 28 de octubre</div>
+        <div>
+          <h4>Construcción y ensayo</h4>
+          <p>Se reúnen los materiales, se prueba el montaje completo al menos una vez y se ensaya la lectura del acta en voz alta, cronómetro en mano.</p>
+        </div>
+      </div>
+      <div class="etapa">
+        <div class="cuando">Jueves 29</div>
+        <div>
+          <h4>Montaje y jornada</h4>
+          <p>Montaje desde las 09:30. El recorrido con lectura de actas inicia a las 10:45.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-t">Lo que queda</div>
+    <p class="parrafo ancho">Las cédulas se compilan en un solo documento: un inventario de pérdida biocultural de Concá, con los difuntos ordenados por categoría, sus fechas, sus causas y los fragmentos de testimonio que las sostienen. Los audios de las entrevistas se conservan como respaldo, con el consentimiento de quienes hablaron. A diferencia de un concurso de altares, la jornada deja material citable, útil para el trabajo de planeación territorial del campus y ampliable el año siguiente con nuevos difuntos.</p>
+  </div>
+</section>
+
+<!-- ================= PIEZA II ================= -->
+<section id="museo" class="museo">
+  <div class="env">
+    <div class="marca-seccion">Pieza II · Individual · Sin concurso</div>
+    <h2 class="tit">Museo de objetos&nbsp;huérfanos</h2>
+    <p class="tit-sub">Una sala en silencio, abierta una sola mañana</p>
+    <p class="parrafo">Cada persona lleva un objeto que perteneció a alguien que murió, o que quedó de algo que terminó, y graba un audio de sesenta segundos contando qué es y de quién fue. El objeto se exhibe sobre una mesa con una etiqueta mínima y un código; quien pasa escucha la grabación con audífonos. No hay jurado, no hay lugares, no hay premio. La pieza existe una mañana y se desmonta.</p>
+    <p class="parrafo">El silencio es parte del montaje. Nadie explica su objeto en persona mientras la sala está abierta: si alguien pregunta, la respuesta es señalar el código. Esa regla, que parece caprichosa, es la que produce el efecto: obliga a que la única voz disponible sea la que se grabó a solas, y le devuelve al objeto la condición de huérfano que la pieza nombra.</p>
+
+    <div class="sub-t">Las cinco reglas</div>
+    <ol class="reglas">
+      <li><b>Un objeto por persona.</b> Debe caber en las dos manos y poder quedarse sobre una mesa sin vigilancia durante dos horas.</li>
+      <li><b>Un audio de sesenta segundos, grabado por su dueño.</b> Ni más ni menos: si dura cuarenta, se acepta; si pasa de sesenta y cinco, se regraba. La voz debe ser la de quien lleva el objeto.</li>
+      <li><b>Nadie explica su objeto en persona.</b> Durante las horas de exhibición no se conversa sobre las piezas dentro de la sala. Después del cierre, todas las conversaciones que se quieran.</li>
+      <li><b>Escucha individual, con audífonos.</b> No hay bocinas. Se disponen cuatro pares de audífonos prestados y quien traiga los suyos los usa.</li>
+      <li><b>Al cierre, cada quien recupera lo suyo.</b> Ningún objeto se queda. Lo que permanece es el archivo sonoro, y solo si su dueño lo autoriza por escrito al registrarse.</li>
+    </ol>
+
+    <hr class="regla-h">
+
+    <div class="sub-t">Cómo se graba el audio</div>
+    <p class="parrafo">Basta un teléfono y un cuarto sin ruido. Se recomienda grabar de una sola toma, sin edición, y empezar diciendo el nombre del objeto. No hace falta que sea un relato pulido: el titubeo funciona mejor que la elocuencia. Quien prefiera no aparecer con su voz reconocible puede pedir que la coordinación aplique un filtro de tono antes de la exhibición.</p>
+    <p class="parrafo">El archivo se envía al registrarse o, a más tardar, el lunes 26 de octubre. Se nombra con el folio que devuelve el formulario, se sube a la carpeta compartida que se indica en la confirmación y la coordinación genera el código impreso. Quien no logre subirlo puede entregarlo en persona el mismo día, siempre que llegue antes de las 09:45.</p>
+
+    <div class="sub-t">La etiqueta</div>
+    <p class="parrafo">Cada objeto se acompaña de una etiqueta deliberadamente pobre en información. Cuatro datos y un código: lo demás está en la voz.</p>
+
+    <div class="etiqueta-objeto">
+      <div class="txt">
+        <span>Objeto</span><b>Reloj de pulso, sin manecillas</b>
+        <span>De quién fue</span><b>De mi abuelo</b>
+        <span>Año aproximado</span><b>1974</b>
+        <span>Una palabra</span><b>Puntualidad</b>
+      </div>
+      <div class="qr"><i>QR 07</i></div>
+    </div>
+
+    <div class="sub-t">Consentimiento y destino del archivo</div>
+    <p class="parrafo">El formulario incluye una autorización explícita y separada para conservar el audio después de la jornada. Quien no la marque tendrá su grabación borrada al cierre, y podrá presenciar el borrado si lo desea. Los audios autorizados se conservan en el archivo del campus con el nombre de quien lo grabó, o de forma anónima si así se pidió, y solo se reutilizan en piezas sonoras o recorridos del propio campus, nunca en materiales de promoción.</p>
+
+    <table style="margin-top:34px">
+      <caption>Necesidades de montaje de la pieza II</caption>
+      <thead><tr><th>Elemento</th><th>Cantidad</th></tr></thead>
+      <tbody>
+        <tr><td>Mesas para exhibición</td><td>Cuatro, con mantel oscuro</td></tr>
+        <tr><td>Audífonos de diadema</td><td>Cuatro pares, prestados y rotulados</td></tr>
+        <tr><td>Dispositivos de reproducción</td><td>Dos tabletas o teléfonos con los audios cargados</td></tr>
+        <tr><td>Etiquetas impresas con código</td><td>Una por objeto, tamaño media carta</td></tr>
+        <tr><td>Persona en sala</td><td>Una por turno, para cuidar la regla del silencio</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= PROGRAMA ================= -->
+<section id="programa" class="programa">
+  <div class="env">
+    <div class="marca-seccion">Jueves 29 de octubre</div>
+    <h2 class="tit">Programa de la&nbsp;jornada</h2>
+    <p class="parrafo">Las dos piezas conviven toda la mañana. La ofrenda tiene momentos marcados; el museo permanece abierto de corrido y se entra cuando se quiera.</p>
+
+    <div class="fila">
+      <div class="h">09:30 – 10:30</div>
+      <div><h4>Montaje</h4><p>Los equipos arman sus ofrendas y quienes participan en el museo entregan su objeto en la mesa de recepción, donde se le coloca etiqueta y código.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">10:30 – 10:45</div>
+      <div><h4>Apertura</h4><p>Se explican las dos piezas y la regla del silencio en la sala del museo. Se presenta al jurado de la pieza I.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">10:45 – 11:45</div>
+      <div><h4>Recorrido y lectura de actas</h4><p>El público recorre las ofrendas en orden. Cada equipo lee su acta de defunción frente a la suya, en menos de noventa segundos.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">10:45 – 12:30</div>
+      <div><h4>Museo de objetos huérfanos, abierto</h4><p>Entrada libre y continua, en paralelo al recorrido. Escucha con audífonos, sin conversación dentro de la sala.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">11:45 – 12:15</div>
+      <div><h4>Deliberación y palabra abierta</h4><p>Mientras el jurado delibera, se abre el micrófono a quien quiera nombrar en voz alta algo que también se esté muriendo y no alcanzó ofrenda.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">12:15 – 12:35</div>
+      <div><h4>Reconocimientos</h4><p>Resultados de la pieza I. El museo no compite y no entrega reconocimientos.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">12:35 – 13:10</div>
+      <div><h4>Desmontaje</h4><p>Se recuperan los objetos del museo uno por uno, se devuelven las piezas prestadas de las ofrendas y se separa lo compostable de lo reutilizable.</p></div>
+    </div>
+
+    <p class="paralelo">La Franja Libre se suspende por completo este día. Ningún taller permanente sesiona: no hay yoga, ajedrez, balonmano, calistenia, pintura, danza, guitarra, escritura creativa, basketball, zumba, inglés ni teatro.</p>
+  </div>
+</section>
+
+<!-- ================= RECONOCIMIENTOS ================= -->
+<section id="reconocimientos">
+  <div class="env">
+    <div class="marca-seccion">Solo pieza I</div>
+    <h2 class="tit">Reconocimientos a las&nbsp;ofrendas</h2>
+    <p class="parrafo">Tres lugares y una mención, decididos por un jurado de tres personas: alguien de la comunidad con memoria larga de la zona, una persona docente del área socioambiental y una del área agroindustrial. El museo de objetos huérfanos queda deliberadamente fuera de toda competencia.</p>
+
+    <div class="recos">
+      <div class="reco">
+        <div class="lugar">Primer lugar</div>
+        <div class="monto" data-monto="pendiente"><span class="s">$</span><span class="hueco"></span></div>
+        <span class="etq-pend">Monto por definir</span>
+        <p>Más la publicación destacada de su cédula en el inventario final.</p>
+      </div>
+      <div class="reco">
+        <div class="lugar">Segundo lugar</div>
+        <div class="monto" data-monto="pendiente"><span class="s">$</span><span class="hueco"></span></div>
+        <span class="etq-pend">Monto por definir</span>
+        <p>Más reconocimiento impreso para cada integrante.</p>
+      </div>
+      <div class="reco">
+        <div class="lugar">Tercer lugar</div>
+        <div class="monto" data-monto="pendiente"><span class="s">$</span><span class="hueco"></span></div>
+        <span class="etq-pend">Monto por definir</span>
+        <p>Más reconocimiento impreso para cada integrante.</p>
+      </div>
+      <div class="reco">
+        <div class="lugar">Mención al testimonio</div>
+        <div class="monto" data-monto="pendiente"><span class="s">$</span><span class="hueco"></span></div>
+        <span class="etq-pend">Monto por definir</span>
+        <p>A la entrevista más valiosa, sin importar el montaje que la acompañe.</p>
+      </div>
+    </div>
+
+    <p class="aviso-monto"><b>Montos por definir.</b> Las líneas punteadas corresponden a cantidades pendientes de autorización. La página se publica con los montos vacíos y señalados; se sustituyen en cuanto la coordinación confirme la bolsa de premiación.</p>
+  </div>
+</section>
+
+<!-- ================= REGISTRO ================= -->
+<section id="registro" class="registro">
+  <div class="env">
+    <div class="marca-seccion">Registro</div>
+    <h2 class="tit">Inscribir una participación</h2>
+    <p class="parrafo">Abierto a estudiantes de Prepa, PAS y Agroindustrial, y a personal docente y administrativo del campus. Quien quiera participar en las dos piezas llena el formulario dos veces. Cierre de registro: viernes 9 de octubre a las 18:00.</p>
+
+    <form class="caja-form" id="formMuertos" autocomplete="off">
+      <div class="selector" role="group" aria-label="Elige la pieza">
+        <button type="button" id="btnOfrenda" aria-pressed="true">Pieza I · Ofrenda</button>
+        <button type="button" id="btnObjeto" aria-pressed="false">Pieza II · Objeto</button>
+      </div>
+      <input type="hidden" id="pieza" name="pieza" value="Ofrenda">
+
+      <div class="campos">
+        <div class="campo ancho">
+          <label for="nombre">Nombre de quien registra</label>
+          <input type="text" id="nombre" name="nombre" required placeholder="Nombre y apellidos">
+        </div>
+
+        <div class="campo">
+          <label for="grupo">Grupo</label>
+          <select id="grupo" name="grupo" required>
+            <option value="">Selecciona…</option>
+            <option>Prepa</option>
+            <option>PAS</option>
+            <option>Agroindustrial</option>
+            <option>Docente</option>
+            <option>Administrativo</option>
+          </select>
+        </div>
+
+        <div class="campo">
+          <label for="contacto">Correo o WhatsApp</label>
+          <input type="text" id="contacto" name="contacto" required placeholder="Para confirmar el registro">
+        </div>
+
+        <!-- ---------- Campos de la Pieza I ---------- -->
+        <div class="campo ancho grupo-ofrenda">
+          <label for="equipo">Nombre del equipo e integrantes</label>
+          <input type="text" id="equipo" name="equipo" placeholder="Nombre del equipo y nombres de las 3 a 5 personas">
+        </div>
+
+        <div class="campo grupo-ofrenda">
+          <label for="categoria">Categoría del difunto</label>
+          <select id="categoria" name="categoria">
+            <option value="">Selecciona…</option>
+            <option>01 · Un oficio</option>
+            <option>02 · Una semilla</option>
+            <option>03 · Un agua</option>
+            <option>04 · Una palabra</option>
+            <option>05 · Un ser vivo</option>
+            <option>Categoría libre (requiere aprobación)</option>
+          </select>
+        </div>
+
+        <div class="campo grupo-ofrenda">
+          <label for="difunto">Qué van a velar</label>
+          <input type="text" id="difunto" name="difunto" placeholder="Ej. el oficio de molendera de nixtamal">
+        </div>
+
+        <div class="campo ancho grupo-ofrenda">
+          <label for="testigo">A quién piensan entrevistar</label>
+          <input type="text" id="testigo" name="testigo" placeholder="Nombre o descripción de la persona, y su relación con lo que se vela">
+          <span class="pista">Si aún no lo saben, escriban «por definir». La coordinación puede ayudar a ubicar a alguien.</span>
+        </div>
+
+        <div class="campo ancho grupo-ofrenda">
+          <label for="porque">Por qué eligieron ese difunto <span class="op">(opcional)</span></label>
+          <textarea id="porque" name="porque" placeholder="Tres o cuatro líneas bastan"></textarea>
+        </div>
+
+        <div class="campo ancho grupo-ofrenda">
+          <label for="apoyo">Apoyo o autorización que necesitan <span class="op">(opcional)</span></label>
+          <input type="text" id="apoyo" name="apoyo" placeholder="Ej. mesa adicional, uso de veladora, traslado a una comunidad">
+        </div>
+
+        <!-- ---------- Campos de la Pieza II ---------- -->
+        <div class="campo ancho grupo-objeto oculto">
+          <label for="objeto">Qué objeto vas a llevar</label>
+          <input type="text" id="objeto" name="objeto" placeholder="Ej. reloj de pulso sin manecillas">
+        </div>
+
+        <div class="campo grupo-objeto oculto">
+          <label for="dequien">De quién fue</label>
+          <input type="text" id="dequien" name="dequien" placeholder="Ej. de mi abuelo">
+          <span class="pista">Puede ir en relación, sin nombre propio.</span>
+        </div>
+
+        <div class="campo grupo-objeto oculto">
+          <label for="anio">Año aproximado <span class="op">(opcional)</span></label>
+          <input type="text" id="anio" name="anio" placeholder="Ej. 1974">
+        </div>
+
+        <div class="campo grupo-objeto oculto">
+          <label for="palabra">Una palabra</label>
+          <input type="text" id="palabra" name="palabra" placeholder="La palabra que resume el objeto">
+          <span class="pista">Es el cuarto y último dato de la etiqueta. Una sola palabra.</span>
+        </div>
+
+        <div class="campo grupo-objeto oculto">
+          <label for="voz">Tratamiento de la voz</label>
+          <select id="voz" name="voz">
+            <option value="Sin filtro">Sin filtro, mi voz tal cual</option>
+            <option value="Con filtro">Con filtro de tono, para no ser reconocible</option>
+          </select>
+        </div>
+
+        <div class="acepto grupo-objeto oculto">
+          <input type="checkbox" id="archivo" name="archivo">
+          <label for="archivo">Autorizo que mi audio se conserve en el archivo del campus después de la jornada. Si dejo esta casilla sin marcar, la grabación se borra al cierre del día.</label>
+        </div>
+
+        <div class="acepto">
+          <input type="checkbox" id="bases" name="bases" required>
+          <label for="bases">Acepto las reglas de la pieza en la que me inscribo, incluido el desmontaje sin residuos y la devolución de todo objeto prestado el mismo día.</label>
+        </div>
+      </div>
+
+      <div class="pie-form">
+        <button type="submit" class="btn" id="btnEnviar">Enviar registro</button>
+        <span class="pista">Cierre: viernes 9 de octubre, 18:00 h.<br>Audios de la pieza II: a más tardar el lunes 26 de octubre.</span>
+      </div>
+
+      <div class="msj" id="msj" role="status" aria-live="polite"></div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="env">
+    <div><b>Franja Libre</b> — Campus Concá · Universidad Autónoma de Querétaro</div>
+    <div>Día de Muertos · jueves 29 de octubre de 2026</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var pieza   = document.getElementById("pieza");
+  var bOf     = document.getElementById("btnOfrenda");
+  var bOb     = document.getElementById("btnObjeto");
+  var form    = document.getElementById("formMuertos");
+  var msj     = document.getElementById("msj");
+  var btn     = document.getElementById("btnEnviar");
+
+  var OBLIG = {
+    Ofrenda: ["equipo","categoria","difunto","testigo"],
+    Objeto:  ["objeto","dequien","palabra"]
+  };
+
+  function grupo(nombre){ return Array.prototype.slice.call(document.querySelectorAll(".grupo-" + nombre)); }
+
+  function aplicar(valor){
+    pieza.value = valor;
+    var esOfrenda = valor === "Ofrenda";
+    bOf.setAttribute("aria-pressed", esOfrenda ? "true" : "false");
+    bOb.setAttribute("aria-pressed", esOfrenda ? "false" : "true");
+    grupo("ofrenda").forEach(function(e){ e.classList.toggle("oculto", !esOfrenda); });
+    grupo("objeto").forEach(function(e){ e.classList.toggle("oculto", esOfrenda); });
+
+    ["equipo","categoria","difunto","testigo","objeto","dequien","palabra"].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el) el.required = OBLIG[valor].indexOf(id) !== -1;
+    });
+  }
+
+  bOf.addEventListener("click", function(){ aplicar("Ofrenda"); });
+  bOb.addEventListener("click", function(){ aplicar("Objeto"); });
+
+  function mostrar(tipo, texto){
+    msj.className = "msj " + tipo;
+    msj.textContent = texto;
+    msj.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }
+
+  function val(id){ var e = document.getElementById(id); return e ? String(e.value).trim() : ""; }
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;
+
+    var datos = {
+      pieza:     pieza.value,
+      nombre:    val("nombre"),
+      grupo:     val("grupo"),
+      contacto:  val("contacto"),
+      equipo:    val("equipo"),
+      categoria: val("categoria"),
+      difunto:   val("difunto"),
+      testigo:   val("testigo"),
+      porque:    val("porque"),
+      apoyo:     val("apoyo"),
+      objeto:    val("objeto"),
+      dequien:   val("dequien"),
+      anio:      val("anio"),
+      palabra:   val("palabra"),
+      voz:       val("voz"),
+      archivo:   document.getElementById("archivo").checked ? "Sí autoriza" : "No autoriza"
+    };
+
+    btn.disabled = true;
+    btn.textContent = "Enviando…";
+
+    var hayBackend = (typeof google !== "undefined") && google.script && google.script.run;
+
+    if(!hayBackend){
+      setTimeout(function(){
+        btn.disabled = false;
+        btn.textContent = "Enviar registro";
+        mostrar("demo",
+          "Vista previa sin conexión al servidor. Al desplegar esta página como aplicación web de Apps Script, el registro se guarda en la hoja de respuestas. Capturado: " +
+          datos.pieza + " — " + datos.nombre + " — " + (datos.pieza === "Ofrenda" ? datos.difunto : datos.objeto) + ".");
+      }, 500);
+      return;
+    }
+
+    google.script.run
+      .withSuccessHandler(function(r){
+        btn.disabled = false;
+        btn.textContent = "Enviar registro";
+        if(r && r.ok){
+          form.reset();
+          aplicar(pieza.value);
+          mostrar("ok","Registro recibido. Folio " + r.folio + ". Se confirmará por el medio de contacto indicado" + (datos.pieza === "Objeto" ? ", junto con la carpeta donde subir el audio." : "."));
+        }else{
+          mostrar("error",(r && r.mensaje) || "No fue posible guardar el registro.");
+        }
+      })
+      .withFailureHandler(function(err){
+        btn.disabled = false;
+        btn.textContent = "Enviar registro";
+        mostrar("error","Error de conexión: " + (err && err.message ? err.message : "intenta de nuevo en un momento."));
+      })
+      .registrarMuertos(datos);
+  });
+
+  aplicar("Ofrenda");
+})();
+</script>
+</body>
+</html>
