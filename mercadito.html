@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercadito Sustentable · Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="Mercadito Sustentable del Campus Concá: trueque consciente y ventas universitarias saludables y sustentables con cero residuos, juntos en cada edición. Semestre 2026-2.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --tru:#1A6B5A; --tru-l:#E0F2F1;
+  --ven:#B05020; --ven-l:#FDF0E5;
+}
+body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp); line-height:1.5; }
+a { color:inherit; }
+:focus-visible { outline:3px solid var(--oc); outline-offset:3px; }
+
+/* ===== HERO ===== */
+.hero { background:var(--vp); color:var(--cr); padding:22px 20px 46px; text-align:center; position:relative; overflow:hidden; }
+.hero::after {
+  content:''; position:absolute; bottom:-90px; left:50%; transform:translateX(-50%);
+  width:520px; height:180px; border-radius:50%;
+  background:radial-gradient(ellipse, rgba(232,168,90,.22), transparent 70%);
+}
+.volver { display:inline-block; font-size:13px; font-weight:600; color:var(--vc); text-decoration:none; letter-spacing:.04em; margin-bottom:26px; }
+.volver:hover { color:var(--oc); }
+.hero-eyebrow { font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--oc); display:block; margin-bottom:10px; }
+.hero h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(34px,7vw,58px); line-height:1.05; position:relative; }
+.hero h1 em { font-style:italic; color:var(--vc); }
+.hero-tagline { font-family:'Fraunces',serif; font-style:italic; font-size:20px; color:var(--vc); margin:14px 0 20px; position:relative; }
+.hero-datos { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; position:relative; }
+.dato { background:rgba(255,255,255,.1); border:1px solid rgba(122,184,138,.35); border-radius:30px; padding:8px 18px; font-size:13.5px; font-weight:500; }
+.dato strong { color:var(--oc); font-weight:600; }
+
+/* ===== CONTENEDOR ===== */
+.wrap { max-width:1040px; margin:0 auto; padding:0 20px; }
+.sec-titulo { font-family:'Fraunces',serif; font-size:clamp(26px,4.5vw,34px); font-weight:900; color:var(--vp); text-align:center; margin:56px 0 8px; }
+.sec-titulo em { color:var(--vv); font-style:italic; }
+.sec-sub { text-align:center; color:#777; font-size:15px; margin-bottom:30px; max-width:640px; margin-left:auto; margin-right:auto; }
+
+/* ===== LAS DOS MODALIDADES ===== */
+.duo { display:grid; grid-template-columns:1fr 1fr; gap:0; border-radius:18px; overflow:hidden; box-shadow:0 14px 40px rgba(26,58,42,.10); margin-top:-24px; position:relative; z-index:2; }
+.mitad { background:#fff; padding:32px 28px 30px; border-top:6px solid; }
+.mitad.trueque { border-top-color:var(--tru); }
+.mitad.venta { border-top-color:var(--ven); border-left:1px solid rgba(26,58,42,.08); }
+.mitad-emoji { font-size:38px; line-height:1; display:block; margin-bottom:12px; }
+.mitad-etiqueta { font-size:11.5px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; }
+.mitad.trueque .mitad-etiqueta { color:var(--tru); }
+.mitad.venta .mitad-etiqueta { color:var(--ven); }
+.mitad h2 { font-family:'Fraunces',serif; font-size:25px; font-weight:700; margin:6px 0 10px; }
+.mitad p { font-size:14.5px; color:#555; line-height:1.65; }
+.moneda { margin-top:18px; display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:600; border-radius:10px; padding:8px 14px; }
+.moneda.si { background:var(--ven-l); color:var(--ven); }
+.moneda.no { background:var(--tru-l); color:var(--tru); }
+.duo-nota { text-align:center; font-size:14px; color:#7a7a6a; margin-top:16px; font-style:italic; }
+
+/* ===== CALENDARIO DE EDICIONES (elemento firma) ===== */
+.ediciones { display:grid; gap:14px; }
+.edicion {
+  background:#fff; border-radius:14px; border:1px solid rgba(26,58,42,.08);
+  border-left:6px solid; display:grid; grid-template-columns:112px 1fr; align-items:stretch;
+  overflow:hidden; transition:transform .15s, box-shadow .15s;
+}
+.edicion:hover { transform:translateX(3px); box-shadow:0 10px 26px rgba(26,58,42,.10); }
+.edicion { border-left-color:var(--oc); }
+.ed-fecha { text-align:center; padding:20px 8px; display:flex; flex-direction:column; justify-content:center; background:var(--cr); }
+.ed-mes { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#B0851F; }
+.ed-dia { font-family:'Fraunces',serif; font-size:40px; font-weight:900; line-height:1; margin:2px 0; }
+.ed-sem { font-size:12.5px; color:#888; }
+.ed-cuerpo { padding:20px 24px; }
+.ed-badge { display:inline-block; font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; border-radius:20px; padding:4px 12px; background:var(--vp); color:var(--oc); }
+.ed-plazo { font-size:12.5px; color:#8a8778; margin-top:10px; background:var(--cr); border-radius:8px; padding:8px 12px; line-height:1.5; }
+.ed-plazo strong { color:var(--vs); }
+.ed-ambas { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+.ed-chip { font-size:12px; font-weight:600; border-radius:8px; padding:5px 11px; }
+.ed-chip.t { background:var(--tru-l); color:var(--tru); }
+.ed-chip.v { background:var(--ven-l); color:var(--ven); }
+.ed-nombre { font-family:'Fraunces',serif; font-size:21px; font-weight:700; margin:8px 0 6px; }
+.ed-desc { font-size:14px; color:#555; line-height:1.6; }
+.ed-prop { display:inline-block; margin-top:8px; font-size:12px; font-weight:600; color:var(--oc); letter-spacing:.04em; }
+
+/* ===== QUÉ ES EL TRUEQUE ===== */
+.destacado { background:#fff; border-left:5px solid var(--tru); border-radius:0 14px 14px 0; padding:26px 28px; margin:0 auto; max-width:760px; }
+.destacado p { font-size:15.5px; color:#4a4a42; line-height:1.7; }
+.destacado p + p { margin-top:12px; }
+.destacado strong { color:var(--tru); }
+
+/* ===== OBJETIVOS ===== */
+.objetivos { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; }
+.objetivo { background:#fff; border-radius:12px; padding:20px; border:1px solid rgba(26,58,42,.08); }
+.objetivo span { font-family:'Fraunces',serif; font-size:26px; font-weight:900; color:var(--vc); display:block; line-height:1; margin-bottom:8px; }
+.objetivo p { font-size:14px; color:#555; line-height:1.6; }
+
+/* ===== REQUISITOS ===== */
+.conmutador { display:flex; justify-content:center; gap:10px; margin-bottom:28px; flex-wrap:wrap; }
+.conm-btn { border:1.5px solid var(--vv); background:transparent; color:var(--vs); border-radius:30px; padding:10px 22px; font-size:14.5px; font-weight:600; cursor:pointer; font-family:'Instrument Sans',sans-serif; transition:all .15s; }
+.conm-btn:hover { background:rgba(74,140,92,.1); }
+.conm-btn[aria-selected="true"] { background:var(--vp); color:#fff; border-color:var(--vp); }
+.panel[hidden] { display:none; }
+.reglas { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:14px; }
+.regla { background:#fff; border-radius:12px; padding:18px 20px; border:1px solid rgba(26,58,42,.08); display:flex; gap:14px; align-items:flex-start; }
+.regla-num { flex-shrink:0; width:28px; height:28px; border-radius:50%; display:grid; place-items:center; font-size:13px; font-weight:600; color:#fff; }
+.venta-panel .regla-num { background:var(--ven); }
+.trueque-panel .regla-num { background:var(--tru); }
+.regla p { font-size:14px; color:#555; line-height:1.6; }
+.aviso { margin-top:18px; background:#FFF6E6; border:1px solid rgba(232,168,90,.5); border-radius:12px; padding:16px 20px; font-size:14px; color:#8A5A18; line-height:1.6; }
+.aviso strong { color:#6B4310; }
+
+/* ===== MARCO NORMATIVO ===== */
+.marco { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+.marco-item { background:#fff; border-radius:12px; padding:20px 22px; border:1px solid rgba(26,58,42,.08); border-top:3px solid var(--vc); }
+.marco-item h3 { font-family:'Fraunces',serif; font-size:18px; font-weight:700; margin-bottom:7px; color:var(--vs); }
+.marco-item p { font-size:13.5px; color:#555; line-height:1.6; }
+.marco-links { text-align:center; font-size:13.5px; color:#888; margin-top:18px; line-height:1.7; }
+.marco-links a { color:var(--vs); font-weight:600; }
+
+/* ===== RECOMENDACIONES ===== */
+.recos { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:14px; }
+.reco { background:linear-gradient(135deg,var(--vp),var(--vs)); color:#fff; border-radius:14px; padding:22px; }
+.reco h3 { font-family:'Fraunces',serif; font-size:18px; font-weight:700; margin-bottom:8px; color:var(--oc); }
+.reco p { font-size:13.5px; color:rgba(245,238,216,.85); line-height:1.6; }
+
+/* ===== REGISTRO ===== */
+.cta { background:#fff; border-radius:18px; padding:36px 30px; text-align:center; border:1px solid rgba(26,58,42,.08); margin-bottom:56px; }
+.cta h2 { font-family:'Fraunces',serif; font-size:28px; font-weight:900; margin-bottom:8px; }
+.cta p { font-size:15px; color:#666; max-width:520px; margin:0 auto 22px; line-height:1.65; }
+.btn-grande { background:var(--vv); color:#fff; border:none; border-radius:30px; padding:15px 38px; font-size:16px; font-weight:600; cursor:pointer; font-family:'Instrument Sans',sans-serif; transition:background .15s; }
+.btn-grande:hover { background:var(--vs); }
+.cta-doble { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.cta-via { padding:6px 26px; }
+.cta-via + .cta-via { border-left:1px solid rgba(26,58,42,.10); }
+.cta-emoji { font-size:38px; display:block; margin-bottom:8px; }
+.cta-via h3 { font-family:'Fraunces',serif; font-size:22px; font-weight:700; margin-bottom:8px; }
+.cta-via p { font-size:14px; color:#666; line-height:1.6; margin-bottom:20px; }
+a.btn-grande { display:inline-block; text-decoration:none; }
+.cta-contacto { font-size:13px; color:#999; margin-top:26px; line-height:1.8; border-top:1px solid rgba(26,58,42,.08); padding-top:18px; }
+
+/* ===== MODAL ===== */
+.modal-overlay { display:none; position:fixed; inset:0; z-index:100; background:rgba(26,58,42,.6); backdrop-filter:blur(3px); align-items:center; justify-content:center; padding:20px; }
+.modal-overlay.abierto { display:flex; }
+.modal { background:#fff; border-radius:18px; max-width:460px; width:100%; padding:32px; position:relative; max-height:90vh; overflow-y:auto; animation:modalIn .25s ease; }
+@keyframes modalIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+@media (prefers-reduced-motion:reduce) { .modal { animation:none; } * { transition:none !important; } }
+.modal-cerrar { position:absolute; top:14px; right:18px; font-size:26px; background:none; border:none; cursor:pointer; color:#999; line-height:1; }
+.modal-emoji { font-size:44px; text-align:center; }
+.modal-titulo { font-family:'Fraunces',serif; font-size:25px; font-weight:700; text-align:center; margin-bottom:4px; }
+.modal-sub { text-align:center; color:#888; font-size:14px; margin-bottom:22px; }
+.campo { margin-bottom:15px; }
+.campo label { display:block; font-size:14px; font-weight:600; margin-bottom:6px; color:var(--vs); }
+.campo input, .campo select { width:100%; padding:12px 14px; border:1.5px solid #ddd; border-radius:10px; font-size:15px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff; }
+.campo input:focus, .campo select:focus { outline:none; border-color:var(--vv); }
+.campo-hint { font-size:12px; color:#aaa; margin-top:4px; }
+.btn-enviar { width:100%; background:var(--vv); color:#fff; border:none; border-radius:12px; padding:14px; font-size:16px; font-weight:600; cursor:pointer; font-family:'Instrument Sans',sans-serif; margin-top:8px; }
+.btn-enviar:hover { background:var(--vs); }
+.btn-enviar:disabled { background:#ccc; cursor:not-allowed; }
+.modal-exito { text-align:center; padding:20px 0; }
+.modal-exito .check { font-size:54px; }
+.modal-exito p { font-size:17px; color:var(--vs); margin-top:8px; line-height:1.5; }
+
+/* ===== PIE ===== */
+footer { background:var(--vp); color:var(--vc); text-align:center; padding:28px 20px; font-size:13px; letter-spacing:.04em; }
+footer strong { color:var(--oc); }
+footer a { color:var(--vc); }
+
+@media (max-width:760px) {
+  .cta-doble { grid-template-columns:1fr; gap:28px; }
+  .cta-via + .cta-via { border-left:none; border-top:1px solid rgba(26,58,42,.10); padding-top:24px; }
+  .duo { grid-template-columns:1fr; margin-top:-16px; }
+  .mitad.venta { border-left:none; }
+  .hero { padding-bottom:38px; }
+  .edicion { grid-template-columns:92px 1fr; }
+  .ed-dia { font-size:34px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <a class="volver" href="index.html">← Franja Libre</a>
+  <span class="hero-eyebrow">Evento especial · Semestre 2026-2</span>
+  <h1>Mercadito <em>Sustentable</em></h1>
+  <p class="hero-tagline">dos formas de intercambiar, un mismo día</p>
+  <div class="hero-datos">
+    <span class="dato"><strong>11:00 – 12:00 h</strong></span>
+    <span class="dato">Camino del edificio principal a la cancha techada</span>
+    <span class="dato"><strong>4 fechas</strong> · ago · sep · oct · nov</span>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- ===== LAS DOS MODALIDADES ===== -->
+  <section class="duo" aria-label="Las dos actividades del Mercadito Sustentable">
+    <div class="mitad trueque">
+      <span class="mitad-emoji">🔄</span>
+      <span class="mitad-etiqueta">Actividad 1 · en las cuatro fechas</span>
+      <h2>Trueque consciente y solidario</h2>
+      <p>Un día para despedir lo que ya no usas y darle la bienvenida a algo que sí. Se intercambia directamente, de común acuerdo, entre quienes participan.</p>
+      <span class="moneda no">🚫 Aquí no circula dinero</span>
+    </div>
+    <div class="mitad venta">
+      <span class="mitad-emoji">🥬</span>
+      <span class="mitad-etiqueta">Actividad 2 · en las cuatro fechas</span>
+      <h2>Ventas universitarias saludables &amp; sustentables + Cero Residuos</h2>
+      <p>Venta de alimentos nutritivos y de productos artesanales, vegetales o agroalimentarios de producción orgánica, local o sustentable. Todo sin desechables: quien vende trae empaques compostables o reutilizables y quien compra trae su propio recipiente.</p>
+      <span class="moneda si">💵 Aquí sí circula dinero</span>
+    </div>
+  </section>
+  <p class="duo-nota">Las dos actividades ocurren el mismo día, en el mismo espacio. Puedes entrar a una o a las dos.</p>
+
+  <!-- ===== CALENDARIO DE EDICIONES ===== -->
+  <h2 class="sec-titulo">Las cuatro <em>ediciones</em></h2>
+  <p class="sec-sub">Una al mes, siempre de 11:00 a 12:00 en las bancas de afuera del edificio principal, sobre el camino a la cancha techada, con las dos actividades juntas y en paralelo a los talleres de la Franja Libre.</p>
+  <div class="ediciones">
+
+    <article class="edicion">
+      <div class="ed-fecha">
+        <span class="ed-mes">Agosto</span>
+        <span class="ed-dia">27</span>
+        <span class="ed-sem">jueves</span>
+      </div>
+      <div class="ed-cuerpo">
+        <span class="ed-badge">Feria de Intercambio de Saberes</span>
+        <h3 class="ed-nombre">Mercadito de arranque</h3>
+        <p class="ed-desc">La primera edición abre el semestre junto a la Feria de Intercambio de Saberes: lo que se intercambia no son solo objetos, también oficios y conocimientos. Trae lo que quieras truequear, lo que quieras vender y algo que sepas hacer.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 20 de agosto</strong> · resolución el <strong>martes 25 de agosto</strong></p>
+        <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
+        <span class="ed-prop" data-pendiente>Propuesta por confirmar</span>
+      </div>
+    </article>
+
+    <article class="edicion">
+      <div class="ed-fecha">
+        <span class="ed-mes">Septiembre</span>
+        <span class="ed-dia">29</span>
+        <span class="ed-sem">martes</span>
+      </div>
+      <div class="ed-cuerpo">
+        <span class="ed-badge">Día Nacional del Maíz</span>
+        <h3 class="ed-nombre">Mercadito del maíz</h3>
+        <p class="ed-desc">La fecha cae justo en el Día Nacional del Maíz. La edición gira alrededor del maíz criollo de la Sierra Gorda: tortillas, tamales, atoles, semillas y platillos de la milpa, servidos sin desechables, con el trueque instalado al lado.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>martes 22 de septiembre</strong> · resolución el <strong>domingo 27 de septiembre</strong></p>
+        <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
+      </div>
+    </article>
+
+    <article class="edicion">
+      <div class="ed-fecha">
+        <span class="ed-mes">Octubre</span>
+        <span class="ed-dia">29</span>
+        <span class="ed-sem">jueves</span>
+      </div>
+      <div class="ed-cuerpo">
+        <span class="ed-badge">Día de Muertos</span>
+        <h3 class="ed-nombre">Mercadito de muertos</h3>
+        <p class="ed-desc">El mercadito se instala junto a la ofrenda colectiva, en la víspera del Día de Muertos. Buen momento para dar salida a lo que ya cumplió su ciclo y a lo que la ofrenda pide prestado: papel picado, veladoras, ropa, objetos de memoria, pan y cempasúchil.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 22 de octubre</strong> · resolución el <strong>martes 27 de octubre</strong></p>
+        <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
+        <span class="ed-prop" data-pendiente>Propuesta: se recorre del martes 20 al jueves 29 para acercarla al 2 de noviembre</span>
+      </div>
+    </article>
+
+    <article class="edicion">
+      <div class="ed-fecha">
+        <span class="ed-mes">Noviembre</span>
+        <span class="ed-dia">26</span>
+        <span class="ed-sem">jueves</span>
+      </div>
+      <div class="ed-cuerpo">
+        <span class="ed-badge">Cierre de la Franja Libre</span>
+        <h3 class="ed-nombre">Mercadito de cierre</h3>
+        <p class="ed-desc">Último jueves del semestre y cierre de la Franja Libre. El mercadito se acompaña de lo que dejaron los talleres: música, danza, teatro y la muestra de lo trabajado durante 18 semanas.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 19 de noviembre</strong> · resolución el <strong>martes 24 de noviembre</strong></p>
+        <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
+        <span class="ed-prop" data-pendiente>Propuesta: se recorre del martes 24 al jueves 26 para cerrar el semestre</span>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- ===== QUÉ ES EL TRUEQUE ===== -->
+  <h2 class="sec-titulo">¿Qué es el <em>trueque</em>?</h2>
+  <div class="destacado">
+    <p>El trueque es una práctica de <strong>economía solidaria</strong>: un sistema ético de intercambio de artículos, productos y, a veces, servicios. Se realiza de manera directa y acordada entre quienes participan, sin que el dinero intervenga como objeto de canje.</p>
+    <p>Dicho corto: cambiamos lo que ya no usamos por algo que sí.</p>
+  </div>
+
+  <!-- ===== OBJETIVOS ===== -->
+  <h2 class="sec-titulo">Para qué lo <em>hacemos</em></h2>
+  <p class="sec-sub">Cinco razones que sostienen el evento.</p>
+  <div class="objetivos">
+    <div class="objetivo"><span>i</span><p>Satisfacer necesidades propias y de otras personas con los bienes que ya tenemos.</p></div>
+    <div class="objetivo"><span>ii</span><p>Priorizar el valor de uso por encima del valor monetario.</p></div>
+    <div class="objetivo"><span>iii</span><p>Contribuir colectivamente a la economía solidaria.</p></div>
+    <div class="objetivo"><span>iv</span><p>Fortalecer relaciones económicas y sociales dentro de la comunidad universitaria.</p></div>
+    <div class="objetivo"><span>v</span><p>Aportar al desarrollo sostenible: reducir consumo, donar y reutilizar recursos.</p></div>
+  </div>
+
+  <!-- ===== REQUISITOS ===== -->
+  <h2 class="sec-titulo">Requisitos para <em>participar</em></h2>
+  <p class="sec-sub">Cada actividad tiene sus propias reglas y las dos aplican en todas las fechas. Elige la que te interesa.</p>
+
+  <div class="conmutador" role="tablist" aria-label="Requisitos por actividad">
+    <button class="conm-btn" role="tab" id="tab-trueque" aria-controls="panel-trueque" aria-selected="true" onclick="verPanel('trueque')">🔄 Trueque</button>
+    <button class="conm-btn" role="tab" id="tab-venta" aria-controls="panel-venta" aria-selected="false" onclick="verPanel('venta')">🥬 Ventas + Cero Residuos</button>
+  </div>
+
+  <div class="panel trueque-panel" id="panel-trueque" role="tabpanel" aria-labelledby="tab-trueque">
+    <div class="reglas">
+      <div class="regla"><span class="regla-num">1</span><p>Intercambiar un máximo de 15 artículos, todos en buen estado.</p></div>
+      <div class="regla"><span class="regla-num">2</span><p>Ofrecer cosas útiles, limpias y en buen estado, tal como te gustaría recibirlas. La ropa debe ir limpia y de preferencia lavada.</p></div>
+      <div class="regla"><span class="regla-num">3</span><p>Nada de artículos desgastados.</p></div>
+      <div class="regla"><span class="regla-num">4</span><p>Prohibida la venta de productos y el pago por servicios. Únicamente trueque: nada de dinero, ni ofrecerlo.</p></div>
+      <div class="regla"><span class="regla-num">5</span><p>Llevarte todas tus cosas. En el campus no puede quedarse ningún producto y no se responde por objetos olvidados.</p></div>
+      <div class="regla"><span class="regla-num">6</span><p>Prohibido tirar material en el campus después del trueque. Nada de lo que traes debería terminar en la basura.</p></div>
+      <div class="regla"><span class="regla-num">7</span><p>Avisar con anticipación cuántos productos traerás. Se entrega lista de registro al inicio y al final del evento.</p></div>
+      <div class="regla"><span class="regla-num">8</span><p>Cada quien es responsable de sus propios objetos y de sus propios trueques.</p></div>
+    </div>
+    <p class="aviso">El campus pone las mesas. Solo necesitas traer tus artículos y, si quieres, un mantel o tapete para acomodarlos.</p>
+  </div>
+
+  <div class="panel venta-panel" id="panel-venta" role="tabpanel" aria-labelledby="tab-venta" hidden>
+    <div class="reglas">
+      <div class="regla"><span class="regla-num">1</span><p>Registrar tu proyecto de venta <strong>una semana antes</strong> de la fecha en que quieres vender. El Área de Sustentabilidad revisa, emite observaciones y avisa la resolución <strong>dos días antes</strong> del Mercadito, junto con tu ficha de proveedor.</p></div>
+      <div class="regla"><span class="regla-num">2</span><p>Detallar en el registro qué vas a vender, cómo lo vas a presentar, qué empaques usarás y qué residuos generará la venta.</p></div>
+      <div class="regla"><span class="regla-num">3</span><p>Dejar tus datos de contacto como responsable. El Área de Sustentabilidad revisa la solicitud y se encarga de notificar a tu coordinación.</p></div>
+      <div class="regla"><span class="regla-num">4</span><p>Vender únicamente los productos autorizados. La información que ofrezcas debe ser clara y no inducir al engaño.</p></div>
+      <div class="regla"><span class="regla-num">5</span><p>Nada de preparar alimentos dentro del campus, ni vender productos que requieran refrigeración o se descompongan con facilidad.</p></div>
+      <div class="regla"><span class="regla-num">6</span><p>Prohibido el unicel, las bolsas de plástico, los alimentos empaquetados, envasados o embotellados y los plásticos de un solo uso. Si necesitas desechables, que sean 100 % compostables: papel estraza, madera, hoja de maíz o de plátano.</p></div>
+      <div class="regla"><span class="regla-num">7</span><p>Fuera de la lista: productos con sellos de advertencia, frituras y galletas industriales, refrescos y jugos no naturales, y lo preparado en casa con exceso de grasa, harina refinada, sodio o azúcar.</p></div>
+      <div class="regla"><span class="regla-num">8</span><p>Hacerte corresponsable de tus residuos: reducirlos, separarlos, llevártelos y avisar a quien te compra sobre la política de sustentabilidad del campus.</p></div>
+      <div class="regla"><span class="regla-num">9</span><p>Haber asistido a por lo menos una capacitación de manejo de residuos durante el semestre. Si no la tomaste, firmar la carta responsiva.</p></div>
+      <div class="regla"><span class="regla-num">10</span><p>Dejar el espacio limpio y ordenado. Lo que se venda es para beneficio de quien participa: la Universidad no obtiene ingreso alguno.</p></div>
+    </div>
+    <p class="aviso">Para el Mercadito, el campus pone las mesas. Trae solo tu mantel, tus productos y tus empaques.</p>
+  </div>
+
+  <!-- ===== LINEAMIENTOS DEL CAMPUS ===== -->
+  <h2 class="sec-titulo">De dónde salen estas <em>reglas</em></h2>
+  <p class="sec-sub">Las ventas dentro del campus se rigen por los <em>Lineamientos para ventas universitarias saludables &amp; sustentables + Cero Residuos</em>, que a su vez se apoyan en la normativa federal para la venta de alimentos en escuelas.</p>
+  <div class="marco">
+    <div class="marco-item">
+      <h3>Un solo espacio</h3>
+      <p>El camino que va del edificio principal a la cancha techada, siempre fuera del edificio. No se permite vender dentro de salones ni en pasillos.</p>
+    </div>
+    <div class="marco-item">
+      <h3>Horario permitido</h3>
+      <p>De 7:00 a 16:00 horas. El Mercadito ocupa la franja de 11:00 a 12:00 dentro de ese rango.</p>
+    </div>
+    <div class="marco-item">
+      <h3>Autorización previa</h3>
+      <p>Cada proyecto se presenta por escrito y lo filtra el Área de Sustentabilidad, que notifica a las coordinaciones. El registro cierra una semana antes y la resolución se avisa dos días antes del Mercadito.</p>
+    </div>
+    <div class="marco-item">
+      <h3>Cero Residuos</h3>
+      <p>Prevenir, reducir, reutilizar, reciclar y compostar antes de pensar en el bote de basura. Cada proyecto responde por los residuos que genera.</p>
+    </div>
+    <div class="marco-item">
+      <h3>Si algo no se cumple</h3>
+      <p>El Comité puede retirar el permiso después de dos advertencias. Cumplir bien, en cambio, puede traducirse en reconocimientos e incentivos.</p>
+    </div>
+    <div class="marco-item">
+      <h3>Capacitación</h3>
+      <p>Se pide haber asistido al menos a una capacitación de manejo de residuos en el semestre. Quien no la tomó firma carta responsiva.</p>
+    </div>
+  </div>
+  <p class="marco-links">
+    Referencia obligada: <a href="https://vidasaludable.gob.mx/storage/recursos/materiales/Manual-cooperativas.pdf" target="_blank" rel="noopener">Manual para las personas que preparan, distribuyen y venden alimentos en las escuelas</a> ·
+    <span data-pendiente>Lineamientos completos del campus: enlace por definir</span>
+  </p>
+
+  <!-- ===== RECOMENDACIONES ===== -->
+  <h2 class="sec-titulo">Para truequear <em>bien</em></h2>
+  <p class="sec-sub">Cuatro consejos de quienes ya lo han hecho.</p>
+  <div class="recos">
+    <div class="reco"><h3>Llega temprano</h3><p>Tendrás tiempo de conocer a quienes participan, ver todo primero y decidir qué te resulta útil y prioritario.</p></div>
+    <div class="reco"><h3>Observa y escucha</h3><p>Antes de truequear, conoce bien tu producto. No siempre se cierra el intercambio: a veces lo ofrecido no cubre las prioridades de todas las partes.</p></div>
+    <div class="reco"><h3>Acuerda</h3><p>El trueque es interpersonal. Requiere diálogo, respeto e información completa, y nadie está obligado a aceptar.</p></div>
+    <div class="reco"><h3>Considera donar</h3><p>Si lo que importa es el valor de uso y no el monetario, la donación también es una salida válida.</p></div>
+  </div>
+
+  <!-- ===== REGISTRO ===== -->
+  <h2 class="sec-titulo">Aparta tu <em>lugar</em></h2>
+  <p class="sec-sub">Dos caminos distintos: el trueque se avisa, la venta se autoriza.</p>
+  <div class="cta">
+    <div class="cta-doble">
+      <div class="cta-via">
+        <span class="cta-emoji">🔄</span>
+        <h3>Voy al trueque</h3>
+        <p>Solo avisa qué fecha te queda y cuántos artículos traerás. Sin trámite: el registro se cierra el mismo día con la lista de intercambios.</p>
+        <button class="btn-grande" onclick="abrirModal()">Apartar mi lugar</button>
+      </div>
+      <div class="cta-via">
+        <span class="cta-emoji">🥬</span>
+        <h3>Voy a vender</h3>
+        <p>La venta requiere autorización. El registro cierra una semana antes de cada fecha, lo revisa el Área de Sustentabilidad y la resolución llega dos días antes, con tu ficha de proveedor.</p>
+        <a class="btn-grande" href="registro.html">Llenar la solicitud</a>
+      </div>
+    </div>
+    <p class="cta-contacto">
+      Revisión de solicitudes, residuos y sustentabilidad: Lic. Jhoana Paola Hernández Bravo · jhoana.hernandez@uaq.mx<br>
+      Comité de Planeación campus Concá: Mc. Adán Mercado Luna · adan.mercado@uaq.mx
+    </p>
+  </div>
+
+</div>
+
+<!-- ===== MODAL DE REGISTRO ===== -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)cerrarModal()">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-titulo">
+    <button class="modal-cerrar" onclick="cerrarModal()" aria-label="Cerrar">×</button>
+    <div id="modal-form">
+      <div class="modal-emoji">🛒</div>
+      <h3 class="modal-titulo" id="modal-titulo">Registro al trueque</h3>
+      <p class="modal-sub">Completa tus datos para apartar tu lugar</p>
+
+      <div class="campo">
+        <label for="f-nombre">Nombre completo</label>
+        <input type="text" id="f-nombre" placeholder="Tu nombre">
+      </div>
+      <div class="campo">
+        <label for="f-rol">¿Quién eres?</label>
+        <select id="f-rol">
+          <option value="">Selecciona…</option>
+          <option>Estudiante de bachillerato</option>
+          <option>Estudiante de PAS</option>
+          <option>Estudiante de Ing. Agroindustrial</option>
+          <option>Docente</option>
+          <option>Personal administrativo</option>
+          <option>Persona de la comunidad</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-fecha">¿A qué edición vienes?</label>
+        <select id="f-fecha">
+          <option value="">Selecciona…</option>
+          <option>Jueves 27 de agosto</option>
+          <option>Martes 29 de septiembre</option>
+          <option>Jueves 29 de octubre</option>
+          <option>Jueves 26 de noviembre</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-articulos">¿Cuántos artículos traerás al trueque?</label>
+        <input type="number" id="f-articulos" min="1" max="15" placeholder="Máximo 15">
+        <div class="campo-hint">Este dato nos sirve para la lista de registro del día.</div>
+      </div>
+      <div class="campo">
+        <label for="f-tel">Teléfono (WhatsApp)</label>
+        <input type="tel" id="f-tel" placeholder="441 123 4567">
+        <div class="campo-hint">Lo usaremos solo para avisos del evento.</div>
+      </div>
+      <button class="btn-enviar" onclick="enviarRegistro()">Apartar mi lugar</button>
+    </div>
+    <div class="modal-exito" id="modal-exito" style="display:none;">
+      <div class="check">✅</div>
+      <p><strong>¡Listo!</strong><br>Tu lugar quedó apartado.<br>Te avisaremos por WhatsApp.</p>
+      <button class="btn-enviar" onclick="cerrarModal()" style="margin-top:20px;">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <strong>Franja Libre</strong> · Campus Concá · Sierra Gorda · UAQ · Semestre 2026-2 · <a href="index.html">Volver al inicio</a>
+</footer>
+
+<script>
+// ===== CONMUTADOR DE REQUISITOS =====
+function verPanel(cual) {
+  ['venta','trueque'].forEach(function(k){
+    document.getElementById('panel-'+k).hidden = (k !== cual);
+    document.getElementById('tab-'+k).setAttribute('aria-selected', k === cual);
+  });
+}
+
+// ===== MODAL =====
+function abrirModal() {
+  document.getElementById('modal-form').style.display = 'block';
+  document.getElementById('modal-exito').style.display = 'none';
+  document.getElementById('modal').classList.add('abierto');
+  document.getElementById('f-nombre').focus();
+}
+function cerrarModal() { document.getElementById('modal').classList.remove('abierto'); }
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') cerrarModal(); });
+
+// ===== ENVÍO (pendiente de conectar a Apps Script) =====
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxcPYQHJ7IyymV-b14RfcSS1-x_cD_VpDDedOkww4WWwQ5Zul4tyaC7sWEPBaR_ezBj/exec";
+
+function enviarRegistro() {
+  const datos = {
+    tipo:       'trueque',
+    nombre:     document.getElementById('f-nombre').value.trim(),
+    rol:        document.getElementById('f-rol').value,
+    fecha:      document.getElementById('f-fecha').value,
+    actividad:  'Trueque',
+    articulos:  document.getElementById('f-articulos').value,
+    telefono:   document.getElementById('f-tel').value.trim()
+  };
+  if (!datos.nombre || !datos.rol || !datos.fecha || !datos.telefono) {
+    alert('Faltan datos: completa nombre, rol, fecha y teléfono.');
+    return;
+  }
+  const btn = document.querySelector('#modal-form .btn-enviar');
+  btn.disabled = true; btn.textContent = 'Enviando…';
+
+  if (!SCRIPT_URL) {
+    btn.disabled = false; btn.textContent = 'Apartar mi lugar';
+    document.getElementById('modal-form').style.display = 'none';
+    document.getElementById('modal-exito').style.display = 'block';
+    return;
+  }
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(datos)
+  })
+  .then(r => r.json())
+  .then(data => {
+    btn.disabled = false; btn.textContent = 'Apartar mi lugar';
+    if (data.ok) {
+      document.getElementById('modal-form').style.display = 'none';
+      document.getElementById('modal-exito').style.display = 'block';
+    } else {
+      alert('Hubo un problema al registrar. Intenta de nuevo.');
+    }
+  })
+  .catch(() => {
+    btn.disabled = false; btn.textContent = 'Apartar mi lugar';
+    alert('No se pudo enviar el registro. Revisa tu conexión.');
+  });
+}
+</script>
+
+</body>
+</html>
