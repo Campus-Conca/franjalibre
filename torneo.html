@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Torneo de fútbol mixto · Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="Registro de equipos al torneo de fútbol mixto de la Franja Libre, Campus Concá UAQ. Martes y jueves de 11:00 a 11:30, plantillas de seis con tres mujeres y tres hombres.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --mar:#1A6B5A; --jue:#0D47A1;
+  --mar-l:#E0F2F1; --jue-l:#E3F2FD;
+}
+body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp); line-height:1.5; }
+:focus-visible { outline:3px solid var(--oc); outline-offset:3px; }
+
+/* HERO */
+.hero { background:var(--vp); color:var(--cr); padding:26px 20px 34px; text-align:center; position:relative; overflow:hidden; }
+.hero::before {
+  content:''; position:absolute; top:-90px; right:-70px; width:280px; height:280px;
+  border-radius:50%; background:radial-gradient(circle, rgba(232,168,90,.22), transparent 70%);
+}
+.hero > * { position:relative; }
+.volver { display:inline-block; font-size:13px; font-weight:600; color:var(--vc); text-decoration:none; margin-bottom:20px; }
+.volver:hover { color:var(--oc); }
+.hero-eyebrow { font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--oc); display:block; margin-bottom:10px; }
+.hero h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(27px,5.4vw,42px); line-height:1.1; }
+.hero h1 em { font-style:italic; color:var(--vc); }
+.hero p { font-size:14.5px; color:rgba(245,238,216,.85); max-width:580px; margin:14px auto 0; line-height:1.65; }
+.hero .rapido { display:inline-block; margin-top:16px; background:rgba(232,168,90,.15); border:1px solid rgba(232,168,90,.45); color:var(--oc); border-radius:24px; padding:8px 18px; font-size:13px; font-weight:600; }
+
+.wrap { max-width:720px; margin:0 auto; padding:0 20px 60px; }
+
+/* FICHA DEL TORNEO */
+.ficha { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:12px; margin:22px 0 6px; }
+.ficha div { background:#fff; border:1px solid rgba(26,58,42,.08); border-radius:12px; padding:14px 16px; }
+.ficha dt { font-size:11.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#a9a692; margin-bottom:4px; }
+.ficha dd { font-size:14.5px; font-weight:600; color:var(--vs); line-height:1.4; }
+.ficha dd small { display:block; font-weight:400; font-size:12.5px; color:#999; margin-top:2px; }
+
+/* PASOS */
+.pasos { display:flex; gap:6px; margin:26px 0 0; position:relative; z-index:2; }
+.paso-marca { flex:1; height:6px; border-radius:6px; background:#E2DEC6; transition:background .2s; }
+.paso-marca.hecho { background:var(--vv); }
+.paso-marca.activo { background:var(--oc); }
+.paso-nombre { text-align:center; font-size:12.5px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:#9a9784; margin:10px 0 22px; }
+
+.tarjeta { background:#fff; border-radius:16px; padding:30px 28px; border:1px solid rgba(26,58,42,.08); }
+.tarjeta h2 { font-family:'Fraunces',serif; font-size:24px; font-weight:700; margin-bottom:6px; }
+.tarjeta > .paso > p.intro { font-size:14px; color:#777; line-height:1.6; margin-bottom:22px; }
+.paso[hidden] { display:none; }
+
+.campo { margin-bottom:18px; }
+.campo label, legend { display:block; font-size:14px; font-weight:600; margin-bottom:8px; color:var(--vs); }
+.campo input, .campo select, .campo textarea {
+  width:100%; padding:12px 14px; border:1.5px solid #ddd; border-radius:10px;
+  font-size:16px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff;
+}
+.campo input:focus, .campo select:focus, .campo textarea:focus { outline:none; border-color:var(--vv); }
+.hint { font-size:12.5px; color:#aaa; margin-top:6px; line-height:1.5; }
+.opcional { font-weight:400; color:#aaa; }
+fieldset { border:none; margin-bottom:20px; }
+
+/* PLANTILLA */
+.bloque { margin-bottom:24px; }
+.bloque-titulo { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+.bloque-titulo h3 { font-family:'Fraunces',serif; font-size:19px; font-weight:700; }
+.pastilla { font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; border-radius:20px; padding:4px 11px; }
+.pastilla.f { background:#FDF2E2; color:#B07A28; }
+.pastilla.m { background:#E9F4EC; color:var(--vs); }
+.jugador { display:flex; gap:10px; margin-bottom:10px; align-items:center; }
+.jugador .num {
+  flex:0 0 30px; height:30px; border-radius:50%; background:#F2EFE0; color:#8f8c7a;
+  font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center;
+}
+.jugador input { flex:1 1 52%; min-width:0; padding:11px 13px; border:1.5px solid #ddd; border-radius:10px; font-size:16px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff; }
+.jugador select { flex:1 1 48%; min-width:0; padding:11px 10px; border:1.5px solid #ddd; border-radius:10px; font-size:14.5px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff; }
+.jugador input:focus, .jugador select:focus { outline:none; border-color:var(--vv); }
+.mezcla { background:#FAF9F1; border:1px dashed #E0DCC4; border-radius:12px; padding:13px 16px; font-size:13.5px; color:#777; line-height:1.6; }
+.mezcla strong { color:var(--vs); }
+
+/* OPCIONES */
+.opcion { display:flex; gap:12px; align-items:flex-start; background:#FAF9F1; border:1.5px solid #E6E2CC; border-radius:10px; padding:13px 15px; margin-bottom:8px; cursor:pointer; }
+.opcion:hover { border-color:var(--vc); }
+.opcion input { margin-top:2px; flex-shrink:0; width:19px; height:19px; accent-color:var(--vv); }
+.opcion span { font-size:14.5px; line-height:1.5; }
+.opcion small { display:block; color:#999; font-size:12.5px; margin-top:2px; }
+.opcion.dia-mar { border-left:5px solid var(--mar); }
+.opcion.dia-jue { border-left:5px solid var(--jue); }
+.opcion.dia-mar:has(input:checked) { background:var(--mar-l); border-color:var(--mar); }
+.opcion.dia-jue:has(input:checked) { background:var(--jue-l); border-color:var(--jue); }
+.duo-si-no { display:flex; gap:8px; }
+.duo-si-no .opcion { flex:1; margin-bottom:0; }
+
+.alerta { border-radius:12px; padding:14px 18px; font-size:13.5px; line-height:1.6; margin-bottom:18px; }
+.alerta.amb { background:#FFF6E6; border:1px solid rgba(232,168,90,.5); color:#8A5A18; }
+.alerta.verde { background:#EAF5EC; border:1px solid rgba(74,140,92,.35); color:var(--vs); }
+.alerta[hidden] { display:none; }
+
+.acciones { display:flex; gap:10px; justify-content:space-between; margin-top:26px; }
+.btn { border:none; border-radius:28px; padding:14px 30px; font-size:15px; font-weight:600; cursor:pointer; font-family:'Instrument Sans',sans-serif; transition:background .15s; }
+.btn-prim { background:var(--vv); color:#fff; }
+.btn-prim:hover { background:var(--vs); }
+.btn-prim:disabled { background:#ccc; cursor:not-allowed; }
+.btn-sec { background:transparent; color:var(--vs); border:1.5px solid var(--vv); }
+.btn-sec:hover { background:rgba(74,140,92,.1); }
+
+.resumen { background:#FAF9F1; border-radius:12px; padding:20px 22px; margin-bottom:20px; }
+.resumen h3 { font-family:'Fraunces',serif; font-size:18px; margin-bottom:12px; }
+.resumen dl { display:grid; grid-template-columns:auto 1fr; gap:8px 16px; font-size:13.5px; }
+.resumen dt { font-weight:600; color:var(--vs); }
+.resumen dd { color:#555; white-space:pre-wrap; }
+
+.exito { text-align:center; padding:20px 0; }
+.exito .check { font-size:56px; }
+.exito h2 { font-family:'Fraunces',serif; font-size:26px; margin:10px 0 8px; }
+.exito p { font-size:15px; color:#666; line-height:1.7; max-width:470px; margin:0 auto 8px; }
+
+footer { background:var(--vp); color:var(--vc); text-align:center; padding:26px 20px; font-size:12.5px; line-height:1.8; }
+footer strong { color:var(--oc); }
+footer a { color:var(--vc); }
+
+@media print {
+  .hero, footer, .acciones, .pasos, .paso-nombre, .ficha { display:none !important; }
+  body { background:#fff; }
+  .tarjeta { border:none; padding:0; }
+}
+@media (max-width:600px) {
+  .acciones { flex-direction:column-reverse; }
+  .btn { width:100%; }
+  .jugador { flex-wrap:wrap; }
+  .jugador input { flex:1 1 100%; }
+  .jugador select { flex:1 1 100%; margin-left:40px; }
+  .resumen dl { grid-template-columns:1fr; gap:2px 0; }
+  .resumen dd { margin-bottom:10px; }
+}
+</style>
+
+<!-- ═══ CERROJO DE VISTA PREVIA ═══
+     Mientras esté aquí, la página solo abre con ?preview al final de la URL.
+     Para publicarla: borra la etiqueta <style id="cerrojo-css"> y el <script> que sigue. -->
+<style id="cerrojo-css">body{visibility:hidden}</style>
+<script>
+(function () {
+  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
+
+  function abrir() {
+    var css = document.getElementById('cerrojo-css');
+    if (css) css.remove();
+    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
+      if (a.getAttribute('href').indexOf('preview') === -1) {
+        a.setAttribute('href', a.getAttribute('href') + '?preview');
+      }
+    });
+    var aviso = document.createElement('div');
+    aviso.className = 'cinta-preview';
+    aviso.textContent = 'Vista previa · esta página todavía no se publica';
+    document.body.insertBefore(aviso, document.body.firstChild);
+  }
+
+  function cerrar() {
+    document.body.innerHTML =
+      '<div class="espera">' +
+        '<span class="espera-emoji">⚽</span>' +
+        '<h1>Próximamente</h1>' +
+        '<p>El registro al torneo todavía no se abre. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
+        '<a href="index.html">← Volver a Franja Libre</a>' +
+      '</div>';
+    var css = document.getElementById('cerrojo-css');
+    if (css) css.remove();
+  }
+
+  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
+})();
+</script>
+<style>
+.cinta-preview {
+  background:#E8A85A; color:#3A2A10; text-align:center;
+  font-family:'Instrument Sans',sans-serif; font-size:12.5px; font-weight:600;
+  letter-spacing:.08em; text-transform:uppercase; padding:8px 16px;
+}
+.espera {
+  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:40px 24px; background:#1A3A2A; color:#F5EED8;
+  font-family:'Instrument Sans',sans-serif;
+}
+.espera-emoji { font-size:54px; margin-bottom:14px; }
+.espera h1 { font-family:'Fraunces',serif; font-size:38px; font-weight:900; margin-bottom:12px; }
+.espera p { font-size:15.5px; color:rgba(245,238,216,.8); max-width:420px; line-height:1.7; margin-bottom:26px; }
+.espera a { color:#7AB88A; font-size:14px; font-weight:600; text-decoration:none; }
+.espera a:hover { color:#E8A85A; }
+</style>
+<!-- ═══ FIN DEL CERROJO ═══ -->
+</head>
+<body>
+
+<header class="hero">
+  <a class="volver" href="index.html">← Franja Libre</a>
+  <span class="hero-eyebrow">Franja Libre · Semestre 2026-2 · Campus Concá</span>
+  <h1>Torneo de fútbol <em>mixto</em></h1>
+  <p>Media hora de cancha en medio de la mañana. Los partidos se juegan de 11:00 a 11:30, martes o jueves, con equipos de seis: tres mujeres y tres hombres. Pueden jugar estudiantes de los tres programas, docentes y administrativos, en cualquier combinación. El calendario y el sistema de competencia se arman una vez que se cierre el registro, con los equipos que hayan quedado.</p>
+  <span class="rapido">⚽ Registrar un equipo toma tres minutos</span>
+</header>
+
+<div class="wrap">
+
+  <dl class="ficha">
+    <div><dt>Cuándo</dt><dd>Martes y jueves<small>11:00 a 11:30 h</small></dd></div>
+    <div><dt>Plantilla</dt><dd>Seis personas<small>3 mujeres y 3 hombres</small></dd></div>
+    <div><dt>En cancha</dt><dd>Cinco por lado<small>3 hombres y 2 mujeres</small></dd></div>
+    <div><dt>Quién puede</dt><dd>Toda la comunidad<small>Estudiantes, docentes y administrativos</small></dd></div>
+  </dl>
+
+  <div class="pasos" aria-hidden="true">
+    <div class="paso-marca activo" data-marca="1"></div>
+    <div class="paso-marca" data-marca="2"></div>
+    <div class="paso-marca" data-marca="3"></div>
+  </div>
+  <p class="paso-nombre" id="paso-nombre">Paso 1 de 3 · El equipo</p>
+
+  <div class="tarjeta">
+
+    <!-- PASO 1 -->
+    <section class="paso" id="paso-1">
+      <h2>El equipo</h2>
+      <p class="intro">Un nombre que se pueda gritar desde la banca y una persona que reciba los avisos. A ese contacto llegan el calendario, los cambios de horario y los resultados.</p>
+
+      <div class="campo">
+        <label for="equipo">Nombre del equipo</label>
+        <input type="text" id="equipo" maxlength="40" placeholder="Ej. Las Chicharras">
+        <p class="hint">Hasta 40 caracteres. Si otro equipo ya lo eligió, se avisa por WhatsApp para cambiarlo.</p>
+      </div>
+
+      <div class="campo">
+        <label for="color">Color de playera <span class="opcional">(opcional)</span></label>
+        <input type="text" id="color" maxlength="30" placeholder="Ej. verde, blanco, negro">
+        <p class="hint">Sirve para que dos equipos del mismo color no queden emparejados el mismo día.</p>
+      </div>
+
+      <div class="campo">
+        <label for="capitan">Capitán o capitana del equipo</label>
+        <input type="text" id="capitan" autocomplete="name" placeholder="Nombre y apellidos">
+        <p class="hint">Debe ser una de las seis personas de la plantilla.</p>
+      </div>
+      <div class="campo">
+        <label for="tel">Teléfono (WhatsApp)</label>
+        <input type="tel" id="tel" inputmode="tel" autocomplete="tel" placeholder="441 123 4567">
+      </div>
+      <div class="campo">
+        <label for="correo">Correo electrónico</label>
+        <input type="email" id="correo" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="tucorreo@uaq.mx">
+      </div>
+
+      <div class="acciones">
+        <span></span>
+        <button class="btn btn-prim" onclick="siguiente(1)">Continuar</button>
+      </div>
+    </section>
+
+    <!-- PASO 2 -->
+    <section class="paso" id="paso-2" hidden>
+      <h2>La plantilla</h2>
+      <p class="intro">Seis personas: tres mujeres y tres hombres. En cancha juegan cinco —tres hombres y dos mujeres— y la sexta entra en los cambios, de manera que siempre haya alguien de relevo. Anota a todas, incluida quien capitanea.</p>
+
+      <div class="bloque">
+        <div class="bloque-titulo">
+          <h3>Mujeres</h3>
+          <span class="pastilla f">Tres</span>
+        </div>
+        <div class="jugador"><span class="num">1</span><input type="text" id="f1" placeholder="Nombre y apellidos"><select id="fa1" class="adsc"></select></div>
+        <div class="jugador"><span class="num">2</span><input type="text" id="f2" placeholder="Nombre y apellidos"><select id="fa2" class="adsc"></select></div>
+        <div class="jugador"><span class="num">3</span><input type="text" id="f3" placeholder="Nombre y apellidos"><select id="fa3" class="adsc"></select></div>
+      </div>
+
+      <div class="bloque">
+        <div class="bloque-titulo">
+          <h3>Hombres</h3>
+          <span class="pastilla m">Tres</span>
+        </div>
+        <div class="jugador"><span class="num">4</span><input type="text" id="h1" placeholder="Nombre y apellidos"><select id="ha1" class="adsc"></select></div>
+        <div class="jugador"><span class="num">5</span><input type="text" id="h2" placeholder="Nombre y apellidos"><select id="ha2" class="adsc"></select></div>
+        <div class="jugador"><span class="num">6</span><input type="text" id="h3" placeholder="Nombre y apellidos"><select id="ha3" class="adsc"></select></div>
+      </div>
+
+      <p class="mezcla" id="mezcla">La mezcla del equipo aparece aquí conforme se llena.</p>
+
+      <div class="acciones">
+        <button class="btn btn-sec" onclick="anterior(2)">Atrás</button>
+        <button class="btn btn-prim" onclick="siguiente(2)">Continuar</button>
+      </div>
+    </section>
+
+    <!-- PASO 3 -->
+    <section class="paso" id="paso-3" hidden>
+      <h2>Disponibilidad y compromiso</h2>
+      <p class="intro">Con esta información se arma el calendario. Entre más abierta sea la disponibilidad, más fácil resulta acomodar a todos en la misma franja de treinta minutos.</p>
+
+      <fieldset>
+        <legend>¿Qué días puede jugar el equipo?</legend>
+        <label class="opcion dia-mar"><input type="checkbox" class="dia" value="Martes"><span>Martes, 11:00 a 11:30<small>La mayoría de los talleres de la Franja Libre corren en paralelo</small></span></label>
+        <label class="opcion dia-jue"><input type="checkbox" class="dia" value="Jueves"><span>Jueves, 11:00 a 11:30<small>Algunas fechas se suspenden por eventos especiales del campus</small></span></label>
+      </fieldset>
+      <div class="alerta amb" id="alerta-dia" hidden>Con un solo día disponible el equipo entra al calendario, pero le tocan menos partidos y con menos margen para reprogramar. Si pueden los dos, márquenlos.</div>
+
+      <div class="campo">
+        <label for="restricciones">¿Hay semanas en que el equipo no podrá presentarse? <span class="opcional">(opcional)</span></label>
+        <input type="text" id="restricciones" maxlength="120" placeholder="Ej. prácticas de campo la primera semana de octubre">
+        <p class="hint">Prácticas de campo, salidas, exámenes departamentales. Se toma en cuenta al armar el calendario.</p>
+      </div>
+
+      <fieldset>
+        <legend>¿Alguien del equipo puede apoyar como árbitro o en la mesa de resultados los días que no jueguen?</legend>
+        <div class="duo-si-no">
+          <label class="opcion"><input type="radio" name="apoyo" value="Sí"><span>Sí</span></label>
+          <label class="opcion"><input type="radio" name="apoyo" value="No"><span>Por ahora no</span></label>
+        </div>
+        <div class="campo" id="campo-apoyo" hidden style="margin-top:10px;">
+          <label for="apoyo-quien">¿Quién?</label>
+          <input type="text" id="apoyo-quien" maxlength="80" placeholder="Nombre de quien apoya">
+        </div>
+      </fieldset>
+
+      <div class="resumen" id="resumen"></div>
+
+      <label class="opcion" style="margin-bottom:16px;">
+        <input type="checkbox" id="compromiso">
+        <span>Aceptamos las condiciones del torneo.
+          <small>Nos presentamos a las 11:00 en punto, mantenemos en cancha tres hombres y dos mujeres, avisamos con anticipación cuando no podamos jugar, jugamos con respeto dentro y fuera de la cancha, y dejamos limpio el espacio al terminar.</small>
+        </span>
+      </label>
+
+      <div class="alerta verde">El calendario y el sistema de competencia se definen con los equipos que se hayan registrado y se publican en la página de la Franja Libre. Si el número de equipos lo permite, se juegan dos partidos simultáneos por franja.</div>
+
+      <div class="acciones">
+        <button class="btn btn-sec" onclick="anterior(3)">Atrás</button>
+        <button class="btn btn-prim" id="btn-enviar" onclick="enviar()">Registrar equipo</button>
+      </div>
+    </section>
+
+    <!-- ÉXITO -->
+    <section class="paso exito" id="paso-exito" hidden>
+      <div class="check">⚽</div>
+      <h2>Equipo registrado</h2>
+      <p>Al cerrar el registro se arman el calendario y el sistema de competencia con todos los equipos inscritos. El rol de partidos llega al WhatsApp de quien capitanea y se publica en la página de la Franja Libre.</p>
+      <p>Mientras tanto, conviene ir acordando quién entra en los cambios y confirmar que las seis personas puedan a las 11:00.</p>
+      <div class="acciones" style="justify-content:center;">
+        <button class="btn btn-sec" onclick="window.print()">Imprimir una copia</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <strong>Franja Libre · Campus Concá · UAQ</strong><br>
+  Semestre 2026-2 · Martes y jueves de 11:00 a 11:30<br>
+  <a href="index.html">Volver a la Franja Libre</a>
+</footer>
+
+<script>
+// ===== CATÁLOGO DE ADSCRIPCIONES =====
+var ADSCRIPCIONES = [
+  'Escuela de Bachilleres',
+  'Producción Agropecuaria Sustentable',
+  'Ingeniería Agroindustrial',
+  'Personal docente',
+  'Personal administrativo'
+];
+document.querySelectorAll('select.adsc').forEach(function (s) {
+  var html = '<option value="">Adscripción…</option>';
+  ADSCRIPCIONES.forEach(function (a) { html += '<option>' + a + '</option>'; });
+  s.innerHTML = html;
+});
+
+var IDS_F = ['f1','f2','f3'], IDS_H = ['h1','h2','h3'];
+var IDS_FA = ['fa1','fa2','fa3'], IDS_HA = ['ha1','ha2','ha3'];
+
+// ===== PASOS =====
+var nombres = ['El equipo','La plantilla','Disponibilidad y compromiso'];
+
+function verPaso(n) {
+  for (var i=1;i<=3;i++) document.getElementById('paso-'+i).hidden = (i !== n);
+  document.querySelectorAll('.paso-marca').forEach(function(m){
+    var k = parseInt(m.dataset.marca,10);
+    m.className = 'paso-marca' + (k < n ? ' hecho' : (k === n ? ' activo' : ''));
+  });
+  document.getElementById('paso-nombre').textContent = 'Paso ' + n + ' de 3 · ' + nombres[n-1];
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function anterior(n) { verPaso(n-1); }
+
+function siguiente(n) {
+  if (n === 1) {
+    if (!val('equipo')) return alert('Ponle nombre al equipo.');
+    if (!val('capitan')) return alert('Falta quién capitanea.');
+    if (!val('tel')) return alert('Falta el teléfono de contacto.');
+    if (!val('correo') || val('correo').indexOf('@') < 1) return alert('Falta un correo electrónico válido.');
+  }
+  if (n === 2) {
+    var faltan = plantilla().filter(function(p){ return !p.nombre || !p.adscripcion; });
+    if (faltan.length) return alert('Faltan datos de ' + faltan.length + ' integrante(s): cada quien necesita nombre y adscripción.');
+    if (repetidos().length) return alert('Hay nombres repetidos en la plantilla: ' + repetidos().join(', '));
+    armarResumen();
+  }
+  verPaso(n+1);
+}
+
+// ===== UTILIDADES =====
+function val(id) { return document.getElementById(id).value.trim(); }
+function radio(nombre) {
+  var m = document.querySelector('input[name="'+nombre+'"]:checked');
+  return m ? m.value : '';
+}
+function plantilla() {
+  var lista = [];
+  IDS_F.forEach(function(id,i){ lista.push({ nombre:val(id), genero:'Mujer', adscripcion:val(IDS_FA[i]) }); });
+  IDS_H.forEach(function(id,i){ lista.push({ nombre:val(id), genero:'Hombre', adscripcion:val(IDS_HA[i]) }); });
+  return lista;
+}
+function repetidos() {
+  var vistos = {}, repes = [];
+  plantilla().forEach(function(p){
+    var k = p.nombre.toLowerCase().replace(/\s+/g,' ');
+    if (!k) return;
+    if (vistos[k]) { if (repes.indexOf(p.nombre) === -1) repes.push(p.nombre); }
+    vistos[k] = true;
+  });
+  return repes;
+}
+function diasElegidos() {
+  return Array.prototype.slice.call(document.querySelectorAll('.dia:checked')).map(function(c){ return c.value; });
+}
+function escapar(t) {
+  return String(t).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; });
+}
+
+// ===== MEZCLA EN VIVO =====
+document.getElementById('paso-2').addEventListener('input', pintarMezcla);
+document.getElementById('paso-2').addEventListener('change', pintarMezcla);
+function pintarMezcla() {
+  var cuenta = {}, total = 0;
+  plantilla().forEach(function(p){
+    if (!p.adscripcion) return;
+    cuenta[p.adscripcion] = (cuenta[p.adscripcion]||0) + 1;
+    total++;
+  });
+  var caja = document.getElementById('mezcla');
+  if (!total) { caja.textContent = 'La mezcla del equipo aparece aquí conforme se llena.'; return; }
+  var partes = Object.keys(cuenta).map(function(k){
+    return '<strong>' + cuenta[k] + '</strong> de ' + escapar(k);
+  });
+  var cola = total < 6 ? ' · faltan ' + (6-total) + ' por definir' : '';
+  caja.innerHTML = 'Este equipo junta ' + partes.join(', ') + cola + '.';
+}
+
+// ===== AVISOS EN VIVO =====
+document.querySelectorAll('.dia').forEach(function(c){
+  c.addEventListener('change', function(){
+    document.getElementById('alerta-dia').hidden = (diasElegidos().length !== 1);
+    armarResumen();
+  });
+});
+document.querySelectorAll('input[name="apoyo"]').forEach(function(r){
+  r.addEventListener('change', function(){
+    document.getElementById('campo-apoyo').hidden = (radio('apoyo') !== 'Sí');
+  });
+});
+document.getElementById('paso-3').addEventListener('change', armarResumen);
+document.getElementById('paso-3').addEventListener('input', armarResumen);
+
+// ===== DATOS Y RESUMEN =====
+function datos() {
+  var p = plantilla();
+  return {
+    tipo: 'torneo',
+    equipo: val('equipo'), color: val('color'),
+    capitan: val('capitan'), telefono: val('tel'), correo: val('correo'),
+    dias: diasElegidos().join('; '),
+    restricciones: val('restricciones'),
+    apoyo: radio('apoyo'), apoyoQuien: radio('apoyo') === 'Sí' ? val('apoyo-quien') : '',
+    integrantes: p,
+    plantilla: p.map(function(x){ return x.nombre + ' (' + x.genero.charAt(0) + ' · ' + x.adscripcion + ')'; }).join('\n'),
+    horario: '11:00 a 11:30 h',
+    enviada: new Date().toLocaleString('es-MX')
+  };
+}
+function armarResumen() {
+  var d = datos();
+  var filas = [
+    ['Equipo', d.equipo],
+    ['Color', d.color || '—'],
+    ['Capitanea', d.capitan],
+    ['Contacto', d.correo + ' · ' + d.telefono],
+    ['Plantilla', d.plantilla],
+    ['Días', d.dias || 'Sin elegir'],
+    ['Horario', d.horario],
+    ['No pueden', d.restricciones || '—'],
+    ['Apoyo en cancha', d.apoyo ? (d.apoyo === 'Sí' ? 'Sí · ' + (d.apoyoQuien || 'por definir') : 'Por ahora no') : '—']
+  ];
+  document.getElementById('resumen').innerHTML =
+    '<h3>Tu registro</h3><dl>' +
+    filas.map(function(f){ return '<dt>'+f[0]+'</dt><dd>'+escapar(f[1])+'</dd>'; }).join('') +
+    '</dl>';
+}
+
+// ===== ENVÍO =====
+// Pega aquí la URL /exec de la aplicación web de Apps Script del torneo.
+const SCRIPT_URL = "";
+
+function enviar() {
+  if (diasElegidos().length === 0) return alert('Elige al menos un día en que el equipo pueda jugar.');
+  if (!radio('apoyo')) return alert('Indica si alguien del equipo puede apoyar como árbitro o en la mesa.');
+  if (!document.getElementById('compromiso').checked) return alert('Falta aceptar las condiciones del torneo.');
+
+  var btn = document.getElementById('btn-enviar');
+  btn.disabled = true; btn.textContent = 'Registrando…';
+
+  if (!SCRIPT_URL) { verExito(); return; }
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(datos())
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(data){
+    btn.disabled = false; btn.textContent = 'Registrar equipo';
+    if (data.ok) { verExito(); }
+    else if (data.error === 'duplicado') { alert('Ya hay un equipo registrado con ese nombre. Elige otro.'); verPaso(1); }
+    else { alert('Hubo un problema al registrar. Intenta de nuevo.'); }
+  })
+  .catch(function(){
+    btn.disabled = false; btn.textContent = 'Registrar equipo';
+    alert('No se pudo enviar el registro. Revisa tu conexión.');
+  });
+}
+function verExito() {
+  for (var i=1;i<=3;i++) document.getElementById('paso-'+i).hidden = true;
+  document.getElementById('paso-exito').hidden = false;
+  document.querySelectorAll('.paso-marca').forEach(function(m){ m.className = 'paso-marca hecho'; });
+  document.getElementById('paso-nombre').textContent = 'Equipo registrado';
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+</script>
+
+</body>
+</html>
