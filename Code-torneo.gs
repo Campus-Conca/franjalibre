@@ -21,8 +21,7 @@ var HOJA_INTEGRANTES = 'Integrantes';
 
 var COLS_EQUIPOS = [
   'Fecha de registro', 'Equipo', 'Color', 'Capitanea', 'WhatsApp', 'Correo',
-  'Días disponibles', 'No pueden', 'Apoyo en cancha', 'Quién apoya',
-  'Mujeres', 'Hombres', 'Plantilla', 'Estado', 'Observaciones'
+  'Días disponibles', 'Mujeres', 'Hombres', 'Plantilla', 'Estado', 'Observaciones'
 ];
 var COLS_INTEGRANTES = [
   'Fecha de registro', 'Equipo', 'Nombre', 'Género', 'Adscripción'
@@ -76,8 +75,7 @@ function doPost(e) {
 
     equipos.appendRow([
       sello, d.equipo || '', d.color || '', d.capitan || '', d.telefono || '', d.correo || '',
-      d.dias || '', d.restricciones || '', d.apoyo || '', d.apoyoQuien || '',
-      mujeres, hombres, d.plantilla || '', 'Registrado', ''
+      d.dias || '', mujeres, hombres, d.plantilla || '', 'Registrado', ''
     ]);
 
     if (gente.length) {
@@ -145,8 +143,6 @@ function avisar(d, gente) {
     'Contacto: ' + (d.correo || '') + ' · ' + (d.telefono || '') + '\n\n' +
     'PLANTILLA\n' + lista + '\n\n' +
     'Días disponibles: ' + (d.dias || '—') + '\n' +
-    'No pueden: ' + (d.restricciones || '—') + '\n' +
-    'Apoyo en cancha: ' + (d.apoyo || '—') + (d.apoyoQuien ? ' (' + d.apoyoQuien + ')' : '') + '\n' +
     'Registrado: ' + (d.enviada || '') + '\n';
 
   MailApp.sendEmail({

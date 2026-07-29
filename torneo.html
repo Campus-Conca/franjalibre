@@ -305,24 +305,6 @@ footer a { color:var(--vc); }
       </fieldset>
       <div class="alerta amb" id="alerta-dia" hidden>Con un solo día disponible el equipo entra al calendario, pero le tocan menos partidos y con menos margen para reprogramar. Si pueden los dos, márquenlos.</div>
 
-      <div class="campo">
-        <label for="restricciones">¿Hay semanas en que el equipo no podrá presentarse? <span class="opcional">(opcional)</span></label>
-        <input type="text" id="restricciones" maxlength="120" placeholder="Ej. prácticas de campo la primera semana de octubre">
-        <p class="hint">Prácticas de campo, salidas, exámenes departamentales. Se toma en cuenta al armar el calendario.</p>
-      </div>
-
-      <fieldset>
-        <legend>¿Alguien del equipo puede apoyar como árbitro o en la mesa de resultados los días que no jueguen?</legend>
-        <div class="duo-si-no">
-          <label class="opcion"><input type="radio" name="apoyo" value="Sí"><span>Sí</span></label>
-          <label class="opcion"><input type="radio" name="apoyo" value="No"><span>Por ahora no</span></label>
-        </div>
-        <div class="campo" id="campo-apoyo" hidden style="margin-top:10px;">
-          <label for="apoyo-quien">¿Quién?</label>
-          <input type="text" id="apoyo-quien" maxlength="80" placeholder="Nombre de quien apoya">
-        </div>
-      </fieldset>
-
       <div class="resumen" id="resumen"></div>
 
       <label class="opcion" style="margin-bottom:16px;">
@@ -332,7 +314,7 @@ footer a { color:var(--vc); }
         </span>
       </label>
 
-      <div class="alerta verde">El calendario y el sistema de competencia se definen con los equipos que se hayan registrado y se publican en la página de la Franja Libre. Si el número de equipos lo permite, se juegan dos partidos simultáneos por franja.</div>
+      <div class="alerta verde">El calendario y el sistema de competencia se definen con los equipos que se hayan registrado y se publican en la página de la Franja Libre. El arbitraje y la mesa de resultados quedan a cargo de la coordinación de deportes del campus.</div>
 
       <div class="acciones">
         <button class="btn btn-sec" onclick="anterior(3)">Atrás</button>
@@ -410,10 +392,6 @@ function siguiente(n) {
 
 // ===== UTILIDADES =====
 function val(id) { return document.getElementById(id).value.trim(); }
-function radio(nombre) {
-  var m = document.querySelector('input[name="'+nombre+'"]:checked');
-  return m ? m.value : '';
-}
 function plantilla() {
   var lista = [];
   IDS_F.forEach(function(id,i){ lista.push({ nombre:val(id), genero:'Mujer', adscripcion:val(IDS_FA[i]) }); });
@@ -463,11 +441,6 @@ document.querySelectorAll('.dia').forEach(function(c){
     armarResumen();
   });
 });
-document.querySelectorAll('input[name="apoyo"]').forEach(function(r){
-  r.addEventListener('change', function(){
-    document.getElementById('campo-apoyo').hidden = (radio('apoyo') !== 'Sí');
-  });
-});
 document.getElementById('paso-3').addEventListener('change', armarResumen);
 document.getElementById('paso-3').addEventListener('input', armarResumen);
 
@@ -479,8 +452,6 @@ function datos() {
     equipo: val('equipo'), color: val('color'),
     capitan: val('capitan'), telefono: val('tel'), correo: val('correo'),
     dias: diasElegidos().join('; '),
-    restricciones: val('restricciones'),
-    apoyo: radio('apoyo'), apoyoQuien: radio('apoyo') === 'Sí' ? val('apoyo-quien') : '',
     integrantes: p,
     plantilla: p.map(function(x){ return x.nombre + ' (' + x.genero.charAt(0) + ' · ' + x.adscripcion + ')'; }).join('\n'),
     horario: '11:00 a 11:30 h',
@@ -496,9 +467,7 @@ function armarResumen() {
     ['Contacto', d.correo + ' · ' + d.telefono],
     ['Plantilla', d.plantilla],
     ['Días', d.dias || 'Sin elegir'],
-    ['Horario', d.horario],
-    ['No pueden', d.restricciones || '—'],
-    ['Apoyo en cancha', d.apoyo ? (d.apoyo === 'Sí' ? 'Sí · ' + (d.apoyoQuien || 'por definir') : 'Por ahora no') : '—']
+    ['Horario', d.horario]
   ];
   document.getElementById('resumen').innerHTML =
     '<h3>Tu registro</h3><dl>' +
@@ -512,7 +481,6 @@ const SCRIPT_URL = "";
 
 function enviar() {
   if (diasElegidos().length === 0) return alert('Elige al menos un día en que el equipo pueda jugar.');
-  if (!radio('apoyo')) return alert('Indica si alguien del equipo puede apoyar como árbitro o en la mesa.');
   if (!document.getElementById('compromiso').checked) return alert('Falta aceptar las condiciones del torneo.');
 
   var btn = document.getElementById('btn-enviar');
