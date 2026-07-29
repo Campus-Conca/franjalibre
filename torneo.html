@@ -138,62 +138,6 @@ footer a { color:var(--vc); }
   .resumen dd { margin-bottom:10px; }
 }
 </style>
-
-<!-- ═══ CERROJO DE VISTA PREVIA ═══
-     Mientras esté aquí, la página solo abre con ?preview al final de la URL.
-     Para publicarla: borra la etiqueta <style id="cerrojo-css"> y el <script> que sigue. -->
-<style id="cerrojo-css">body{visibility:hidden}</style>
-<script>
-(function () {
-  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
-
-  function abrir() {
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
-      if (a.getAttribute('href').indexOf('preview') === -1) {
-        a.setAttribute('href', a.getAttribute('href') + '?preview');
-      }
-    });
-    var aviso = document.createElement('div');
-    aviso.className = 'cinta-preview';
-    aviso.textContent = 'Vista previa · esta página todavía no se publica';
-    document.body.insertBefore(aviso, document.body.firstChild);
-  }
-
-  function cerrar() {
-    document.body.innerHTML =
-      '<div class="espera">' +
-        '<span class="espera-emoji">⚽</span>' +
-        '<h1>Próximamente</h1>' +
-        '<p>El registro al torneo todavía no se abre. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
-        '<a href="index.html">← Volver a Franja Libre</a>' +
-      '</div>';
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-  }
-
-  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
-})();
-</script>
-<style>
-.cinta-preview {
-  background:#E8A85A; color:#3A2A10; text-align:center;
-  font-family:'Instrument Sans',sans-serif; font-size:12.5px; font-weight:600;
-  letter-spacing:.08em; text-transform:uppercase; padding:8px 16px;
-}
-.espera {
-  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:40px 24px; background:#1A3A2A; color:#F5EED8;
-  font-family:'Instrument Sans',sans-serif;
-}
-.espera-emoji { font-size:54px; margin-bottom:14px; }
-.espera h1 { font-family:'Fraunces',serif; font-size:38px; font-weight:900; margin-bottom:12px; }
-.espera p { font-size:15.5px; color:rgba(245,238,216,.8); max-width:420px; line-height:1.7; margin-bottom:26px; }
-.espera a { color:#7AB88A; font-size:14px; font-weight:600; text-decoration:none; }
-.espera a:hover { color:#E8A85A; }
-</style>
-<!-- ═══ FIN DEL CERROJO ═══ -->
 </head>
 <body>
 
