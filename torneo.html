@@ -248,10 +248,7 @@ footer a { color:var(--vc); }
       <div class="campo">
         <label for="tel">Teléfono (WhatsApp)</label>
         <input type="tel" id="tel" inputmode="tel" autocomplete="tel" placeholder="441 123 4567">
-      </div>
-      <div class="campo">
-        <label for="correo">Correo electrónico</label>
-        <input type="email" id="correo" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" placeholder="tucorreo@uaq.mx">
+        <p class="hint">Por aquí llegan el calendario y los avisos del torneo.</p>
       </div>
 
       <div class="acciones">
@@ -379,7 +376,6 @@ function siguiente(n) {
     if (!val('equipo')) return alert('Ponle nombre al equipo.');
     if (!val('capitan')) return alert('Falta quién capitanea.');
     if (!val('tel')) return alert('Falta el teléfono de contacto.');
-    if (!val('correo') || val('correo').indexOf('@') < 1) return alert('Falta un correo electrónico válido.');
   }
   if (n === 2) {
     var faltan = plantilla().filter(function(p){ return !p.nombre || !p.adscripcion; });
@@ -450,7 +446,7 @@ function datos() {
   return {
     tipo: 'torneo',
     equipo: val('equipo'), color: val('color'),
-    capitan: val('capitan'), telefono: val('tel'), correo: val('correo'),
+    capitan: val('capitan'), telefono: val('tel'),
     dias: diasElegidos().join('; '),
     integrantes: p,
     plantilla: p.map(function(x){ return x.nombre + ' (' + x.genero.charAt(0) + ' · ' + x.adscripcion + ')'; }).join('\n'),
@@ -464,7 +460,7 @@ function armarResumen() {
     ['Equipo', d.equipo],
     ['Color', d.color || '—'],
     ['Capitanea', d.capitan],
-    ['Contacto', d.correo + ' · ' + d.telefono],
+    ['WhatsApp', d.telefono],
     ['Plantilla', d.plantilla],
     ['Días', d.dias || 'Sin elegir'],
     ['Horario', d.horario]

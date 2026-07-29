@@ -5,7 +5,8 @@
  * CÓMO INSTALARLO
  *  1. Crea una hoja de cálculo nueva en Drive: "Torneo Franja Libre 2026-2".
  *  2. Extensiones → Apps Script. Borra el contenido y pega este archivo.
- *  3. Cambia CORREO_ORGANIZA por el correo que debe recibir los avisos.
+ *  3. Cambia CORREO_ORGANIZA por el correo que debe recibir los avisos, o déjalo
+ *     vacío ('') si prefieres que todo quede solo en la hoja, sin correo alguno.
  *  4. Ejecuta una vez la función preparar() para crear las pestañas y encabezados.
  *  5. Implementar → Nueva implementación → Aplicación web.
  *       Ejecutar como: Yo.   Quién tiene acceso: Cualquier usuario.
@@ -15,12 +16,12 @@
  * (o actualizar la versión) para que la URL /exec sirva el código nuevo.
  */
 
-var CORREO_ORGANIZA = 'eduardo.lusan@gmail.com';   // ← a quién le llegan los avisos
+var CORREO_ORGANIZA = 'eduardo.lusan@gmail.com';   // ← avisos por equipo nuevo; '' para desactivarlos
 var HOJA_EQUIPOS = 'Equipos';
 var HOJA_INTEGRANTES = 'Integrantes';
 
 var COLS_EQUIPOS = [
-  'Fecha de registro', 'Equipo', 'Color', 'Capitanea', 'WhatsApp', 'Correo',
+  'Fecha de registro', 'Equipo', 'Color', 'Capitanea', 'WhatsApp',
   'Días disponibles', 'Mujeres', 'Hombres', 'Plantilla', 'Estado', 'Observaciones'
 ];
 var COLS_INTEGRANTES = [
@@ -74,7 +75,7 @@ function doPost(e) {
     var hombres = gente.filter(function (p) { return p.genero === 'Hombre'; }).length;
 
     equipos.appendRow([
-      sello, d.equipo || '', d.color || '', d.capitan || '', d.telefono || '', d.correo || '',
+      sello, d.equipo || '', d.color || '', d.capitan || '', d.telefono || '',
       d.dias || '', mujeres, hombres, d.plantilla || '', 'Registrado', ''
     ]);
 
@@ -88,7 +89,6 @@ function doPost(e) {
     }
 
     avisar(d, gente);
-    acusar(d, gente);
 
     return responder({ ok: true });
   } catch (err) {
@@ -140,7 +140,7 @@ function avisar(d, gente) {
     'EQUIPO: ' + (d.equipo || '') + '\n' +
     'Color: ' + (d.color || '—') + '\n' +
     'Capitanea: ' + (d.capitan || '') + '\n' +
-    'Contacto: ' + (d.correo || '') + ' · ' + (d.telefono || '') + '\n\n' +
+    'WhatsApp: ' + (d.telefono || '') + '\n\n' +
     'PLANTILLA\n' + lista + '\n\n' +
     'Días disponibles: ' + (d.dias || '—') + '\n' +
     'Registrado: ' + (d.enviada || '') + '\n';
@@ -148,31 +148,6 @@ function avisar(d, gente) {
   MailApp.sendEmail({
     to: CORREO_ORGANIZA,
     subject: 'Torneo Franja Libre · nuevo equipo: ' + (d.equipo || 'sin nombre'),
-    body: cuerpo
-  });
-}
-
-/** Acuse a quien capitanea. */
-function acusar(d, gente) {
-  if (!d.correo || d.correo.indexOf('@') < 1) return;
-  var lista = gente.map(function (p) { return '· ' + p.nombre + ' (' + p.adscripcion + ')'; }).join('\n');
-
-  var cuerpo =
-    'Hola, ' + (d.capitan || '') + '.\n\n' +
-    'El equipo "' + (d.equipo || '') + '" quedó registrado en el torneo de fútbol mixto ' +
-    'de la Franja Libre, Campus Concá.\n\n' +
-    'Plantilla registrada:\n' + lista + '\n\n' +
-    'Días disponibles: ' + (d.dias || '—') + '\n' +
-    'Horario de los partidos: 11:00 a 11:30 h\n\n' +
-    'Al cerrar el registro se arman el calendario y el sistema de competencia con todos los ' +
-    'equipos inscritos. El rol de partidos llega a este correo y al WhatsApp que dejaste, y se ' +
-    'publica en la página de la Franja Libre.\n\n' +
-    'Si algo cambia en la plantilla, responde este mensaje.\n\n' +
-    'Franja Libre · Campus Concá · UAQ';
-
-  MailApp.sendEmail({
-    to: d.correo,
-    subject: 'Registro confirmado · ' + (d.equipo || 'tu equipo') + ' · Torneo Franja Libre',
     body: cuerpo
   });
 }
