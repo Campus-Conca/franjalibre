@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A3A2A">
+<title>Tablero · Franja Libre</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest-tablero.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Tablero FL">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --mar:#1A6B5A; --jue:#0D47A1; --rojo:#C03030; --rojo-l:#FDECEC;
+}
+html { -webkit-text-size-adjust:100%; }
+body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp); padding-bottom:env(safe-area-inset-bottom); }
+.wrap { max-width:820px; margin:0 auto; padding:0 16px; }
+
+/* ===== ENCABEZADO ===== */
+.top { background:var(--vp); color:#fff; padding:18px 0 15px; padding-top:calc(18px + env(safe-area-inset-top)); }
+.top .wrap { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.marca { font-family:'Fraunces',serif; font-size:19px; font-weight:900; }
+.marca span { color:var(--oc); }
+.marca small { display:block; font-family:'Instrument Sans',sans-serif; font-size:11.5px; font-weight:500; color:var(--vc); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+.btn-recargar { background:rgba(255,255,255,.12); color:#fff; border:none; border-radius:20px; padding:8px 15px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit; flex-shrink:0; }
+.btn-recargar:active { background:rgba(255,255,255,.25); }
+
+/* ===== PESTAÑAS ===== */
+.tabs { position:sticky; top:0; z-index:30; background:var(--cs); border-bottom:1px solid rgba(26,58,42,.1); }
+.tabs-in { display:flex; gap:4px; overflow-x:auto; padding:10px 16px; max-width:820px; margin:0 auto; scrollbar-width:none; }
+.tabs-in::-webkit-scrollbar { display:none; }
+.tab {
+  background:transparent; border:1.5px solid rgba(26,58,42,.15); color:var(--vs);
+  border-radius:22px; padding:8px 16px; font-size:14px; font-weight:600; cursor:pointer;
+  font-family:inherit; white-space:nowrap; display:flex; align-items:center; gap:7px;
+}
+.tab.activa { background:var(--vp); color:#fff; border-color:var(--vp); }
+.tab .bola { background:var(--rojo); color:#fff; font-size:11px; font-weight:700; border-radius:10px; padding:1px 7px; }
+.tab.activa .bola { background:var(--oc); color:var(--vp); }
+
+/* ===== PULSO ===== */
+.sec-t { font-family:'Fraunces',serif; font-size:25px; font-weight:900; margin:26px 0 4px; line-height:1.2; }
+.sec-t em { color:var(--vv); font-style:italic; }
+.sec-s { font-size:14px; color:#8a958d; margin-bottom:18px; line-height:1.5; }
+
+.pulso { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); gap:12px; margin-bottom:8px; }
+.dato { background:#fff; border-radius:15px; padding:18px 18px 16px; border:1px solid rgba(26,58,42,.09); }
+.dato .n { font-family:'Fraunces',serif; font-size:38px; font-weight:900; line-height:1; }
+.dato .n small { font-size:20px; color:#b9c2bb; font-weight:700; }
+.dato .r { font-size:12.5px; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:#8a958d; margin-top:7px; }
+.dato .p { font-size:13px; color:#8a958d; margin-top:3px; line-height:1.4; }
+.dato.bien .n { color:var(--vv); } .dato.medio .n { color:var(--oc); } .dato.mal .n { color:var(--rojo); }
+
+/* ===== TARJETAS ===== */
+.tarjeta { background:#fff; border-radius:15px; padding:17px 18px; border:1px solid rgba(26,58,42,.09); margin-bottom:10px; }
+.tarjeta.grave { border-left:4px solid var(--rojo); background:#FFFBFB; }
+.tarjeta.ojo { border-left:4px solid var(--oc); }
+
+.t-cab { display:flex; justify-content:space-between; align-items:flex-start; gap:14px; }
+.t-nombre { font-family:'Fraunces',serif; font-size:20px; font-weight:700; line-height:1.2; }
+.t-meta { font-size:12.5px; color:#8a958d; margin-top:3px; }
+.t-pct { font-family:'Fraunces',serif; font-size:27px; font-weight:900; line-height:1; text-align:right; flex-shrink:0; }
+.t-pct small { display:block; font-family:'Instrument Sans',sans-serif; font-size:11px; font-weight:600; color:#8a958d; text-transform:uppercase; letter-spacing:.05em; margin-top:4px; }
+.verde { color:var(--vv); } .ambar { color:var(--oc); } .rojo { color:var(--rojo); }
+
+.barras { display:flex; align-items:flex-end; gap:3px; height:38px; margin:14px 0 10px; }
+.barra { flex:1; background:var(--vc); border-radius:3px 3px 0 0; min-height:3px; opacity:.55; }
+.barra:last-child { opacity:1; background:var(--vv); }
+.t-pie { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:13px; color:#8a958d; }
+.tend { font-weight:700; }
+.tend.sube { color:var(--vv); } .tend.baja { color:var(--rojo); }
+.marca-roja { background:var(--rojo-l); color:var(--rojo); font-size:11.5px; font-weight:700; border-radius:6px; padding:3px 8px; }
+
+/* ===== PERSONAS ===== */
+.fila {
+  display:flex; align-items:center; gap:12px; background:#fff; border-radius:13px;
+  padding:12px 14px; border:1px solid rgba(26,58,42,.09); margin-bottom:7px;
+}
+.fila.grave { border-color:rgba(192,48,48,.35); background:#FFFBFB; }
+.f-ini { width:38px; height:38px; border-radius:50%; background:rgba(26,58,42,.07); color:var(--vs);
+         display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; flex-shrink:0; }
+.fila.grave .f-ini { background:var(--rojo); color:#fff; }
+.fila.acredita .f-ini { background:var(--vv); color:#fff; }
+.f-cuerpo { flex:1; min-width:0; }
+.f-nombre { display:block; font-size:15px; font-weight:600; line-height:1.3; }
+.f-sub { display:block; font-size:12.5px; color:#8a958d; margin-top:2px; line-height:1.4; }
+.f-lado { text-align:right; flex-shrink:0; }
+.f-num { display:block; font-family:'Fraunces',serif; font-size:21px; font-weight:900; line-height:1; }
+.f-etq { display:block; font-size:10.5px; color:#8a958d; text-transform:uppercase; letter-spacing:.05em; margin-top:4px; }
+.btn-wa {
+  background:#25D366; color:#fff; border:none; border-radius:50%; width:38px; height:38px;
+  cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  text-decoration:none;
+}
+.btn-wa svg { width:21px; height:21px; fill:currentColor; }
+
+/* ===== CONTROLES ===== */
+.controles { display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:14px; }
+.buscador { position:relative; flex:1; min-width:190px; }
+.buscador input {
+  width:100%; border:1.5px solid rgba(26,58,42,.18); border-radius:12px;
+  padding:11px 14px 11px 38px; font-size:15px; font-family:inherit; color:var(--vp); background:#fff;
+}
+.buscador input:focus { outline:none; border-color:var(--vv); }
+.buscador::before { content:'🔍'; position:absolute; left:13px; top:50%; transform:translateY(-50%); font-size:14px; opacity:.5; }
+.chip { background:transparent; border:1.5px solid var(--vv); color:var(--vs); border-radius:20px;
+        padding:9px 15px; font-size:13.5px; font-weight:600; cursor:pointer; font-family:inherit; white-space:nowrap; }
+.chip.on { background:var(--vp); color:#fff; border-color:var(--vp); }
+.chip.descarga { border-color:rgba(26,58,42,.2); color:var(--vs); }
+
+.desglose { margin-top:9px; padding-top:9px; border-top:1px solid rgba(26,58,42,.08); display:grid; gap:5px; }
+.dg { display:flex; justify-content:space-between; gap:10px; font-size:12.5px; color:#8a958d; }
+.dg b { font-weight:700; color:var(--vs); }
+
+.vacio { text-align:center; padding:44px 20px; color:#8a958d; font-size:14.5px; line-height:1.6; }
+.vacio strong { display:block; font-family:'Fraunces',serif; font-size:19px; color:var(--vp); margin-bottom:7px; font-weight:700; }
+.vacio .em { font-size:40px; display:block; margin-bottom:14px; }
+
+.aviso { background:#FDF0E5; border:1.5px solid rgba(196,133,74,.4); color:#8a4a12; border-radius:12px; padding:13px 15px; font-size:13.5px; line-height:1.55; margin:14px 0; }
+.nota { font-size:12.5px; color:#a5aea7; line-height:1.55; margin:14px 0 4px; }
+
+/* ===== ACCESO ===== */
+.acceso { padding:46px 0 20px; text-align:center; }
+.acceso .em { font-size:46px; margin-bottom:16px; }
+.acceso h1 { font-family:'Fraunces',serif; font-size:28px; font-weight:900; line-height:1.2; margin-bottom:10px; }
+.acceso h1 em { color:var(--vv); font-style:italic; }
+.acceso p { font-size:14.5px; color:#6d7a70; line-height:1.6; margin:0 auto 26px; max-width:340px; }
+#clave { text-align:center; font-size:30px; font-weight:700; letter-spacing:.35em; padding:16px 15px 16px 20px;
+         font-family:'Fraunces',serif; max-width:260px; margin:0 auto; width:100%;
+         border:1.5px solid rgba(26,58,42,.18); border-radius:12px; background:#fff; color:var(--vp); }
+#clave:focus { outline:none; border-color:var(--vv); }
+.btn-primario { background:var(--vp); color:#fff; border:none; border-radius:26px; padding:15px 34px;
+                font-size:16px; font-weight:700; cursor:pointer; font-family:inherit; margin-top:18px; }
+.btn-primario:active { background:var(--vs); }
+.btn-primario:disabled { background:#b9c2bb; }
+
+.pie { text-align:center; font-size:12px; color:#a5aea7; padding:30px 0 36px; line-height:1.6; }
+.pie button { background:none; border:none; color:#a5aea7; font-size:12px; font-family:inherit; text-decoration:underline; cursor:pointer; padding:4px; }
+[hidden] { display:none !important; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="marca">Franja <span>Libre</span><small>Tablero de coordinación</small></div>
+    <button class="btn-recargar" id="btn-recargar" onclick="cargar()" hidden>↻ Actualizar</button>
+  </div>
+</header>
+
+<nav class="tabs" id="tabs" hidden>
+  <div class="tabs-in">
+    <button class="tab activa" data-vista="pulso"  onclick="verVista('pulso')">Pulso</button>
+    <button class="tab" data-vista="talleres"      onclick="verVista('talleres')">Talleres</button>
+    <button class="tab" data-vista="ausencias"     onclick="verVista('ausencias')">Dejaron de venir <span class="bola" id="bola-aus" hidden>0</span></button>
+    <button class="tab" data-vista="acreditacion"  onclick="verVista('acreditacion')">Acreditación</button>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <!-- ACCESO -->
+  <section id="v-acceso" hidden>
+    <div class="acceso">
+      <div class="em">📊</div>
+      <h1>Tablero de<br><em>coordinación</em></h1>
+      <p>Código de coordinación. Se pide una sola vez en cada dispositivo.</p>
+      <input type="text" id="clave" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="••••">
+      <div class="aviso" id="aviso-clave" hidden></div>
+      <button class="btn-primario" id="btn-entrar" onclick="entrar()">Entrar</button>
+    </div>
+  </section>
+
+  <div id="cargando" class="vacio" hidden><span class="em">⏳</span>Leyendo los registros…</div>
+
+  <!-- PULSO -->
+  <section id="v-pulso" hidden>
+    <h1 class="sec-t" id="pulso-titulo">Esta <em>semana</em></h1>
+    <p class="sec-s" id="pulso-rango"></p>
+    <div class="pulso" id="pulso-datos"></div>
+
+    <div id="bloque-faltantes"></div>
+
+    <h2 class="sec-t">El <em>acumulado</em></h2>
+    <p class="sec-s">Desde el arranque del semestre.</p>
+    <div class="pulso" id="pulso-total"></div>
+    <p class="nota" id="nota-inicio"></p>
+  </section>
+
+  <!-- TALLERES -->
+  <section id="v-talleres" hidden>
+    <h1 class="sec-t">Talleres, del más <em>frágil</em> al más sano</h1>
+    <p class="sec-s">El porcentaje compara la asistencia promedio contra las personas inscritas. Las barras son las últimas diez sesiones.</p>
+    <div id="lista-talleres"></div>
+  </section>
+
+  <!-- AUSENCIAS -->
+  <section id="v-ausencias" hidden>
+    <h1 class="sec-t">Quienes <em>dejaron de venir</em></h1>
+    <p class="sec-s" id="aus-sub"></p>
+    <div class="controles">
+      <div class="buscador"><input type="text" id="buscar-aus" placeholder="Buscar por nombre o taller…" oninput="pintarAusencias()"></div>
+      <button class="chip" id="chip-graves" onclick="alternarGraves()">Solo los más largos</button>
+    </div>
+    <div id="lista-ausencias"></div>
+  </section>
+
+  <!-- ACREDITACIÓN -->
+  <section id="v-acreditacion" hidden>
+    <h1 class="sec-t">Participación para <em>puntos y créditos</em></h1>
+    <p class="sec-s" id="acr-sub"></p>
+    <div class="controles">
+      <div class="buscador"><input type="text" id="buscar-acr" placeholder="Buscar persona o taller…" oninput="pintarAcreditacion()"></div>
+      <button class="chip" id="chip-acredita" onclick="alternarAcredita()">Solo quienes acreditan</button>
+    </div>
+    <div class="controles">
+      <button class="chip descarga" onclick="descargar('taller')">⬇ CSV por taller</button>
+      <button class="chip descarga" onclick="descargar('total')">⬇ CSV de totales</button>
+    </div>
+    <div id="lista-acreditacion"></div>
+  </section>
+
+</main>
+
+<p class="pie">Franja Libre · Campus Concá UAQ<br>
+<button onclick="salir()" id="btn-salir" hidden>Olvidar el código en este dispositivo</button></p>
+
+<script>
+// =====================================================================
+// Misma aplicación web de Apps Script que el pase de lista.
+// El código de coordinación se valida contra CLAVE_TABLERO del script.
+// =====================================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhRdz6Pf3c7-ArgbYpw0QeMofWIhCKIhzMXH5lWkquzJBfYJHwo3ZsfahwHfU3oAeK/exec";
+
+var D = null;              // datos del tablero
+var clave = '';
+var vista = 'pulso';
+var soloGraves = false;
+var soloAcredita = false;
+
+function recordar(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
+function recordado(k)   { try { return localStorage.getItem(k) || ''; } catch(e) { return ''; } }
+
+clave = recordado('fl-clave-tablero');
+document.getElementById('clave').addEventListener('keydown', function(ev){ if (ev.key === 'Enter') entrar(); });
+if (clave) cargar(); else pedirClave();
+
+// =====================================================================
+// ACCESO Y CARGA
+// =====================================================================
+function pedirClave(msj) {
+  var a = document.getElementById('aviso-clave');
+  if (msj) { a.textContent = msj; a.hidden = false; } else { a.hidden = true; }
+  mostrarSolo('v-acceso');
+  setTimeout(function(){ document.getElementById('clave').focus(); }, 220);
+}
+
+function entrar() {
+  var c = document.getElementById('clave').value.trim();
+  if (!c) { pedirClave('Falta escribir el código.'); return; }
+  var btn = document.getElementById('btn-entrar');
+  btn.disabled = true; btn.textContent = 'Comprobando…';
+  clave = c;
+  cargar(function(err){
+    btn.disabled = false; btn.textContent = 'Entrar';
+    if (err === 'clave_invalida') { clave = ''; document.getElementById('clave').value = '';
+      pedirClave('Ese código no es el del tablero de coordinación.'); return; }
+    if (err) { pedirClave('No hubo conexión para comprobar el código.'); return; }
+    recordar('fl-clave-tablero', c);
+  });
+}
+
+function salir() {
+  if (!confirm('Este dispositivo volverá a pedir el código. ¿Continuar?')) return;
+  recordar('fl-clave-tablero', ''); clave = ''; location.reload();
+}
+
+function cargar(listo) {
+  listo = listo || function(){};
+  mostrarSolo('cargando');
+  fetch(SCRIPT_URL + '?accion=tablero&clave=' + encodeURIComponent(clave))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.error === 'clave_invalida') { listo('clave_invalida'); return; }
+      if (!d || !d.ok) { listo('error'); pedirClave('Los datos no llegaron completos. Vale la pena reintentar.'); return; }
+      D = d;
+      pintarTodo();
+      verVista(vista);
+      listo(null);
+    })
+    .catch(function(){ listo('red'); pedirClave('No se pudo leer la hoja. Revisa la conexión.'); });
+}
+
+function mostrarSolo(id) {
+  ['v-acceso','cargando','v-pulso','v-talleres','v-ausencias','v-acreditacion'].forEach(function(s){
+    document.getElementById(s).hidden = (s !== id);
+  });
+  var dentro = (id !== 'v-acceso' && id !== 'cargando');
+  document.getElementById('tabs').hidden = !dentro;
+  document.getElementById('btn-recargar').hidden = !dentro;
+  document.getElementById('btn-salir').hidden = !dentro;
+}
+
+function verVista(v) {
+  if (!D) return;
+  vista = v;
+  mostrarSolo('v-' + v);
+  document.querySelectorAll('.tab').forEach(function(t){
+    t.className = 'tab' + (t.dataset.vista === v ? ' activa' : '');
+  });
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+// =====================================================================
+// PINTADO
+// =====================================================================
+function pintarTodo() {
+  if (D.vacio) { pintarVacio(); return; }
+  pintarPulso();
+  pintarTalleres();
+  pintarAusencias();
+  pintarAcreditacion();
+  var g = D.alertas.filter(function(a){ return a.grave; }).length;
+  var bola = document.getElementById('bola-aus');
+  bola.textContent = g; bola.hidden = (g === 0);
+}
+
+function pintarVacio() {
+  ['v-pulso','v-talleres','v-ausencias','v-acreditacion'].forEach(function(id){
+    document.getElementById(id).innerHTML =
+      '<div class="vacio"><span class="em">🌱</span><strong>Todavía no hay asistencias registradas</strong>' +
+      'El tablero cobra vida en cuanto los profesores pasen lista por primera vez.</div>';
+  });
+}
+
+function pintarPulso() {
+  var p = D.pulso;
+  document.getElementById('pulso-titulo').innerHTML = 'Semana <em>' + p.semana + '</em>';
+  document.getElementById('pulso-rango').textContent = 'Del ' + corta(p.lunes) + ' al ' + corta(p.domingo) + '. Es la última semana con actividad registrada.';
+
+  var faltan = p.esperadas - p.sesiones;
+  document.getElementById('pulso-datos').innerHTML =
+    dato(p.personas, 'Personas distintas', 'Asistieron al menos a un taller.', 'bien') +
+    dato(p.sesiones + '<small>/' + p.esperadas + '</small>', 'Sesiones registradas',
+         faltan > 0 ? faltan + (faltan === 1 ? ' sesión sin pasar lista.' : ' sesiones sin pasar lista.') : 'Todas pasaron lista.',
+         faltan === 0 ? 'bien' : (faltan <= 2 ? 'medio' : 'mal')) +
+    dato(Math.round(p.asistencia * 100) + '%', 'Asistencia', 'De quienes estaban en las listas.',
+         p.asistencia >= .7 ? 'bien' : (p.asistencia >= .5 ? 'medio' : 'mal'));
+
+  document.getElementById('pulso-total').innerHTML =
+    dato(p.personasTotal, 'Personas alcanzadas', 'Distintas, en todo el programa.', 'bien') +
+    dato(p.sesionesTotal, 'Sesiones impartidas', 'Con lista registrada.', 'bien') +
+    dato(D.talleres.filter(function(t){ return t.sesiones > 0; }).length + '<small>/' + D.talleres.length + '</small>',
+         'Talleres activos', 'Con al menos una sesión registrada.', 'bien');
+
+  document.getElementById('nota-inicio').textContent =
+    'Primera sesión registrada: ' + corta(D.inicio) + '. Los días en que la Franja Libre se suspende por completo no cuentan como sesiones faltantes.';
+
+  // Sesiones sin registrar
+  var cont = document.getElementById('bloque-faltantes');
+  if (!D.faltantes.length) {
+    cont.innerHTML = '<h2 class="sec-t">Sesiones sin <em>registrar</em></h2>' +
+      '<div class="vacio" style="padding:26px 20px"><span class="em">✅</span>Ningún taller quedó sin pasar lista.</div>';
+    return;
+  }
+  var porTaller = {};
+  D.faltantes.forEach(function(f){ (porTaller[f.taller] = porTaller[f.taller] || []).push(f.fecha); });
+  var filas = Object.keys(porTaller).sort(function(a,b){ return porTaller[b].length - porTaller[a].length; }).map(function(t){
+    var fs = porTaller[t];
+    return '<div class="tarjeta ' + (fs.length >= 3 ? 'grave' : 'ojo') + '">' +
+      '<div class="t-cab"><div><div class="t-nombre">' + esc(t.split(' · ')[0]) + '</div>' +
+      '<div class="t-meta">' + fs.slice(0,6).map(corta).join(' · ') + (fs.length > 6 ? ' y ' + (fs.length-6) + ' más' : '') + '</div></div>' +
+      '<div class="t-pct ' + (fs.length >= 3 ? 'rojo' : 'ambar') + '">' + fs.length + '<small>sin lista</small></div></div></div>';
+  }).join('');
+  cont.innerHTML = '<h2 class="sec-t">Sesiones sin <em>registrar</em></h2>' +
+    '<p class="sec-s">En todo el semestre: días en que el taller debió sesionar y nadie pasó lista. Mientras esto no se cierre, el resto de los números queda corto.</p>' + filas;
+}
+
+function dato(n, rot, pie, cls) {
+  return '<div class="dato ' + (cls||'') + '"><div class="n">' + n + '</div>' +
+         '<div class="r">' + rot + '</div><div class="p">' + pie + '</div></div>';
+}
+
+function pintarTalleres() {
+  document.getElementById('lista-talleres').innerHTML = D.talleres.map(function(t){
+    var cls = t.pct >= .7 ? 'verde' : (t.pct >= .45 ? 'ambar' : 'rojo');
+    var max = Math.max.apply(null, t.serie.concat([1]));
+    var barras = t.serie.length
+      ? '<div class="barras">' + t.serie.map(function(v){
+          return '<div class="barra" style="height:' + Math.max(6, Math.round(v / max * 100)) + '%"></div>'; }).join('') + '</div>'
+      : '';
+    var tend = t.tendencia === 0 ? '' :
+      '<span class="tend ' + (t.tendencia > 0 ? 'sube' : 'baja') + '">' +
+      (t.tendencia > 0 ? '▲ +' : '▼ ') + t.tendencia + ' por sesión</span>';
+
+    return '<div class="tarjeta">' +
+      '<div class="t-cab"><div><div class="t-nombre">' + esc(t.clave.split(' · ')[0]) + '</div>' +
+        '<div class="t-meta">' + t.dia + ' · ' + (t.imparte ? esc(t.imparte) + ' · ' : '') + t.inscritos + ' inscritos</div></div>' +
+        '<div class="t-pct ' + cls + '">' + Math.round(t.pct * 100) + '%<small>Asistencia</small></div></div>' +
+      barras +
+      '<div class="t-pie"><span>' + (t.sesiones ? t.promedio + ' de ' + t.inscritos + ' en promedio · ' + t.sesiones + (t.sesiones === 1 ? ' sesión' : ' sesiones') : 'Sin sesiones registradas') + '</span>' +
+      (t.sinRegistro ? '<span class="marca-roja">' + t.sinRegistro + ' sin lista</span>' : tend) + '</div></div>';
+  }).join('');
+}
+
+function pintarAusencias() {
+  var q = (document.getElementById('buscar-aus').value || '').trim().toLowerCase();
+  var lista = D.alertas.filter(function(a){
+    if (soloGraves && !a.grave) return false;
+    if (!q) return true;
+    return (a.nombre + ' ' + a.taller).toLowerCase().indexOf(q) !== -1;
+  });
+
+  document.getElementById('aus-sub').textContent =
+    D.alertas.length ? 'Personas inscritas que llevan dos o más sesiones seguidas sin aparecer. A partir de ' + D.ausenciasAlerta + ' se marcan en rojo.'
+                     : 'Nadie acumula ausencias seguidas.';
+
+  document.getElementById('lista-ausencias').innerHTML = lista.length ? lista.map(function(a){
+    var wa = a.tel ? '<a class="btn-wa" target="_blank" rel="noopener" href="https://wa.me/52' + a.tel +
+      '?text=' + encodeURIComponent('Hola ' + a.nombre.split(' ')[0] + ', te escribimos de la Franja Libre. Notamos que no has podido asistir a ' + a.taller.split(' · ')[0] + '. ¿Todo bien? Nos daría gusto verte de vuelta.') + '" aria-label="Escribir por WhatsApp">' + ICONO_WA + '</a>' : '';
+    return '<div class="fila' + (a.grave ? ' grave' : '') + '">' +
+      '<span class="f-ini">' + iniciales(a.nombre) + '</span>' +
+      '<span class="f-cuerpo"><span class="f-nombre">' + esc(a.nombre) + '</span>' +
+      '<span class="f-sub">' + esc(a.taller.split(' · ')[0]) + ' · ' + esc(a.rol || 'Sin grupo') + ' · ' +
+      (a.ultimaVez ? 'última vez ' + corta(a.ultimaVez) : 'nunca ha asistido') + '</span></span>' +
+      '<span class="f-lado"><span class="f-num ' + (a.grave ? 'rojo' : 'ambar') + '">' + a.seguidas + '</span>' +
+      '<span class="f-etq">seguidas</span></span>' + wa + '</div>';
+  }).join('') : '<div class="vacio"><span class="em">🎉</span><strong>Nada que perseguir</strong>Nadie acumula ausencias con este filtro.</div>';
+}
+
+function alternarGraves() {
+  soloGraves = !soloGraves;
+  document.getElementById('chip-graves').className = 'chip' + (soloGraves ? ' on' : '');
+  pintarAusencias();
+}
+
+function pintarAcreditacion() {
+  var q = (document.getElementById('buscar-acr').value || '').trim().toLowerCase();
+  var lista = D.personas.filter(function(p){
+    if (soloAcredita && !p.acredita) return false;
+    if (!q) return true;
+    return (p.nombre + ' ' + p.talleres.map(function(t){ return t.taller; }).join(' ')).toLowerCase().indexOf(q) !== -1;
+  });
+
+  var acreditan = D.personas.filter(function(p){ return p.acredita; }).length;
+  document.getElementById('acr-sub').innerHTML =
+    '<b>' + acreditan + '</b> de ' + D.personas.length + ' personas alcanzan el ' + Math.round(D.umbral * 100) +
+    '% de asistencia en al menos un taller. El porcentaje se calcula sobre las sesiones que le tocaban a cada quien, contando desde que aparece en la lista.';
+
+  document.getElementById('lista-acreditacion').innerHTML = lista.length ? lista.slice(0, 400).map(function(p){
+    var cls = p.acredita ? ' acredita' : '';
+    var desglose = p.talleres.length > 1
+      ? '<div class="desglose">' + p.talleres.map(function(t){
+          return '<div class="dg"><span>' + esc(t.taller.split(' · ')[0]) + '</span>' +
+                 '<span><b>' + t.asistidas + '/' + t.posibles + '</b> · ' + Math.round(t.pct * 100) + '%' +
+                 (t.acredita ? ' ✓' : '') + '</span></div>'; }).join('') + '</div>'
+      : '';
+    return '<div class="fila' + cls + '" style="flex-wrap:wrap">' +
+      '<span class="f-ini">' + iniciales(p.nombre) + '</span>' +
+      '<span class="f-cuerpo"><span class="f-nombre">' + esc(p.nombre) + '</span>' +
+      '<span class="f-sub">' + esc(p.rol || 'Sin grupo') + ' · ' + p.talleres.length + (p.talleres.length === 1 ? ' taller' : ' talleres') + '</span></span>' +
+      '<span class="f-lado"><span class="f-num ' + (p.pct >= D.umbral ? 'verde' : '') + '">' + Math.round(p.pct * 100) + '%</span>' +
+      '<span class="f-etq">' + p.asistidas + ' de ' + p.posibles + '</span></span>' +
+      '<span style="flex-basis:100%">' + desglose + '</span></div>';
+  }).join('') + (lista.length > 400 ? '<p class="nota">Se muestran las primeras 400. Usa el buscador o descarga el CSV para verlas todas.</p>' : '')
+   : '<div class="vacio"><span class="em">🔍</span><strong>Sin coincidencias</strong>Nadie corresponde a esta búsqueda.</div>';
+}
+
+function alternarAcredita() {
+  soloAcredita = !soloAcredita;
+  document.getElementById('chip-acredita').className = 'chip' + (soloAcredita ? ' on' : '');
+  pintarAcreditacion();
+}
+
+// =====================================================================
+// DESCARGA
+// =====================================================================
+function csvCampo(v) {
+  var s = String(v == null ? '' : v);
+  return /[",;\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s;
+}
+
+function descargar(tipo) {
+  var filas, nombre;
+  if (tipo === 'taller') {
+    filas = [['Nombre','Grupo','Taller','Dia','Sesiones asistidas','Sesiones que le tocaban','Porcentaje','Acredita']];
+    D.personas.forEach(function(p){
+      p.talleres.forEach(function(t){
+        filas.push([p.nombre, p.rol, t.taller.split(' · ')[0], t.taller.split(' · ')[1] || '',
+                    t.asistidas, t.posibles, Math.round(t.pct * 100) + '%', t.acredita ? 'Sí' : 'No']);
+      });
+    });
+    nombre = 'acreditacion-por-taller';
+  } else {
+    filas = [['Nombre','Grupo','Talleres','Sesiones asistidas','Sesiones que le tocaban','Porcentaje','Acredita en algun taller']];
+    D.personas.forEach(function(p){
+      filas.push([p.nombre, p.rol, p.talleres.map(function(t){ return t.taller.split(' · ')[0]; }).join(' + '),
+                  p.asistidas, p.posibles, Math.round(p.pct * 100) + '%', p.acredita ? 'Sí' : 'No']);
+    });
+    nombre = 'acreditacion-totales';
+  }
+
+  var texto = '﻿' + filas.map(function(f){ return f.map(csvCampo).join(','); }).join('\r\n');
+  var url = URL.createObjectURL(new Blob([texto], { type:'text/csv;charset=utf-8;' }));
+  var a = document.createElement('a');
+  a.href = url; a.download = nombre + '-' + D.hoy + '.csv';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 1500);
+}
+
+// =====================================================================
+// UTILIDADES
+// =====================================================================
+var ICONO_WA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38c1.45.79 3.08 1.21 4.79 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm0 18.15h-.01c-1.52 0-3.01-.41-4.31-1.18l-.31-.18-3.2.84.85-3.12-.2-.32a8.23 8.23 0 01-1.26-4.38c0-4.54 3.7-8.23 8.24-8.23 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 012.41 5.82c0 4.54-3.69 8.23-8.23 8.23zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.98-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.14-1.18-.06-.11-.22-.17-.47-.29z"/></svg>';
+
+function iniciales(n) {
+  var p = String(n).trim().split(/\s+/).filter(function(x){ return /^[^\d]/.test(x); });
+  if (!p.length) return '·';
+  return ((p[0] || '')[0] + (p.length > 1 ? (p[1] || '')[0] : '')).toUpperCase();
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function corta(iso) {
+  if (!iso) return '';
+  var p = String(iso).split('-');
+  var m = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  return Number(p[2]) + ' ' + m[Number(p[1]) - 1];
+}
+</script>
+
+</body>
+</html>
