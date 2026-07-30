@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A3A2A">
+<title>Pase de lista · Franja Libre</title>
+
+<!-- Instalación en la pantalla de inicio -->
+<link rel="manifest" href="manifest-asistencia.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Pase de lista">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --mar:#1A6B5A; --jue:#0D47A1;
+  --mar-l:#E0F2F1; --jue-l:#E3F2FD;
+}
+html { -webkit-text-size-adjust:100%; }
+body {
+  font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.wrap { max-width:640px; margin:0 auto; padding:0 16px; }
+
+/* ===== ENCABEZADO ===== */
+.top { background:var(--vp); color:#fff; padding:18px 0 16px; padding-top:calc(18px + env(safe-area-inset-top)); }
+.top .wrap { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.marca { font-family:'Fraunces',serif; font-size:19px; font-weight:900; letter-spacing:-.01em; }
+.marca span { color:var(--oc); }
+.marca small { display:block; font-family:'Instrument Sans',sans-serif; font-size:11.5px; font-weight:500; color:var(--vc); letter-spacing:.06em; text-transform:uppercase; margin-top:2px; }
+.btn-volver {
+  background:rgba(255,255,255,.12); color:#fff; border:none; border-radius:20px;
+  padding:8px 16px; font-size:13.5px; font-weight:600; cursor:pointer;
+  font-family:inherit; flex-shrink:0;
+}
+.btn-volver:active { background:rgba(255,255,255,.24); }
+
+/* ===== PANTALLA 1 ===== */
+.titulo { font-family:'Fraunces',serif; font-size:27px; font-weight:900; margin:30px 0 6px; line-height:1.2; }
+.titulo em { color:var(--vv); font-style:italic; }
+.bajada { font-size:14.5px; color:#6d7a70; line-height:1.55; margin-bottom:26px; }
+
+.campo { margin-bottom:26px; }
+.etiqueta { display:block; font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.07em; color:var(--vs); margin-bottom:8px; }
+input[type=text], input[type=date], select {
+  width:100%; border:1.5px solid rgba(26,58,42,.18); border-radius:12px;
+  padding:13px 15px; font-size:16px; font-family:inherit; color:var(--vp);
+  background:#fff; appearance:none;
+}
+input:focus, select:focus { outline:none; border-color:var(--vv); box-shadow:0 0 0 3px rgba(74,140,92,.15); }
+
+/* ===== AVISO DE INSTALACIÓN ===== */
+.instalar {
+  background:#fff; border:1.5px dashed rgba(74,140,92,.5); border-radius:14px;
+  padding:15px 14px 15px 16px; margin:6px 0 4px; display:flex; gap:12px; align-items:flex-start;
+}
+.instalar-emoji { font-size:25px; line-height:1.1; flex-shrink:0; }
+.instalar-cuerpo { flex:1; min-width:0; }
+.instalar h4 { font-family:'Fraunces',serif; font-size:16.5px; font-weight:700; margin-bottom:4px; line-height:1.25; }
+.instalar p { font-size:13.5px; color:#6d7a70; line-height:1.55; }
+.instalar p strong { color:var(--vs); }
+.instalar .chip { margin-top:11px; background:var(--vv); border-color:var(--vv); color:#fff; }
+.instalar-x {
+  background:none; border:none; color:#b9c2bb; font-size:22px; line-height:1;
+  cursor:pointer; padding:0 2px; flex-shrink:0; font-family:inherit;
+}
+
+.dia-titulo {
+  font-size:12.5px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+  margin:24px 0 10px; display:flex; align-items:center; gap:9px;
+}
+.dia-titulo::after { content:''; flex:1; height:1px; background:rgba(26,58,42,.12); }
+.dia-titulo.mar { color:var(--mar); }
+.dia-titulo.jue { color:var(--jue); }
+
+.lista-talleres { display:grid; gap:9px; }
+.taller-btn {
+  display:flex; align-items:center; gap:13px; width:100%; text-align:left;
+  background:#fff; border:1px solid rgba(26,58,42,.09); border-left:4px solid var(--vv);
+  border-radius:13px; padding:14px 15px; cursor:pointer; font-family:inherit;
+  transition:transform .12s, box-shadow .12s;
+}
+.taller-btn.mar { border-left-color:var(--mar); }
+.taller-btn.jue { border-left-color:var(--jue); }
+.taller-btn:active { transform:scale(.985); box-shadow:0 6px 18px rgba(26,58,42,.12); }
+.tb-emoji { font-size:30px; line-height:1; flex-shrink:0; }
+.tb-cuerpo { display:block; flex:1; min-width:0; }
+.tb-nombre { display:block; font-family:'Fraunces',serif; font-size:19px; font-weight:700; line-height:1.2; }
+.tb-meta { display:block; font-size:12.5px; color:#8a958d; margin-top:3px; }
+.tb-conteo { font-size:12px; font-weight:700; color:var(--oc); flex-shrink:0; }
+.tb-flecha { color:var(--vc); font-size:20px; flex-shrink:0; }
+
+/* ===== PANTALLA 2 ===== */
+.sesion-cab { background:#fff; border-radius:16px; padding:18px 18px 16px; margin:22px 0 14px; border:1px solid rgba(26,58,42,.09); }
+.sc-taller { font-family:'Fraunces',serif; font-size:24px; font-weight:900; line-height:1.15; }
+.sc-prof { font-size:13.5px; color:#8a958d; font-style:italic; margin-top:3px; }
+.sc-fila { display:flex; gap:10px; align-items:flex-end; margin-top:16px; }
+.sc-fila .campo { flex:1; margin:0; }
+
+.marcador {
+  position:sticky; top:0; z-index:20; background:var(--cs);
+  padding:12px 0 10px; margin:0 -16px; padding-left:16px; padding-right:16px;
+  border-bottom:1px solid rgba(26,58,42,.09);
+}
+.marcador-caja { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.contador { font-family:'Fraunces',serif; font-size:20px; font-weight:900; }
+.contador span { color:var(--vv); }
+.contador small { display:block; font-family:'Instrument Sans',sans-serif; font-size:11.5px; font-weight:500; color:#8a958d; letter-spacing:.04em; text-transform:uppercase; }
+.acciones-rapidas { display:flex; gap:7px; }
+.chip {
+  background:transparent; border:1.5px solid var(--vv); color:var(--vs);
+  border-radius:18px; padding:7px 13px; font-size:12.5px; font-weight:600;
+  cursor:pointer; font-family:inherit; white-space:nowrap;
+}
+.chip:active { background:rgba(74,140,92,.14); }
+
+.buscador { margin:12px 0 4px; position:relative; }
+.buscador input { padding-left:40px; font-size:15px; }
+.buscador::before { content:'🔍'; position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:15px; opacity:.5; }
+
+.lista { display:grid; gap:7px; margin:14px 0 10px; }
+.persona {
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  background:#fff; border:1.5px solid rgba(26,58,42,.09); border-radius:13px;
+  padding:12px 14px; cursor:pointer; font-family:inherit;
+  transition:background .12s, border-color .12s;
+}
+.persona:active { transform:scale(.99); }
+.persona.presente { background:#EDF7EF; border-color:var(--vv); }
+.p-inicial {
+  width:40px; height:40px; border-radius:50%; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(26,58,42,.07); color:var(--vs);
+  font-size:14.5px; font-weight:700; letter-spacing:.02em;
+}
+.persona.presente .p-inicial { background:var(--vv); color:#fff; }
+.p-cuerpo { display:block; flex:1; min-width:0; }
+.p-nombre { display:block; font-size:15.5px; font-weight:600; line-height:1.3; }
+.p-rol { display:block; font-size:12.5px; color:#8a958d; margin-top:1px; }
+.p-nuevo { display:inline-block; background:var(--oc); color:#fff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; border-radius:5px; padding:2px 6px; margin-left:6px; vertical-align:1px; }
+.p-marca {
+  width:26px; height:26px; border-radius:50%; flex-shrink:0;
+  border:2px solid rgba(26,58,42,.18); display:flex; align-items:center; justify-content:center;
+  color:transparent; font-size:14px; font-weight:700;
+}
+.persona.presente .p-marca { background:var(--vv); border-color:var(--vv); color:#fff; }
+
+.vacio { text-align:center; padding:34px 20px; color:#8a958d; font-size:14.5px; line-height:1.6; }
+.vacio strong { display:block; font-family:'Fraunces',serif; font-size:18px; color:var(--vp); margin-bottom:6px; font-weight:700; }
+
+.btn-agregar {
+  width:100%; background:transparent; border:1.5px dashed rgba(26,58,42,.28); color:var(--vs);
+  border-radius:13px; padding:14px; font-size:14.5px; font-weight:600; cursor:pointer; font-family:inherit;
+}
+.btn-agregar:active { background:rgba(74,140,92,.07); }
+
+.barra-envio {
+  position:sticky; bottom:0; background:linear-gradient(to top, var(--cs) 68%, rgba(247,244,228,0));
+  padding:18px 0 calc(16px + env(safe-area-inset-bottom)); margin-top:12px;
+}
+.btn-primario {
+  width:100%; background:var(--vp); color:#fff; border:none; border-radius:26px;
+  padding:16px; font-size:16.5px; font-weight:700; cursor:pointer; font-family:inherit;
+  box-shadow:0 8px 24px rgba(26,58,42,.22);
+}
+.btn-primario:active { background:var(--vs); }
+.btn-primario:disabled { background:#b9c2bb; box-shadow:none; cursor:not-allowed; }
+
+/* ===== AGREGAR PERSONA ===== */
+.velo { position:fixed; inset:0; background:rgba(26,58,42,.55); display:flex; align-items:flex-end; justify-content:center; z-index:60; }
+.velo[hidden] { display:none; }
+.hoja {
+  background:var(--cs); width:100%; max-width:640px; border-radius:22px 22px 0 0;
+  padding:26px 20px calc(26px + env(safe-area-inset-bottom));
+  animation:sube .22s ease-out;
+}
+@keyframes sube { from { transform:translateY(100%); } to { transform:translateY(0); } }
+.hoja h3 { font-family:'Fraunces',serif; font-size:22px; font-weight:900; margin-bottom:4px; }
+.hoja p { font-size:13.5px; color:#8a958d; margin-bottom:18px; line-height:1.5; }
+.hoja-botones { display:flex; gap:10px; margin-top:20px; }
+.hoja-botones button { flex:1; border-radius:24px; padding:14px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer; border:none; }
+.btn-cancelar { background:transparent; border:1.5px solid rgba(26,58,42,.2) !important; color:var(--vs); }
+
+/* ===== ÉXITO ===== */
+.exito { text-align:center; padding:44px 8px 30px; }
+.exito-icono {
+  width:82px; height:82px; border-radius:50%; background:var(--vv); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:42px;
+  margin:0 auto 22px; box-shadow:0 12px 34px rgba(74,140,92,.34);
+}
+.exito h2 { font-family:'Fraunces',serif; font-size:29px; font-weight:900; line-height:1.15; margin-bottom:10px; }
+.exito h2 em { color:var(--vv); font-style:italic; }
+.exito p { font-size:15px; color:#6d7a70; line-height:1.6; margin-bottom:26px; }
+.resumen { background:#fff; border-radius:14px; padding:18px; text-align:left; border:1px solid rgba(26,58,42,.09); margin-bottom:26px; }
+.resumen div { display:flex; justify-content:space-between; gap:14px; font-size:14.5px; padding:7px 0; }
+.resumen div + div { border-top:1px solid rgba(26,58,42,.07); }
+.resumen dt { color:#8a958d; }
+.resumen dd { font-weight:600; text-align:right; }
+
+.aviso { background:#FDF0E5; border:1.5px solid rgba(196,133,74,.4); color:#8a4a12; border-radius:12px; padding:13px 15px; font-size:13.5px; line-height:1.55; margin:14px 0; }
+.pie { text-align:center; font-size:12px; color:#a5aea7; padding:26px 0 34px; line-height:1.6; }
+.pie button { background:none; border:none; color:#a5aea7; font-size:12px; font-family:inherit; text-decoration:underline; cursor:pointer; padding:4px; }
+
+/* ===== ACCESO ===== */
+.acceso { padding:46px 0 20px; text-align:center; }
+.acceso-icono { font-size:46px; margin-bottom:16px; }
+.acceso h1 { font-family:'Fraunces',serif; font-size:28px; font-weight:900; line-height:1.2; margin-bottom:10px; }
+.acceso h1 em { color:var(--vv); font-style:italic; }
+.acceso p { font-size:14.5px; color:#6d7a70; line-height:1.6; margin:0 auto 26px; max-width:340px; }
+#clave {
+  text-align:center; font-size:30px; font-weight:700; letter-spacing:.35em;
+  padding:16px 15px 16px 20px; font-family:'Fraunces',serif; max-width:260px; margin:0 auto;
+}
+.acceso .btn-primario { max-width:280px; margin:18px auto 0; }
+[hidden] { display:none !important; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="marca">Franja <span>Libre</span><small>Pase de lista</small></div>
+    <button class="btn-volver" id="btn-volver" onclick="volverInicio()" hidden>← Talleres</button>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ===== PANTALLA 0: ACCESO ===== -->
+  <section id="pantalla-acceso" hidden>
+    <div class="acceso">
+      <div class="acceso-icono">🔑</div>
+      <h1>Código de<br><em>quien imparte</em></h1>
+      <p>Se pide una sola vez en cada teléfono. Después la aplicación abre directo en la lista de talleres.</p>
+      <input type="text" id="clave" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="••••">
+      <div class="aviso" id="aviso-clave" hidden></div>
+      <button class="btn-primario" id="btn-entrar" onclick="entrar()">Entrar</button>
+    </div>
+  </section>
+
+  <!-- ===== PANTALLA 1: ELEGIR TALLER ===== -->
+  <section id="pantalla-taller" hidden>
+    <h1 class="titulo">¿De qué taller<br><em>se pasa lista?</em></h1>
+    <p class="bajada">Se abre la lista de quienes se inscribieron a ese taller. Basta tocar a cada persona presente y enviar.</p>
+
+    <div class="campo">
+      <label class="etiqueta" for="profesor">Quién pasa lista</label>
+      <input type="text" id="profesor" placeholder="Nombre de quien imparte" autocomplete="name">
+    </div>
+
+    <div class="instalar" id="caja-instalar" hidden>
+      <span class="instalar-emoji">📲</span>
+      <div class="instalar-cuerpo">
+        <h4>Déjalo como ícono en el teléfono</h4>
+        <p id="instalar-texto"></p>
+        <button class="chip" id="btn-instalar" hidden onclick="instalar()">Instalar ahora</button>
+      </div>
+      <button class="instalar-x" onclick="ocultarInstalar()" aria-label="Ocultar aviso">×</button>
+    </div>
+
+    <div id="cargando" class="vacio">Cargando inscripciones…</div>
+    <div id="talleres-mar" hidden><div class="dia-titulo mar">Martes</div><div class="lista-talleres" id="grid-mar"></div></div>
+    <div id="talleres-jue" hidden><div class="dia-titulo jue">Jueves</div><div class="lista-talleres" id="grid-jue"></div></div>
+  </section>
+
+  <!-- ===== PANTALLA 2: PASE DE LISTA ===== -->
+  <section id="pantalla-lista" hidden>
+    <div class="sesion-cab">
+      <div class="sc-taller" id="sc-taller"></div>
+      <div class="sc-prof" id="sc-prof"></div>
+      <div class="sc-fila">
+        <div class="campo">
+          <label class="etiqueta" for="fecha">Fecha de la sesión</label>
+          <input type="date" id="fecha">
+        </div>
+      </div>
+    </div>
+
+    <div class="marcador">
+      <div class="marcador-caja">
+        <div class="contador"><span id="n-presentes">0</span> de <span id="n-total">0</span><small>Presentes</small></div>
+        <div class="acciones-rapidas">
+          <button class="chip" onclick="marcarTodos(true)">Todos</button>
+          <button class="chip" onclick="marcarTodos(false)">Ninguno</button>
+        </div>
+      </div>
+      <div class="buscador" id="caja-buscador" hidden>
+        <input type="text" id="buscar" placeholder="Buscar por nombre…" oninput="pintarLista()">
+      </div>
+    </div>
+
+    <div class="lista" id="lista-personas"></div>
+    <button class="btn-agregar" onclick="abrirAgregar()">＋ Agregar a alguien que no está en la lista</button>
+
+    <div class="aviso" id="aviso-error" hidden></div>
+
+    <div class="barra-envio">
+      <button class="btn-primario" id="btn-enviar" onclick="enviar()">Guardar asistencia</button>
+    </div>
+  </section>
+
+  <!-- ===== PANTALLA 3: ÉXITO ===== -->
+  <section id="pantalla-exito" hidden>
+    <div class="exito">
+      <div class="exito-icono">✓</div>
+      <h2>Asistencia <em>guardada</em></h2>
+      <p>Ya quedó registrada en la hoja de la Franja Libre.</p>
+      <dl class="resumen" id="resumen-exito"></dl>
+      <button class="btn-primario" onclick="volverInicio()">Pasar lista de otro taller</button>
+    </div>
+  </section>
+
+</main>
+
+<div class="velo" id="velo-agregar" hidden>
+  <div class="hoja">
+    <h3>Agregar a la lista</h3>
+    <p>Para quien llegó al taller sin haberse inscrito antes. Queda marcada como presente.</p>
+    <div class="campo">
+      <label class="etiqueta" for="nuevo-nombre">Nombre completo</label>
+      <input type="text" id="nuevo-nombre" placeholder="Nombre y apellidos" autocomplete="off">
+    </div>
+    <div class="campo">
+      <label class="etiqueta" for="nuevo-rol">Grupo o adscripción</label>
+      <select id="nuevo-rol">
+        <option value="Estudiante de bachillerato">Estudiante de bachillerato</option>
+        <option value="Estudiante de licenciatura">Estudiante de licenciatura</option>
+        <option value="Docente">Docente</option>
+        <option value="Personal administrativo">Personal administrativo</option>
+        <option value="Comunidad">Comunidad</option>
+      </select>
+    </div>
+    <div class="hoja-botones">
+      <button class="btn-cancelar" onclick="cerrarAgregar()">Cancelar</button>
+      <button class="btn-primario" style="box-shadow:none" onclick="confirmarAgregar()">Agregar</button>
+    </div>
+  </div>
+</div>
+
+<p class="pie">Franja Libre · Campus Concá UAQ<br>Semestre agosto–noviembre 2026<br>
+<button onclick="salir()" id="btn-salir" hidden>Olvidar el código en este teléfono</button></p>
+
+<script>
+// =====================================================================
+// CONFIGURACIÓN
+// Pega aquí la URL /exec de la aplicación web de Code-asistencia.gs.
+// El código de acceso de los profesores NO se escribe aquí: vive en la
+// constante CLAVE_ACCESO del Apps Script, para que no quede a la vista de
+// quien abra el código fuente de esta página.
+// =====================================================================
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzhRdz6Pf3c7-ArgbYpw0QeMofWIhCKIhzMXH5lWkquzJBfYJHwo3ZsfahwHfU3oAeK/exec";
+
+// Catálogo de talleres. Las claves coinciden EXACTAMENTE con la columna
+// "Taller" de la hoja de inscripciones, para poder cruzar los registros.
+const TALLERES = [
+  { clave:'Yoga · Martes',              emoji:'🧘', dia:'mar', hora:'11:00–12:00', prof:'Alma Rosa Moya Alvarado' },
+  { clave:'Balonmano · Martes',         emoji:'🤾', dia:'mar', hora:'11:30–13:00', prof:'Dulce Morales' },
+  { clave:'Calistenia · Martes',        emoji:'💪', dia:'mar', hora:'11:30–12:30', prof:'Guillermo' },
+  { clave:'Pintura · Martes',           emoji:'🎨', dia:'mar', hora:'11:30–13:00', prof:'Margarita' },
+  { clave:'Grupo de danza · Martes',    emoji:'💃', dia:'mar', hora:'11:30–13:00', prof:'Gael' },
+  { clave:'Ajedrez · Martes',           emoji:'♟️', dia:'mar', hora:'12:00–13:00', prof:'Eduardo Alfaro' },
+  { clave:'Guitarra · Martes',          emoji:'🎸', dia:'mar', hora:'12:00–13:00', prof:'Héctor' },
+  { clave:'Basketball · Jueves',        emoji:'🏀', dia:'jue', hora:'11:30–13:00', prof:'Dulce Morales y Nadia' },
+  { clave:'Pintura · Jueves',           emoji:'🎨', dia:'jue', hora:'11:30–13:00', prof:'Uriel' },
+  { clave:'Grupo de danza · Jueves',    emoji:'💃', dia:'jue', hora:'11:30–13:00', prof:'Gael' },
+  { clave:'Inglés · Jueves',            emoji:'🗣️', dia:'jue', hora:'11:30–13:00', prof:'Eduardo Alfaro' },
+  { clave:'Teatro · Jueves',            emoji:'🎭', dia:'jue', hora:'11:30–13:00', prof:'Citlalli' },
+  { clave:'Escritura creativa · Jueves',emoji:'✍️', dia:'jue', hora:'12:00–13:00', prof:'Jhoana Hernández' },
+  { clave:'Zumba · Jueves',             emoji:'🕺', dia:'jue', hora:'12:00–13:00', prof:'Lili Ferretiz' }
+];
+
+// =====================================================================
+// ESTADO
+// =====================================================================
+var inscritos = {};      // { 'Zumba · Jueves': [{nombre, rol}, …] }
+var tallerActual = null;
+var personas = [];       // [{nombre, rol, presente, nuevo}]
+var clave = '';          // código de acceso, guardado en este teléfono
+
+function recordar(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
+function recordado(k)   { try { return localStorage.getItem(k) || ''; } catch(e) { return ''; } }
+
+// =====================================================================
+// ARRANQUE
+// =====================================================================
+clave = recordado('fl-clave');
+document.getElementById('profesor').value = recordado('fl-profesor');
+document.getElementById('profesor').addEventListener('change', function(){ recordar('fl-profesor', this.value.trim()); });
+document.getElementById('clave').addEventListener('keydown', function(ev){ if (ev.key === 'Enter') entrar(); });
+document.getElementById('fecha').value = hoyISO();
+arrancar();
+
+function hoyISO() {
+  var d = new Date(), m = String(d.getMonth()+1).padStart(2,'0'), dd = String(d.getDate()).padStart(2,'0');
+  return d.getFullYear() + '-' + m + '-' + dd;
+}
+
+function arrancar() {
+  if (!SCRIPT_URL) { inscritos = {}; ver('pantalla-taller'); pintarTalleres(); return; }  // modo de prueba
+  if (!clave) { pedirClave(); return; }
+  cargarInscritos(function(err){
+    if (err === 'clave_invalida') {
+      clave = ''; recordar('fl-clave', '');
+      pedirClave('El código cambió o ya no está vigente. Conviene pedir el nuevo a la coordinación.');
+      return;
+    }
+    ver('pantalla-taller');
+  });
+}
+
+// =====================================================================
+// ACCESO
+// =====================================================================
+var volverALista = false;   // si el código caduca a media sesión, no se pierde lo marcado
+
+function pedirClave(msj) {
+  volverALista = !document.getElementById('pantalla-lista').hidden;
+  var a = document.getElementById('aviso-clave');
+  if (msj) { a.textContent = msj; a.hidden = false; } else { a.hidden = true; }
+  ver('pantalla-acceso');
+  setTimeout(function(){ document.getElementById('clave').focus(); }, 220);
+}
+
+function entrar() {
+  var c = document.getElementById('clave').value.trim();
+  if (!c) { pedirClave('Falta escribir el código.'); return; }
+
+  var btn = document.getElementById('btn-entrar');
+  btn.disabled = true; btn.textContent = 'Comprobando…';
+  clave = c;
+
+  cargarInscritos(function(err){
+    btn.disabled = false; btn.textContent = 'Entrar';
+    if (err === 'clave_invalida') {
+      clave = ''; document.getElementById('clave').value = '';
+      pedirClave('Ese código no corresponde al de la Franja Libre.');
+      return;
+    }
+    if (err) { pedirClave('No hubo conexión para comprobar el código. Vale la pena intentarlo de nuevo.'); return; }
+    recordar('fl-clave', c);
+    if (volverALista && tallerActual) { volverALista = false; ver('pantalla-lista'); pintarLista(); return; }
+    ver('pantalla-taller');
+  });
+}
+
+function salir() {
+  if (!confirm('Este teléfono volverá a pedir el código la próxima vez. ¿Continuar?')) return;
+  recordar('fl-clave', '');
+  clave = '';
+  location.reload();
+}
+
+function cargarInscritos(listo) {
+  listo = listo || function(){};
+  if (!SCRIPT_URL) { inscritos = {}; pintarTalleres(); listo(null); return; }
+  fetch(SCRIPT_URL + '?accion=inscritos&clave=' + encodeURIComponent(clave))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d && d.error === 'clave_invalida') { listo('clave_invalida'); return; }
+      inscritos = (d && d.ok && d.talleres) ? d.talleres : {};
+      pintarTalleres();
+      listo(null);
+    })
+    .catch(function(){ inscritos = {}; pintarTalleres(); listo('red'); });
+}
+
+// =====================================================================
+// INSTALACIÓN EN LA PANTALLA DE INICIO
+// =====================================================================
+var promptInstalar = null;
+
+window.addEventListener('beforeinstallprompt', function(ev){
+  ev.preventDefault();
+  promptInstalar = ev;
+  if (!document.getElementById('pantalla-taller').hidden) avisarInstalacion();
+});
+window.addEventListener('appinstalled', function(){
+  promptInstalar = null;
+  document.getElementById('caja-instalar').hidden = true;
+});
+
+function yaInstalada() {
+  var m = window.matchMedia && window.matchMedia('(display-mode: standalone)').matches;
+  return !!m || window.navigator.standalone === true;
+}
+function esIOS() { return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); }
+
+function avisarInstalacion() {
+  if (yaInstalada() || recordado('fl-sin-aviso')) return;
+  var txt = document.getElementById('instalar-texto');
+  var btn = document.getElementById('btn-instalar');
+
+  if (promptInstalar) {
+    txt.textContent = 'Queda entre las aplicaciones del teléfono y abre de un toque, sin buscar la liga en el chat.';
+    btn.hidden = false;
+  } else if (esIOS()) {
+    txt.innerHTML = 'Con la página abierta en <strong>Safari</strong>: toca <strong>Compartir</strong> —el cuadro con la flecha hacia arriba— y elige <strong>Agregar a inicio</strong>.';
+    btn.hidden = true;
+  } else {
+    txt.innerHTML = 'Abre esta página en <strong>Chrome</strong> y usa el menú de tres puntos → <strong>Agregar a pantalla principal</strong>. Desde el navegador de WhatsApp no aparece esa opción.';
+    btn.hidden = true;
+  }
+  document.getElementById('caja-instalar').hidden = false;
+}
+
+function instalar() {
+  if (!promptInstalar) return;
+  promptInstalar.prompt();
+  promptInstalar.userChoice.then(function(){
+    promptInstalar = null;
+    document.getElementById('caja-instalar').hidden = true;
+  });
+}
+
+function ocultarInstalar() {
+  recordar('fl-sin-aviso', '1');
+  document.getElementById('caja-instalar').hidden = true;
+}
+
+// =====================================================================
+// PANTALLA 1
+// =====================================================================
+function pintarTalleres() {
+  document.getElementById('cargando').hidden = true;
+  ['mar','jue'].forEach(function(dia){
+    var cont = document.getElementById('grid-' + dia);
+    cont.innerHTML = '';
+    TALLERES.filter(function(t){ return t.dia === dia; }).forEach(function(t){
+      var n = (inscritos[t.clave] || []).length;
+      var b = document.createElement('button');
+      b.className = 'taller-btn ' + dia;
+      b.onclick = function(){ abrirTaller(t); };
+      b.innerHTML =
+        '<span class="tb-emoji">' + t.emoji + '</span>' +
+        '<span class="tb-cuerpo">' +
+          '<span class="tb-nombre">' + t.clave.split(' · ')[0] + '</span>' +
+          '<span class="tb-meta">' + t.hora + ' · ' + esc(t.prof) + '</span>' +
+        '</span>' +
+        '<span class="tb-conteo">' + (n ? n + (n === 1 ? ' inscrito' : ' inscritos') : '') + '</span>' +
+        '<span class="tb-flecha">›</span>';
+      cont.appendChild(b);
+    });
+    document.getElementById('talleres-' + dia).hidden = false;
+  });
+}
+
+function abrirTaller(t) {
+  tallerActual = t;
+  var prof = document.getElementById('profesor').value.trim();
+  if (!prof) { document.getElementById('profesor').value = t.prof; recordar('fl-profesor', t.prof); }
+
+  personas = (inscritos[t.clave] || []).map(function(p){
+    return { nombre:p.nombre, rol:p.rol || '', presente:false, nuevo:false };
+  });
+  personas.sort(function(a,b){ return a.nombre.localeCompare(b.nombre, 'es'); });
+
+  document.getElementById('sc-taller').textContent = t.clave.split(' · ')[0];
+  document.getElementById('sc-prof').textContent = t.hora + ' · ' + document.getElementById('profesor').value.trim();
+  document.getElementById('buscar').value = '';
+  document.getElementById('caja-buscador').hidden = personas.length < 12;
+  document.getElementById('aviso-error').hidden = true;
+
+  ver('pantalla-lista');
+  pintarLista();
+}
+
+// =====================================================================
+// PANTALLA 2
+// =====================================================================
+function pintarLista() {
+  var q = document.getElementById('buscar').value.trim().toLowerCase();
+  var cont = document.getElementById('lista-personas');
+  cont.innerHTML = '';
+
+  if (!personas.length) {
+    cont.innerHTML = '<div class="vacio"><strong>Todavía no hay inscritos</strong>' +
+      'Nadie se ha registrado en línea a este taller. Se puede levantar la asistencia agregando a cada quien con el botón de abajo.</div>';
+  }
+
+  personas.forEach(function(p, i){
+    if (q && p.nombre.toLowerCase().indexOf(q) === -1) return;
+    var b = document.createElement('button');
+    b.className = 'persona' + (p.presente ? ' presente' : '');
+    b.onclick = function(){ p.presente = !p.presente; pintarLista(); };
+    b.innerHTML =
+      '<span class="p-inicial">' + iniciales(p.nombre) + '</span>' +
+      '<span class="p-cuerpo">' +
+        '<span class="p-nombre">' + esc(p.nombre) + (p.nuevo ? '<span class="p-nuevo">nuevo</span>' : '') + '</span>' +
+        '<span class="p-rol">' + esc(p.rol || 'Sin grupo') + '</span>' +
+      '</span>' +
+      '<span class="p-marca">✓</span>';
+    cont.appendChild(b);
+  });
+
+  var np = personas.filter(function(p){ return p.presente; }).length;
+  document.getElementById('n-presentes').textContent = np;
+  document.getElementById('n-total').textContent = personas.length;
+}
+
+function marcarTodos(v) { personas.forEach(function(p){ p.presente = v; }); pintarLista(); }
+
+function abrirAgregar() {
+  document.getElementById('nuevo-nombre').value = '';
+  document.getElementById('velo-agregar').hidden = false;
+  setTimeout(function(){ document.getElementById('nuevo-nombre').focus(); }, 120);
+}
+function cerrarAgregar() { document.getElementById('velo-agregar').hidden = true; }
+function confirmarAgregar() {
+  var n = document.getElementById('nuevo-nombre').value.trim();
+  if (n.length < 3) { alert('Falta el nombre de la persona.'); return; }
+  personas.push({ nombre:n, rol:document.getElementById('nuevo-rol').value, presente:true, nuevo:true });
+  personas.sort(function(a,b){ return a.nombre.localeCompare(b.nombre, 'es'); });
+  cerrarAgregar();
+  document.getElementById('buscar').value = '';
+  pintarLista();
+}
+
+// =====================================================================
+// ENVÍO
+// =====================================================================
+function datos(reemplazar) {
+  return {
+    clave: clave,
+    taller: tallerActual.clave,
+    profesor: document.getElementById('profesor').value.trim() || tallerActual.prof,
+    fecha: document.getElementById('fecha').value,
+    reemplazar: !!reemplazar,
+    asistentes: personas.map(function(p){
+      return { nombre:p.nombre, rol:p.rol, presente:p.presente, nuevo:p.nuevo };
+    })
+  };
+}
+
+function enviar(reemplazar) {
+  if (!personas.length) { alert('No hay a quién pasar lista. Agrega al menos a una persona.'); return; }
+  if (!document.getElementById('fecha').value) { alert('Falta la fecha de la sesión.'); return; }
+
+  var btn = document.getElementById('btn-enviar');
+  btn.disabled = true; btn.textContent = 'Guardando…';
+  document.getElementById('aviso-error').hidden = true;
+
+  if (!SCRIPT_URL) { verExito({ presentes:personas.filter(function(p){return p.presente;}).length, total:personas.length }); return; }
+
+  fetch(SCRIPT_URL, {
+    method:'POST',
+    headers:{ 'Content-Type':'text/plain;charset=utf-8' },
+    body: JSON.stringify(datos(reemplazar))
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(d){
+    btn.disabled = false; btn.textContent = 'Guardar asistencia';
+    if (d.ok) { verExito(d); return; }
+    if (d.error === 'duplicado') {
+      if (confirm('Ya se había pasado lista de este taller en esa fecha. ¿Reemplazar el registro anterior?')) enviar(true);
+      return;
+    }
+    if (d.error === 'clave_invalida') {
+      clave = ''; recordar('fl-clave', '');
+      pedirClave('El código dejó de ser válido. Al escribir el vigente se puede guardar la lista de nuevo.');
+      return;
+    }
+    fallo('No se pudo guardar. Vale la pena intentar de nuevo en un momento.');
+  })
+  .catch(function(){
+    btn.disabled = false; btn.textContent = 'Guardar asistencia';
+    fallo('No hubo conexión al enviar. La lista sigue marcada aquí: al recuperar señal basta tocar de nuevo «Guardar asistencia».');
+  });
+}
+
+function fallo(msj) {
+  var a = document.getElementById('aviso-error');
+  a.textContent = msj; a.hidden = false;
+  a.scrollIntoView({ behavior:'smooth', block:'center' });
+}
+
+function verExito(d) {
+  var btn = document.getElementById('btn-enviar');
+  btn.disabled = false; btn.textContent = 'Guardar asistencia';
+  var np = d.presentes, nt = d.total;
+  document.getElementById('resumen-exito').innerHTML =
+    '<div><dt>Taller</dt><dd>' + esc(tallerActual.clave) + '</dd></div>' +
+    '<div><dt>Sesión</dt><dd>' + fechaLarga(document.getElementById('fecha').value) + '</dd></div>' +
+    '<div><dt>Presentes</dt><dd>' + np + ' de ' + nt + '</dd></div>' +
+    '<div><dt>Registró</dt><dd>' + esc(document.getElementById('profesor').value.trim() || tallerActual.prof) + '</dd></div>';
+  ver('pantalla-exito');
+}
+
+// =====================================================================
+// NAVEGACIÓN Y UTILIDADES
+// =====================================================================
+function ver(id) {
+  ['pantalla-acceso','pantalla-taller','pantalla-lista','pantalla-exito'].forEach(function(p){
+    document.getElementById(p).hidden = (p !== id);
+  });
+  document.getElementById('btn-volver').hidden = (id === 'pantalla-taller' || id === 'pantalla-acceso');
+  document.getElementById('btn-salir').hidden = (id !== 'pantalla-taller' || !SCRIPT_URL);
+  if (id === 'pantalla-taller') avisarInstalacion();
+  else document.getElementById('caja-instalar').hidden = true;
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+function volverInicio() {
+  if (!document.getElementById('pantalla-lista').hidden && personas.some(function(p){ return p.presente; })) {
+    if (!confirm('La lista marcada se perderá. ¿Volver a los talleres?')) return;
+  }
+  tallerActual = null; personas = [];
+  cargarInscritos();
+  ver('pantalla-taller');
+}
+
+function iniciales(n) {
+  var p = n.trim().split(/\s+/);
+  return ((p[0] || '')[0] + (p.length > 1 ? (p[1] || '')[0] : '')).toUpperCase();
+}
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c){
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function fechaLarga(iso) {
+  if (!iso) return '';
+  var p = iso.split('-');
+  var meses = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  return Number(p[2]) + ' de ' + meses[Number(p[1]) - 1] + ' de ' + p[0];
+}
+</script>
+
+</body>
+</html>
