@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Torneo de fútbol · Franja Libre · Campus Concá UAQ</title>
-<meta name="description" content="Registro al torneo de fútbol de la Franja Libre, Campus Concá UAQ. Dos ramas, femenil y varonil, martes y jueves de 11:00 a 11:30, con plantillas de seis.">
+<title>Torneo de fútbol mixto · Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="Registro al torneo de fútbol mixto de la Franja Libre, Campus Concá UAQ. Martes y jueves de 11:00 a 11:30, equipos de seis: cuatro hombres y dos mujeres.">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
@@ -14,7 +14,6 @@
   --mar:#1A6B5A; --jue:#0D47A1;
   --mar-l:#E0F2F1; --jue-l:#E3F2FD;
   --fem:#B0602A; --fem-l:#FDF0E5;
-  --var:#2D5A3D; --var-l:#E9F4EC;
 }
 body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp); line-height:1.5; }
 :focus-visible { outline:3px solid var(--oc); outline-offset:3px; }
@@ -89,24 +88,8 @@ body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var
 .opcional { font-weight:400; color:#aaa; }
 fieldset { border:none; margin-bottom:20px; }
 
-/* RAMAS */
-.ramas { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.rama { position:relative; }
-.rama input { position:absolute; opacity:0; width:0; height:0; }
-.rama span {
-  display:block; text-align:center; border:1.5px solid #E0DCC4; background:#FAF9F1;
-  border-radius:12px; padding:16px 12px; cursor:pointer; transition:all .12s;
-  font-size:16px; font-weight:600; color:var(--vs); user-select:none;
-}
-.rama span small { display:block; font-weight:400; font-size:12.5px; color:#999; margin-top:3px; }
-.rama span:hover { border-color:var(--vc); }
-.rama input:checked + span { color:#fff; }
-.rama.f input:checked + span { background:var(--fem); border-color:var(--fem); }
-.rama.v input:checked + span { background:var(--var); border-color:var(--var); }
-.rama input:checked + span small { color:rgba(255,255,255,.8); }
-.rama input:focus-visible + span { outline:3px solid var(--oc); outline-offset:2px; }
-
 /* PLANTILLA */
+.bloque { margin-bottom:24px; }
 .bloque-titulo { display:flex; align-items:center; gap:10px; margin-bottom:12px; }
 .bloque-titulo h3 { font-family:'Fraunces',serif; font-size:19px; font-weight:700; }
 .pastilla { font-size:11.5px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; border-radius:20px; padding:4px 11px; background:#E9F4EC; color:var(--vs); }
@@ -116,7 +99,6 @@ fieldset { border:none; margin-bottom:20px; }
   flex:0 0 30px; height:30px; border-radius:50%; background:#F2EFE0; color:#8f8c7a;
   font-size:13px; font-weight:600; display:flex; align-items:center; justify-content:center;
 }
-.jugador.suplente .num { background:#FDF2E2; color:#B07A28; }
 .jugador input { flex:1 1 52%; min-width:0; padding:11px 13px; border:1.5px solid #ddd; border-radius:10px; font-size:16px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff; }
 .jugador select { flex:1 1 48%; min-width:0; padding:11px 10px; border:1.5px solid #ddd; border-radius:10px; font-size:14.5px; font-family:'Instrument Sans',sans-serif; color:var(--vp); background:#fff; }
 .jugador input:focus, .jugador select:focus { outline:none; border-color:var(--vv); }
@@ -169,7 +151,6 @@ footer a { color:var(--vc); }
 @media (max-width:600px) {
   .acciones { flex-direction:column-reverse; }
   .btn { width:100%; }
-  .ramas { grid-template-columns:1fr; }
   .jugador { flex-wrap:wrap; }
   .jugador input { flex:1 1 100%; }
   .jugador select { flex:1 1 100%; margin-left:40px; }
@@ -183,8 +164,8 @@ footer a { color:var(--vc); }
 <header class="hero">
   <a class="volver" href="index.html">← Franja Libre</a>
   <span class="hero-eyebrow">Franja Libre · Semestre 2026-2 · Campus Concá</span>
-  <h1>Torneo de <em>fútbol</em></h1>
-  <p>Dos torneos en paralelo, rama femenil y rama varonil, con partidos de 11:00 a 11:30 los martes o jueves. Cada equipo registra seis personas: cinco en cancha y una suplencia. Pueden jugar estudiantes de los tres programas, docentes y administrativos, mezclados como quieran. El calendario y el sistema de competencia se arman al cerrar el registro, con los equipos que hayan quedado en cada rama.</p>
+  <h1>Torneo de fútbol <em>mixto</em></h1>
+  <p>Los partidos se juegan de 11:00 a 11:30, martes o jueves, con equipos de seis: cuatro hombres y dos mujeres. Pueden jugar estudiantes de los tres programas, docentes y administrativos, mezclados como quieran. El calendario y el sistema de competencia se arman al cerrar el registro, con los equipos que hayan quedado.</p>
   <span class="rapido">⚽ Registrar un equipo toma tres minutos</span>
 </header>
 
@@ -192,8 +173,8 @@ footer a { color:var(--vc); }
 
   <dl class="ficha">
     <div><dt>Cuándo</dt><dd>Martes y jueves<small>11:00 a 11:30 h</small></dd></div>
-    <div><dt>Ramas</dt><dd>Femenil y varonil<small>Dos torneos por separado</small></dd></div>
-    <div><dt>Plantilla</dt><dd>Seis personas<small>Cinco juegan, una de relevo</small></dd></div>
+    <div><dt>Equipos</dt><dd>Seis personas<small>4 hombres y 2 mujeres</small></dd></div>
+    <div><dt>Formato</dt><dd>Mixto<small>Un solo torneo</small></dd></div>
     <div><dt>Quién puede</dt><dd>Toda la comunidad<small>Estudiantes, docentes y administrativos</small></dd></div>
   </dl>
 
@@ -205,7 +186,7 @@ footer a { color:var(--vc); }
       <button class="puerta" onclick="entrar('equipo')">
         <span class="puerta-emoji">⚽</span>
         <span class="puerta-titulo">Inscribir un equipo</span>
-        <span class="puerta-desc">Seis personas de la misma rama, con nombre de equipo y quien capitanee. Tres pasos.</span>
+        <span class="puerta-desc">Seis personas: cuatro hombres y dos mujeres, con nombre de equipo y quien capitanee. Tres pasos.</span>
         <span class="puerta-cta">Registrar equipo →</span>
       </button>
       <button class="puerta silbato" onclick="entrar('arbitro')">
@@ -232,15 +213,7 @@ footer a { color:var(--vc); }
     <!-- PASO 1 -->
     <section class="paso" id="paso-1" hidden>
       <h2>El equipo</h2>
-      <p class="intro">La rama define en qué torneo compite y un nombre que se pueda gritar desde la banca. Al contacto que dejes llegan el calendario, los cambios de horario y los resultados.</p>
-
-      <fieldset>
-        <legend>¿En qué rama compite el equipo?</legend>
-        <div class="ramas">
-          <label class="rama f"><input type="radio" name="rama" value="Femenil"><span>Femenil<small>Equipo de mujeres</small></span></label>
-          <label class="rama v"><input type="radio" name="rama" value="Varonil"><span>Varonil<small>Equipo de hombres</small></span></label>
-        </div>
-      </fieldset>
+      <p class="intro">Un nombre que se pueda gritar desde la banca y una persona que reciba los avisos. A ese contacto llegan el calendario, los cambios de horario y los resultados.</p>
 
       <div class="campo">
         <label for="equipo">Nombre del equipo</label>
@@ -274,21 +247,29 @@ footer a { color:var(--vc); }
     <!-- PASO 2 -->
     <section class="paso" id="paso-2" hidden>
       <h2>La plantilla</h2>
-      <p class="intro">Seis personas de la misma rama: cinco juegan y la sexta entra en los cambios, de manera que siempre haya alguien de relevo. Anota a todas, incluida quien capitanea.</p>
+      <p class="intro">Seis personas en cancha: cuatro hombres y dos mujeres. Anota a todas, incluida quien capitanea.</p>
 
-      <div class="bloque-titulo">
-        <h3 id="plantilla-titulo">Jugadores</h3>
-        <span class="pastilla" id="plantilla-pastilla">Seis</span>
+      <div class="bloque">
+        <div class="bloque-titulo">
+          <h3>Hombres</h3>
+          <span class="pastilla">Cuatro</span>
+        </div>
+        <div class="jugador"><span class="num">1</span><input type="text" id="h1" placeholder="Nombre y apellidos"><select id="ha1" class="adsc"></select></div>
+        <div class="jugador"><span class="num">2</span><input type="text" id="h2" placeholder="Nombre y apellidos"><select id="ha2" class="adsc"></select></div>
+        <div class="jugador"><span class="num">3</span><input type="text" id="h3" placeholder="Nombre y apellidos"><select id="ha3" class="adsc"></select></div>
+        <div class="jugador"><span class="num">4</span><input type="text" id="h4" placeholder="Nombre y apellidos"><select id="ha4" class="adsc"></select></div>
       </div>
 
-      <div class="jugador"><span class="num">1</span><input type="text" id="j1" placeholder="Nombre y apellidos"><select id="a1" class="adsc"></select></div>
-      <div class="jugador"><span class="num">2</span><input type="text" id="j2" placeholder="Nombre y apellidos"><select id="a2" class="adsc"></select></div>
-      <div class="jugador"><span class="num">3</span><input type="text" id="j3" placeholder="Nombre y apellidos"><select id="a3" class="adsc"></select></div>
-      <div class="jugador"><span class="num">4</span><input type="text" id="j4" placeholder="Nombre y apellidos"><select id="a4" class="adsc"></select></div>
-      <div class="jugador"><span class="num">5</span><input type="text" id="j5" placeholder="Nombre y apellidos"><select id="a5" class="adsc"></select></div>
-      <div class="jugador suplente"><span class="num">6</span><input type="text" id="j6" placeholder="Nombre y apellidos · relevo"><select id="a6" class="adsc"></select></div>
+      <div class="bloque">
+        <div class="bloque-titulo">
+          <h3>Mujeres</h3>
+          <span class="pastilla f">Dos</span>
+        </div>
+        <div class="jugador"><span class="num">5</span><input type="text" id="f1" placeholder="Nombre y apellidos"><select id="fa1" class="adsc"></select></div>
+        <div class="jugador"><span class="num">6</span><input type="text" id="f2" placeholder="Nombre y apellidos"><select id="fa2" class="adsc"></select></div>
+      </div>
 
-      <p class="mezcla" id="mezcla" style="margin-top:14px;">La mezcla del equipo aparece aquí conforme se llena.</p>
+      <p class="mezcla" id="mezcla">La mezcla del equipo aparece aquí conforme se llena.</p>
 
       <div class="acciones">
         <button class="btn btn-sec" onclick="anterior(2)">Atrás</button>
@@ -313,11 +294,11 @@ footer a { color:var(--vc); }
       <label class="opcion" style="margin-bottom:16px;">
         <input type="checkbox" id="compromiso">
         <span>Aceptamos las condiciones del torneo.
-          <small>Nos presentamos a las 11:00 en punto, avisamos con anticipación cuando no podamos jugar, acatamos las decisiones del arbitraje, jugamos con respeto dentro y fuera de la cancha, y dejamos limpio el espacio al terminar.</small>
+          <small>Nos presentamos a las 11:00 en punto, mantenemos en cancha cuatro hombres y dos mujeres, avisamos con anticipación cuando no podamos jugar, acatamos las decisiones del arbitraje, jugamos con respeto dentro y fuera de la cancha, y dejamos limpio el espacio al terminar.</small>
         </span>
       </label>
 
-      <div class="alerta verde">El calendario y el sistema de competencia se definen por separado en cada rama, con los equipos que se hayan registrado, y se publican en la página de la Franja Libre. El arbitraje y la mesa de resultados quedan a cargo de la coordinación de deportes del campus.</div>
+      <div class="alerta verde">El calendario y el sistema de competencia se definen con los equipos que se hayan registrado y se publican en la página de la Franja Libre. El arbitraje y la mesa de resultados quedan a cargo de la coordinación de deportes del campus.</div>
 
       <div class="acciones">
         <button class="btn btn-sec" onclick="anterior(3)">Atrás</button>
@@ -352,16 +333,7 @@ footer a { color:var(--vc); }
         <label class="opcion dia-jue"><input type="checkbox" class="arb-dia" value="Jueves"><span>Jueves, 11:00 a 11:30</span></label>
       </fieldset>
 
-      <fieldset>
-        <legend>¿En qué rama puedes arbitrar?</legend>
-        <div class="ramas">
-          <label class="rama f"><input type="radio" name="arb-rama" value="Femenil"><span>Femenil</span></label>
-          <label class="rama v"><input type="radio" name="arb-rama" value="Varonil"><span>Varonil</span></label>
-        </div>
-        <label class="opcion" style="margin-top:10px;"><input type="radio" name="arb-rama" value="Ambas"><span>Las dos, según se necesite<small>Es lo más útil para armar el rol</small></span></label>
-      </fieldset>
-
-      <div class="alerta verde">Arbitrar no te impide jugar: si tu equipo compite en una rama, puedes pitar en la otra sin conflicto.</div>
+      <div class="alerta verde">Arbitrar no te impide jugar: si estás en un equipo, se procura que no te toque pitar los partidos en que participas.</div>
 
       <div class="acciones">
         <button class="btn btn-sec" onclick="volverInicio()">Atrás</button>
@@ -373,8 +345,8 @@ footer a { color:var(--vc); }
     <section class="paso exito" id="exito-equipo" hidden>
       <div class="check">⚽</div>
       <h2>Equipo registrado</h2>
-      <p>Al cerrar el registro se arman el calendario y el sistema de competencia de cada rama con todos los equipos inscritos. El rol de partidos llega al WhatsApp de quien capitanea y se publica en la página de la Franja Libre.</p>
-      <p>Mientras tanto, conviene ir acordando quién entra en los cambios y confirmar que las seis personas puedan a las 11:00.</p>
+      <p>Al cerrar el registro se arman el calendario y el sistema de competencia con todos los equipos inscritos. El rol de partidos llega al WhatsApp de quien capitanea y se publica en la página de la Franja Libre.</p>
+      <p>Mientras tanto, conviene confirmar que las seis personas puedan a las 11:00 en punto.</p>
       <div class="acciones" style="justify-content:center;">
         <button class="btn btn-sec" onclick="window.print()">Imprimir una copia</button>
       </div>
@@ -417,8 +389,8 @@ document.querySelectorAll('select.adsc').forEach(function (s) {
   s.innerHTML = html;
 });
 
-var IDS_J = ['j1','j2','j3','j4','j5','j6'];
-var IDS_A = ['a1','a2','a3','a4','a5','a6'];
+var IDS_H = ['h1','h2','h3','h4'], IDS_HA = ['ha1','ha2','ha3','ha4'];
+var IDS_F = ['f1','f2'], IDS_FA = ['fa1','fa2'];
 var nombres = ['El equipo','La plantilla','Disponibilidad y compromiso'];
 var modo = '';
 
@@ -466,11 +438,9 @@ function anterior(n) { verPaso(n-1); }
 
 function siguiente(n) {
   if (n === 1) {
-    if (!radio('rama')) return alert('Elige la rama en la que compite el equipo.');
     if (!val('equipo')) return alert('Ponle nombre al equipo.');
     if (!val('capitan')) return alert('Falta quién capitanea.');
     if (!val('tel')) return alert('Falta el teléfono de contacto.');
-    ajustarPlantilla();
   }
   if (n === 2) {
     var faltan = plantilla().filter(function(p){ return !p.nombre || !p.adscripcion; });
@@ -484,14 +454,11 @@ function siguiente(n) {
 
 // ===== UTILIDADES =====
 function val(id) { return document.getElementById(id).value.trim(); }
-function radio(nombre) {
-  var m = document.querySelector('input[name="'+nombre+'"]:checked');
-  return m ? m.value : '';
-}
 function plantilla() {
-  return IDS_J.map(function(id,i){
-    return { nombre: val(id), adscripcion: val(IDS_A[i]) };
-  });
+  var lista = [];
+  IDS_H.forEach(function(id,i){ lista.push({ nombre:val(id), genero:'Hombre', adscripcion:val(IDS_HA[i]) }); });
+  IDS_F.forEach(function(id,i){ lista.push({ nombre:val(id), genero:'Mujer',  adscripcion:val(IDS_FA[i]) }); });
+  return lista;
 }
 function repetidos() {
   var vistos = {}, repes = [];
@@ -509,16 +476,6 @@ function marcados(clase) {
 }
 function escapar(t) {
   return String(t).replace(/[&<>]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]; });
-}
-
-// La plantilla se rotula según la rama elegida
-function ajustarPlantilla() {
-  var fem = radio('rama') === 'Femenil';
-  document.getElementById('plantilla-titulo').textContent = fem ? 'Jugadoras' : 'Jugadores';
-  var p = document.getElementById('plantilla-pastilla');
-  p.className = 'pastilla' + (fem ? ' f' : '');
-  p.textContent = fem ? 'Rama femenil' : 'Rama varonil';
-  document.getElementById('j6').placeholder = fem ? 'Nombre y apellidos · relevo' : 'Nombre y apellidos · relevo';
 }
 
 // ===== MEZCLA EN VIVO =====
@@ -555,12 +512,11 @@ function datosEquipo() {
   var p = plantilla();
   return {
     tipo: 'torneo',
-    rama: radio('rama'),
     equipo: val('equipo'), color: val('color'),
     capitan: val('capitan'), telefono: val('tel'),
     dias: marcados('dia').join('; '),
     integrantes: p,
-    plantilla: p.map(function(x,i){ return (i===5 ? 'Relevo: ' : '') + x.nombre + ' (' + x.adscripcion + ')'; }).join('\n'),
+    plantilla: p.map(function(x){ return x.nombre + ' (' + x.genero.charAt(0) + ' · ' + x.adscripcion + ')'; }).join('\n'),
     horario: '11:00 a 11:30 h',
     enviada: new Date().toLocaleString('es-MX')
   };
@@ -572,7 +528,6 @@ function datosArbitro() {
     adscripcion: val('arb-adsc'),
     telefono: val('arb-tel'),
     dias: marcados('arb-dia').join('; '),
-    ramas: radio('arb-rama'),
     horario: '11:00 a 11:30 h',
     enviada: new Date().toLocaleString('es-MX')
   };
@@ -581,7 +536,6 @@ function armarResumen() {
   if (modo !== 'equipo') return;
   var d = datosEquipo();
   var filas = [
-    ['Rama', d.rama],
     ['Equipo', d.equipo],
     ['Color', d.color || '—'],
     ['Capitanea', d.capitan],
@@ -614,7 +568,7 @@ function mandar(datos, boton, textoBoton, alExito) {
   .then(function(data){
     btn.disabled = false; btn.textContent = textoBoton;
     if (data.ok) { alExito(); }
-    else if (data.error === 'duplicado') { alert('Ya hay un equipo registrado con ese nombre en esa rama. Elige otro.'); verPaso(1); }
+    else if (data.error === 'duplicado') { alert('Ya hay un equipo registrado con ese nombre. Elige otro.'); verPaso(1); }
     else { alert('Hubo un problema al registrar. Intenta de nuevo.'); }
   })
   .catch(function(){
@@ -640,7 +594,6 @@ function enviarArbitro() {
   if (!val('arb-adsc')) return alert('Elige tu programa o área.');
   if (!val('arb-tel')) return alert('Falta tu teléfono de WhatsApp.');
   if (marcados('arb-dia').length === 0) return alert('Elige al menos un día en que puedas apoyar.');
-  if (!radio('arb-rama')) return alert('Indica en qué rama puedes arbitrar.');
   mandar(datosArbitro(), 'btn-arbitro', 'Anotarme', function(){
     ocultarTodo();
     document.getElementById('exito-arbitro').hidden = false;

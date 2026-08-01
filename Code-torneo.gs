@@ -1,7 +1,7 @@
 /**
- * TORNEO DE FÚTBOL · FRANJA LIBRE · CAMPUS CONCÁ UAQ
+ * TORNEO DE FÚTBOL MIXTO · FRANJA LIBRE · CAMPUS CONCÁ UAQ
  * Recibe los registros de torneo.html y los guarda en la hoja de cálculo.
- * Atiende dos tipos de envío: equipos (rama femenil o varonil) y árbitros.
+ * Atiende dos tipos de envío: equipos (cuatro hombres y dos mujeres) y árbitros.
  *
  * CÓMO INSTALARLO
  *  1. Abre la hoja de cálculo del torneo en Drive.
@@ -23,15 +23,15 @@ var HOJA_INTEGRANTES = 'Integrantes';
 var HOJA_ARBITROS = 'Árbitros';
 
 var COLS_EQUIPOS = [
-  'Fecha de registro', 'Rama', 'Equipo', 'Color', 'Capitanea', 'WhatsApp',
-  'Días disponibles', 'Plantilla', 'Estado', 'Observaciones'
+  'Fecha de registro', 'Equipo', 'Color', 'Capitanea', 'WhatsApp',
+  'Días disponibles', 'Hombres', 'Mujeres', 'Plantilla', 'Estado', 'Observaciones'
 ];
 var COLS_INTEGRANTES = [
-  'Fecha de registro', 'Rama', 'Equipo', 'Nombre', 'Adscripción', 'Rol'
+  'Fecha de registro', 'Equipo', 'Nombre', 'Género', 'Adscripción'
 ];
 var COLS_ARBITROS = [
   'Fecha de registro', 'Nombre', 'Adscripción', 'WhatsApp',
-  'Días disponibles', 'Rama que puede arbitrar', 'Estado', 'Observaciones'
+  'Días disponibles', 'Estado', 'Observaciones'
 ];
 
 /** Crea las pestañas con sus encabezados. Ejecutar una sola vez. */
@@ -96,24 +96,25 @@ function responder(objeto) {
 function guardarEquipo(d) {
   var equipos = hoja(HOJA_EQUIPOS, COLS_EQUIPOS);
 
-  // Un mismo nombre puede repetirse entre ramas, pero no dentro de la misma
-  if (nombreOcupado(equipos, d.rama, d.equipo)) {
+  // Un solo nombre de equipo por torneo
+  if (nombreOcupado(equipos, d.equipo)) {
     return responder({ ok: false, error: 'duplicado' });
   }
 
   var sello = new Date();
   var gente = Array.isArray(d.integrantes) ? d.integrantes : [];
+  var hombres = gente.filter(function (p) { return p.genero === 'Hombre'; }).length;
+  var mujeres = gente.filter(function (p) { return p.genero === 'Mujer'; }).length;
 
   equipos.appendRow([
-    sello, d.rama || '', d.equipo || '', d.color || '', d.capitan || '', d.telefono || '',
-    d.dias || '', d.plantilla || '', 'Registrado', ''
+    sello, d.equipo || '', d.color || '', d.capitan || '', d.telefono || '',
+    d.dias || '', hombres, mujeres, d.plantilla || '', 'Registrado', ''
   ]);
 
   if (gente.length) {
     var integrantes = hoja(HOJA_INTEGRANTES, COLS_INTEGRANTES);
-    var filas = gente.map(function (p, i) {
-      return [sello, d.rama || '', d.equipo || '', p.nombre || '', p.adscripcion || '',
-              (i === gente.length - 1 ? 'Relevo' : 'Titular')];
+    var filas = gente.map(function (p) {
+      return [sello, d.equipo || '', p.nombre || '', p.genero || '', p.adscripcion || ''];
     });
     integrantes.getRange(integrantes.getLastRow() + 1, 1, filas.length, COLS_INTEGRANTES.length)
                .setValues(filas);
@@ -123,27 +124,23 @@ function guardarEquipo(d) {
   return responder({ ok: true });
 }
 
-function nombreOcupado(hojaEquipos, rama, nombre) {
+function nombreOcupado(hojaEquipos, nombre) {
   if (!nombre) return false;
   var ultima = hojaEquipos.getLastRow();
   if (ultima < 2) return false;
-  var claveRama = normalizar(rama), claveEquipo = normalizar(nombre);
-  var datos = hojaEquipos.getRange(2, 2, ultima - 1, 2).getValues();   // columnas Rama y Equipo
-  return datos.some(function (fila) {
-    return normalizar(fila[0]) === claveRama && normalizar(fila[1]) === claveEquipo;
-  });
+  var clave = normalizar(nombre);
+  var datos = hojaEquipos.getRange(2, 2, ultima - 1, 1).getValues();   // columna Equipo
+  return datos.some(function (fila) { return normalizar(fila[0]) === clave; });
 }
 
 function avisarEquipo(d, gente) {
   if (!CORREO_ORGANIZA) return;
   var lista = gente.map(function (p, i) {
-    return (i + 1) + '. ' + p.nombre + ' — ' + p.adscripcion +
-           (i === gente.length - 1 ? ' (relevo)' : '');
+    return (i + 1) + '. ' + p.nombre + ' — ' + p.genero + ' — ' + p.adscripcion;
   }).join('\n');
 
   var cuerpo =
-    'Nuevo equipo en el torneo de fútbol de la Franja Libre.\n\n' +
-    'RAMA: ' + (d.rama || '') + '\n' +
+    'Nuevo equipo en el torneo de fútbol mixto de la Franja Libre.\n\n' +
     'EQUIPO: ' + (d.equipo || '') + '\n' +
     'Color: ' + (d.color || '—') + '\n' +
     'Capitanea: ' + (d.capitan || '') + '\n' +
@@ -154,7 +151,7 @@ function avisarEquipo(d, gente) {
 
   MailApp.sendEmail({
     to: CORREO_ORGANIZA,
-    subject: 'Torneo Franja Libre · ' + (d.rama || 'sin rama') + ' · nuevo equipo: ' + (d.equipo || 'sin nombre'),
+    subject: 'Torneo Franja Libre · nuevo equipo: ' + (d.equipo || 'sin nombre'),
     body: cuerpo
   });
 }
@@ -166,7 +163,7 @@ function guardarArbitro(d) {
 
   arbitros.appendRow([
     new Date(), d.nombre || '', d.adscripcion || '', d.telefono || '',
-    d.dias || '', d.ramas || '', 'Anotado', ''
+    d.dias || '', 'Anotado', ''
   ]);
 
   if (CORREO_ORGANIZA) {
@@ -179,7 +176,6 @@ function guardarArbitro(d) {
         'Adscripción: ' + (d.adscripcion || '') + '\n' +
         'WhatsApp: ' + (d.telefono || '') + '\n' +
         'Días disponibles: ' + (d.dias || '—') + '\n' +
-        'Rama que puede arbitrar: ' + (d.ramas || '—') + '\n' +
         'Registrado: ' + (d.enviada || '') + '\n'
     });
   }
