@@ -120,6 +120,23 @@ body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var
 .dg { display:flex; justify-content:space-between; gap:10px; font-size:12.5px; color:#8a958d; }
 .dg b { font-weight:700; color:var(--vs); }
 
+/* ===== COMPOSICIÓN POR TIPO DE PARTICIPANTE ===== */
+.perfiles { background:#fff; border-radius:15px; padding:20px 18px 16px; border:1px solid rgba(26,58,42,.09); }
+.perfil + .perfil { margin-top:16px; }
+.p-cab { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:7px; }
+.p-cat { font-size:14.5px; font-weight:600; }
+.p-cifra { font-family:'Fraunces',serif; font-size:20px; font-weight:900; color:var(--vv); flex-shrink:0; }
+.p-cifra small { font-family:'Instrument Sans',sans-serif; font-size:12px; font-weight:500; color:#8a958d; margin-left:5px; }
+/* Sin pista de fondo: el ancho dibujado son los inscritos de esa categoría,
+   no el máximo de la escala, para que el gris nunca se lea como faltantes. */
+.p-pista { position:relative; height:11px; }
+.p-relleno { position:absolute; left:0; top:0; bottom:0; background:var(--vv); border-radius:5px; min-width:3px; }
+.p-hueco { position:absolute; top:0; bottom:0; background:rgba(26,58,42,.19); border-radius:5px; }
+.p-nota { font-size:12px; color:#8a958d; margin-top:5px; }
+.leyenda { display:flex; gap:16px; flex-wrap:wrap; margin-top:16px; padding-top:14px; border-top:1px solid rgba(26,58,42,.08); font-size:12.5px; color:#8a958d; }
+.leyenda span { display:flex; align-items:center; gap:7px; }
+.leyenda i { width:13px; height:11px; border-radius:4px; display:inline-block; }
+
 .vacio { text-align:center; padding:44px 20px; color:#8a958d; font-size:14.5px; line-height:1.6; }
 .vacio strong { display:block; font-family:'Fraunces',serif; font-size:19px; color:var(--vp); margin-bottom:7px; font-weight:700; }
 .vacio .em { font-size:40px; display:block; margin-bottom:14px; }
@@ -192,6 +209,11 @@ body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var
     <h2 class="sec-t">El <em>acumulado</em></h2>
     <p class="sec-s">Desde el arranque del semestre.</p>
     <div class="pulso" id="pulso-total"></div>
+
+    <h2 class="sec-t">Quiénes <em>participan</em></h2>
+    <p class="sec-s">Personas distintas que han asistido al menos una vez, contadas una sola vez aunque lleven varios talleres.</p>
+    <div id="bloque-perfiles"></div>
+
     <p class="nota" id="nota-inicio"></p>
   </section>
 
@@ -361,6 +383,8 @@ function pintarPulso() {
     dato(D.talleres.filter(function(t){ return t.sesiones > 0; }).length + '<small>/' + D.talleres.length + '</small>',
          'Talleres activos', 'Con al menos una sesión registrada.', 'bien');
 
+  pintarPerfiles();
+
   document.getElementById('nota-inicio').textContent =
     'Primera sesión registrada: ' + corta(D.inicio) + '. Los días en que la Franja Libre se suspende por completo no cuentan como sesiones faltantes.';
 
@@ -382,6 +406,41 @@ function pintarPulso() {
   }).join('');
   cont.innerHTML = '<h2 class="sec-t">Sesiones sin <em>registrar</em></h2>' +
     '<p class="sec-s">En todo el semestre: días en que el taller debió sesionar y nadie pasó lista. Mientras esto no se cierre, el resto de los números queda corto.</p>' + filas;
+}
+
+function pintarPerfiles() {
+  var cont = document.getElementById('bloque-perfiles');
+  var P = D.perfiles || [];
+  if (!P.length) { cont.innerHTML = '<div class="vacio" style="padding:26px 20px">Sin datos de adscripción todavía.</div>'; return; }
+
+  // Escala compartida: todas las barras se miden contra el mismo máximo,
+  // para que las magnitudes se comparen entre categorías y no solo dentro de cada una.
+  var max = Math.max.apply(null, P.map(function(p){ return Math.max(p.inscritos, p.participantes); }).concat([1]));
+  var totalPart = P.reduce(function(s, p){ return s + p.participantes; }, 0);
+  var totalIns  = P.reduce(function(s, p){ return s + p.inscritos; }, 0);
+
+  cont.innerHTML = '<div class="perfiles">' + P.map(function(p){
+    var anchoIns  = Math.round(p.inscritos / max * 100);
+    var anchoPart = Math.round(p.participantes / max * 100);
+    var sinVenir = p.inscritos - p.participantes;
+    return '<div class="perfil">' +
+      '<div class="p-cab"><span class="p-cat">' + esc(p.categoria) + '</span>' +
+      '<span class="p-cifra">' + p.participantes + '<small>de ' + p.inscritos + ' inscritos</small></span></div>' +
+      '<div class="p-pista">' +
+        (sinVenir > 0
+          ? '<span class="p-hueco" style="left:calc(' + anchoPart + '% + 2px);width:calc(' + Math.max(1, anchoIns - anchoPart) + '% - 2px)"></span>'
+          : '') +
+        '<span class="p-relleno" style="width:' + anchoPart + '%"></span>' +
+      '</div>' +
+      (sinVenir > 0 ? '<div class="p-nota">' + sinVenir + (sinVenir === 1 ? ' se inscribió y no ha asistido' : ' se inscribieron y no han asistido') + '</div>' : '') +
+      '</div>';
+  }).join('') +
+  '<div class="leyenda">' +
+    '<span><i style="background:var(--vv)"></i> Han asistido</span>' +
+    '<span><i style="background:rgba(26,58,42,.16)"></i> Inscritos sin asistir</span>' +
+  '</div></div>' +
+  '<p class="nota">' + totalPart + ' de ' + totalIns + ' personas inscritas han pisado al menos una sesión. ' +
+  'La adscripción viene del formulario de inscripción, que no distingue entre carreras de licenciatura.</p>';
 }
 
 function dato(n, rot, pie, cls) {
