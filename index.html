@@ -279,8 +279,8 @@ footer strong { color:var(--oc); }
       <p class="taller-desc">Aprenderás las habilidades básicas del balonmano: pases, lanzamientos y movimientos dentro de la cancha. Un espacio dinámico para activarte, jugar en equipo y mejorar tu coordinación semana a semana.</p>
       
       <div class="taller-footer">
-        <span class="cupo" id="cupo-balonmano" data-taller="Balonmano · Martes" data-cupo="20">Cupo: 20 lugares</span>
-        <button class="btn-inscribir" onclick="abrirModal('balonmano','Balonmano · Martes','Balonmano')">Inscribirme</button>
+        <span class="cupo lleno" id="cupo-balonmano" data-taller="Balonmano · Martes" data-cupo="0" data-cerrado="1">Cupo lleno</span>
+        <button class="btn-inscribir" disabled>Lleno</button>
       </div>
     </article>
     <article class="taller jue" data-dia="J">
@@ -580,6 +580,7 @@ window.addEventListener('DOMContentLoaded', function() {
     .then(data => {
       if (!data.ok) return;
       document.querySelectorAll('.cupo').forEach(el => {
+        if (el.dataset.cerrado) return; // taller cerrado manualmente: no reabrir con el cupo del servidor
         const tid = el.id.replace('cupo-','');
         // el id del taller en la hoja es el NOMBRE; usamos data-taller
         const nombreTaller = el.dataset.taller;
