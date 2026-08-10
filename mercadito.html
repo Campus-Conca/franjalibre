@@ -27,7 +27,10 @@ a { color:inherit; }
 }
 .volver { display:inline-block; font-size:13px; font-weight:600; color:var(--vc); text-decoration:none; letter-spacing:.04em; margin-bottom:26px; }
 .volver:hover { color:var(--oc); }
-.hero-eyebrow { font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--oc); display:block; margin-bottom:10px; }
+.hero-eyebrow { font-size:12px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--oc); display:block; margin-bottom:6px; }
+.hero-subtitulo { font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--vc); display:block; margin-bottom:10px; }
+.hero-registros { font-size:14px; color:rgba(245,238,216,.85); margin-top:12px; margin-bottom:20px; position:relative; }
+.hero-registros a { color:var(--oc); font-weight:600; }
 .hero h1 { font-family:'Fraunces',serif; font-weight:900; font-size:clamp(34px,7vw,58px); line-height:1.05; position:relative; }
 .hero h1 em { font-style:italic; color:var(--vc); }
 .hero-tagline { font-family:'Fraunces',serif; font-style:italic; font-size:20px; color:var(--vc); margin:14px 0 20px; position:relative; }
@@ -233,8 +236,10 @@ footer a { color:var(--vc); }
 <header class="hero">
   <a class="volver" href="index.html">← Franja Libre</a>
   <span class="hero-eyebrow">Evento especial · Semestre 2026-2</span>
+  <span class="hero-subtitulo">Página informativa y de registros</span>
   <h1>Mercadito <em>Sustentable</em></h1>
   <p class="hero-tagline">dos formas de intercambiar, un mismo día</p>
+  <p class="hero-registros">Aquí mismo <a href="#aparta">apartas tu lugar para el trueque</a> o <a href="registro.html">llenas la solicitud de venta</a>.</p>
   <div class="hero-datos">
     <span class="dato"><strong>11:00 – 12:00 h</strong></span>
     <span class="dato">Camino del edificio principal a la cancha techada</span>
@@ -249,14 +254,14 @@ footer a { color:var(--vc); }
     <div class="mitad trueque">
       <span class="mitad-emoji">🔄</span>
       <span class="mitad-etiqueta">Actividad 1 · en las cuatro fechas</span>
-      <h2>Trueque consciente y solidario</h2>
+      <h2>Trueque Consciente y Solidario</h2>
       <p>Un día para despedir lo que ya no usas y darle la bienvenida a algo que sí. Se intercambia directamente, de común acuerdo, entre quienes participan.</p>
       <span class="moneda no">🚫 Aquí no circula dinero</span>
     </div>
     <div class="mitad venta">
       <span class="mitad-emoji">🥬</span>
       <span class="mitad-etiqueta">Actividad 2 · en las cuatro fechas</span>
-      <h2>Ventas universitarias saludables &amp; sustentables + Cero Residuos</h2>
+      <h2>Ventas Universitarias Saludables &amp; Sustentables + Cero Residuos</h2>
       <p>Venta de alimentos nutritivos y de productos artesanales, vegetales o agroalimentarios de producción orgánica, local o sustentable. Todo sin desechables: quien vende trae empaques compostables o reutilizables y quien compra trae su propio recipiente.</p>
       <span class="moneda si">💵 Aquí sí circula dinero</span>
     </div>
@@ -264,8 +269,8 @@ footer a { color:var(--vc); }
   <p class="duo-nota">Las dos actividades ocurren el mismo día, en el mismo espacio. Puedes entrar a una o a las dos.</p>
 
   <!-- ===== CALENDARIO DE EDICIONES ===== -->
-  <h2 class="sec-titulo">Las cuatro <em>ediciones</em></h2>
-  <p class="sec-sub">Una al mes, siempre de 11:00 a 12:00 en las bancas de afuera del edificio principal, sobre el camino a la cancha techada, con las dos actividades juntas y en paralelo a los talleres de la Franja Libre.</p>
+  <h2 class="sec-titulo">Las cuatro <em>ediciones</em> del Mercadito</h2>
+  <p class="sec-sub">Mercadito una vez al mes, siempre de 11:00 a 12:00 horas, en las bancas de afuera del edificio principal, sobre el camino a la cancha techada, con las dos actividades juntas y en paralelo a los talleres de la Franja Libre.</p>
   <div class="ediciones">
 
     <article class="edicion">
@@ -277,8 +282,8 @@ footer a { color:var(--vc); }
       <div class="ed-cuerpo">
         <span class="ed-badge">Feria de Intercambio de Saberes</span>
         <h3 class="ed-nombre">Mercadito de arranque</h3>
-        <p class="ed-desc">La primera edición abre el semestre junto a la Feria de Intercambio de Saberes: lo que se intercambia no son solo objetos, también oficios y conocimientos. Trae lo que quieras truequear, lo que quieras vender y algo que sepas hacer.</p>
-        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 20 de agosto</strong> · resolución el <strong>martes 25 de agosto</strong></p>
+        <p class="ed-desc">La primera edición abre el semestre junto a la Feria de Intercambio de Saberes: lo que se intercambia no son solo objetos, también oficios y conocimientos. Trae lo que quieras truequear, lo que quieras vender (previo registro) y comparte algo que sepas hacer en el <a href="feria-saberes.html"><strong>Intercambio de Saberes</strong></a>: conoce la Feria y regístrate en su propia página.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 20 de agosto</strong> · resolución de solicitudes el <strong>lunes 24 de agosto</strong></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
         <span class="ed-prop" data-pendiente>Propuesta por confirmar</span>
       </div>
@@ -292,9 +297,9 @@ footer a { color:var(--vc); }
       </div>
       <div class="ed-cuerpo">
         <span class="ed-badge">Día Nacional del Maíz</span>
-        <h3 class="ed-nombre">Mercadito del maíz</h3>
-        <p class="ed-desc">La fecha cae justo en el Día Nacional del Maíz. La edición gira alrededor del maíz criollo de la Sierra Gorda: tortillas, tamales, atoles, semillas y platillos de la milpa, servidos sin desechables, con el trueque instalado al lado.</p>
-        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>martes 22 de septiembre</strong> · resolución el <strong>domingo 27 de septiembre</strong></p>
+        <h3 class="ed-nombre">Mercadito del Maíz</h3>
+        <p class="ed-desc">La fecha cae justo en el Día Nacional del Maíz. La edición gira alrededor de la venta de alimentos hechos con maíz criollo de la Sierra Gorda: tortillas, tamales, atoles, semillas y platillos de la milpa, servidos sin desechables, con el trueque instalado al lado. Se hace en colaboración con el <strong>Tianguis Agroalimentario</strong>, cuyos productores quedan expresamente invitados.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>martes 22 de septiembre</strong> · resolución de solicitudes el <strong>sábado 26 de septiembre</strong></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
       </div>
     </article>
@@ -307,9 +312,9 @@ footer a { color:var(--vc); }
       </div>
       <div class="ed-cuerpo">
         <span class="ed-badge">Día de Muertos</span>
-        <h3 class="ed-nombre">Mercadito de muertos</h3>
+        <h3 class="ed-nombre">Mercadito del Día de Muertos</h3>
         <p class="ed-desc">El mercadito se instala junto a la ofrenda colectiva, en la víspera del Día de Muertos. Buen momento para dar salida a lo que ya cumplió su ciclo y a lo que la ofrenda pide prestado: papel picado, veladoras, ropa, objetos de memoria, pan y cempasúchil.</p>
-        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 22 de octubre</strong> · resolución el <strong>martes 27 de octubre</strong></p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 22 de octubre</strong> · resolución de solicitudes el <strong>lunes 26 de octubre</strong></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
         <span class="ed-prop" data-pendiente>Propuesta: se recorre del martes 20 al jueves 29 para acercarla al 2 de noviembre</span>
       </div>
@@ -324,8 +329,8 @@ footer a { color:var(--vc); }
       <div class="ed-cuerpo">
         <span class="ed-badge">Cierre de la Franja Libre</span>
         <h3 class="ed-nombre">Mercadito de cierre</h3>
-        <p class="ed-desc">Último jueves del semestre y cierre de la Franja Libre. El mercadito se acompaña de lo que dejaron los talleres: música, danza, teatro y la muestra de lo trabajado durante 18 semanas.</p>
-        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 19 de noviembre</strong> · resolución el <strong>martes 24 de noviembre</strong></p>
+        <p class="ed-desc">Último jueves del semestre y cierre de la Franja Libre. El mercadito se acompaña de lo que dejaron los talleres: música, danza, teatro y la muestra de lo trabajado en todos los talleres durante 18 semanas.</p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 19 de noviembre</strong> · resolución de solicitudes el <strong>lunes 23 de noviembre</strong></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
         <span class="ed-prop" data-pendiente>Propuesta: se recorre del martes 24 al jueves 26 para cerrar el semestre</span>
       </div>
@@ -369,22 +374,22 @@ footer a { color:var(--vc); }
       <div class="regla"><span class="regla-num">5</span><p>Llevarte todas tus cosas. En el campus no puede quedarse ningún producto y no se responde por objetos olvidados.</p></div>
       <div class="regla"><span class="regla-num">6</span><p>Prohibido tirar material en el campus después del trueque. Nada de lo que traes debería terminar en la basura.</p></div>
       <div class="regla"><span class="regla-num">7</span><p>Avisar con anticipación cuántos productos traerás. Se entrega lista de registro al inicio y al final del evento.</p></div>
-      <div class="regla"><span class="regla-num">8</span><p>Cada quien es responsable de sus propios objetos y de sus propios trueques.</p></div>
+      <div class="regla"><span class="regla-num">8</span><p>Realiza acuerdos y ofrece toda la información necesaria. Antes de truequear, observa, sé consciente de tu producto y escucha. No es obligatorio siempre concretar el trueque.</p></div>
     </div>
     <p class="aviso">El campus pone las mesas. Solo necesitas traer tus artículos y, si quieres, un mantel o tapete para acomodarlos.</p>
   </div>
 
   <div class="panel venta-panel" id="panel-venta" role="tabpanel" aria-labelledby="tab-venta" hidden>
     <div class="reglas">
-      <div class="regla"><span class="regla-num">1</span><p>Registrar tu proyecto de venta <strong>una semana antes</strong> de la fecha en que quieres vender. El Área de Sustentabilidad revisa, emite observaciones y avisa la resolución <strong>dos días antes</strong> del Mercadito, junto con tu ficha de proveedor.</p></div>
-      <div class="regla"><span class="regla-num">2</span><p>Detallar en el registro qué vas a vender, cómo lo vas a presentar, qué empaques usarás y qué residuos generará la venta.</p></div>
-      <div class="regla"><span class="regla-num">3</span><p>Dejar tus datos de contacto como responsable. El Área de Sustentabilidad revisa la solicitud y se encarga de notificar a tu coordinación.</p></div>
+      <div class="regla"><span class="regla-num">1</span><p>Registrar tu proyecto de venta <strong>una semana antes</strong> de la fecha en que quieres vender. El Área de Sustentabilidad revisa, emite observaciones y avisa la resolución de solicitudes <strong>tres días antes</strong> del Mercadito, junto con tu ficha de proveedor.</p></div>
+      <div class="regla"><span class="regla-num">2</span><p>Detallar en el registro qué vas a vender, cómo lo vas a presentar, qué empaques usarás y los residuos que generará la venta, así como el plan de manejo de los residuos generados. Tu documento deberá llevar el visto bueno del Coordinador de tu programa educativo.</p></div>
+      <div class="regla"><span class="regla-num">3</span><p>Dejar tus datos de contacto como responsable. El Área de Sustentabilidad revisa la solicitud y se encarga de notificar a tu Coordinación.</p></div>
       <div class="regla"><span class="regla-num">4</span><p>Vender únicamente los productos autorizados. La información que ofrezcas debe ser clara y no inducir al engaño.</p></div>
       <div class="regla"><span class="regla-num">5</span><p>Nada de preparar alimentos dentro del campus, ni vender productos que requieran refrigeración o se descompongan con facilidad.</p></div>
       <div class="regla"><span class="regla-num">6</span><p>Prohibido el unicel, las bolsas de plástico, los alimentos empaquetados, envasados o embotellados y los plásticos de un solo uso. Si necesitas desechables, que sean 100 % compostables: papel estraza, madera, hoja de maíz o de plátano.</p></div>
       <div class="regla"><span class="regla-num">7</span><p>Fuera de la lista: productos con sellos de advertencia, frituras y galletas industriales, refrescos y jugos no naturales, y lo preparado en casa con exceso de grasa, harina refinada, sodio o azúcar.</p></div>
-      <div class="regla"><span class="regla-num">8</span><p>Hacerte corresponsable de tus residuos: reducirlos, separarlos, llevártelos y avisar a quien te compra sobre la política de sustentabilidad del campus.</p></div>
-      <div class="regla"><span class="regla-num">9</span><p>Haber asistido a por lo menos una capacitación de manejo de residuos durante el semestre. Si no la tomaste, firmar la carta responsiva.</p></div>
+      <div class="regla"><span class="regla-num">8</span><p>Hacerte corresponsable de tus residuos: reducirlos, separarlos, llevártelos y avisar a quien te compra sobre la importancia de cumplir con la Política de Sustentabilidad del campus.</p></div>
+      <div class="regla"><span class="regla-num">9</span><p>Haber asistido a por lo menos una capacitación sobre Manejo de Residuos Sólidos durante el semestre y firmar la carta responsiva y de conformidad con los Lineamientos. Si no la tomaste, podrás solicitar una capacitación, pues de lo contrario no podrás participar en la venta de productos.</p></div>
       <div class="regla"><span class="regla-num">10</span><p>Dejar el espacio limpio y ordenado. Lo que se venda es para beneficio de quien participa: la Universidad no obtiene ingreso alguno.</p></div>
     </div>
     <p class="aviso">Para el Mercadito, el campus pone las mesas. Trae solo tu mantel, tus productos y tus empaques.</p>
@@ -392,11 +397,11 @@ footer a { color:var(--vc); }
 
   <!-- ===== LINEAMIENTOS DEL CAMPUS ===== -->
   <h2 class="sec-titulo">De dónde salen estas <em>reglas</em></h2>
-  <p class="sec-sub">Las ventas dentro del campus se rigen por los <em>Lineamientos para ventas universitarias saludables &amp; sustentables + Cero Residuos</em>, que a su vez se apoyan en la normativa federal para la venta de alimentos en escuelas.</p>
+  <p class="sec-sub">Las ventas dentro del campus se rigen por los <em>Lineamientos para Ventas Universitarias Saludables &amp; Sustentables + Cero Residuos</em>, que a su vez se apoyan en la normativa federal para la venta de alimentos en escuelas.</p>
   <div class="marco">
     <div class="marco-item">
-      <h3>Un solo espacio</h3>
-      <p>El camino que va del edificio principal a la cancha techada, siempre fuera del edificio. No se permite vender dentro de salones ni en pasillos.</p>
+      <h3>Ventas en un solo espacio</h3>
+      <p>Las ventas son en el camino que va del edificio principal a la cancha techada, siempre fuera del edificio. No se permite vender dentro de salones ni en pasillos.</p>
     </div>
     <div class="marco-item">
       <h3>Horario permitido</h3>
@@ -404,11 +409,11 @@ footer a { color:var(--vc); }
     </div>
     <div class="marco-item">
       <h3>Autorización previa</h3>
-      <p>Cada proyecto se presenta por escrito y lo filtra el Área de Sustentabilidad, que notifica a las coordinaciones. El registro cierra una semana antes y la resolución se avisa dos días antes del Mercadito.</p>
+      <p>Cada proyecto se presenta por escrito y lo filtra el Área de Sustentabilidad, que notifica a las coordinaciones. El registro cierra una semana antes y la resolución de solicitudes se avisa tres días antes del Mercadito.</p>
     </div>
     <div class="marco-item">
       <h3>Cero Residuos</h3>
-      <p>Prevenir, reducir, reutilizar, reciclar y compostar antes de pensar en el bote de basura. Cada proyecto responde por los residuos que genera.</p>
+      <p>El mejor residuo es el que no se genera. Previene, reduce, reutiliza, recicla y composta antes de optar por la última opción: la basura general. Separa tus residuos reciclables. Cada proyecto debe responder por los residuos que genera.</p>
     </div>
     <div class="marco-item">
       <h3>Si algo no se cumple</h3>
@@ -416,12 +421,16 @@ footer a { color:var(--vc); }
     </div>
     <div class="marco-item">
       <h3>Capacitación</h3>
-      <p>Se pide haber asistido al menos a una capacitación de manejo de residuos en el semestre. Quien no la tomó firma carta responsiva.</p>
+      <p>Se pide haber asistido al menos a una capacitación sobre Manejo de Residuos Sólidos en el semestre. Si no la tomaste, podrás solicitar una capacitación, pues de lo contrario no podrás participar en la venta de productos.</p>
+    </div>
+    <div class="marco-item">
+      <h3>Firma de Lineamientos</h3>
+      <p>Cada proyecto firma la carta responsiva y de conformidad con los Lineamientos. Esto asegura tu conformidad con los mismos.</p>
     </div>
   </div>
   <p class="marco-links">
     Referencia obligada: <a href="https://vidasaludable.gob.mx/storage/recursos/materiales/Manual-cooperativas.pdf" target="_blank" rel="noopener">Manual para las personas que preparan, distribuyen y venden alimentos en las escuelas</a> ·
-    <span data-pendiente>Lineamientos completos del campus: enlace por definir</span>
+    <span data-pendiente>Lineamientos de Venta UAQ Concá: enlace por definir, pendiente la versión final</span>
   </p>
 
   <!-- ===== RECOMENDACIONES ===== -->
@@ -435,7 +444,7 @@ footer a { color:var(--vc); }
   </div>
 
   <!-- ===== REGISTRO ===== -->
-  <h2 class="sec-titulo">Aparta tu <em>lugar</em></h2>
+  <h2 class="sec-titulo" id="aparta">Aparta tu <em>lugar</em></h2>
   <p class="sec-sub">Dos caminos distintos: el trueque se avisa, la venta se autoriza.</p>
   <div class="cta">
     <div class="cta-doble">
@@ -448,7 +457,7 @@ footer a { color:var(--vc); }
       <div class="cta-via">
         <span class="cta-emoji">🥬</span>
         <h3>Voy a vender</h3>
-        <p>La venta requiere autorización. El registro cierra una semana antes de cada fecha, lo revisa el Área de Sustentabilidad y la resolución llega dos días antes, con tu ficha de proveedor.</p>
+        <p>La venta requiere autorización. El registro cierra una semana antes de cada fecha, lo revisa el Área de Sustentabilidad y la resolución de solicitudes llega tres días antes, con tu ficha de proveedor.</p>
         <a class="btn-grande" href="registro.html">Llenar la solicitud</a>
       </div>
     </div>
