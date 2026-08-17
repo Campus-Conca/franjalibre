@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Guía para la Sociedad de Alumnos de Prepa: qué se propone para el Día de Muertos del 29 de octubre en el Campus Concá y cómo podrían organizarlo si deciden entrarle.">
+<title>Velorio y comparsa</title>
+<style>
+:root{
+  /* ---- luz ---- */
+  --fondo:#f5f2f7;
+  --papel:#fffdfb;
+  --tinta:#1d1526;
+  --tinta-2:#4a3f57;
+  --gris:#7d7288;
+  --linea:rgba(29,21,38,.16);
+  --linea-suave:rgba(29,21,38,.09);
+
+  --naranja:#c9520c;   /* pieza I */
+  --morado:#6a2c85;    /* pieza II */
+  --verde:#1f6f52;     /* cómo organizarlo */
+  --fucsia:#bd1259;    /* lo que deciden */
+  --sobre-acento:#fffdfb; /* texto encima de un bloque de color */
+
+  --sombra:6px 6px 0 rgba(29,21,38,.07);
+
+  --ancho:940px;
+  --texto:34rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --fondo:#161020;
+    --papel:#211a2d;
+    --tinta:#f2ecf7;
+    --tinta-2:#c3b8d1;
+    --gris:#948aa3;
+    --linea:rgba(242,236,247,.22);
+    --linea-suave:rgba(242,236,247,.12);
+
+    --naranja:#f0913f;
+    --morado:#c79ce0;
+    --verde:#5cc496;
+    --fucsia:#f4739f;
+    --sobre-acento:#161020;
+
+    --sombra:6px 6px 0 rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --fondo:#161020;
+  --papel:#211a2d;
+  --tinta:#f2ecf7;
+  --tinta-2:#c3b8d1;
+  --gris:#948aa3;
+  --linea:rgba(242,236,247,.22);
+  --linea-suave:rgba(242,236,247,.12);
+
+  --naranja:#f0913f;
+  --morado:#c79ce0;
+  --verde:#5cc496;
+  --fucsia:#f4739f;
+  --sobre-acento:#161020;
+
+  --sombra:6px 6px 0 rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--fondo);
+  color:var(--tinta);
+  font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:Georgia,"Iowan Old Style","Times New Roman",serif;margin:0;line-height:1.1;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+a{color:var(--fucsia)}
+a:focus-visible,input:focus-visible{outline:2px solid var(--fucsia);outline-offset:3px}
+
+.env{max-width:var(--ancho);margin:0 auto;padding:0 22px}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-variant-numeric:tabular-nums}
+
+.eyebrow{
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+  font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;
+}
+
+/* ---------- papel picado ---------- */
+.picado{display:block;width:100%;height:36px}
+
+/* ---------- portada ---------- */
+.portada{padding:34px 0 46px}
+.portada h1{font-size:clamp(2.1rem,7vw,3.7rem);margin:14px 0 18px;max-width:16ch}
+.portada .lead{font-size:1.12rem;color:var(--tinta-2);max-width:var(--texto)}
+.portada .eyebrow{color:var(--fucsia)}
+.datos{
+  display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;
+}
+.dato{
+  border:1px solid var(--linea);background:var(--papel);
+  padding:9px 14px;display:flex;flex-direction:column;gap:2px;
+}
+.dato span{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris)}
+.dato b{font-family:Georgia,serif;font-size:1.02rem;font-variant-numeric:tabular-nums}
+
+/* ---------- secciones ---------- */
+section{padding:46px 0}
+.rotulo{display:flex;align-items:baseline;gap:12px;margin-bottom:22px;flex-wrap:wrap}
+.rotulo h2{font-size:clamp(1.5rem,4vw,2.15rem)}
+.rotulo .eyebrow{color:var(--gris)}
+
+/* ---------- resumen ---------- */
+.resumen{display:grid;gap:2px;background:var(--linea);border:1px solid var(--linea)}
+.resumen div{background:var(--papel);padding:22px 20px;display:flex;flex-direction:column;gap:8px}
+.resumen b{font-family:Georgia,serif;font-size:1.08rem;font-weight:700}
+.resumen p{color:var(--tinta-2);font-size:.98rem}
+@media(min-width:760px){.resumen{grid-template-columns:repeat(3,1fr)}}
+
+/* ---------- piezas ---------- */
+.piezas{display:grid;gap:26px}
+@media(min-width:860px){.piezas{grid-template-columns:1fr 1fr;align-items:start}}
+.pieza{
+  background:var(--papel);border:1px solid var(--linea);box-shadow:var(--sombra);
+  display:flex;flex-direction:column;
+}
+.pieza .cinta{padding:11px 20px;color:var(--sobre-acento)}
+.pieza .cinta .eyebrow{color:inherit}
+.pieza-1 .cinta{background:var(--naranja)}
+.pieza-2 .cinta{background:var(--morado)}
+.pieza .cuerpo{padding:22px 20px;display:flex;flex-direction:column;gap:16px}
+.pieza h3{font-size:1.5rem}
+.pieza p{color:var(--tinta-2);font-size:1rem}
+.pieza .marca{font-family:Georgia,serif;font-style:italic;color:var(--tinta);font-size:1.02rem}
+
+.lista{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--linea-suave)}
+.lista li{padding:11px 0 11px 26px;border-bottom:1px solid var(--linea-suave);position:relative;font-size:.97rem;color:var(--tinta-2)}
+.lista li::before{content:"";position:absolute;left:2px;top:19px;width:9px;height:9px;background:currentColor;opacity:.55}
+.pieza-1 .lista li::before{background:var(--naranja);opacity:1}
+.pieza-2 .lista li::before{background:var(--morado);opacity:1}
+.lista li b{color:var(--tinta)}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chip{
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.7rem;letter-spacing:.08em;
+  border:1px solid var(--naranja);color:var(--naranja);padding:5px 10px;text-transform:uppercase;
+}
+
+/* ---------- etimología ---------- */
+.etimo{border-left:3px solid var(--morado);padding:2px 0 2px 16px;display:flex;flex-direction:column;gap:10px}
+.cadena{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.86rem;line-height:1.9;color:var(--tinta-2)}
+.cadena b{color:var(--tinta)}
+.cadena i{font-style:normal;color:var(--morado);padding:0 6px}
+
+/* ---------- recuadro de contacto ---------- */
+.contacto{
+  border:2px dashed var(--morado);padding:18px 20px;display:flex;flex-direction:column;gap:8px;
+}
+.contacto .eyebrow{color:var(--morado)}
+.contacto b{font-family:Georgia,serif;font-size:1.2rem}
+.contacto p{font-size:.96rem;color:var(--tinta-2)}
+
+/* ---------- horario ---------- */
+.horario{border-top:1px solid var(--linea);margin-top:6px}
+.hora{display:grid;grid-template-columns:76px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--linea-suave);align-items:baseline}
+.hora .t{font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.86rem;font-variant-numeric:tabular-nums;color:var(--fucsia);font-weight:600}
+.hora h4{font-size:1.02rem;margin-bottom:2px}
+.hora p{font-size:.94rem;color:var(--tinta-2)}
+.hora.previa .t,.hora.previa h4{color:var(--gris)}
+.nota-h{margin-top:14px;font-size:.9rem;color:var(--gris)}
+
+/* ---------- pasos ---------- */
+.pasos{display:grid;gap:0;border-top:2px solid var(--verde)}
+.paso{
+  display:grid;grid-template-columns:52px 1fr;gap:20px;
+  padding:24px 0;border-bottom:1px solid var(--linea-suave);
+}
+.paso .n{
+  font-family:Georgia,serif;font-size:2rem;font-weight:700;color:var(--verde);line-height:.9;
+  font-variant-numeric:tabular-nums;
+}
+.paso h3{font-size:1.22rem;margin-bottom:7px}
+.paso p{color:var(--tinta-2);font-size:1rem;max-width:var(--texto)}
+.paso .detalle{margin-top:12px;padding:14px 16px;background:var(--papel);border:1px solid var(--linea-suave);display:flex;flex-direction:column;gap:9px}
+.paso .detalle .eyebrow{color:var(--verde)}
+.paso .detalle ol{margin:0;padding-left:20px;display:grid;gap:7px;font-size:.96rem;color:var(--tinta-2)}
+.paso .detalle ol li b{color:var(--tinta)}
+.opciones{display:grid;gap:1px;background:var(--linea-suave);border:1px solid var(--linea-suave);margin-top:12px}
+.opciones div{background:var(--papel);padding:11px 14px;font-size:.95rem;color:var(--tinta-2)}
+.opciones div b{color:var(--tinta);font-family:Georgia,serif}
+
+/* ---------- decisiones ---------- */
+.decisiones{background:var(--papel);border:1px solid var(--linea);box-shadow:var(--sombra);padding:26px 22px;display:flex;flex-direction:column;gap:2px}
+.decision{display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--linea-suave)}
+.decision:last-of-type{border-bottom:0}
+.decision input{width:19px;height:19px;flex:none;margin:3px 0 0;accent-color:var(--fucsia)}
+.decision label{font-size:1rem;color:var(--tinta)}
+.decision label span{display:block;font-size:.9rem;color:var(--gris);margin-top:2px}
+
+/* ---------- cierre ---------- */
+.cierre{border-top:1px solid var(--linea);margin-top:10px;padding:34px 0 60px;display:flex;flex-direction:column;gap:14px}
+.cierre h2{font-size:clamp(1.4rem,4vw,2rem)}
+.cierre p{color:var(--tinta-2);max-width:var(--texto)}
+.liga{
+  align-self:flex-start;margin-top:6px;
+  font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--tinta);color:var(--fondo);text-decoration:none;padding:13px 22px;
+}
+.liga:hover{background:var(--fucsia);color:var(--sobre-acento)}
+.pie{font-size:.85rem;color:var(--gris);padding-bottom:40px}
+
+@media(max-width:560px){
+  .paso{grid-template-columns:38px 1fr;gap:14px}
+  .paso .n{font-size:1.5rem}
+  .hora{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<svg class="picado" aria-hidden="true" focusable="false">
+  <defs>
+    <mask id="agujeros" maskUnits="userSpaceOnUse" x="0" y="0" width="176" height="36">
+      <rect width="176" height="36" fill="#fff"/>
+      <circle cx="21" cy="11" r="3.4" fill="#000"/><circle cx="13" cy="19" r="2.2" fill="#000"/><circle cx="29" cy="19" r="2.2" fill="#000"/>
+      <circle cx="65" cy="11" r="3.4" fill="#000"/><circle cx="57" cy="19" r="2.2" fill="#000"/><circle cx="73" cy="19" r="2.2" fill="#000"/>
+      <circle cx="109" cy="11" r="3.4" fill="#000"/><circle cx="101" cy="19" r="2.2" fill="#000"/><circle cx="117" cy="19" r="2.2" fill="#000"/>
+      <circle cx="153" cy="11" r="3.4" fill="#000"/><circle cx="145" cy="19" r="2.2" fill="#000"/><circle cx="161" cy="19" r="2.2" fill="#000"/>
+    </mask>
+    <pattern id="banderines" width="176" height="36" patternUnits="userSpaceOnUse">
+      <g mask="url(#agujeros)">
+        <path d="M2 3 h38 v18 L21 32 L2 21 Z" fill="var(--naranja)"/>
+        <path d="M46 3 h38 v18 L65 32 L46 21 Z" fill="var(--morado)"/>
+        <path d="M90 3 h38 v18 L109 32 L90 21 Z" fill="var(--verde)"/>
+        <path d="M134 3 h38 v18 L153 32 L134 21 Z" fill="var(--fucsia)"/>
+      </g>
+      <rect x="0" y="1" width="176" height="1.5" fill="var(--linea)"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="36" fill="url(#banderines)"/>
+</svg>
+
+<header class="portada">
+  <div class="env">
+    <div class="eyebrow">Sociedad de Alumnos · Prepa · Campus Concá UAQ</div>
+    <h1>Esto es una propuesta, no una convocatoria</h1>
+    <p class="lead">Para el 29 de octubre hay una idea armada de qué hacer en Día de Muertos, y una página con todos los detalles. Lo que falta es lo importante: que ustedes decidan si le entran, cómo, y qué le cambiarían. Si dicen que no, no pasa. Si dicen que sí pero de otra forma, se cambia.</p>
+
+    <div class="datos">
+      <div class="dato"><span>Cuándo</span><b>Jue 29 · oct 2026</b></div>
+      <div class="dato"><span>Horario</span><b>10:30 – 13:00 h</b></div>
+      <div class="dato"><span>Registro cierra</span><b>Vie 9 · octubre</b></div>
+      <div class="dato"><span>Ese día</span><b>No hay talleres</b></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="eyebrow">Primero</div>
+      <h2>La propuesta en tres frases</h2>
+    </div>
+    <div class="resumen">
+      <div>
+        <b>No hay concurso de altares.</b>
+        <p>En su lugar, cada equipo vela algo que se está acabando de verdad en Concá o en Arroyo Seco, y lo investiga antes de montarlo.</p>
+      </div>
+      <div>
+        <b>A media mañana entra una comparsa.</b>
+        <p>Una cuadrilla de Xantolo del propio campus baila en el patio, y antes de bailar se explica qué significa lo que se está viendo.</p>
+      </div>
+      <div>
+        <b>Nada de esto pasa solo.</b>
+        <p>Alguien tiene que armarlo. Por eso les llega a ustedes primero: la propuesta se puede recortar, cambiar o rechazar entera.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="eyebrow">Qué se propone</div>
+      <h2>Dos piezas, una mañana</h2>
+    </div>
+
+    <div class="piezas">
+      <article class="pieza pieza-1">
+        <div class="cinta"><div class="eyebrow">Pieza I · por equipos · con reconocimiento</div></div>
+        <div class="cuerpo">
+          <h3>Ofrenda a lo que se está muriendo</h3>
+          <p class="marca">Un altar para lo que nadie declaró muerto.</p>
+          <p>En vez de montar un altar bonito, cada equipo escoge algo que se esté extinguiendo aquí —un oficio, una semilla, un manantial, una palabra, un animal—, busca a alguien que todavía lo recuerde, lo entrevista con el celular y le monta una ofrenda con su ficha de datos. El día 29 leen en voz alta un acta de defunción de noventa segundos frente a su mesa.</p>
+
+          <div>
+            <div class="eyebrow" style="color:var(--naranja);margin-bottom:6px">Qué se puede velar</div>
+            <div class="chips">
+              <span class="chip">Un oficio</span>
+              <span class="chip">Una semilla</span>
+              <span class="chip">Un agua</span>
+              <span class="chip">Una palabra</span>
+              <span class="chip">Un ser vivo</span>
+              <span class="chip">Categoría libre</span>
+            </div>
+          </div>
+
+          <ul class="lista">
+            <li><b>Equipo de 3 a 5 personas.</b> Se valen equipos mixtos con PAS y Agroindustrial.</li>
+            <li><b>Una entrevista grabada.</b> Es el requisito que no se perdona: sin voz que lo sostenga, la ofrenda no se acepta.</li>
+            <li><b>Una cédula impresa</b> con fechas, causas y un pedazo del testimonio.</li>
+            <li><b>Un acta de máximo 150 palabras</b>, leída en menos de 90 segundos.</li>
+            <li><b>Materiales prestados o recuperados.</b> Sin unicel, sin plástico de un solo uso, sin aerosol.</li>
+          </ul>
+        </div>
+      </article>
+
+      <article class="pieza pieza-2">
+        <div class="cinta"><div class="eyebrow">Pieza II · colectiva · sin concurso</div></div>
+        <div class="cuerpo">
+          <h3>Comparsa de Xantolo</h3>
+          <p class="marca">Primero se explica; después se baila.</p>
+          <p>Una cuadrilla del campus sale enmascarada al patio y baila sones huastecos con música en vivo. Antes del primer son, quien dirige toma el micrófono diez minutos y explica qué se está viendo: de dónde viene la palabra, quiénes son los personajes, por qué se baila con la cara tapada. Sin esa explicación, la comparsa no sale: es la única condición que no se negocia.</p>
+
+          <div class="etimo">
+            <div class="eyebrow" style="color:var(--morado)">De dónde sale la palabra</div>
+            <div class="cadena">
+              <b>festum omnium sanctōrum</b><i>→</i>latín, «fiesta de todos los santos»<br>
+              <b>sanctōrum</b><i>→</i>«de los santos»<br>
+              <b>xantolo</b><i>→</i>lo que quedó en la Huasteca
+            </div>
+            <p style="font-size:.95rem;color:var(--tinta-2)">La fiesta de muertos más viva de la región lleva un nombre en latín que la boca fue desgastando hasta dejarlo irreconocible. La palabra no se impuso ni se perdió: se masticó.</p>
+          </div>
+
+          <div class="contacto">
+            <div class="eyebrow">Si les interesa esta pieza</div>
+            <b>Hablen con Alejandro, de PAS 5</b>
+            <p>Él puede ver con ustedes si se logran organizar ensayos y cómo se armaría la cuadrilla. No hay fechas puestas todavía: eso se define con quienes le entren, no antes.</p>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="eyebrow">Cómo se vería el día</div>
+      <h2>De 10:30 a 1:00</h2>
+    </div>
+    <div class="horario">
+      <div class="hora previa">
+        <div class="t">09:30</div>
+        <div><h4>Montaje</h4><p>Antes de que llegue el público. Los equipos arman sus mesas.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">10:30</div>
+        <div><h4>Apertura</h4><p>Se explica el orden de la mañana y se presenta al jurado de la pieza I.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">10:45</div>
+        <div><h4>Recorrido y lectura de actas</h4><p>El público pasa por las ofrendas y cada equipo lee la suya en voz alta.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">11:40</div>
+        <div><h4>Qué es el Xantolo</h4><p>Diez minutos de explicación, con la cuadrilla ya formada al frente.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">11:50</div>
+        <div><h4>Comparsa</h4><p>Los sones con música en vivo. El último es abierto: puede entrar quien quiera.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">12:20</div>
+        <div><h4>Palabra abierta</h4><p>Micrófono libre para nombrar algo que también se esté muriendo y no alcanzó ofrenda.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">12:40</div>
+        <div><h4>Reconocimientos</h4><p>Resultados de la pieza I. La comparsa no compite.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">12:55</div>
+        <div><h4>Cierre</h4><p>Se agradece, y empieza el desmontaje: todo lo prestado se devuelve el mismo día.</p></div>
+      </div>
+    </div>
+    <p class="nota-h">La Franja Libre se suspende ese jueves: ningún taller sesiona. La mañana entera es de las dos piezas.</p>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="eyebrow">Segundo</div>
+      <h2>Cómo podrían organizarlo</h2>
+    </div>
+    <p style="color:var(--tinta-2);max-width:var(--texto);margin-bottom:26px">Esta es una ruta sugerida, no un reglamento. Sirve si deciden entrarle; si le entran a medias o de otro modo, córtenla donde les convenga.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="n">1</div>
+        <div>
+          <h3>Decidan en asamblea, antes que nada</h3>
+          <p>Léanlo en grupo y voten. Ninguna de estas respuestas está mal, y la última es tan válida como las otras.</p>
+          <div class="opciones">
+            <div><b>Solo la pieza I.</b> Montamos ofrendas y ya.</div>
+            <div><b>Solo la comparsa.</b> Nos late bailar, no montar mesas.</div>
+            <div><b>Las dos.</b> Nos repartimos entre ambas.</div>
+            <div><b>Otra cosa.</b> Nos gusta la fecha, no la propuesta: proponemos lo nuestro.</div>
+            <div><b>No entramos este año.</b> Y se dice de una vez, para que nadie los cuente.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="n">2</div>
+        <div>
+          <h3>Nombren tres responsables</h3>
+          <p>No hace falta un comité entero, pero sí que cada cosa tenga nombre y apellido. Si algo no tiene responsable, no ocurre.</p>
+          <div class="detalle">
+            <div class="eyebrow">Quién hace falta</div>
+            <ol>
+              <li><b>Enlace con la coordinación:</b> pregunta dudas, avisa cuántos equipos son, pide mesas y permisos.</li>
+              <li><b>Responsable de ofrendas:</b> lleva la lista de equipos y revisa que nadie se atore.</li>
+              <li><b>Responsable de comparsa:</b> es quien habla con Alejandro de PAS 5.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="n">3</div>
+        <div>
+          <h3>Armen los equipos y repartan lo que van a velar</h3>
+          <p>Equipos de tres a cinco. Que dos equipos no velen lo mismo: hagan una lista en el salón, apunten ahí lo que cada quien escogió y avisen a la coordinación para que confirme que no se repite con otro grupo del campus.</p>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="n">4</div>
+        <div>
+          <h3>Empiecen por la entrevista: es lo que más tarda</h3>
+          <p>Conseguir a la persona, cuadrar el día y grabarla toma más de lo que parece, sobre todo si vive en otra comunidad. Todo lo demás se puede resolver en una semana; esto no.</p>
+          <div class="detalle">
+            <div class="eyebrow">Cómo se hace</div>
+            <ol>
+              <li><b>A quién buscar:</b> alguien que lo haya visto o vivido de primera mano. Suele funcionar gente mayor de sesenta, y muchas veces está en su propia casa.</li>
+              <li><b>Pidan permiso grabando:</b> lo primero del audio es su nombre y un «¿está bien si lo grabo?». Eso es el consentimiento.</li>
+              <li><b>Con el celular basta.</b> Diez minutos son suficientes. No editen nada.</li>
+              <li><b>Lleven tres preguntas escritas</b> y dejen que la plática se desvíe: ahí sale lo bueno.</li>
+            </ol>
+          </div>
+          <div class="detalle">
+            <div class="eyebrow">Tres preguntas que casi siempre sirven</div>
+            <ol>
+              <li>¿Cómo era, cómo se hacía o dónde estaba?</li>
+              <li>¿Cuándo dejó de haberlo, y por qué se acabó?</li>
+              <li>¿Quién fue la última persona que lo hizo, lo usó o lo vio?</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="n">5</div>
+        <div>
+          <h3>Escriban la cédula y el acta</h3>
+          <p>La cédula son los datos duros: qué murió, cuándo, por qué, quién lo recuerda, qué le sobrevive. El acta es el texto que se lee en voz alta: máximo ciento cincuenta palabras. Puede ser solemne, irónica o cariñosa, pero los datos tienen que ser los mismos de la cédula.</p>
+          <div class="detalle">
+            <div class="eyebrow">Antes de darla por buena</div>
+            <ol>
+              <li><b>Léanla en voz alta con cronómetro.</b> Si pasa de noventa segundos, sobra texto.</li>
+              <li><b>Decidan quién la lee</b> y que esa persona la ensaye, no que la improvise el día 29.</li>
+              <li><b>Si no encontraron a quién entrevistar, díganlo</b> en la cédula. Eso también es un hallazgo: significa que se murió con su última memoria.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="n">6</div>
+        <div>
+          <h3>Consigan materiales sin gastar</h3>
+          <p>La regla de montaje juega a su favor: se privilegia lo prestado, lo recuperado y lo de la región. Nada de unicel, plástico de un solo uso ni pintura en aerosol, y nada se clava ni se pega a muros o árboles.</p>
+          <div class="detalle">
+            <div class="eyebrow">Truco que evita broncas</div>
+            <ol>
+              <li><b>Anoten de quién es cada cosa prestada</b> desde que la reciben. Todo se devuelve el mismo día, y el que la trajo es quien la regresa.</li>
+              <li><b>Veladoras:</b> mejor luz de pila. El fuego vivo se pide por escrito al registrarse.</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso">
+        <div class="n">7</div>
+        <div>
+          <h3>Repartan el día 29 con nombres</h3>
+          <p>La mañana se les va encima. Dejen escrito quién llega a las 9:30 a montar, quién lee el acta, quién graba o toma fotos, quién atiende a la gente que pregunta y quién se queda al desmontaje. El desmontaje es parte de la evaluación: diez de los cien puntos son por dejar el lugar sin residuo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="eyebrow">Tercero</div>
+      <h2>Lo que solo ustedes pueden contestar</h2>
+    </div>
+    <p style="color:var(--tinta-2);max-width:var(--texto);margin-bottom:24px">Estas preguntas no las puede responder la coordinación. Llévenlas a la asamblea y vayan marcando lo que ya esté decidido.</p>
+
+    <div class="decisiones">
+      <div class="decision">
+        <input type="checkbox" id="d1">
+        <label for="d1">¿Le entramos, y a qué?<span>Pieza I, comparsa, las dos, otra cosa, o nada.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d2">
+        <label for="d2">¿Cuántos equipos podemos armar de verdad?<span>Mejor tres que se sostengan que ocho que se caigan a la mitad.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d3">
+        <label for="d3">¿Quién es el enlace con la coordinación?<span>Una persona, con su contacto, para que no se pierdan los avisos.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d4">
+        <label for="d4">¿Quién le habla a Alejandro de PAS 5 por lo de la comparsa?<span>Aunque sea para preguntar qué implicaría antes de comprometerse.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d5">
+        <label for="d5">¿Qué de la propuesta no nos gusta, y qué proponemos en su lugar?<span>Esta es la más importante. Se puede cambiar todo si lo dicen a tiempo.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d6">
+        <label for="d6">¿Necesitamos algo del campus?<span>Mesas extra, permiso de veladora, apoyo para ir a otra comunidad a entrevistar.</span></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="env">
+  <div class="cierre">
+    <h2>Si van a decir algo, díganlo antes del 9 de octubre</h2>
+    <p>Ese viernes cierra el registro, y también es el último día útil para pedir cambios a la propuesta. Después de esa fecha ya no hay margen para mover el formato, solo para trabajar con lo que quedó.</p>
+    <p>Todos los detalles —las reglas completas, la cédula de ejemplo, el acta de muestra, cómo se evalúa y el formulario de registro— están en la página del evento.</p>
+    <a class="liga" href="dia-de-muertos.html?preview">Ver la página completa</a>
+  </div>
+  <p class="pie">Franja Libre · Campus Concá, Universidad Autónoma de Querétaro · Día de Muertos, jueves 29 de octubre de 2026.</p>
+</div>
+</body>
+</html>
