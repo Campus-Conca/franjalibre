@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seis semanas de milpa</title>
+<meta name="description" content="Guía para el estudiantado de licenciatura del Campus Concá: qué se propone para el Día del Maíz del 29 de septiembre y cómo organizarlo, semana por semana, si deciden tomarlo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,900&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cal:#edefe6;
+  --papel:#fbfbf5;
+  --tinta:#1b1c14;
+  --tinta-2:#4c4f3d;
+  --gris:#7f836b;
+  --linea:rgba(27,28,20,.18);
+  --linea-suave:rgba(27,28,20,.10);
+  --cuadricula:rgba(27,28,20,.055);
+
+  --amarillo:#8a6410;   /* concurso de platillos */
+  --azul:#453a72;       /* concurso de vestimenta */
+  --rojo:#8f2d2d;       /* cómo organizarlo */
+  --verde:#3d6b3a;      /* cero residuos y danza */
+  --sobre-acento:#fbfbf5;
+
+  --sombra:0 1px 2px rgba(27,28,20,.05),0 10px 26px rgba(27,28,20,.08);
+  --ancho:960px;
+  --texto:35rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --cal:#14160f;
+    --papel:#1e2118;
+    --tinta:#eef1e2;
+    --tinta-2:#c2c7b1;
+    --gris:#8d9179;
+    --linea:rgba(238,241,226,.24);
+    --linea-suave:rgba(238,241,226,.13);
+    --cuadricula:rgba(238,241,226,.05);
+
+    --amarillo:#e0ad3d;
+    --azul:#a99ae0;
+    --rojo:#e3796f;
+    --verde:#7fbd6e;
+    --sobre-acento:#14160f;
+
+    --sombra:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --cal:#14160f;
+  --papel:#1e2118;
+  --tinta:#eef1e2;
+  --tinta-2:#c2c7b1;
+  --gris:#8d9179;
+  --linea:rgba(238,241,226,.24);
+  --linea-suave:rgba(238,241,226,.13);
+  --cuadricula:rgba(238,241,226,.05);
+
+  --amarillo:#e0ad3d;
+  --azul:#a99ae0;
+  --rojo:#e3796f;
+  --verde:#7fbd6e;
+  --sobre-acento:#14160f;
+
+  --sombra:0 1px 2px rgba(0,0,0,.4),0 10px 26px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background-color:var(--cal);
+  background-image:
+    repeating-linear-gradient(to right,var(--cuadricula) 0 1px,transparent 1px 26px),
+    repeating-linear-gradient(to bottom,var(--cuadricula) 0 1px,transparent 1px 26px);
+  color:var(--tinta);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:17px;line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Fraunces','Iowan Old Style',Georgia,serif;margin:0;line-height:1.1;font-weight:900;letter-spacing:-.015em;text-wrap:balance}
+p{margin:0}
+a{color:var(--rojo)}
+a:focus-visible,input:focus-visible{outline:2px solid var(--rojo);outline-offset:3px}
+.env{max-width:var(--ancho);margin:0 auto;padding:0 22px}
+.dato-num{font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
+.et{
+  font-family:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  font-size:.67rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+}
+
+/* ---------- franja de granos ---------- */
+.granos{display:flex;height:9px;width:100%}
+.granos span{flex:1}
+.granos span:nth-child(4n+1){background:var(--amarillo)}
+.granos span:nth-child(4n+2){background:var(--azul)}
+.granos span:nth-child(4n+3){background:var(--rojo)}
+.granos span:nth-child(4n+4){background:var(--verde)}
+
+/* ---------- portada ---------- */
+.portada{padding:40px 0 44px}
+.portada .et{color:var(--rojo)}
+.portada h1{font-size:clamp(2.1rem,6.6vw,3.6rem);margin:14px 0 18px;max-width:17ch}
+.portada .lead{font-size:1.12rem;color:var(--tinta-2);max-width:var(--texto)}
+.parcelas{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--linea);border:1px solid var(--linea);margin-top:30px}
+@media(min-width:720px){.parcelas{grid-template-columns:repeat(4,1fr)}}
+.parcela{background:var(--papel);padding:14px 16px;display:flex;flex-direction:column;gap:3px}
+.parcela .et{color:var(--gris)}
+.parcela b{font-family:'Fraunces',serif;font-size:1.06rem;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* ---------- secciones ---------- */
+section{padding:44px 0}
+.rotulo{display:flex;align-items:baseline;gap:12px;margin-bottom:20px;flex-wrap:wrap}
+.rotulo h2{font-size:clamp(1.5rem,4vw,2.1rem)}
+.rotulo .et{color:var(--gris)}
+.intro{color:var(--tinta-2);max-width:var(--texto);margin-bottom:24px}
+
+/* ---------- resumen ---------- */
+.resumen{display:grid;gap:1px;background:var(--linea);border:1px solid var(--linea)}
+@media(min-width:760px){.resumen{grid-template-columns:repeat(3,1fr)}}
+.resumen div{background:var(--papel);padding:20px;display:flex;flex-direction:column;gap:7px}
+.resumen b{font-family:'Fraunces',serif;font-size:1.06rem;font-weight:700}
+.resumen p{color:var(--tinta-2);font-size:.97rem}
+
+/* ---------- concursos ---------- */
+.concursos{display:grid;gap:24px}
+@media(min-width:880px){.concursos{grid-template-columns:1fr 1fr;align-items:start}}
+.concurso{background:var(--papel);border:1px solid var(--linea);box-shadow:var(--sombra);display:flex;flex-direction:column}
+.concurso .borde{height:6px}
+.c-platillos .borde{background:var(--amarillo)}
+.c-vestimenta .borde{background:var(--azul)}
+.concurso .cuerpo{padding:22px 20px;display:flex;flex-direction:column;gap:15px}
+.concurso h3{font-size:1.42rem}
+.concurso .lema{font-family:'Fraunces',serif;font-style:italic;font-weight:400;color:var(--tinta-2)}
+.concurso p{color:var(--tinta-2);font-size:.99rem}
+.c-platillos .et{color:var(--amarillo)}
+.c-vestimenta .et{color:var(--azul)}
+
+.cats{display:grid;gap:1px;background:var(--linea-suave);border:1px solid var(--linea-suave)}
+.cats div{background:var(--papel);padding:10px 13px;display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:baseline;font-size:.95rem}
+.cats .l{font-family:'IBM Plex Mono',monospace;font-weight:600}
+.c-platillos .cats .l{color:var(--amarillo)}
+.c-vestimenta .cats .l{color:var(--azul)}
+.cats b{font-weight:600}
+.cats span.d{display:block;color:var(--tinta-2);font-size:.9rem}
+
+.clave{list-style:none;margin:0;padding:0;display:grid}
+.clave li{padding:10px 0 10px 24px;position:relative;font-size:.95rem;color:var(--tinta-2);border-bottom:1px solid var(--linea-suave)}
+.clave li:last-child{border-bottom:0}
+.clave li::before{content:"";position:absolute;left:3px;top:18px;width:8px;height:8px;border-radius:50% 50% 45% 45%}
+.c-platillos .clave li::before{background:var(--amarillo)}
+.c-vestimenta .clave li::before{background:var(--azul)}
+.clave li b{color:var(--tinta)}
+
+/* ---------- bloque verde ---------- */
+.residuos{background:var(--verde);color:var(--sobre-acento);padding:28px 24px;display:flex;flex-direction:column;gap:14px}
+.residuos h3{font-size:1.5rem;color:var(--sobre-acento)}
+.residuos p{font-size:1rem;opacity:.92;max-width:var(--texto)}
+.residuos .et{opacity:.8}
+.residuos ul{margin:0;padding-left:19px;display:grid;gap:6px;font-size:.97rem;opacity:.94}
+
+/* ---------- programa ---------- */
+.programa{border-top:1px solid var(--linea)}
+.hora{display:grid;grid-template-columns:82px 1fr;gap:18px;padding:12px 0;border-bottom:1px solid var(--linea-suave);align-items:baseline}
+.hora .t{font-family:'IBM Plex Mono',monospace;font-size:.85rem;font-variant-numeric:tabular-nums;color:var(--rojo);font-weight:600}
+.hora h4{font-size:1rem;font-weight:700;margin-bottom:2px}
+.hora p{font-size:.93rem;color:var(--tinta-2)}
+.hora.previa .t,.hora.previa h4{color:var(--gris)}
+.hora.centro h4{color:var(--verde)}
+
+/* ---------- funciones ---------- */
+.tabla-envoltura{overflow-x:auto;border:1px solid var(--linea);background:var(--papel)}
+table{width:100%;border-collapse:collapse;font-size:.95rem;min-width:520px}
+th,td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--linea-suave);vertical-align:top}
+thead th{
+  font-family:'IBM Plex Mono',monospace;font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;
+  font-weight:600;border-bottom:1px solid var(--linea);color:var(--gris);
+}
+tbody tr:last-child td{border-bottom:0}
+td b{font-family:'Fraunces',serif;font-weight:700}
+td.n{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--rojo);font-weight:600}
+
+/* ---------- cuenta regresiva ---------- */
+.semanas{display:grid;border-top:2px solid var(--rojo)}
+.semana{display:grid;grid-template-columns:128px 1fr;gap:20px;padding:20px 0;border-bottom:1px solid var(--linea-suave)}
+.semana .cuando{
+  font-family:'IBM Plex Mono',monospace;font-size:.78rem;font-variant-numeric:tabular-nums;
+  color:var(--rojo);font-weight:600;letter-spacing:.02em;
+}
+.semana .cuando span{display:block;color:var(--gris);font-weight:400;margin-top:3px;letter-spacing:.1em;font-size:.62rem;text-transform:uppercase}
+.semana h3{font-size:1.14rem;margin-bottom:6px}
+.semana p{color:var(--tinta-2);font-size:.97rem;max-width:var(--texto)}
+.semana ul{margin:9px 0 0;padding-left:19px;display:grid;gap:5px;color:var(--tinta-2);font-size:.95rem}
+.semana ul b{color:var(--tinta)}
+.semana.hoy{background:var(--papel);border-left:3px solid var(--rojo);padding-left:16px;margin-left:-19px}
+
+/* ---------- decisiones ---------- */
+.decisiones{background:var(--papel);border:1px solid var(--linea);box-shadow:var(--sombra);padding:24px 22px}
+.decision{display:flex;gap:13px;align-items:flex-start;padding:13px 0;border-bottom:1px solid var(--linea-suave)}
+.decision:last-child{border-bottom:0}
+.decision input{width:19px;height:19px;flex:none;margin:3px 0 0;accent-color:var(--rojo)}
+.decision label{font-size:1rem}
+.decision label span{display:block;font-size:.9rem;color:var(--gris);margin-top:2px}
+
+/* ---------- opciones ---------- */
+.opciones{display:grid;gap:1px;background:var(--linea-suave);border:1px solid var(--linea-suave)}
+.opciones div{background:var(--papel);padding:11px 14px;font-size:.95rem;color:var(--tinta-2)}
+.opciones div b{color:var(--tinta);font-family:'Fraunces',serif}
+
+/* ---------- cierre ---------- */
+.cierre{border-top:1px solid var(--linea);padding:32px 0 20px;display:flex;flex-direction:column;gap:13px}
+.cierre h2{font-size:clamp(1.4rem,4vw,1.95rem)}
+.cierre p{color:var(--tinta-2);max-width:var(--texto)}
+.ligas{display:flex;gap:12px;flex-wrap:wrap;margin-top:8px}
+.liga{
+  font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;
+  text-decoration:none;padding:13px 20px;border:1px solid var(--tinta);
+}
+.liga.solida{background:var(--tinta);color:var(--cal)}
+.liga.solida:hover{background:var(--rojo);border-color:var(--rojo);color:var(--sobre-acento)}
+.liga.hueca{color:var(--tinta)}
+.liga.hueca:hover{border-color:var(--rojo);color:var(--rojo)}
+.pie{font-size:.84rem;color:var(--gris);padding:26px 0 44px}
+
+@media(max-width:600px){
+  .semana{grid-template-columns:1fr;gap:6px}
+  .semana.hoy{margin-left:0;padding-left:14px}
+  .hora{grid-template-columns:1fr;gap:2px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div class="granos" aria-hidden="true">
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<header class="portada">
+  <div class="env">
+    <div class="et">PAS y Agroindustrial · Campus Concá UAQ</div>
+    <h1>Ustedes lo organizan, así que ustedes deciden cómo</h1>
+    <p class="lead">El 29 de septiembre hay una propuesta armada para el Día del Maíz: dos concursos, la presentación del grupo de danza y un eje de cero residuos, con reglas y criterios ya escritos. Lo que no está decidido es lo importante: si la toman completa, si toman solo una parte, o si la cambian por algo que les convenza más. Esta guía sirve para responder eso con datos, no de oído.</p>
+
+    <div class="parcelas">
+      <div class="parcela"><div class="et">Cuándo</div><b>Mar 29 · sep 2026</b></div>
+      <div class="parcela"><div class="et">Horario</div><b>10:30 – 13:00 h</b></div>
+      <div class="parcela"><div class="et">Registro cierra</div><b>Vie 25 · sep</b></div>
+      <div class="parcela"><div class="et">Para organizarlo</div><b>Seis semanas</b></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="et">Primero</div>
+      <h2>La propuesta en tres frases</h2>
+    </div>
+    <div class="resumen">
+      <div>
+        <b>Dos concursos con jurado.</b>
+        <p>Platillos de maíz y vestimenta hecha con materiales de la planta. Criterios sobre cien puntos, categorías definidas y calificación anónima.</p>
+      </div>
+      <div>
+        <b>La danza al centro.</b>
+        <p>El grupo del campus presenta su repertorio a media jornada, en el único punto del programa donde no compite nada más.</p>
+      </div>
+      <div>
+        <b>Cero residuos, en serio.</b>
+        <p>No es un adorno del texto: son diez de los cien puntos en los dos concursos, y el balance se lee en voz alta al cierre.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="et">Qué se propone</div>
+      <h2>Dos concursos</h2>
+    </div>
+
+    <div class="concursos">
+      <article class="concurso c-platillos">
+        <div class="borde"></div>
+        <div class="cuerpo">
+          <div class="et">Concurso 1 · individual o hasta 3 personas</div>
+          <h3>Platillos de maíz</h3>
+          <p class="lema">«De la milpa a la mesa»</p>
+          <p>Se premia tanto a quien sostiene una receta heredada como a quien la empuja a un lugar nuevo, siempre que el maíz sea el protagonista y no el acompañante.</p>
+
+          <div class="cats">
+            <div><span class="l">A</span><span><b>Tradicional de la Sierra Gorda</b><span class="d">Gorditas de horno, tamales, pemoles, guisos de elote.</span></span></div>
+            <div><span class="l">B</span><span><b>Innovación con maíz</b><span class="d">Técnicas, formatos o cruces poco habituales.</span></span></div>
+            <div><span class="l">C</span><span><b>Bebidas de maíz</b><span class="d">Atoles, champurrado, chileatole, pozol, tejuino.</span></span></div>
+          </div>
+
+          <div>
+            <div class="et" style="margin-bottom:6px">Lo que hay que saber para organizarlo</div>
+            <ul class="clave">
+              <li><b>Porción para veinte degustaciones</b> por participación. Eso define cuánta loza y cuánto espacio de mesa necesitan.</li>
+              <li><b>El platillo llega listo.</b> En la sede solo se mantiene temperatura: no se cocina. No hace falta gas ni cocina, sí contactos eléctricos o rescoldo.</li>
+              <li><b>Ficha de receta al registrarse,</b> con variedad de maíz y procedencia del grano. Alguien tiene que recibirlas y guardarlas.</li>
+              <li><b>Menaje propio</b> de cada participación, y prohibido el desechable de un solo uso.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <article class="concurso c-vestimenta">
+        <div class="borde"></div>
+        <div class="cuerpo">
+          <div class="et">Concurso 2 · individual o hasta 4 personas</div>
+          <h3>Vestimenta de maíz</h3>
+          <p class="lema">«Vestir la milpa»</p>
+          <p>Totomoxtle, olote, cabello de elote y fibra de tallo son materiales textiles antes de ser desecho. La pieza se construye con ellos y vuelve a la tierra al terminar la jornada.</p>
+
+          <div class="cats">
+            <div><span class="l">A</span><span><b>Traje ceremonial</b><span class="d">Aliento ritual o festivo, ligado al ciclo agrícola.</span></span></div>
+            <div><span class="l">B</span><span><b>Prenda cotidiana reinterpretada</b><span class="d">Camisa, falda, chaleco o bolso que se pueda portar de verdad.</span></span></div>
+            <div><span class="l">C</span><span><b>Escultura corporal y tocado</b><span class="d">Volumen: tocados, máscaras, alas, estructuras de olote.</span></span></div>
+          </div>
+
+          <div>
+            <div class="et" style="margin-bottom:6px">Lo que hay que saber para organizarlo</div>
+            <ul class="clave">
+              <li><b>Setenta por ciento de superficie visible</b> hecha con materiales del maíz. Alguien del jurado tiene que poder verificarlo a ojo.</li>
+              <li><b>La pieza camina quince metros sin ayuda.</b> Eso fija el largo mínimo de la pasarela y el ancho libre que hay que dejar.</li>
+              <li><b>Una sola persona modela</b> aunque el equipo sea de cuatro, y presenta su pieza en menos de un minuto.</li>
+              <li><b>Sin unicel ni aerosol,</b> ni siquiera en la estructura interna, que debe ser natural o reutilizada.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="residuos">
+      <div class="et">El eje que atraviesa todo</div>
+      <h3>Cero residuos no es la parte bonita del texto</h3>
+      <p>Es la parte que ustedes pueden defender mejor que nadie, y la que se nota si falla. Vale diez puntos en cada concurso y cierra la jornada con un balance leído en voz alta, así que necesita a alguien responsable desde el primer día, no el lunes anterior.</p>
+      <ul>
+        <li>Loza, barro, peltre y hoja de maíz para servir: conseguirlo prestado toma semanas, no días.</li>
+        <li>Botes separados y señalizados, con alguien que los cuide durante la degustación.</li>
+        <li>Báscula para pesar lo compostable y una libreta donde anotarlo.</li>
+        <li>Destino cierto de la composta y de la biblioteca de materiales antes del día 29.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="et">Cómo se vería el día</div>
+      <h2>De 10:30 a 1:00</h2>
+    </div>
+    <div class="programa">
+      <div class="hora previa">
+        <div class="t">09:45</div>
+        <div><h4>Recepción de participaciones</h4><p>Antes de abrir. Cada platillo y cada traje recibe un número anónimo para que el jurado no sepa de quién es.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">10:30</div>
+        <div><h4>Apertura</h4><p>Bienvenida, presentación del jurado y recorrido inicial por las mesas.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">10:45</div>
+        <div><h4>Exhibición y cata del jurado</h4><p>El jurado prueba y califica mesa por mesa mientras el público recorre.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">11:20</div>
+        <div><h4>Pasarela · Vestir la milpa</h4><p>Desfile del concurso de vestimenta, con presentación oral de un minuto por pieza.</p></div>
+      </div>
+      <div class="hora centro">
+        <div class="t">11:50</div>
+        <div><h4>Grupo de danza del campus</h4><p>Veinte minutos de repertorio ligado al ciclo del maíz. Nada más se programa encima.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">12:10</div>
+        <div><h4>Degustación abierta y deliberación</h4><p>Se abre la prueba al público mientras el jurado cierra su calificación aparte.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">12:35</div>
+        <div><h4>Premiación</h4><p>Resultados de los dos concursos y entrega de reconocimientos.</p></div>
+      </div>
+      <div class="hora">
+        <div class="t">12:50</div>
+        <div><h4>Cierre y balance de residuos</h4><p>Se lee cuánto se compostó y cuánto se fue a la basura. El desmontaje sigue en cuanto termina.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="et">Segundo</div>
+      <h2>Cómo organizarlo</h2>
+    </div>
+    <p class="intro">Lo que sigue es una ruta sugerida, no un reglamento. Si toman solo un concurso, o si mueven el formato, corten y reacomoden lo que les sobre.</p>
+
+    <div class="rotulo" style="margin-top:8px"><div class="et" style="color:var(--rojo)">Paso uno</div><h2 style="font-size:1.35rem">Decidan el alcance antes de repartir trabajo</h2></div>
+    <p class="intro">Es la única decisión que no se puede posponer, porque todo lo demás cambia de tamaño según la respuesta. Ninguna de estas opciones está mal, y la última es tan válida como las otras.</p>
+    <div class="opciones">
+      <div><b>La jornada completa.</b> Los dos concursos, la danza y el balance de residuos, tal como está propuesto.</div>
+      <div><b>Un solo concurso.</b> El de platillos o el de vestimenta, con la danza al centro. La mitad del trabajo y la jornada se sostiene igual.</div>
+      <div><b>La jornada, con otro formato.</b> Les gusta la fecha y el tema, pero cambiarían los concursos por otra cosa. Es el momento de proponerlo.</div>
+      <div><b>No este año.</b> Y se dice ya, para que la coordinación no lo dé por hecho ni lo anuncie.</div>
+    </div>
+
+    <div class="rotulo" style="margin-top:38px"><div class="et" style="color:var(--rojo)">Paso dos</div><h2 style="font-size:1.35rem">Repartan por funciones, no por buena voluntad</h2></div>
+    <p class="intro">Seis funciones cubren la jornada entera. Si son pocos, una persona puede llevar dos, pero cada una necesita un nombre: lo que no tiene responsable no ocurre, y el día 29 no hay tiempo de averiguar quién iba a hacerlo.</p>
+    <div class="tabla-envoltura">
+      <table>
+        <thead><tr><th>Función</th><th>Qué resuelve</th><th>Personas</th></tr></thead>
+        <tbody>
+          <tr><td><b>Coordinación general</b></td><td>Es el enlace único con la coordinación del campus, guarda el programa y toma las decisiones del día.</td><td class="n">1</td></tr>
+          <tr><td><b>Jurado</b></td><td>Invita a las tres personas del jurado, les explica los criterios y las recibe el día 29.</td><td class="n">1</td></tr>
+          <tr><td><b>Registro y anonimato</b></td><td>Recibe inscripciones y fichas, asigna los números y es la única que sabe qué número es de quién.</td><td class="n">2</td></tr>
+          <tr><td><b>Sede y montaje</b></td><td>Mesas, contactos, sombra, sonido, trazo de la pasarela y acomodo de las sillas.</td><td class="n">2 a 3</td></tr>
+          <tr><td><b>Cero residuos</b></td><td>Loza prestada, botes separados, báscula, composta y lectura del balance final.</td><td class="n">2</td></tr>
+          <tr><td><b>Difusión</b></td><td>Consigue que haya participantes: carteles, grupos, salones y recordatorios antes del cierre.</td><td class="n">2</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="rotulo" style="margin-top:38px"><div class="et" style="color:var(--rojo)">Paso tres</div><h2 style="font-size:1.35rem">Trabajen contra el calendario, no contra el ánimo</h2></div>
+    <p class="intro">Del día de hoy al 29 de septiembre hay seis semanas. Esta es la única parte de la guía que conviene seguir en orden: cada semana desbloquea la siguiente.</p>
+
+    <div class="semanas">
+      <div class="semana hoy">
+        <div class="cuando">17 – 21 ago<span>Esta semana</span></div>
+        <div>
+          <h3>Decidir y avisar</h3>
+          <p>Junta, lectura de la propuesta y votación del alcance. Al terminar, alguien le avisa a la coordinación qué van a tomar, aunque la respuesta sea que no.</p>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">24 – 28 ago<span>Semana 2</span></div>
+        <div>
+          <h3>Repartir funciones y pedir la sede</h3>
+          <ul>
+            <li><b>Nombres en las seis funciones,</b> con su contacto en un solo lugar.</li>
+            <li><b>Solicitud formal</b> de explanada, mesas, sillas, sonido y contactos eléctricos.</li>
+            <li><b>Primera plática con quien coordina el taller de danza,</b> para confirmar que el grupo estará listo y cuánto espacio necesita.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">31 ago – 4 sep<span>Semana 3</span></div>
+        <div>
+          <h3>Abrir inscripciones y salir a invitar al jurado</h3>
+          <ul>
+            <li><b>Difusión desde el primer día:</b> las inscripciones no llegan solas y la última semana siempre es insuficiente.</li>
+            <li><b>Invitación al jurado</b> con tiempo: la cocinera o cocinero de Concá, la parte docente y el estudiantado que no concursa.</li>
+            <li><b>Empezar a buscar loza prestada.</b> Es lo que más tarda de todo.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">7 – 11 sep<span>Semana 4</span></div>
+        <div>
+          <h3>Primer corte de inscripciones</h3>
+          <p>Cuenten cuántas participaciones llevan. Si van por debajo de la mitad de lo que esperaban, este es el momento de ir salón por salón, no de esperar.</p>
+          <ul>
+            <li><b>Regla de dedo:</b> con menos de seis platillos o menos de cinco piezas de vestimenta, el concurso se siente vacío. Vale más recorrer categorías que insistir.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">14 – 18 sep<span>Semana 5</span></div>
+        <div>
+          <h3>Cerrar lo que no puede improvisarse</h3>
+          <ul>
+            <li><b>Jurado confirmado por escrito,</b> con hora de llegada y quién lo recibe.</li>
+            <li><b>Loza, botes, báscula y destino de la composta,</b> apalabrados y con fecha de recolección.</li>
+            <li><b>Trazo de la pasarela</b> medido en el piso: quince metros libres, sin cables cruzando.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">21 – 25 sep<span>Semana 6</span></div>
+        <div>
+          <h3>Cierre de registro el viernes 25</h3>
+          <ul>
+            <li><b>Lista final</b> de participaciones por concurso y categoría, con sus fichas completas.</li>
+            <li><b>Junta de logística</b> con la lista en la mano: cuántas mesas, cuánta loza, cuántos números anónimos.</li>
+            <li><b>Guion del día</b> escrito con horas y responsables, repartido a las seis funciones.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">Lun 28 sep<span>Víspera</span></div>
+        <div>
+          <h3>Montaje y ensayo</h3>
+          <p>Mesas puestas, pasarela trazada, números impresos, botes rotulados. Lean el guion completo en voz alta con las seis funciones presentes y resuelvan ahí lo que aparezca.</p>
+        </div>
+      </div>
+      <div class="semana">
+        <div class="cuando">Mar 29 sep<span>La jornada</span></div>
+        <div>
+          <h3>Cada quien en su puesto desde las 9:45</h3>
+          <p>La recepción abre cuarenta y cinco minutos antes que el público. A partir de las 10:30 nadie improvisa: quien coordina resuelve lo imprevisto y los demás sostienen su función hasta el balance de residuos.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="env">
+    <div class="rotulo">
+      <div class="et">Tercero</div>
+      <h2>Lo que solo ustedes pueden contestar</h2>
+    </div>
+    <p class="intro">Estas preguntas no las puede responder la coordinación. Llévenlas a la junta y vayan marcando lo que quede decidido.</p>
+
+    <div class="decisiones">
+      <div class="decision">
+        <input type="checkbox" id="d1">
+        <label for="d1">¿Qué alcance tomamos?<span>La jornada completa, un concurso, otro formato, o nada este año.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d2">
+        <label for="d2">¿Quién queda en cada una de las seis funciones?<span>Con nombre y contacto, no «alguien de segundo».</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d3">
+        <label for="d3">¿Cuántas participaciones necesitamos para que valga la pena?<span>Pónganle número ahora, para saber en septiembre si van bien o mal.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d4">
+        <label for="d4">¿De dónde va a salir la loza y quién la devuelve?<span>Es el punto que más veces tumba el eje de cero residuos.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d5">
+        <label for="d5">¿A quién invitamos al jurado, y quién le habla?<span>Sobre todo a la persona cocinera de la comunidad: es la que se agenda con más anticipación.</span></label>
+      </div>
+      <div class="decision">
+        <input type="checkbox" id="d6">
+        <label for="d6">¿Qué de la propuesta no nos convence, y qué proponemos en su lugar?<span>La más importante. Todavía hay margen para cambiarlo casi todo.</span></label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="env">
+  <div class="cierre">
+    <h2>Digan lo que van a hacer antes de que termine agosto</h2>
+    <p>No porque haya prisa administrativa, sino porque la loza prestada, el jurado de la comunidad y la difusión necesitan las seis semanas completas. Después del 1.º de septiembre todavía se puede organizar, pero ya con menos margen para equivocarse.</p>
+    <p>Las reglas completas, los criterios de evaluación punto por punto, los requisitos de cada concurso y el formulario de inscripción están en la página del evento.</p>
+    <div class="ligas">
+      <a class="liga solida" href="dia-del-maiz.html?preview">Ver la página del Día del Maíz</a>
+      <a class="liga hueca" href="index.html">Volver a Franja Libre</a>
+    </div>
+  </div>
+  <p class="pie">Franja Libre · Campus Concá, Universidad Autónoma de Querétaro · Día del Maíz, martes 29 de septiembre de 2026.</p>
+</div>
+
+</body>
+</html>
