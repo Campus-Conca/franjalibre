@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Día de Muertos — Franja Libre · Campus Concá UAQ</title>
-<meta name="description" content="29 de octubre de 2026. Ofrenda a lo que se está muriendo y Museo de objetos huérfanos: dos piezas colectivas para el Día de Muertos en la Franja Libre del Campus Concá, UAQ.">
+<meta name="description" content="29 de octubre de 2026, de 10:30 a 13:00. Ofrenda a lo que se está muriendo y comparsa de Xantolo del campus, explicada antes de bailarse: dos piezas para el Día de Muertos en la Franja Libre del Campus Concá, UAQ.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600;6..96,800&family=IBM+Plex+Mono:wght@400;500;600&family=Spectral:wght@300;400;600&display=swap" rel="stylesheet">
@@ -116,7 +116,7 @@ section{padding:82px 0;border-top:1px solid var(--regla);scroll-margin-top:64px}
 .difunto p{margin:0;color:var(--tinta-2);font-size:1rem;max-width:62ch}
 .difunto .ej{display:block;margin-top:7px;font-family:'IBM Plex Mono',monospace;font-size:.79rem;color:var(--gris);letter-spacing:.02em}
 
-/* ---------- Cédula de museo ---------- */
+/* ---------- Cédula de ofrenda ---------- */
 .cedula{
   background:var(--hueso);border:1px solid var(--regla);padding:0;max-width:560px;
   box-shadow:6px 6px 0 rgba(21,20,15,.055);
@@ -164,37 +164,33 @@ tfoot td{border-bottom:0;border-top:1px solid var(--tinta);font-weight:600;font-
 .etapa h4{font-size:1.08rem;margin-bottom:4px}
 .etapa p{margin:0;font-size:.99rem;color:var(--tinta-2);max-width:60ch}
 
-/* ---------- Museo (invertido) ---------- */
-.museo{background:var(--tinta);color:var(--hueso);border-top:0}
-.museo .marca-seccion{color:var(--cempa)}
-.museo .tit{color:var(--hueso)}
-.museo .tit-sub{color:rgba(247,244,236,.62)}
-.museo .parrafo{color:rgba(247,244,236,.84);font-weight:300}
-.museo .sub-t{color:var(--hueso);border-bottom-color:rgba(247,244,236,.5)}
-.museo .reglas li{border-bottom-color:rgba(247,244,236,.14)}
-.museo .reglas li b{color:var(--hueso)}
-.museo .regla-h{border-top-color:rgba(247,244,236,.22)}
-.museo table th,.museo table td{border-bottom-color:rgba(247,244,236,.14)}
-.museo thead th{border-bottom-color:rgba(247,244,236,.5)}
-.museo caption{color:rgba(247,244,236,.55)}
+/* ---------- Comparsa (invertido) ---------- */
+.comparsa{background:var(--tinta);color:var(--hueso);border-top:0}
+.comparsa .marca-seccion{color:var(--cempa)}
+.comparsa .tit{color:var(--hueso)}
+.comparsa .tit-sub{color:rgba(247,244,236,.62)}
+.comparsa .parrafo{color:rgba(247,244,236,.84);font-weight:300}
+.comparsa .sub-t{color:var(--hueso);border-bottom-color:rgba(247,244,236,.5)}
+.comparsa .reglas li{border-bottom-color:rgba(247,244,236,.14)}
+.comparsa .reglas li b{color:var(--hueso)}
+.comparsa .regla-h{border-top-color:rgba(247,244,236,.22)}
+.comparsa table th,.comparsa table td{border-bottom-color:rgba(247,244,236,.14)}
+.comparsa thead th{border-bottom-color:rgba(247,244,236,.5)}
+.comparsa caption{color:rgba(247,244,236,.55)}
 
-.etiqueta-objeto{
-  background:var(--hueso);color:var(--tinta);max-width:420px;
-  border:1px solid rgba(247,244,236,.3);display:grid;grid-template-columns:1fr 104px;
+/* ---------- Voz de la palabra ---------- */
+.etimo{
+  background:var(--hueso);color:var(--tinta);max-width:560px;
+  border:1px solid rgba(247,244,236,.3);
+  box-shadow:6px 6px 0 rgba(247,244,236,.07);
 }
-.etiqueta-objeto .txt{padding:20px}
-.etiqueta-objeto .txt span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);margin-top:12px}
-.etiqueta-objeto .txt span:first-child{margin-top:0}
-.etiqueta-objeto .txt b{font-family:'Bodoni Moda',Georgia,serif;font-weight:600;font-size:1.02rem;display:block;line-height:1.3}
-.etiqueta-objeto .qr{
-  border-left:1px solid var(--regla);display:flex;align-items:center;justify-content:center;
-  background:repeating-linear-gradient(45deg,#15140f 0 4px,#f7f4ec 4px 8px);
-  opacity:.85;
-}
-.etiqueta-objeto .qr i{
-  font-style:normal;background:var(--hueso);padding:5px 7px;font-family:'IBM Plex Mono',monospace;
-  font-size:.55rem;letter-spacing:.14em;text-transform:uppercase;
-}
+.etimo .cab{background:var(--cempa);color:var(--hueso);padding:11px 20px;font-family:'IBM Plex Mono',monospace;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase}
+.etimo .cuerpo{padding:22px 20px}
+.etimo .cadena{font-family:'IBM Plex Mono',monospace;font-size:.86rem;line-height:2;color:var(--tinta-2)}
+.etimo .cadena b{color:var(--tinta);font-weight:600}
+.etimo .cadena i{font-style:normal;color:var(--cempa);padding:0 6px}
+.etimo p{margin:16px 0 0;font-size:.97rem;color:var(--tinta-2);line-height:1.6}
+.etimo p:last-child{margin-bottom:0}
 
 /* ---------- Programa ---------- */
 .programa .fila{display:grid;grid-template-columns:170px 1fr;gap:24px;padding:19px 0;border-bottom:1px solid var(--regla-suave)}
@@ -333,7 +329,7 @@ footer b{color:var(--hueso);font-weight:500}
     <a class="l" href="index.html">← Franja Libre</a>
     <a class="l" href="#nota">Nota de sala</a>
     <a class="l" href="#ofrenda">Pieza I</a>
-    <a class="l" href="#museo">Pieza II</a>
+    <a class="l" href="#comparsa">Pieza II</a>
     <a class="l" href="#programa">Programa</a>
     <a class="cta" href="#registro">Registro</a>
   </div>
@@ -343,13 +339,13 @@ footer b{color:var(--hueso);font-weight:500}
   <div class="env">
     <div class="folio">Campus Concá · UAQ — Jueves 29 de octubre de 2026</div>
     <h1>Día de Muertos</h1>
-    <p class="sub">Dos velorios simultáneos</p>
-    <p class="glosa">Este año no se vela a nadie que haya tenido nombre en un acta. Se vela lo que se está apagando en la Sierra Gorda sin que nadie firme su defunción, y se vela lo que quedó huérfano cuando alguien se fue: los objetos que sobrevivieron a sus dueños.</p>
+    <p class="sub">Un velorio y una comparsa</p>
+    <p class="glosa">Este año no se vela a nadie que haya tenido nombre en un acta. Se vela lo que se está apagando en la Sierra Gorda sin que nadie firme su defunción. Y a media mañana, cuando las ofrendas ya están dichas, entra la comparsa de Xantolo del campus: primero se explica qué es lo que va a bailarse, y después se baila.</p>
 
     <div class="ficha-cabecera">
       <div><span>Fecha</span><b>Jue 29 · octubre</b></div>
-      <div><span>Horario</span><b>09:30 – 13:10&nbsp;h</b></div>
-      <div><span>Piezas</span><b>Dos, simultáneas</b></div>
+      <div><span>Horario</span><b>10:30 – 13:00&nbsp;h</b></div>
+      <div><span>Piezas</span><b>Ofrenda y comparsa</b></div>
       <div><span>Cierre de registro</span><b>Vie 9 · octubre</b></div>
     </div>
 
@@ -364,8 +360,8 @@ footer b{color:var(--hueso);font-weight:500}
     <h2 class="tit">Por qué no hay concurso de altares</h2>
     <div class="caja">
       <p>El concurso de altares premia la destreza decorativa y termina cuando se barre el papel picado. Funciona, pero enseña poco y no deja nada. La propuesta de este año conserva el gesto central de la fecha —poner una mesa para quien ya no está— y le cambia el destinatario, para que el trabajo de octubre produzca conocimiento sobre el territorio y no solo una fotografía bonita.</p>
-      <p>La primera pieza convierte el altar en una investigación: cada equipo elige algo que se esté extinguiendo en el municipio, busca a quien lo recuerde, graba su testimonio y monta la ofrenda con una cédula verificable. La segunda pieza hace lo contrario: quita toda explicación, deja el objeto solo con la voz de su dueño en un audífono, y prohíbe que nadie hable encima. Una investiga; la otra escucha.</p>
-      <p>Las dos ocurren al mismo tiempo, en espacios distintos, y se recorren en cualquier orden. Al terminar la jornada, una deja un documento y la otra deja un archivo sonoro. Nada de lo que se monta se va a la basura.</p>
+      <p>La primera pieza convierte el altar en una investigación: cada equipo elige algo que se esté extinguiendo en el municipio, busca a quien lo recuerde, graba su testimonio y monta la ofrenda con una cédula verificable. La segunda pieza hace lo contrario: no investiga nada nuevo, sino que pone en el patio una tradición viva de esta región —la comparsa de Xantolo— y exige que se explique antes de bailarse, para que no pase por espectáculo ni por disfraz. Una averigua lo que se perdió; la otra muestra lo que sigue aquí.</p>
+      <p>La ofrenda ocupa la primera parte de la mañana y la comparsa entra cuando el recorrido termina, para que nadie tenga que elegir entre las dos. Al cerrar la jornada, una deja un documento y la otra deja una cuadrilla formada en el campus. Nada de lo que se monta se va a la basura.</p>
     </div>
   </div>
 </section>
@@ -524,7 +520,7 @@ footer b{color:var(--hueso);font-weight:500}
         <div class="cuando">Jueves 29</div>
         <div>
           <h4>Montaje y jornada</h4>
-          <p>Montaje desde las 09:30. El recorrido con lectura de actas inicia a las 10:45.</p>
+          <p>Montaje desde las 09:30, antes de que abra la jornada. La apertura al público es a las 10:30 y el recorrido con lectura de actas inicia a las 10:45.</p>
         </div>
       </div>
     </div>
@@ -535,56 +531,82 @@ footer b{color:var(--hueso);font-weight:500}
 </section>
 
 <!-- ================= PIEZA II ================= -->
-<section id="museo" class="museo">
+<section id="comparsa" class="comparsa">
   <div class="env">
-    <div class="marca-seccion">Pieza II · Individual · Sin concurso</div>
-    <h2 class="tit">Museo de objetos&nbsp;huérfanos</h2>
-    <p class="tit-sub">Una sala en silencio, abierta una sola mañana</p>
-    <p class="parrafo">Cada persona lleva un objeto que perteneció a alguien que murió, o que quedó de algo que terminó, y graba un audio de sesenta segundos contando qué es y de quién fue. El objeto se exhibe sobre una mesa con una etiqueta mínima y un código; quien pasa escucha la grabación con audífonos. No hay jurado, no hay lugares, no hay premio. La pieza existe una mañana y se desmonta.</p>
-    <p class="parrafo">El silencio es parte del montaje. Nadie explica su objeto en persona mientras la sala está abierta: si alguien pregunta, la respuesta es señalar el código. Esa regla, que parece caprichosa, es la que produce el efecto: obliga a que la única voz disponible sea la que se grabó a solas, y le devuelve al objeto la condición de huérfano que la pieza nombra.</p>
+    <div class="marca-seccion">Pieza II · Colectiva · Sin concurso</div>
+    <h2 class="tit">Comparsa de Xantolo del&nbsp;campus</h2>
+    <p class="tit-sub">Primero se explica; después se baila</p>
+    <p class="parrafo">Una cuadrilla formada por gente del campus —estudiantes, docentes y personal administrativo— sale enmascarada al patio y baila sones de la Huasteca acompañada de músicos en vivo. Antes de que suene el primer son, quien dirige la cuadrilla toma el micrófono diez minutos y explica qué se está viendo: de dónde viene la palabra Xantolo, quiénes son los personajes que traen puestos, por qué se baila con la cara cubierta y qué se le está pidiendo a los muertos al hacerlo. La explicación no es un preámbulo cortés: es la mitad de la pieza.</p>
+    <p class="parrafo">Se hace así porque una comparsa sin explicación se ve como un disfraz colectivo y se aplaude como si fuera un número. La Sierra Gorda es orilla de la región huasteca y muchas de las familias del campus tienen el Xantolo a una hora de camino, o en casa. Poner la danza en el patio sin decir lo que significa sería exactamente el error que esta jornada quiere evitar: quedarse con la fotografía bonita.</p>
 
-    <div class="sub-t">Las cinco reglas</div>
+    <div class="sub-t">De dónde viene la palabra</div>
+    <p class="parrafo">La explicación arranca por el nombre, porque el nombre ya cuenta la historia entera: una fiesta de muertos que se llama en náhuatl con una palabra que venía en latín, dentro de la liturgia que trajeron los frailes, y que la boca de la Huasteca acomodó a su modo hasta dejarla irreconocible.</p>
+
+    <div class="etimo">
+      <div class="cab">Voz de la fiesta</div>
+      <div class="cuerpo">
+        <div class="cadena">
+          <b>festum omnium sanctōrum</b><i>→</i>latín litúrgico, «fiesta de todos los santos»<br>
+          <b>sanctōrum</b><i>→</i>genitivo plural: «de los santos»<br>
+          <b>xantolo</b><i>→</i>la forma que quedó en la Huasteca
+        </div>
+        <p>El desplazamiento es de pronunciación: la <i>s</i>- inicial del latín se acomoda a los sonidos del náhuatl y el resto de la palabra se desgasta con el uso hablado, hasta que <em>sanctorum</em> deja de sonar a latín y suena a lo que la gente nombra cada año.</p>
+        <p>Que la fiesta de muertos más viva de la región lleve un nombre latino en la boca es, por sí solo, un dato que vale la mañana: la palabra no se impuso ni se perdió, se masticó.</p>
+      </div>
+    </div>
+
+    <div class="sub-t">Lo que se explica antes de bailar</div>
+    <p class="parrafo">Diez minutos, en cinco puntos, sin tecnicismos y con la cuadrilla ya formada al frente. Se dice también lo que varía de comunidad en comunidad, para no presentar una sola versión como si fuera la única.</p>
+
     <ol class="reglas">
-      <li><b>Un objeto por persona.</b> Debe caber en las dos manos y poder quedarse sobre una mesa sin vigilancia durante dos horas.</li>
-      <li><b>Un audio de sesenta segundos, grabado por su dueño.</b> Ni más ni menos: si dura cuarenta, se acepta; si pasa de sesenta y cinco, se regraba. La voz debe ser la de quien lleva el objeto.</li>
-      <li><b>Nadie explica su objeto en persona.</b> Durante las horas de exhibición no se conversa sobre las piezas dentro de la sala. Después del cierre, todas las conversaciones que se quieran.</li>
-      <li><b>Escucha individual, con audífonos.</b> No hay bocinas. Se disponen cuatro pares de audífonos prestados y quien traiga los suyos los usa.</li>
-      <li><b>Al cierre, cada quien recupera lo suyo.</b> Ningún objeto se queda. Lo que permanece es el archivo sonoro, y solo si su dueño lo autoriza por escrito al registrarse.</li>
+      <li><b>Qué es el Xantolo.</b> La fiesta de muertos de la Huasteca, que dura varios días y desborda el altar: la casa se abre, se pone comida, y la cuadrilla va de patio en patio a bailarle a los difuntos de cada casa.</li>
+      <li><b>Por qué se baila con máscara.</b> Quien se cubre la cara deja de ser él mismo por un rato: la comparsa representa a los muertos que vuelven, y por eso lo que baila no es una persona sino un personaje.</li>
+      <li><b>Quiénes son los personajes.</b> La cuadrilla no es un grupo de danza uniforme; es un reparto, y cada figura tiene su lugar y su modo de moverse.</li>
+      <li><b>Qué se toca.</b> Sones y huapangos de la Huasteca, con violín, jarana y quinta huapanguera. Los sones no son fondo musical: marcan cuándo entra cada figura y cuándo se cambia de casa.</li>
+      <li><b>Que es un compromiso, no un ensayo.</b> En varias comunidades quien entra a la cuadrilla se compromete por varios años seguidos, y la máscara no se retira hasta la fecha en que toca destaparse. La comparsa del campus no reproduce ese compromiso, y lo dice en voz alta para no confundir una cosa con la otra.</li>
     </ol>
+
+    <table style="margin-top:34px">
+      <caption>El reparto de la cuadrilla · varía según la comunidad</caption>
+      <thead><tr><th>Figura</th><th>Qué hace en la danza</th></tr></thead>
+      <tbody>
+        <tr><td>Quien dirige (el cole o el viejo mayor)</td><td>Ordena la cuadrilla, marca las entradas y es quien habla con la casa que recibe. En esta jornada es también quien da la explicación.</td></tr>
+        <tr><td>La Muerte</td><td>Abre paso y recuerda a qué se vino. Es la figura que la gente reconoce primero.</td></tr>
+        <tr><td>El Diablo</td><td>Rompe el orden, molesta a la cuadrilla y hace reír. Su desorden es parte del guion, no una falla.</td></tr>
+        <tr><td>El Viejo y la Vieja</td><td>Pareja cómica; en muchas cuadrillas los papeles se cruzan y los hombres bailan de vieja. Se explica que ese cruce es ritual y antiguo, no una burla.</td></tr>
+        <tr><td>El resto de la cuadrilla</td><td>Danzantes que sostienen el paso y las vueltas durante todo el son.</td></tr>
+      </tbody>
+    </table>
 
     <hr class="regla-h">
 
-    <div class="sub-t">Cómo se graba el audio</div>
-    <p class="parrafo">Basta un teléfono y un cuarto sin ruido. Se recomienda grabar de una sola toma, sin edición, y empezar diciendo el nombre del objeto. No hace falta que sea un relato pulido: el titubeo funciona mejor que la elocuencia. Quien prefiera no aparecer con su voz reconocible puede pedir que la coordinación aplique un filtro de tono antes de la exhibición.</p>
-    <p class="parrafo">El archivo se envía al registrarse o, a más tardar, el lunes 26 de octubre. Se nombra con el folio que devuelve el formulario, se sube a la carpeta compartida que se indica en la confirmación y la coordinación genera el código impreso. Quien no logre subirlo puede entregarlo en persona el mismo día, siempre que llegue antes de las 09:45.</p>
+    <div class="sub-t">Acuerdos de la presentación</div>
+    <ol class="reglas">
+      <li><b>Nadie se presenta sin explicación previa.</b> Si por alguna razón no hay quien explique, la comparsa no sale. Es la única condición innegociable de la pieza.</li>
+      <li><b>La máscara no se toca ni se presta en el patio.</b> El público puede verlas de cerca al final, cuando quienes las traen las muestran por su voluntad.</li>
+      <li><b>No es concurso.</b> La comparsa no se evalúa, no compite con las ofrendas y no recibe reconocimiento. Entra a la jornada como se entra a una casa.</li>
+      <li><b>Las máscaras se hacen o se piden con permiso.</b> Se privilegia tallar, armar o reutilizar máscaras del propio grupo; si alguna se pide prestada a una familia o a una cuadrilla de la región, se registra de quién es y se devuelve el mismo día.</li>
+      <li><b>El último son es abierto.</b> Al final se invita al público a entrar a bailar, ya sin máscara, y ahí se acaba la separación entre quien mira y quien baila.</li>
+    </ol>
 
-    <div class="sub-t">La etiqueta</div>
-    <p class="parrafo">Cada objeto se acompaña de una etiqueta deliberadamente pobre en información. Cuatro datos y un código: lo demás está en la voz.</p>
-
-    <div class="etiqueta-objeto">
-      <div class="txt">
-        <span>Objeto</span><b>Reloj de pulso, sin manecillas</b>
-        <span>De quién fue</span><b>De mi abuelo</b>
-        <span>Año aproximado</span><b>1974</b>
-        <span>Una palabra</span><b>Puntualidad</b>
-      </div>
-      <div class="qr"><i>QR 07</i></div>
-    </div>
-
-    <div class="sub-t">Consentimiento y destino del archivo</div>
-    <p class="parrafo">El formulario incluye una autorización explícita y separada para conservar el audio después de la jornada. Quien no la marque tendrá su grabación borrada al cierre, y podrá presenciar el borrado si lo desea. Los audios autorizados se conservan en el archivo del campus con el nombre de quien lo grabó, o de forma anónima si así se pidió, y solo se reutilizan en piezas sonoras o recorridos del propio campus, nunca en materiales de promoción.</p>
+    <div class="sub-t">Cómo se arma la comparsa</div>
+    <p class="parrafo">Se forma con quien se registre en la pieza II. Hacen falta danzantes, pero también músicos —violín, jarana, huapanguera— y gente que quiera trabajar en máscaras y vestuario sin salir a bailar. Si el campus no reúne músicos suficientes, la coordinación invita a un trío de la región y lo hace saber en la explicación.</p>
+    <p class="parrafo">El reparto de personajes se cierra al terminar el registro, el viernes 9 de octubre. La coordinación avisa entonces, por el medio de contacto que cada quien indicó, cómo y cuándo se prepara la cuadrilla antes del día 29.</p>
 
     <table style="margin-top:34px">
       <caption>Necesidades de montaje de la pieza II</caption>
       <thead><tr><th>Elemento</th><th>Cantidad</th></tr></thead>
       <tbody>
-        <tr><td>Mesas para exhibición</td><td>Cuatro, con mantel oscuro</td></tr>
-        <tr><td>Audífonos de diadema</td><td>Cuatro pares, prestados y rotulados</td></tr>
-        <tr><td>Dispositivos de reproducción</td><td>Dos tabletas o teléfonos con los audios cargados</td></tr>
-        <tr><td>Etiquetas impresas con código</td><td>Una por objeto, tamaño media carta</td></tr>
-        <tr><td>Persona en sala</td><td>Una por turno, para cuidar la regla del silencio</td></tr>
+        <tr><td>Espacio despejado para la danza</td><td>Explanada, con público en herradura</td></tr>
+        <tr><td>Sonido</td><td>Un micrófono para la explicación y dos para los músicos</td></tr>
+        <tr><td>Sillas perimetrales</td><td>Treinta, para quien no pueda estar de pie</td></tr>
+        <tr><td>Área para vestirse</td><td>Un salón cerrado, cerca del patio</td></tr>
+        <tr><td>Agua para la cuadrilla</td><td>Garrafón y vasos reutilizables</td></tr>
       </tbody>
     </table>
+
+    <div class="sub-t">Lo que queda</div>
+    <p class="parrafo ancho">La explicación se graba y se transcribe: queda una ficha breve sobre el Xantolo y sus personajes, hecha con las palabras de quien lo baila, que se suma al mismo documento donde se compilan las cédulas de la pieza I. Y queda la cuadrilla: un grupo del campus que ya sabe el paso y puede volver a salir el año siguiente, o antes, si alguna comunidad lo invita.</p>
   </div>
 </section>
 
@@ -593,35 +615,39 @@ footer b{color:var(--hueso);font-weight:500}
   <div class="env">
     <div class="marca-seccion">Jueves 29 de octubre</div>
     <h2 class="tit">Programa de la&nbsp;jornada</h2>
-    <p class="parrafo">Las dos piezas conviven toda la mañana. La ofrenda tiene momentos marcados; el museo permanece abierto de corrido y se entra cuando se quiera.</p>
+    <p class="parrafo">La jornada abre a las 10:30 y cierra a las 13:00. La ofrenda ocupa la primera mitad; la comparsa entra cuando el recorrido termina, para que nadie tenga que escoger entre las dos piezas. El montaje ocurre antes de la apertura y el desmontaje después del cierre: ninguno forma parte del programa público.</p>
 
     <div class="fila">
       <div class="h">09:30 – 10:30</div>
-      <div><h4>Montaje</h4><p>Los equipos arman sus ofrendas y quienes participan en el museo entregan su objeto en la mesa de recepción, donde se le coloca etiqueta y código.</p></div>
+      <div><h4>Montaje <span class="mono" style="font-size:.72rem;color:var(--gris)">· previo</span></h4><p>Los equipos arman sus ofrendas y la cuadrilla se viste en el salón asignado. No hay público todavía.</p></div>
     </div>
     <div class="fila">
       <div class="h">10:30 – 10:45</div>
-      <div><h4>Apertura</h4><p>Se explican las dos piezas y la regla del silencio en la sala del museo. Se presenta al jurado de la pieza I.</p></div>
+      <div><h4>Apertura</h4><p>Se explican las dos piezas y el orden de la mañana. Se presenta al jurado de la pieza I.</p></div>
     </div>
     <div class="fila">
-      <div class="h">10:45 – 11:45</div>
+      <div class="h">10:45 – 11:40</div>
       <div><h4>Recorrido y lectura de actas</h4><p>El público recorre las ofrendas en orden. Cada equipo lee su acta de defunción frente a la suya, en menos de noventa segundos.</p></div>
     </div>
     <div class="fila">
-      <div class="h">10:45 – 12:30</div>
-      <div><h4>Museo de objetos huérfanos, abierto</h4><p>Entrada libre y continua, en paralelo al recorrido. Escucha con audífonos, sin conversación dentro de la sala.</p></div>
+      <div class="h">11:40 – 11:50</div>
+      <div><h4>Qué es el Xantolo</h4><p>Explicación en voz alta, con la cuadrilla ya formada al frente: de dónde viene la palabra, quiénes son los personajes y por qué se baila con la cara cubierta.</p></div>
     </div>
     <div class="fila">
-      <div class="h">11:45 – 12:15</div>
+      <div class="h">11:50 – 12:20</div>
+      <div><h4>Comparsa de Xantolo</h4><p>La cuadrilla baila los sones con música en vivo. El último son es abierto: quien quiera puede entrar a bailar, ya sin máscara.</p></div>
+    </div>
+    <div class="fila">
+      <div class="h">12:20 – 12:40</div>
       <div><h4>Deliberación y palabra abierta</h4><p>Mientras el jurado delibera, se abre el micrófono a quien quiera nombrar en voz alta algo que también se esté muriendo y no alcanzó ofrenda.</p></div>
     </div>
     <div class="fila">
-      <div class="h">12:15 – 12:35</div>
-      <div><h4>Reconocimientos</h4><p>Resultados de la pieza I. El museo no compite y no entrega reconocimientos.</p></div>
+      <div class="h">12:40 – 12:55</div>
+      <div><h4>Reconocimientos</h4><p>Resultados de la pieza I. La comparsa no compite y no recibe reconocimiento.</p></div>
     </div>
     <div class="fila">
-      <div class="h">12:35 – 13:10</div>
-      <div><h4>Desmontaje</h4><p>Se recuperan los objetos del museo uno por uno, se devuelven las piezas prestadas de las ofrendas y se separa lo compostable de lo reutilizable.</p></div>
+      <div class="h">12:55 – 13:00</div>
+      <div><h4>Cierre</h4><p>Se agradece a la cuadrilla y a quienes fueron entrevistados, y se anuncia cuándo estará listo el inventario. El desmontaje empieza en cuanto termina: se devuelven las piezas prestadas y se separa lo compostable de lo reutilizable.</p></div>
     </div>
 
     <p class="paralelo">La Franja Libre se suspende por completo este día. Ningún taller permanente sesiona: no hay yoga, ajedrez, balonmano, calistenia, pintura, danza, guitarra, escritura creativa, basketball, zumba, inglés ni teatro.</p>
@@ -633,7 +659,7 @@ footer b{color:var(--hueso);font-weight:500}
   <div class="env">
     <div class="marca-seccion">Solo pieza I</div>
     <h2 class="tit">Reconocimientos a las&nbsp;ofrendas</h2>
-    <p class="parrafo">Tres lugares y una mención, decididos por un jurado de tres personas: alguien de la comunidad con memoria larga de la zona, una persona docente del área socioambiental y una del área agroindustrial. El museo de objetos huérfanos queda deliberadamente fuera de toda competencia.</p>
+    <p class="parrafo">Tres lugares y una mención, decididos por un jurado de tres personas: alguien de la comunidad con memoria larga de la zona, una persona docente del área socioambiental y una del área agroindustrial. La comparsa de Xantolo queda deliberadamente fuera de toda competencia: no se evalúa ni se le asigna lugar.</p>
 
     <div class="recos">
       <div class="reco">
@@ -676,7 +702,7 @@ footer b{color:var(--hueso);font-weight:500}
     <form class="caja-form" id="formMuertos" autocomplete="off">
       <div class="selector" role="group" aria-label="Elige la pieza">
         <button type="button" id="btnOfrenda" aria-pressed="true">Pieza I · Ofrenda</button>
-        <button type="button" id="btnObjeto" aria-pressed="false">Pieza II · Objeto</button>
+        <button type="button" id="btnObjeto" aria-pressed="false">Pieza II · Comparsa</button>
       </div>
       <input type="hidden" id="pieza" name="pieza" value="Ofrenda">
 
@@ -744,39 +770,55 @@ footer b{color:var(--hueso);font-weight:500}
         </div>
 
         <!-- ---------- Campos de la Pieza II ---------- -->
-        <div class="campo ancho grupo-objeto oculto">
-          <label for="objeto">Qué objeto vas a llevar</label>
-          <input type="text" id="objeto" name="objeto" placeholder="Ej. reloj de pulso sin manecillas">
-        </div>
-
-        <div class="campo grupo-objeto oculto">
-          <label for="dequien">De quién fue</label>
-          <input type="text" id="dequien" name="dequien" placeholder="Ej. de mi abuelo">
-          <span class="pista">Puede ir en relación, sin nombre propio.</span>
-        </div>
-
-        <div class="campo grupo-objeto oculto">
-          <label for="anio">Año aproximado <span class="op">(opcional)</span></label>
-          <input type="text" id="anio" name="anio" placeholder="Ej. 1974">
-        </div>
-
-        <div class="campo grupo-objeto oculto">
-          <label for="palabra">Una palabra</label>
-          <input type="text" id="palabra" name="palabra" placeholder="La palabra que resume el objeto">
-          <span class="pista">Es el cuarto y último dato de la etiqueta. Una sola palabra.</span>
-        </div>
-
-        <div class="campo grupo-objeto oculto">
-          <label for="voz">Tratamiento de la voz</label>
-          <select id="voz" name="voz">
-            <option value="Sin filtro">Sin filtro, mi voz tal cual</option>
-            <option value="Con filtro">Con filtro de tono, para no ser reconocible</option>
+        <div class="campo grupo-comparsa oculto">
+          <label for="rol">Cómo quieres entrar</label>
+          <select id="rol" name="rol">
+            <option value="">Selecciona…</option>
+            <option>Danzante de la cuadrilla</option>
+            <option>Músico</option>
+            <option>Máscaras y vestuario</option>
+            <option>Apoyo en el patio</option>
           </select>
+          <span class="pista">Quien trabaje solo en máscaras y vestuario también aparece en los créditos de la pieza.</span>
         </div>
 
-        <div class="acepto grupo-objeto oculto">
-          <input type="checkbox" id="archivo" name="archivo">
-          <label for="archivo">Autorizo que mi audio se conserve en el archivo del campus después de la jornada. Si dejo esta casilla sin marcar, la grabación se borra al cierre del día.</label>
+        <div class="campo grupo-comparsa oculto">
+          <label for="personaje">Personaje que te gustaría bailar <span class="op">(opcional)</span></label>
+          <select id="personaje" name="personaje">
+            <option value="">Sin preferencia</option>
+            <option>La Muerte</option>
+            <option>El Diablo</option>
+            <option>El Viejo o la Vieja</option>
+            <option>Danzante de la cuadrilla</option>
+            <option>Dirigir la cuadrilla</option>
+          </select>
+          <span class="pista">El reparto se cierra la semana del 5 al 9 de octubre.</span>
+        </div>
+
+        <div class="campo grupo-comparsa oculto">
+          <label for="instrumento">Instrumento que tocas <span class="op">(opcional)</span></label>
+          <input type="text" id="instrumento" name="instrumento" placeholder="Ej. jarana huasteca, violín, quinta huapanguera">
+        </div>
+
+        <div class="campo grupo-comparsa oculto">
+          <label for="experiencia">Qué tanto conoces la danza</label>
+          <select id="experiencia" name="experiencia">
+            <option value="Nunca">Nunca la he bailado</option>
+            <option value="De cerca">La he visto de cerca en mi comunidad</option>
+            <option value="En cuadrilla">He salido en una cuadrilla</option>
+          </select>
+          <span class="pista">No se necesita experiencia previa para entrar a la cuadrilla.</span>
+        </div>
+
+        <div class="campo ancho grupo-comparsa oculto">
+          <label for="vestuario">Máscara o vestuario que puedas aportar <span class="op">(opcional)</span></label>
+          <input type="text" id="vestuario" name="vestuario" placeholder="Ej. máscara de la familia, sombrero, paliacate">
+          <span class="pista">Si es prestada por una familia o una cuadrilla de la región, anota de quién es: se registra y se devuelve el mismo día.</span>
+        </div>
+
+        <div class="acepto grupo-comparsa oculto">
+          <input type="checkbox" id="preparacion" name="preparacion">
+          <label for="preparacion">Me comprometo a asistir a las sesiones de preparación que la coordinación convoque antes del 29 de octubre.</label>
         </div>
 
         <div class="acepto">
@@ -787,7 +829,7 @@ footer b{color:var(--hueso);font-weight:500}
 
       <div class="pie-form">
         <button type="submit" class="btn" id="btnEnviar">Enviar registro</button>
-        <span class="pista">Cierre: viernes 9 de octubre, 18:00 h.<br>Audios de la pieza II: a más tardar el lunes 26 de octubre.</span>
+        <span class="pista">Cierre: viernes 9 de octubre, 18:00 h.<br>El reparto de la comparsa se avisa esa misma semana.</span>
       </div>
 
       <div class="msj" id="msj" role="status" aria-live="polite"></div>
@@ -814,9 +856,10 @@ footer b{color:var(--hueso);font-weight:500}
   var btn     = document.getElementById("btnEnviar");
 
   var OBLIG = {
-    Ofrenda: ["equipo","categoria","difunto","testigo"],
-    Objeto:  ["objeto","dequien","palabra"]
+    Ofrenda:  ["equipo","categoria","difunto","testigo"],
+    Comparsa: ["rol","experiencia","preparacion"]
   };
+  var CONDICIONALES = ["equipo","categoria","difunto","testigo","rol","experiencia","preparacion"];
 
   function grupo(nombre){ return Array.prototype.slice.call(document.querySelectorAll(".grupo-" + nombre)); }
 
@@ -826,16 +869,16 @@ footer b{color:var(--hueso);font-weight:500}
     bOf.setAttribute("aria-pressed", esOfrenda ? "true" : "false");
     bOb.setAttribute("aria-pressed", esOfrenda ? "false" : "true");
     grupo("ofrenda").forEach(function(e){ e.classList.toggle("oculto", !esOfrenda); });
-    grupo("objeto").forEach(function(e){ e.classList.toggle("oculto", esOfrenda); });
+    grupo("comparsa").forEach(function(e){ e.classList.toggle("oculto", esOfrenda); });
 
-    ["equipo","categoria","difunto","testigo","objeto","dequien","palabra"].forEach(function(id){
+    CONDICIONALES.forEach(function(id){
       var el = document.getElementById(id);
       if(el) el.required = OBLIG[valor].indexOf(id) !== -1;
     });
   }
 
   bOf.addEventListener("click", function(){ aplicar("Ofrenda"); });
-  bOb.addEventListener("click", function(){ aplicar("Objeto"); });
+  bOb.addEventListener("click", function(){ aplicar("Comparsa"); });
 
   function mostrar(tipo, texto){
     msj.className = "msj " + tipo;
@@ -858,14 +901,14 @@ footer b{color:var(--hueso);font-weight:500}
       categoria: val("categoria"),
       difunto:   val("difunto"),
       testigo:   val("testigo"),
-      porque:    val("porque"),
-      apoyo:     val("apoyo"),
-      objeto:    val("objeto"),
-      dequien:   val("dequien"),
-      anio:      val("anio"),
-      palabra:   val("palabra"),
-      voz:       val("voz"),
-      archivo:   document.getElementById("archivo").checked ? "Sí autoriza" : "No autoriza"
+      porque:      val("porque"),
+      apoyo:       val("apoyo"),
+      rol:         val("rol"),
+      personaje:   val("personaje"),
+      instrumento: val("instrumento"),
+      experiencia: val("experiencia"),
+      vestuario:   val("vestuario"),
+      preparacion: document.getElementById("preparacion").checked ? "Sí se compromete" : "No confirmó"
     };
 
     btn.disabled = true;
@@ -879,7 +922,7 @@ footer b{color:var(--hueso);font-weight:500}
         btn.textContent = "Enviar registro";
         mostrar("demo",
           "Vista previa sin conexión al servidor. Al desplegar esta página como aplicación web de Apps Script, el registro se guarda en la hoja de respuestas. Capturado: " +
-          datos.pieza + " — " + datos.nombre + " — " + (datos.pieza === "Ofrenda" ? datos.difunto : datos.objeto) + ".");
+          datos.pieza + " — " + datos.nombre + " — " + (datos.pieza === "Ofrenda" ? datos.difunto : datos.rol) + ".");
       }, 500);
       return;
     }
@@ -891,7 +934,7 @@ footer b{color:var(--hueso);font-weight:500}
         if(r && r.ok){
           form.reset();
           aplicar(pieza.value);
-          mostrar("ok","Registro recibido. Folio " + r.folio + ". Se confirmará por el medio de contacto indicado" + (datos.pieza === "Objeto" ? ", junto con la carpeta donde subir el audio." : "."));
+          mostrar("ok","Registro recibido. Folio " + r.folio + ". Se confirmará por el medio de contacto indicado" + (datos.pieza === "Comparsa" ? ", junto con el personaje asignado." : "."));
         }else{
           mostrar("error",(r && r.mensaje) || "No fue posible guardar el registro.");
         }
