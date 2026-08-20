@@ -1,1036 +1,547 @@
 <!DOCTYPE html>
-<html lang="es-MX">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Feria de Intercambio de Saberes — Franja Libre · Campus Concá UAQ</title>
-<meta name="description" content="20 de agosto y 22 de septiembre de 2026. Talleres de hora y media donde la comunidad del Campus Concá se enseña entre sí lo que sabe hacer. Propón un taller o inscríbete.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feria de Intercambio de Saberes · Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="Jueves 27 de agosto, 11:30–13:00. Talleres simultáneos donde la comunidad del Campus Concá se enseña entre sí. Elige el tuyo e inscríbete.">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --crema:#fff8ee;
-  --crema-2:#f8ecda;
-  --tinta:#1f211c;
-  --tinta-2:#4b4d44;
-  --gris:#8d8c81;
-  --teal:#0e7c6b;
-  --coral:#e0512f;
-  --sol:#efab00;
-  --azul:#2f4faf;
-  --morado:#7a3f9d;
-  --verde:#4f8a2e;
-  --linea:rgba(31,33,28,.14);
-  --sombra:0 2px 0 rgba(31,33,28,.06),0 14px 34px rgba(31,33,28,.09);
-  --ancho:1120px;
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --oc-l:#FBF1E2; --oc-t:#B05020; --wa:#25D366;
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;background:var(--crema);color:var(--tinta);
-  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  font-size:17px;line-height:1.68;-webkit-font-smoothing:antialiased;
+body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var(--vp); }
+
+/* HERO */
+.hero { text-align:center; padding:40px 20px 12px; }
+.hero-volver { display:inline-block; font-size:13.5px; font-weight:600; color:var(--vs); text-decoration:none; margin-bottom:22px; }
+.hero-volver:hover { color:var(--vv); }
+.hero-flag {
+  display:inline-block; background:var(--oc); color:#3A2A10; border-radius:20px;
+  padding:5px 15px; font-size:11.5px; font-weight:600; letter-spacing:.09em; text-transform:uppercase;
+  margin-bottom:14px;
 }
-h1,h2,h3,h4{font-family:'Space Grotesk','Inter',sans-serif;font-weight:700;line-height:1.1;margin:0;letter-spacing:-.02em}
-p{margin:0 0 1em}
-a{color:var(--teal)}
-.env{max-width:var(--ancho);margin:0 auto;padding:0 26px}
-.mano{font-family:'Caveat',cursive;font-weight:700}
-
-/* ---------- Navegación ---------- */
-.nav{position:sticky;top:0;z-index:70;background:rgba(255,248,238,.94);backdrop-filter:blur(10px);border-bottom:2px solid var(--tinta)}
-.nav-in{max-width:var(--ancho);margin:0 auto;padding:11px 26px;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
-.marca{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;margin-right:auto;display:flex;align-items:center;gap:9px}
-.marca .bola{width:14px;height:14px;border-radius:50%;background:var(--coral);box-shadow:9px 0 0 var(--sol),18px 0 0 var(--teal);margin-right:20px}
-.nav a.l{font-size:.87rem;font-weight:600;color:var(--tinta-2);text-decoration:none;white-space:nowrap}
-.nav a.l:hover{color:var(--coral)}
-.nav a.cta{background:var(--coral);color:#fff;text-decoration:none;padding:9px 18px;border-radius:999px;font-size:.86rem;font-weight:700;white-space:nowrap}
-.nav a.cta:hover{background:var(--tinta)}
-
-/* ---------- Portada ---------- */
-.portada{
-  background:
-    radial-gradient(760px 420px at 88% 8%,rgba(239,171,0,.28),transparent 62%),
-    radial-gradient(660px 420px at 4% 96%,rgba(14,124,107,.22),transparent 60%),
-    var(--crema-2);
-  border-bottom:2px solid var(--tinta);padding:72px 0 64px;position:relative;overflow:hidden;
+.hero h1 {
+  font-family:'Fraunces',serif; font-size:clamp(32px, 6vw, 52px); font-weight:900;
+  line-height:1.08; max-width:16ch; margin:0 auto 10px;
 }
-.cinta-fecha{
-  display:inline-flex;gap:10px;align-items:center;background:var(--tinta);color:var(--crema);
-  padding:7px 17px;border-radius:999px;font-size:.76rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:24px;
+.hero h1 em { color:var(--vv); font-style:italic; }
+.hero-tagline { font-family:'Fraunces',serif; font-style:italic; font-size:20px; color:var(--vs); margin:10px 0 18px; }
+.hero-pill {
+  display:inline-flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:center;
+  background:var(--vp); color:#fff; border-radius:40px;
+  padding:10px 24px; font-size:14px; font-weight:600; letter-spacing:.02em;
 }
-.portada h1{font-size:clamp(2.6rem,7.2vw,5rem);margin-bottom:10px;max-width:15ch}
-.portada h1 em{font-style:normal;color:var(--coral)}
-.lema{font-family:'Caveat',cursive;font-weight:700;font-size:clamp(1.6rem,4vw,2.5rem);color:var(--teal);margin-bottom:26px;transform:rotate(-1.2deg);display:inline-block}
-.entrada{font-size:1.12rem;max-width:60ch;color:var(--tinta-2);margin-bottom:34px}
-.datos{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:32px}
-.dato{background:#fff;border:2px solid var(--tinta);border-radius:12px;padding:12px 18px;flex:1 1 168px;box-shadow:4px 4px 0 var(--tinta)}
-.dato span{display:block;font-size:.67rem;letter-spacing:.13em;text-transform:uppercase;color:var(--gris);font-weight:700;margin-bottom:3px}
-.dato b{font-family:'Space Grotesk',sans-serif;font-size:1.06rem;font-weight:700}
-.acciones{display:flex;gap:12px;flex-wrap:wrap}
-.btn{
-  display:inline-block;border:0;cursor:pointer;text-decoration:none;text-align:center;
-  font-family:'Inter',sans-serif;font-size:.95rem;font-weight:700;padding:14px 27px;border-radius:999px;
-  transition:transform .13s ease,background .13s ease;
+.hero-pill span { color:var(--oc); }
+
+.wrap { max-width:1100px; margin:0 auto; padding:0 20px; }
+
+/* DINÁMICA */
+.dinamica {
+  background:linear-gradient(135deg, var(--vp), var(--vs));
+  border-radius:16px; padding:30px 28px; margin:36px 0 8px; color:#fff;
+  position:relative; overflow:hidden;
 }
-.btn:hover{transform:translateY(-2px)}
-.btn-coral{background:var(--coral);color:#fff}
-.btn-coral:hover{background:#c4441f}
-.btn-linea{background:transparent;color:var(--tinta);border:2px solid var(--tinta)}
-.btn-linea:hover{background:var(--tinta);color:var(--crema)}
-.btn-teal{background:var(--teal);color:#fff}
-.btn-teal:hover{background:#0a5f52}
-.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
-.aviso-franja{margin-top:30px;padding:14px 18px;background:#fff;border:2px dashed var(--tinta);border-radius:12px;font-size:.95rem;max-width:64ch}
-.aviso-franja b{font-weight:700}
-
-/* ---------- Secciones ---------- */
-section{padding:74px 0;scroll-margin-top:70px}
-.rotulo{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:var(--coral);margin-bottom:12px}
-.tit{font-size:clamp(1.85rem,4.4vw,2.9rem);margin-bottom:16px;max-width:20ch}
-.bajada{font-size:1.06rem;max-width:66ch;color:var(--tinta-2);margin-bottom:38px}
-
-/* ---------- Pasos ---------- */
-.pasos{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(262px,1fr))}
-.paso{background:#fff;border:2px solid var(--tinta);border-radius:16px;padding:26px;box-shadow:5px 5px 0 var(--tinta);position:relative}
-.paso .n{
-  width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;color:#fff;margin-bottom:14px;
+.dinamica::before {
+  content:''; position:absolute; top:-40px; right:-30px; width:190px; height:190px;
+  border-radius:50%; background:radial-gradient(circle, rgba(232,168,90,.28), transparent 70%);
 }
-.paso:nth-child(1) .n{background:var(--coral)}
-.paso:nth-child(2) .n{background:var(--sol);color:var(--tinta)}
-.paso:nth-child(3) .n{background:var(--teal)}
-.paso h4{font-size:1.16rem;margin-bottom:7px}
-.paso p{margin:0;font-size:.97rem;color:var(--tinta-2)}
+.dinamica h2 { font-family:'Fraunces',serif; font-size:24px; font-weight:900; margin-bottom:16px; position:relative; }
+.dinamica-pasos { display:grid; grid-template-columns:repeat(auto-fit, minmax(230px,1fr)); gap:18px; position:relative; }
+.paso { font-size:14px; line-height:1.65; color:rgba(245,238,216,.9); }
+.paso b { display:block; color:#fff; font-size:15px; margin-bottom:4px; }
+.paso .p-emoji { font-size:26px; display:block; margin-bottom:8px; }
 
-/* ---------- Estado de cada feria ---------- */
-.ferias{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(310px,1fr))}
-.feria{background:#fff;border:2px solid var(--tinta);border-radius:16px;padding:26px;box-shadow:5px 5px 0 var(--tinta)}
-.feria .cuando{font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;margin-bottom:4px}
-.feria .horario{font-size:.94rem;color:var(--tinta-2);margin-bottom:16px}
-.estado{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:6px 15px;font-size:.76rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
-.estado.propuestas{background:rgba(239,171,0,.2);color:#7a5600}
-.estado.inscripciones{background:rgba(14,124,107,.16);color:#0a5f52}
-.estado.cerrado{background:rgba(31,33,28,.1);color:var(--tinta-2)}
-.estado.pasada{background:rgba(31,33,28,.07);color:var(--gris)}
-.feria .plazos{border-top:1px solid var(--linea);margin-top:16px;padding-top:14px;font-size:.88rem;color:var(--tinta-2)}
-.feria .plazos div{display:flex;justify-content:space-between;gap:12px;padding:4px 0}
-.feria .plazos b{font-weight:600;white-space:nowrap}
+/* SECCIÓN TÍTULO */
+.sec-titulo { font-family:'Fraunces',serif; font-size:34px; font-weight:900; color:var(--vp); text-align:center; margin:48px 0 8px; }
+.sec-titulo em { color:var(--vv); font-style:italic; }
+.sec-sub { text-align:center; color:#777; font-size:15px; margin-bottom:28px; max-width:60ch; margin-left:auto; margin-right:auto; }
 
-/* ---------- Antojo ---------- */
-.antojo{background:var(--crema-2);border-top:2px solid var(--tinta);border-bottom:2px solid var(--tinta)}
-.tarjetas-idea{display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.idea{
-  background:#fff;border:2px solid var(--tinta);border-radius:16px;padding:0;overflow:hidden;
-  box-shadow:6px 6px 0 var(--tinta);
+/* GRID TALLERES */
+.talleres-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px,1fr)); gap:18px; margin-bottom:24px; }
+.taller {
+  background:#fff; border-radius:14px; padding:22px 22px 20px;
+  border:1px solid rgba(26,58,42,.08); border-top:4px solid var(--oc);
+  display:flex; flex-direction:column;
+  transition:transform .15s, box-shadow .15s;
 }
-.idea:nth-child(1){transform:rotate(-.7deg)}
-.idea:nth-child(2){transform:rotate(.5deg)}
-.idea:nth-child(3){transform:rotate(-.4deg)}
-.idea .tapa{padding:20px 22px;color:#fff}
-.idea:nth-child(1) .tapa{background:var(--coral)}
-.idea:nth-child(2) .tapa{background:var(--azul)}
-.idea:nth-child(3) .tapa{background:var(--verde)}
-.idea .tapa span{display:block;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800;opacity:.85;margin-bottom:6px}
-.idea .tapa h4{font-size:1.3rem;color:#fff}
-.idea .cuerpo{padding:20px 22px}
-.idea .cuerpo p{margin:0 0 12px;font-size:.97rem;color:var(--tinta-2)}
-.idea .cuerpo p:last-child{margin:0}
-.idea .llevas{font-family:'Caveat',cursive;font-weight:700;font-size:1.2rem;color:var(--teal)}
-
-.banco{margin-top:52px}
-.banco h3{font-size:1.35rem;margin-bottom:8px}
-.banco p{max-width:62ch;color:var(--tinta-2)}
-.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
-.chip{
-  background:#fff;border:1.5px solid var(--tinta);border-radius:999px;padding:8px 15px;
-  font-size:.9rem;cursor:pointer;font-family:'Inter',sans-serif;color:var(--tinta);
-  transition:background .12s ease,color .12s ease,transform .12s ease;
+.taller:hover { transform:translateY(-3px); box-shadow:0 12px 30px rgba(26,58,42,.12); }
+.taller-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+.taller-emoji { font-size:40px; line-height:1; }
+.taller-dia {
+  font-size:12px; font-weight:600; padding:4px 12px; border-radius:20px;
+  text-transform:uppercase; letter-spacing:.05em;
+  background:var(--oc-l); color:var(--oc-t);
 }
-.chip:hover{background:var(--sol);transform:translateY(-2px)}
-.pista-chip{margin-top:16px;font-size:.9rem;color:var(--gris)}
-
-/* ---------- Requisitos ---------- */
-.requisitos{list-style:none;margin:0;padding:0;display:grid;gap:11px;max-width:70ch}
-.requisitos li{background:#fff;border:1.5px solid var(--linea);border-left:5px solid var(--teal);border-radius:11px;padding:13px 18px;font-size:.98rem;color:var(--tinta-2)}
-.requisitos li b{color:var(--tinta)}
-
-/* ---------- Catálogo ---------- */
-.catalogo-grid{display:grid;gap:22px;grid-template-columns:repeat(auto-fit,minmax(292px,1fr))}
-.taller{background:#fff;border:2px solid var(--tinta);border-radius:16px;overflow:hidden;box-shadow:5px 5px 0 var(--tinta);display:flex;flex-direction:column}
-.taller .franja{height:9px}
-.taller .in{padding:22px;display:flex;flex-direction:column;flex:1}
-.taller .quien{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:var(--gris);margin-bottom:7px}
-.taller h4{font-size:1.22rem;margin-bottom:8px}
-.taller .frase{font-family:'Caveat',cursive;font-weight:700;font-size:1.16rem;color:var(--teal);margin-bottom:12px}
-.taller p{font-size:.95rem;color:var(--tinta-2);margin:0 0 14px}
-.taller .meta{margin-top:auto;border-top:1px solid var(--linea);padding-top:13px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
-.cupo{font-size:.85rem;font-weight:600;color:var(--tinta-2)}
-.cupo.lleno{color:var(--coral)}
-.btn-mini{background:var(--teal);color:#fff;border:0;border-radius:999px;padding:9px 18px;font-size:.85rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif}
-.btn-mini:hover{background:#0a5f52}
-.btn-mini:disabled{background:var(--gris);cursor:not-allowed}
-.vacio-catalogo{
-  background:#fff;border:2px dashed var(--tinta);border-radius:16px;padding:38px 30px;text-align:center;max-width:62ch;
+.taller-nombre { font-family:'Fraunces',serif; font-size:24px; font-weight:700; margin-bottom:8px; }
+.taller-meta { display:flex; flex-direction:column; gap:2px; margin-bottom:12px; }
+.meta-hora { font-size:14px; font-weight:600; color:var(--vs); }
+.meta-inst { font-size:13px; color:#999; font-style:italic; }
+.taller-desc { font-size:14px; color:#555; line-height:1.6; margin-bottom:18px; flex:1; }
+.taller-footer { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.cupo { font-size:13px; font-weight:600; color:var(--oc); }
+.cupo.lleno { color:#C03030; }
+.btn-inscribir {
+  background:var(--vv); color:#fff; border:none; border-radius:24px;
+  padding:9px 20px; font-size:14px; font-weight:600; cursor:pointer;
+  font-family:'Instrument Sans',sans-serif; transition:background .15s;
 }
-.vacio-catalogo h4{font-size:1.25rem;margin-bottom:8px}
-.vacio-catalogo p{margin:0;color:var(--tinta-2)}
-.filtro-fechas{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:26px}
-.filtro-fechas button{
-  background:#fff;border:2px solid var(--tinta);border-radius:999px;padding:9px 18px;
-  font-family:'Inter',sans-serif;font-size:.88rem;font-weight:600;cursor:pointer;color:var(--tinta);
+.btn-inscribir:hover { background:var(--vs); }
+.btn-inscribir:disabled { background:#ccc; cursor:not-allowed; }
+
+/* NOTA FINAL */
+.nota {
+  background:#fff; border-radius:14px; border:1px solid rgba(26,58,42,.08);
+  padding:20px 24px; margin:8px 0 48px; font-size:14px; color:#555; line-height:1.65;
+  text-align:center;
 }
-.filtro-fechas button[aria-pressed="true"]{background:var(--tinta);color:var(--crema)}
+.nota b { color:var(--vp); }
 
-/* ---------- Programa ---------- */
-.programa .fila{display:grid;grid-template-columns:168px 1fr;gap:22px;padding:19px 0;border-bottom:1px solid var(--linea)}
-.programa .fila:first-of-type{border-top:2px solid var(--tinta)}
-.programa .h{font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--coral)}
-.programa h4{font-size:1.1rem;margin-bottom:4px}
-.programa p{margin:0;color:var(--tinta-2);font-size:.98rem;max-width:62ch}
-
-/* ---------- Formularios ---------- */
-.registro{background:var(--tinta);color:var(--crema);border-top:2px solid var(--tinta)}
-.registro .rotulo{color:var(--sol)}
-.registro .tit{color:#fff}
-.registro .bajada{color:rgba(255,248,238,.78)}
-.caja{background:rgba(255,248,238,.06);border:1px solid rgba(255,248,238,.2);border-radius:18px;padding:32px;max-width:860px}
-.campos{display:grid;gap:19px;grid-template-columns:repeat(auto-fit,minmax(288px,1fr))}
-.campo{display:flex;flex-direction:column;gap:7px}
-.campo.ancho{grid-column:1/-1}
-label{font-size:.78rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;color:var(--sol)}
-label .op{text-transform:none;letter-spacing:0;color:rgba(255,248,238,.5);font-weight:500}
-input,select,textarea{
-  font-family:'Inter',sans-serif;font-size:.97rem;color:var(--crema);
-  background:rgba(255,248,238,.07);border:1px solid rgba(255,248,238,.24);border-radius:10px;padding:12px 14px;width:100%;
+/* MODAL */
+.modal-overlay {
+  display:none; position:fixed; inset:0; z-index:100;
+  background:rgba(26,58,42,.6); backdrop-filter:blur(3px);
+  align-items:center; justify-content:center; padding:20px;
 }
-input:focus,select:focus,textarea:focus{outline:2px solid var(--sol);outline-offset:1px;border-color:transparent}
-input::placeholder,textarea::placeholder{color:rgba(255,248,238,.42)}
-select option{background:#2a2c25;color:var(--crema)}
-textarea{resize:vertical;min-height:92px}
-.pista{font-size:.83rem;color:rgba(255,248,238,.58)}
-.casillas{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:10px}
-.casilla{display:inline-flex;align-items:center;gap:8px;background:rgba(255,248,238,.07);border:1px solid rgba(255,248,238,.22);border-radius:999px;padding:8px 15px;font-size:.9rem;cursor:pointer}
-.casilla input{width:16px;height:16px;margin:0;accent-color:var(--sol)}
-.acepto{grid-column:1/-1;display:flex;gap:11px;align-items:flex-start;font-size:.93rem;color:rgba(255,248,238,.85)}
-.acepto input{width:17px;height:17px;flex:none;margin-top:3px;accent-color:var(--sol)}
-.acepto label{text-transform:none;letter-spacing:0;font-size:.93rem;font-weight:400;color:rgba(255,248,238,.85)}
-.pie-form{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:26px}
-.msj{display:none;margin-top:20px;padding:14px 18px;border-radius:11px;font-size:.93rem;line-height:1.6}
-.msj.ok{display:block;background:rgba(79,138,46,.2);border:1px solid #79b657;color:#dcf0c9}
-.msj.error{display:block;background:rgba(224,81,47,.18);border:1px solid #e0512f;color:#ffd7c9}
-.msj.demo{display:block;background:rgba(239,171,0,.15);border:1px dashed var(--sol);color:#ffdf9c}
-.cerrada-fase{background:rgba(255,248,238,.06);border:1px dashed rgba(255,248,238,.35);border-radius:16px;padding:30px;max-width:660px}
-.cerrada-fase h4{color:#fff;font-size:1.2rem;margin-bottom:8px}
-.cerrada-fase p{margin:0;color:rgba(255,248,238,.75)}
-
-/* ---------- Modal de inscripción ---------- */
-.velo{position:fixed;inset:0;background:rgba(31,33,28,.72);display:none;align-items:center;justify-content:center;padding:22px;z-index:200}
-.velo.abierto{display:flex}
-.modal{background:var(--crema);border:2px solid var(--tinta);border-radius:18px;max-width:560px;width:100%;max-height:90vh;overflow:auto;box-shadow:8px 8px 0 rgba(31,33,28,.5)}
-.modal .cab{padding:22px 26px;border-bottom:2px solid var(--tinta);display:flex;justify-content:space-between;gap:16px;align-items:flex-start}
-.modal .cab h4{font-size:1.24rem;margin-bottom:4px}
-.modal .cab .sub{font-size:.88rem;color:var(--tinta-2)}
-.modal .cerrar{background:transparent;border:0;font-size:1.5rem;line-height:1;cursor:pointer;color:var(--tinta-2);padding:0 4px}
-.modal .cuerpo{padding:24px 26px}
-.modal label{color:var(--tinta-2)}
-.modal input,.modal select,.modal textarea{background:#fff;border:1.5px solid var(--linea);color:var(--tinta)}
-.modal input::placeholder{color:var(--gris)}
-.modal .acepto{color:var(--tinta-2)}
-.modal .acepto label{color:var(--tinta-2)}
-.modal .msj.ok{background:rgba(79,138,46,.14);color:#3d6b22}
-.modal .msj.error{background:rgba(224,81,47,.12);color:#a53a1c}
-.modal .msj.demo{background:rgba(239,171,0,.14);color:#7a5600}
-
-footer{background:var(--tinta);color:rgba(255,248,238,.62);padding:44px 0;font-size:.9rem;border-top:2px solid var(--tinta)}
-footer .env{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-footer b{color:var(--crema);font-family:'Space Grotesk',sans-serif}
-
-.oculto{display:none !important}
-
-@media(max-width:760px){
-  section{padding:56px 0}
-  .nav a.l{display:none}
-  .programa .fila{grid-template-columns:1fr;gap:5px}
-  .caja{padding:22px 18px}
-  .idea{transform:none !important}
+.modal-overlay.abierto { display:flex; }
+.modal {
+  background:#fff; border-radius:18px; max-width:460px; width:100%;
+  padding:32px; position:relative; max-height:88vh; overflow-y:auto;
+  animation:modalIn .25s ease;
 }
-</style>
+@keyframes modalIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+.modal-cerrar { position:absolute; top:16px; right:18px; font-size:26px; background:none; border:none; cursor:pointer; color:#999; line-height:1; }
+.modal-emoji { font-size:48px; text-align:center; margin-bottom:8px; }
+.modal-titulo { font-family:'Fraunces',serif; font-size:26px; font-weight:700; text-align:center; margin-bottom:4px; }
+.modal-sub { text-align:center; color:#888; font-size:14px; margin-bottom:24px; }
+.campo { margin-bottom:16px; }
+.campo label { display:block; font-size:14px; font-weight:600; margin-bottom:6px; color:var(--vs); }
+.campo input, .campo select {
+  width:100%; padding:12px 14px; border:1.5px solid #ddd; border-radius:10px;
+  font-size:15px; font-family:'Instrument Sans',sans-serif;
+}
+.campo input:focus, .campo select:focus { outline:none; border-color:var(--vv); }
+.campo-hint { font-size:12px; color:#aaa; margin-top:4px; }
+.btn-enviar {
+  width:100%; background:var(--vv); color:#fff; border:none;
+  border-radius:12px; padding:14px; font-size:16px; font-weight:600;
+  cursor:pointer; font-family:'Instrument Sans',sans-serif; margin-top:8px;
+}
+.btn-enviar:hover { background:var(--vs); }
 
-<!-- ================= CERROJO DE VISTA PREVIA ================= -->
-<style id="cerrojo-css">body{visibility:hidden}</style>
-<script>
-(function () {
-  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
+/* ÉXITO: MATERIALES + GRUPO */
+.modal-exito { display:none; }
+.exito-head { text-align:center; margin-bottom:18px; }
+.exito-head .check { font-size:50px; }
+.exito-head p { font-size:16px; color:var(--vs); margin-top:6px; line-height:1.5; }
+.mat-caja { background:var(--cs); border-radius:12px; padding:16px 18px; margin-bottom:16px; }
+.mat-caja h4 { font-family:'Fraunces',serif; font-size:16px; color:var(--vp); margin-bottom:8px; }
+.mat-caja ul { margin:0 0 6px 18px; }
+.mat-caja li { font-size:14px; color:#555; line-height:1.6; margin-bottom:3px; }
+.mat-caja .mat-nota { font-size:12.5px; color:#999; font-style:italic; }
+.btn-wa {
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; background:var(--wa); color:#fff; border:none;
+  border-radius:12px; padding:14px; font-size:16px; font-weight:600;
+  text-decoration:none; font-family:'Instrument Sans',sans-serif;
+}
+.btn-wa:hover { filter:brightness(.93); }
+.btn-wa.pronto { background:#ccc; pointer-events:none; }
+.exito-aviso { text-align:center; font-size:12.5px; color:#999; margin-top:10px; line-height:1.5; }
 
-  function abrir() {
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
-      if (a.getAttribute('href').indexOf('preview') === -1) {
-        a.setAttribute('href', a.getAttribute('href') + '?preview');
-      }
-    });
-    var aviso = document.createElement('div');
-    aviso.className = 'cinta-preview';
-    aviso.textContent = 'Vista previa · esta página todavía no se publica';
-    document.body.insertBefore(aviso, document.body.firstChild);
-  }
+/* PIE */
+footer { background:var(--vp); color:var(--vc); text-align:center; padding:28px 20px; font-size:13px; letter-spacing:.04em; }
+footer strong { color:var(--oc); }
+footer a { color:var(--vc); }
 
-  function cerrar() {
-    document.body.innerHTML =
-      '<div class="espera">' +
-        '<span class="espera-emoji">🎪</span>' +
-        '<h1>Próximamente</h1>' +
-        '<p>Esta página todavía no se publica. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
-        '<a href="index.html">← Volver a Franja Libre</a>' +
-      '</div>';
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-  }
-
-  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
-})();
-</script>
-<style>
-.cinta-preview{background:var(--sol);color:#20211c;text-align:center;font-family:'Inter',sans-serif;font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:8px 16px}
-.espera{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:40px 24px;background:#1f211c;color:#fff8ee;font-family:'Inter',sans-serif}
-.espera-emoji{font-size:54px;margin-bottom:14px}
-.espera h1{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;margin-bottom:12px}
-.espera p{font-size:15.5px;color:rgba(255,248,238,.8);max-width:420px;line-height:1.7;margin-bottom:26px}
-.espera a{color:#efab00;font-size:14px;font-weight:600;text-decoration:none}
-.espera a:hover{color:#fff}
+@media (max-width:600px) {
+  .sec-titulo { font-size:26px; }
+  .hero-tagline { font-size:17px; }
+  .dinamica { padding:26px 22px; }
+}
 </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-in">
-    <div class="marca"><span class="bola"></span>Feria de Saberes</div>
-    <a class="l" href="index.html">← Franja Libre</a>
-    <a class="l" href="#como">Cómo funciona</a>
-    <a class="l" href="#antojo">Ideas</a>
-    <a class="l" href="#catalogo">Talleres</a>
-    <a class="l" href="#programa">Programa</a>
-    <a class="cta" href="#proponer" id="ctaNav">Proponer taller</a>
-  </div>
-</nav>
-
-<header class="portada">
-  <div class="env">
-    <span class="cinta-fecha">2 fechas · jue 20 de agosto y mar 22 de septiembre</span>
-    <h1>Feria de Intercambio de <em>Saberes</em></h1>
-    <div class="lema">todos sabemos hacer algo que alguien quiere aprender</div>
-    <p class="entrada">Hora y media, varios talleres al mismo tiempo, y de un lado a otro del salón la misma idea: quien sabe enseña, quien no sabe aprende, y la siguiente feria se cambian los papeles. No hace falta ser docente ni tener título. Hace falta saber hacer algo y tener ganas de mostrarlo.</p>
-
-    <div class="datos">
-      <div class="dato"><span>Duración</span><b>90 minutos</b></div>
-      <div class="dato"><span>Horario</span><b>11:00 – 12:30&nbsp;h</b></div>
-      <div class="dato"><span>Quién imparte</span><b>Quien sepa hacerlo</b></div>
-      <div class="dato"><span>Costo</span><b>Sin costo</b></div>
-    </div>
-
-    <div class="acciones">
-      <a class="btn btn-coral" href="#proponer">Quiero enseñar algo</a>
-      <a class="btn btn-linea" href="#catalogo">Ver los talleres</a>
-    </div>
-
-    <p class="aviso-franja"><b>La Franja Libre se suspende por completo</b> los días de feria. Ningún taller permanente sesiona: el horario entero se libera para que todo el campus pueda entrar a lo que le interese.</p>
-  </div>
+<header class="hero">
+  <div><a class="hero-volver" href="index.html">← Franja Libre</a></div>
+  <span class="hero-flag">🎪 Evento especial</span>
+  <h1>Feria de Intercambio de <em>Saberes</em></h1>
+  <div class="hero-tagline">todos sabemos hacer algo que alguien quiere aprender</div>
+  <div class="hero-pill"><span>Jueves 27 de agosto</span> · 11:30 – 13:00 h · Campus Concá</div>
 </header>
 
-<!-- ================= CÓMO FUNCIONA ================= -->
-<section id="como">
-  <div class="env">
-    <div class="rotulo">Cómo funciona</div>
-    <h2 class="tit">Tres pasos y ya estás&nbsp;dentro</h2>
-    <p class="bajada">La feria se arma en dos tiempos. Primero se juntan las propuestas de quienes quieren enseñar; después, cuando ya hay programa, se abre la inscripción para quienes quieren aprender.</p>
+<div class="wrap">
 
-    <div class="pasos">
+  <div class="dinamica">
+    <h2>¿Cómo funciona?</h2>
+    <div class="dinamica-pasos">
       <div class="paso">
-        <div class="n">1</div>
-        <h4>Propones lo que sabes</h4>
-        <p>Llenas el formulario contando qué enseñarías en hora y media, cuánta gente cabe y qué necesitas. No importa si nunca has dado una clase: para eso está el acompañamiento.</p>
+        <span class="p-emoji">🔄</span>
+        <b>Ese día no hay talleres permanentes</b>
+        La Franja Libre se suspende por completo: la hora y media entera se libera para la feria, y quien enseña es gente del propio campus.
       </div>
       <div class="paso">
-        <div class="n">2</div>
-        <h4>Se arma el programa</h4>
-        <p>La coordinación revisa las propuestas, asigna espacios y horarios, y publica el catálogo de talleres en esta misma página. Si algo no cabe en una feria, pasa a la siguiente.</p>
+        <span class="p-emoji">🧭</span>
+        <b>Elige un taller</b>
+        Todos los talleres suceden al mismo tiempo, de 11:30 a 13:00. Solo puedes estar en uno, así que escoge el que más te llame.
       </div>
       <div class="paso">
-        <div class="n">3</div>
-        <h4>Te inscribes a uno</h4>
-        <p>Cuando se acerque la fecha, cada taller abre su cupo aquí mismo. Se elige uno por feria, porque los talleres corren al mismo tiempo y duran los noventa minutos completos.</p>
+        <span class="p-emoji">✍️</span>
+        <b>Inscríbete</b>
+        Cada taller tiene cupo limitado. Al inscribirte verás qué materiales traer y el enlace para unirte al grupo de WhatsApp de tu taller.
       </div>
     </div>
-
-    <div class="ferias" id="ferias" style="margin-top:46px"></div>
   </div>
-</section>
 
-<!-- ================= ANTOJO ================= -->
-<section id="antojo" class="antojo">
-  <div class="env">
-    <div class="rotulo">Para abrir el apetito</div>
-    <h2 class="tit">Lo que ya anda&nbsp;proponiéndose</h2>
-    <p class="bajada">Tres ideas que ya están sobre la mesa. Ninguna viene de un programa académico: vienen de gente del campus que hace estas cosas y se ofreció a enseñarlas.</p>
+  <h2 class="sec-titulo">Los <em>talleres</em></h2>
+  <p class="sec-sub">Una sola sesión, hora y media, sin costo. Elige el tuyo e inscríbete.</p>
 
-    <div class="tarjetas-idea">
-      <div class="idea">
-        <div class="tapa"><span>Cuerpo y reacción</span><h4>Defensa personal</h4></div>
-        <div class="cuerpo">
-          <p>Lo básico que sí se puede aprender en hora y media: postura, distancia, cómo zafarse de un agarre y cómo usar la voz antes que las manos. Se practica en pareja, sin golpes reales.</p>
-          <p class="llevas">Te llevas: tres respuestas que salen solas</p>
-        </div>
+  <div class="talleres-grid" id="grid">
+
+    <article class="taller">
+      <div class="taller-top">
+        <span class="taller-emoji">🍞</span>
+        <span class="taller-dia">27 de agosto</span>
       </div>
-      <div class="idea">
-        <div class="tapa"><span>Fermentos</span><h4>Pan de masa madre</h4></div>
-        <div class="cuerpo">
-          <p>Cómo nace una masa madre, cómo se alimenta y por qué se muere. Cada quien amasa, y se va con un frasco de fermento vivo y las instrucciones para no matarlo en la primera semana.</p>
-          <p class="llevas">Te llevas: tu propia masa madre en frasco</p>
-        </div>
+      <h3 class="taller-nombre">Pan de masa madre</h3>
+      <div class="taller-meta">
+        <span class="meta-hora">🕦 11:30–13:00</span>
+        <span class="meta-inst">Eduardo Luna</span>
       </div>
-      <div class="idea">
-        <div class="tapa"><span>Fierros</span><h4>Mantenimiento básico de motos</h4></div>
-        <div class="cuerpo">
-          <p>Cadena, frenos, llantas, aceite y luces: la revisión que evita quedarse tirado en la carretera a Jalpan. Con una moto de verdad en el patio y las manos untadas de grasa.</p>
-          <p class="llevas">Te llevas: la revisión de cinco puntos, aprendida</p>
-        </div>
+      <p class="taller-desc">Conoce el fermento vivo con el que se hacía el pan antes de la levadura comercial. Aprenderás a crear y mantener tu propia masa madre, a leer sus tiempos y a dar los primeros pasos para hornear pan en casa.</p>
+      <div class="taller-footer">
+        <span class="cupo" id="cupo-pan" data-taller="Feria · Pan de masa madre">Cupo: 15 lugares</span>
+        <button class="btn-inscribir" onclick="abrirModal('pan','Feria · Pan de masa madre','Pan de masa madre')">Inscribirme</button>
       </div>
-    </div>
+    </article>
 
-    <div class="banco">
-      <h3>¿Y tú qué sabes hacer?</h3>
-      <p>Casi siempre la respuesta es «nada», y casi siempre es falsa. Lo que uno hace todos los días deja de parecer un saber. Aquí van cuarenta recordatorios: toca el que se te parezca y se copia al formulario de propuesta.</p>
-      <div class="chips" id="chips"></div>
-      <p class="pista-chip">Ninguna de estas ideas está apartada. Son detonadores: si te late una, propónla; si te late otra que no está, mejor.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ================= PROPONER ================= -->
-<section id="proponer" class="registro">
-  <div class="env">
-    <div class="rotulo">Fase 1 · Propuestas</div>
-    <h2 class="tit">Propón tu&nbsp;taller</h2>
-    <p class="bajada">Se enseña en noventa minutos, en un espacio del campus, sin costo para quien asiste. Lo demás es tuyo: el tema, el modo y el ritmo.</p>
-
-    <div id="zonaProponer">
-      <div style="margin-bottom:34px">
-        <ul class="requisitos">
-          <li><b>Noventa minutos exactos.</b> Ni más ni menos: los talleres corren al mismo tiempo y todos cierran juntos para la vitrina final.</li>
-          <li><b>Sin costo para quien asiste.</b> Si tu taller requiere material que se consume, dilo en la propuesta y la coordinación busca cómo cubrirlo.</li>
-          <li><b>Cupo definido por ti.</b> Diez personas para algo manual, treinta para algo demostrativo. Tú sabes cuántas manos puedes atender.</li>
-          <li><b>No necesitas ser docente.</b> Estudiantes, personal administrativo y gente de la comunidad pueden proponer igual que el profesorado.</li>
-          <li><b>Puedes proponer en equipo.</b> Dos personas dando el mismo taller funciona muy bien cuando hay que atender mesas.</li>
-          <li><b>Si nunca has dado un taller, dilo.</b> Hay acompañamiento para armar la secuencia de los noventa minutos: marca la casilla correspondiente.</li>
-        </ul>
+    <article class="taller">
+      <div class="taller-top">
+        <span class="taller-emoji">🌿</span>
+        <span class="taller-dia">27 de agosto</span>
       </div>
+      <h3 class="taller-nombre">Desodorante natural en pasta</h3>
+      <div class="taller-meta">
+        <span class="meta-hora">🕦 11:30–13:00</span>
+        <span class="meta-inst">Brenda Karina Sánchez Torres · Tlalyolli, Corazón de la Tierra</span>
+      </div>
+      <p class="taller-desc">Elabora tu propio desodorante natural para el cuidado de tu cuerpo. Un taller práctico donde conocerás cómo cuidar tu piel, permitiendo la transpiración libre de tus axilas, sin obstruir los poros y evitando el mal olor, la irritación y las manchas; utilizando plantas medicinales y siendo amigables con el ambiente.</p>
+      <div class="taller-footer">
+        <span class="cupo" id="cupo-desodorante" data-taller="Feria · Desodorante natural">Cupo: 10 lugares</span>
+        <button class="btn-inscribir" onclick="abrirModal('desodorante','Feria · Desodorante natural','Desodorante natural en pasta')">Inscribirme</button>
+      </div>
+    </article>
 
-      <form class="caja" id="formPropuesta" autocomplete="off">
-        <div class="campos">
-          <div class="campo ancho">
-            <label for="p_nombre">Tu nombre</label>
-            <input type="text" id="p_nombre" required placeholder="Nombre y apellidos">
-          </div>
+    <article class="taller">
+      <div class="taller-top">
+        <span class="taller-emoji">🏍️</span>
+        <span class="taller-dia">27 de agosto</span>
+      </div>
+      <h3 class="taller-nombre">Mantenimiento básico de motocicletas</h3>
+      <div class="taller-meta">
+        <span class="meta-hora">🕦 11:30–13:00</span>
+        <span class="meta-inst">David Franco</span>
+      </div>
+      <p class="taller-desc">Aprende a revisar tu moto antes de salir a la carretera: aceite, frenos, llantas, cadena y luces. Un taller práctico, con moto en mano, para que resuelvas lo esencial tú mismo y sepas cuándo sí necesitas al mecánico.</p>
+      <div class="taller-footer">
+        <span class="cupo" id="cupo-motos" data-taller="Feria · Mantenimiento de motocicletas">Cupo: 15 lugares</span>
+        <button class="btn-inscribir" onclick="abrirModal('motos','Feria · Mantenimiento de motocicletas','Mantenimiento básico de motocicletas')">Inscribirme</button>
+      </div>
+    </article>
 
-          <div class="campo">
-            <label for="p_grupo">De dónde vienes</label>
-            <select id="p_grupo" required>
-              <option value="">Selecciona…</option>
-              <option>Prepa</option>
-              <option>PAS</option>
-              <option>Agroindustrial</option>
-              <option>Docente</option>
-              <option>Administrativo</option>
-              <option>Comunidad de Concá</option>
-            </select>
-          </div>
+    <article class="taller">
+      <div class="taller-top">
+        <span class="taller-emoji">🎣</span>
+        <span class="taller-dia">27 de agosto</span>
+      </div>
+      <h3 class="taller-nombre">Pesca en el río para principiantes</h3>
+      <div class="taller-meta">
+        <span class="meta-hora">🕦 11:30–13:00</span>
+        <span class="meta-inst">Eduardo Tello</span>
+      </div>
+      <p class="taller-desc">Los ríos de Concá tienen sus mañas, y aquí las vas a aprender: qué se pesca, con qué, en qué pozas y en qué momento. Un taller a la orilla del agua para iniciarte en un oficio que en la región se hereda de generación en generación.</p>
+      <div class="taller-footer">
+        <span class="cupo" id="cupo-pesca" data-taller="Feria · Pesca en el río">Cupo: 10 lugares</span>
+        <button class="btn-inscribir" onclick="abrirModal('pesca','Feria · Pesca en el río','Pesca en el río para principiantes')">Inscribirme</button>
+      </div>
+    </article>
 
-          <div class="campo">
-            <label for="p_contacto">Correo o WhatsApp</label>
-            <input type="text" id="p_contacto" required placeholder="Para ponernos de acuerdo">
-          </div>
+    <article class="taller">
+      <div class="taller-top">
+        <span class="taller-emoji">🧶</span>
+        <span class="taller-dia">27 de agosto</span>
+      </div>
+      <h3 class="taller-nombre">Colores que nacen de la Tierra 🌱</h3>
+      <div class="taller-meta">
+        <span class="meta-hora">🕦 11:30–13:00</span>
+        <span class="meta-inst">Elena y Montserrat</span>
+      </div>
+      <p class="taller-desc">Aprende a teñir hilos, lana y telas de manera natural, utilizando flores, plantas y frutos que tenemos en nuestra región 🌿. Un taller para descubrir la paleta de colores que la Sierra Gorda guarda a simple vista.</p>
+      <div class="taller-footer">
+        <span class="cupo" id="cupo-colores" data-taller="Feria · Colores que nacen de la Tierra">Cupo: 15 lugares</span>
+        <button class="btn-inscribir" onclick="abrirModal('colores','Feria · Colores que nacen de la Tierra','Colores que nacen de la Tierra')">Inscribirme</button>
+      </div>
+    </article>
 
-          <div class="campo ancho">
-            <label for="p_titulo">¿Cómo se llama tu taller?</label>
-            <input type="text" id="p_titulo" required placeholder="Ej. Pan de masa madre desde cero">
-          </div>
+    <article class="taller">
+      <div class="taller-top">
+        <span class="taller-emoji">☕</span>
+        <span class="taller-dia">27 de agosto</span>
+      </div>
+      <h3 class="taller-nombre">Chismecito filosófico</h3>
+      <div class="taller-meta">
+        <span class="meta-hora">🕦 11:30–13:00</span>
+        <span class="meta-inst">Alma Rosa Moya</span>
+      </div>
+      <p class="taller-desc">Una tertulia para filosofar sobre distintos temas sin solemnidad: preguntas grandes, conversación suelta y opiniones encontradas. Llega con tus dudas existenciales o con puro antojo de buena plática.</p>
+      <div class="taller-footer">
+        <span class="cupo" id="cupo-chismecito" data-taller="Feria · Chismecito filosófico">Cupo: 20 lugares</span>
+        <button class="btn-inscribir" onclick="abrirModal('chismecito','Feria · Chismecito filosófico','Chismecito filosófico')">Inscribirme</button>
+      </div>
+    </article>
 
-          <div class="campo ancho">
-            <label for="p_frase">En una frase, ¿qué se van a llevar?</label>
-            <input type="text" id="p_frase" required placeholder="Ej. Tu propia masa madre en frasco y cómo mantenerla viva">
-            <span class="pista">Esta frase es la que aparece en el catálogo. Vale la pena pensarla dos minutos.</span>
-          </div>
-
-          <div class="campo ancho">
-            <label for="p_descripcion">¿Qué van a hacer durante los noventa minutos?</label>
-            <textarea id="p_descripcion" required placeholder="Cuenta el recorrido: con qué empiezan, qué practican y cómo cierran"></textarea>
-          </div>
-
-          <div class="campo">
-            <label for="p_nivel">Nivel</label>
-            <select id="p_nivel" required>
-              <option value="">Selecciona…</option>
-              <option>Desde cero, no se necesita nada previo</option>
-              <option>Requiere algo de experiencia previa</option>
-            </select>
-          </div>
-
-          <div class="campo">
-            <label for="p_cupo">¿Cuánta gente cabe?</label>
-            <input type="number" id="p_cupo" required min="4" max="60" placeholder="Ej. 15">
-          </div>
-
-          <div class="campo ancho">
-            <label>¿En qué fecha puedes?</label>
-            <div class="casillas">
-              <label class="casilla" for="p_ago"><input type="checkbox" id="p_ago"> Jueves 20 de agosto</label>
-              <label class="casilla" for="p_sep"><input type="checkbox" id="p_sep"> Martes 22 de septiembre</label>
-            </div>
-            <span class="pista">Puedes marcar las dos: si tu taller gusta, se repite.</span>
-          </div>
-
-          <div class="campo ancho">
-            <label for="p_espacio">¿Qué necesitas del campus? <span class="op">(opcional)</span></label>
-            <input type="text" id="p_espacio" placeholder="Ej. salón con mesas, toma de corriente, agua, patio, proyector">
-          </div>
-
-          <div class="campo ancho">
-            <label for="p_materiales">Materiales: qué pones tú y qué debe traer cada quien</label>
-            <textarea id="p_materiales" required placeholder="Ej. yo llevo la harina y los frascos; cada quien trae un trapo limpio"></textarea>
-          </div>
-
-          <div class="campo ancho">
-            <label>Marca lo que aplique</label>
-            <div class="casillas">
-              <label class="casilla" for="p_apoyo"><input type="checkbox" id="p_apoyo"> Nunca he dado un taller, quiero acompañamiento</label>
-              <label class="casilla" for="p_equipo"><input type="checkbox" id="p_equipo"> Lo daría en equipo con alguien más</label>
-              <label class="casilla" for="p_costo"><input type="checkbox" id="p_costo"> Los materiales tienen un costo que no puedo cubrir</label>
-            </div>
-          </div>
-
-          <div class="acepto">
-            <input type="checkbox" id="p_bases" required>
-            <label for="p_bases">Entiendo que la coordinación revisa las propuestas, asigna espacio y horario, y me confirma antes de publicar el taller en el catálogo.</label>
-          </div>
-        </div>
-
-        <div class="pie-form">
-          <button type="submit" class="btn btn-coral" id="btnPropuesta">Enviar mi propuesta</button>
-          <span class="pista" id="plazoPropuesta"></span>
-        </div>
-
-        <div class="msj" id="msjPropuesta" role="status" aria-live="polite"></div>
-      </form>
-    </div>
-
-    <div id="zonaProponerCerrada" class="cerrada-fase oculto">
-      <h4>Las propuestas de esta feria ya cerraron</h4>
-      <p id="textoProponerCerrada">El programa está armado. Si quieres enseñar algo, la siguiente feria abre propuestas más adelante y aquí mismo se avisa.</p>
-    </div>
   </div>
-</section>
 
-<!-- ================= CATÁLOGO ================= -->
-<section id="catalogo">
-  <div class="env">
-    <div class="rotulo">Fase 2 · Inscripciones</div>
-    <h2 class="tit">Talleres de la&nbsp;feria</h2>
-    <p class="bajada">Los talleres corren simultáneos y duran los noventa minutos completos, así que se elige uno por feria. El cupo se llena en orden de inscripción.</p>
+  <p class="nota">¿Sabes hacer algo que valga la pena compartir? <b>Escríbenos y súmate como instructor o instructora</b> de esta feria o de la siguiente.</p>
 
-    <div class="filtro-fechas" id="filtroFechas"></div>
-    <div id="listaTalleres"></div>
-  </div>
-</section>
+</div>
 
-<!-- ================= PROGRAMA ================= -->
-<section id="programa" class="programa">
-  <div class="env">
-    <div class="rotulo">El día de la feria</div>
-    <h2 class="tit">Cómo transcurre la&nbsp;mañana</h2>
-    <p class="bajada">Mismo esquema en las dos fechas. Todo ocurre dentro del campus y termina antes de la salida del transporte.</p>
-
-    <div class="fila">
-      <div class="h">10:30 – 11:00</div>
-      <div><h4>Montaje y llegada</h4><p>Quien enseña acomoda su espacio y recoge su gafete. Quien se inscribió pasa a confirmar en la mesa de entrada y se le indica el salón.</p></div>
-    </div>
-    <div class="fila">
-      <div class="h">11:00 – 12:30</div>
-      <div><h4>Talleres simultáneos</h4><p>Noventa minutos corridos. No hay rotación: se entra a uno y se queda uno, porque los talleres cortos no alcanzan a enseñar nada.</p></div>
-    </div>
-    <div class="fila">
-      <div class="h">12:30 – 12:55</div>
-      <div><h4>Vitrina</h4><p>Todos salen al patio y cada taller muestra en tres minutos lo que hizo: el pan, la llave inglesa, la llave de brazo. Es la parte que antoja la siguiente feria.</p></div>
-    </div>
-    <div class="fila">
-      <div class="h">12:55 – 13:15</div>
-      <div><h4>Cierre y desmontaje</h4><p>Se devuelven herramientas y espacios, y se levanta la lista de quienes quieren enseñar en la feria siguiente.</p></div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="env">
-    <div><b>Franja Libre</b> · Campus Concá, Universidad Autónoma de Querétaro</div>
-    <div>Feria de Intercambio de Saberes · 20 de agosto y 22 de septiembre de 2026</div>
-  </div>
-</footer>
-
-<!-- ================= MODAL DE INSCRIPCIÓN ================= -->
-<div class="velo" id="velo" role="dialog" aria-modal="true" aria-labelledby="modalTitulo">
+<!-- MODAL DE REGISTRO -->
+<div class="modal-overlay" id="modal" onclick="if(event.target===this)cerrarModal()">
   <div class="modal">
-    <div class="cab">
-      <div>
-        <h4 id="modalTitulo">Título del taller</h4>
-        <div class="sub" id="modalSub">Fecha · imparte</div>
+    <button class="modal-cerrar" onclick="cerrarModal()">×</button>
+    <div id="modal-form">
+      <div class="modal-emoji">📝</div>
+      <h3 class="modal-titulo" id="modal-titulo">Inscripción</h3>
+      <p class="modal-sub">Completa tus datos para apartar tu lugar</p>
+
+      <div class="campo">
+        <label for="f-nombre">Nombre completo</label>
+        <input type="text" id="f-nombre" placeholder="Tu nombre">
       </div>
-      <button class="cerrar" id="btnCerrar" aria-label="Cerrar">×</button>
+      <div class="campo">
+        <label for="f-rol">¿Quién eres?</label>
+        <select id="f-rol">
+          <option value="">Selecciona…</option>
+          <option>Estudiante de bachillerato</option>
+          <option>Estudiante de licenciatura</option>
+          <option>Docente</option>
+          <option>Personal administrativo</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-tel">Teléfono (WhatsApp)</label>
+        <input type="tel" id="f-tel" placeholder="441 123 4567">
+        <div class="campo-hint">Lo usaremos solo para avisos del taller.</div>
+      </div>
+      <button class="btn-enviar" onclick="enviarRegistro()">Apartar mi lugar</button>
     </div>
-    <div class="cuerpo">
-      <form id="formInscripcion" autocomplete="off">
-        <div class="campos" style="grid-template-columns:1fr">
-          <div class="campo">
-            <label for="i_nombre">Tu nombre</label>
-            <input type="text" id="i_nombre" required placeholder="Nombre y apellidos">
-          </div>
-          <div class="campo">
-            <label for="i_grupo">De dónde vienes</label>
-            <select id="i_grupo" required>
-              <option value="">Selecciona…</option>
-              <option>Prepa</option>
-              <option>PAS</option>
-              <option>Agroindustrial</option>
-              <option>Docente</option>
-              <option>Administrativo</option>
-              <option>Comunidad de Concá</option>
-            </select>
-          </div>
-          <div class="campo">
-            <label for="i_contacto">Correo o WhatsApp</label>
-            <input type="text" id="i_contacto" required placeholder="Para confirmarte el lugar">
-          </div>
-          <div class="campo">
-            <label for="i_nota">Algo que quien imparte deba saber <span class="op">(opcional)</span></label>
-            <input type="text" id="i_nota" placeholder="Ej. soy zurdo, traigo mi propia herramienta">
-          </div>
-          <div class="acepto">
-            <input type="checkbox" id="i_compromiso" required>
-            <label for="i_compromiso">Me comprometo a llegar y a quedarme los noventa minutos. Si no puedo, aviso para liberar el lugar.</label>
-          </div>
-        </div>
-        <div class="pie-form" style="margin-top:20px">
-          <button type="submit" class="btn btn-teal" id="btnInscribir">Apartar mi lugar</button>
-        </div>
-        <div class="msj" id="msjInscripcion" role="status" aria-live="polite"></div>
-      </form>
+
+    <div class="modal-exito" id="modal-exito">
+      <div class="exito-head">
+        <div class="check">✅</div>
+        <p><strong>¡Listo! Tu lugar quedó apartado.</strong><br>Te esperamos el jueves 27 de agosto.</p>
+      </div>
+      <div class="mat-caja" id="mat-caja"></div>
+      <a class="btn-wa" id="btn-grupo" href="#" target="_blank" rel="noopener">💬 Unirme al grupo de WhatsApp</a>
+      <p class="exito-aviso">Únete al grupo ahora: ahí llegarán los avisos y el punto de encuentro de tu taller.</p>
+      <button class="btn-enviar" onclick="cerrarModal()" style="margin-top:14px;">Cerrar</button>
     </div>
   </div>
 </div>
 
+<footer>
+  <strong>Feria de Intercambio de Saberes</strong> · Franja Libre · Campus Concá · Sierra Gorda · UAQ
+</footer>
+
 <script>
-(function(){
-  "use strict";
+// ============================================================
+// 1) URL /exec del Apps Script de la Feria (archivo Code-feria.gs).
+//    Mientras esté vacía, la página simula el registro sin guardar.
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzvHKCAt2xl7tdD40PTqIvV4VfgldEKOlRtwq-V2Ssl5gzxDnV1rb9XcGoaJrcRZpMQxg/exec";
 
-  /* ==========================================================
-     CONFIGURACIÓN — editable sin tocar el resto del código
-     ========================================================== */
-  var CONFIG = {
-    // Deja faseForzada en "" para que las fases se calculen solas por fecha.
-    // Valores posibles: "propuestas", "inscripciones", "cerrado".
-    faseForzada: "",
-    ferias: [
-      {
-        id: "ago",
-        etiqueta: "Jueves 20 de agosto",
-        corta: "20 de agosto",
-        horario: "11:00 – 12:30 h",
-        propuestasHasta:     "2026-08-10T18:00:00-06:00",
-        inscripcionesDesde:  "2026-08-11T08:00:00-06:00",
-        inscripcionesHasta:  "2026-08-19T18:00:00-06:00",
-        dia:                 "2026-08-20T23:59:00-06:00"
-      },
-      {
-        id: "sep",
-        etiqueta: "Martes 22 de septiembre",
-        corta: "22 de septiembre",
-        horario: "11:00 – 12:30 h",
-        propuestasHasta:     "2026-09-11T18:00:00-06:00",
-        inscripcionesDesde:  "2026-09-14T08:00:00-06:00",
-        inscripcionesHasta:  "2026-09-21T18:00:00-06:00",
-        dia:                 "2026-09-22T23:59:00-06:00"
-      }
-    ]
-  };
+// 2) Enlaces de invitación a los grupos de WhatsApp.
+//    Pegar cada https://chat.whatsapp.com/... cuando existan.
+const GRUPOS = {
+  pan:         "https://chat.whatsapp.com/L1i50dKdefsDFggw4NmpJ7?s=cl&p=a&ilr=4",
+  desodorante: "https://chat.whatsapp.com/JAr6VniPlHWLRWjC8AziJr?s=cl&p=a&ilr=4",
+  motos:       "https://chat.whatsapp.com/JlQIaBmDfihCFbUJQ26cLu?s=cl&p=a&ilr=4",
+  pesca:       "https://chat.whatsapp.com/EebjFVA6QFzBOPcdtytOZM?s=cl&p=a&ilr=4",
+  colores:     "https://chat.whatsapp.com/FZ8BqQ0SP5e4nhPhIbkzNN?s=cl&p=a&ilr=4",
+  chismecito:  "https://chat.whatsapp.com/BD1s6AoQoHx27b2MzxLtq1?s=cl&p=a&ilr=4"
+};
 
-  var IDEAS = [
-    "Bordar a mano","Hacer queso fresco","Soldar lo básico","Primeros auxilios","Reparar bicicletas",
-    "Cortes de cabello","Injertar árboles frutales","Hacer composta","Tocar tres acordes","Nudos útiles",
-    "Fotografía con celular","Editar video en el teléfono","Excel que sí sirve","Hacer tamales","Barbacoa de horno",
-    "Apicultura para empezar","Sembrar en macetas","Hacer jabón","Tejer a gancho","Maquillaje básico",
-    "Escribir una carta formal","Hablar en público sin morir","Ajedrez para principiantes","Yoga en silla","Estiramientos para la espalda",
-    "Cambiar una llanta","Instalar una lámpara","Pintar con acuarela","Serigrafía casera","Hacer conservas",
-    "Fermentar verduras","Café de olla y de prensa","Coser un botón y un dobladillo","Curar una lesión de tobillo","Leer una etiqueta nutrimental",
-    "Rotular a mano","Origami","Reparar una llave que gotea","Armar un currículum","Identificar aves del arroyo"
-  ];
+// 3) Materiales que se muestran al terminar el registro.
+const MATERIALES = {
+  pan: `
+    <h4>🎒 Qué traer</h4>
+    <ul>
+      <li>Un frasco de vidrio mediano con tapa, para llevarte tu masa madre.</li>
+    </ul>`,
+  desodorante: `
+    <h4>🎒 Qué traer (por participante)</h4>
+    <ul>
+      <li>Un plato hondo y una cuchara (de plástico o madera) para mezclar.</li>
+      <li>Un envase de reúso tipo pomadera.</li>
+      <li>Esencia del aroma de tu elección.</li>
+    </ul>
+    <h4>🤝 Si puedes aportar algo de esto para el grupo, ayuda mucho</h4>
+    <ul>
+      <li>Fécula de maíz (Maizena) — se necesitan 5 cajas en total.</li>
+      <li>Avena molida — medio kilo en total.</li>
+      <li>Pencas de sábila.</li>
+      <li>Limón.</li>
+      <li>Bicarbonato de sodio — medio kilo en total.</li>
+      <li>Aceite de coco — un litro en total.</li>
+      <li>Opcional, solo para ejemplificar: cáscaras de cítricos (naranja, mandarina, toronja) y hierbas aromáticas como lavanda, romero o poleo.</li>
+      <li>Opcional: cera de abeja derretida, o un espacio donde derretirla.</li>
+    </ul>
+    <p class="mat-nota">Las cantidades de avena, Maizena, bicarbonato y aceite son para todo el grupo, no por persona.</p>`,
+  motos: `
+    <h4>🎒 Qué traer</h4>
+    <ul>
+      <li>Si tienes moto y quieres traerla, bienvenida — pero no es necesario.</li>
+    </ul>`,
+  pesca: `
+    <h4>🎒 Qué traer</h4>
+    <ul>
+      <li>Anzuelos medianos.</li>
+      <li>Sedal: un rollo de 100 metros.</li>
+      <li>Una botella de PET vacía.</li>
+    </ul>`,
+  colores: `
+    <h4>🎒 Qué traer</h4>
+    <ul>
+      <li>Tela de algodón o lino para teñir.</li>
+    </ul>
+    <h4>🤝 Si tienes en casa y puedes compartir, nos sirve muchísimo</h4>
+    <ul>
+      <li>Semillas / huesos de aguacate.</li>
+      <li>Flores de cempasúchil frescas.</li>
+      <li>Muicle.</li>
+    </ul>`,
+  chismecito: `
+    <h4>🎒 Qué traer</h4>
+    <ul>
+      <li>Nada material: solo tus preguntas, tus opiniones y ganas de platicar.</li>
+    </ul>`
+};
+// ============================================================
 
-  var DEMO_TALLERES = [
-    {id:"D1", titulo:"Defensa personal", frase:"Tres respuestas que salen solas", quien:"Estudiante de PAS",
-     descripcion:"Postura, distancia, cómo zafarse de un agarre y cómo usar la voz antes que las manos. Se practica en pareja, sin golpes reales.",
-     fecha:"ago", cupo:20, inscritos:0, espacio:"Cancha techada", nivel:"Desde cero"},
-    {id:"D2", titulo:"Pan de masa madre", frase:"Tu propia masa madre en frasco", quien:"Personal administrativo",
-     descripcion:"Cómo nace una masa madre, cómo se alimenta y por qué se muere. Cada quien amasa y se va con su fermento vivo.",
-     fecha:"ago", cupo:12, inscritos:0, espacio:"Comedor escolar", nivel:"Desde cero"},
-    {id:"D3", titulo:"Mantenimiento básico de motocicletas", frase:"La revisión de cinco puntos, aprendida", quien:"Persona de la comunidad",
-     descripcion:"Cadena, frenos, llantas, aceite y luces: la revisión que evita quedarse tirado en la carretera a Jalpan.",
-     fecha:"sep", cupo:15, inscritos:0, espacio:"Patio trasero", nivel:"Desde cero"}
-  ];
+let tallerActual = null;
 
-  var COLORES = ["#e0512f","#2f4faf","#4f8a2e","#7a3f9d","#efab00","#0e7c6b"];
-
-  /* ==========================================================
-     Utilidades
-     ========================================================== */
-  var hayBackend = (typeof google !== "undefined") && google.script && google.script.run;
-  var ahora = new Date();
-  var talleres = [];
-  var filtroActivo = "todas";
-  var tallerElegido = null;
-
-  function f(id){ return document.getElementById(id); }
-  function v(id){ var e = f(id); return e ? String(e.value).trim() : ""; }
-  function c(id){ var e = f(id); return !!(e && e.checked); }
-
-  function faseDe(feria){
-    if (CONFIG.faseForzada) return CONFIG.faseForzada;
-    if (ahora > new Date(feria.dia)) return "pasada";
-    if (ahora <= new Date(feria.propuestasHasta)) return "propuestas";
-    if (ahora >= new Date(feria.inscripcionesDesde) && ahora <= new Date(feria.inscripcionesHasta)) return "inscripciones";
-    if (ahora > new Date(feria.inscripcionesHasta)) return "cerrado";
-    return "cerrado";
-  }
-
-  var TEXTO_FASE = {
-    propuestas:    "Recibiendo propuestas",
-    inscripciones: "Inscripciones abiertas",
-    cerrado:       "Programa cerrado",
-    pasada:        "Feria realizada"
-  };
-
-  function fechaCorta(iso){
-    var d = new Date(iso);
-    var meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
-    return d.getDate() + " de " + meses[d.getMonth()];
-  }
-
-  /* ==========================================================
-     Estado de las ferias
-     ========================================================== */
-  function pintarFerias(){
-    var cont = f("ferias");
-    cont.innerHTML = "";
-    CONFIG.ferias.forEach(function(fe){
-      var fase = faseDe(fe);
-      var el = document.createElement("div");
-      el.className = "feria";
-      el.innerHTML =
-        '<div class="estado ' + fase + '">' + TEXTO_FASE[fase] + '</div>' +
-        '<div class="cuando">' + fe.etiqueta + '</div>' +
-        '<div class="horario">' + fe.horario + ' · talleres simultáneos de 90 minutos</div>' +
-        '<div class="plazos">' +
-          '<div><span>Propuestas hasta</span><b>' + fechaCorta(fe.propuestasHasta) + '</b></div>' +
-          '<div><span>Inscripciones</span><b>' + fechaCorta(fe.inscripcionesDesde) + ' al ' + fechaCorta(fe.inscripcionesHasta) + '</b></div>' +
-        '</div>';
-      cont.appendChild(el);
-    });
-  }
-
-  /* ==========================================================
-     Banco de ideas
-     ========================================================== */
-  function pintarChips(){
-    var cont = f("chips");
-    IDEAS.forEach(function(idea){
-      var b = document.createElement("button");
-      b.type = "button";
-      b.className = "chip";
-      b.textContent = idea;
-      b.addEventListener("click", function(){
-        var campo = f("p_titulo");
-        campo.value = idea;
-        document.getElementById("proponer").scrollIntoView({behavior:"smooth", block:"start"});
-        setTimeout(function(){ campo.focus(); }, 500);
-      });
-      cont.appendChild(b);
-    });
-  }
-
-  /* ==========================================================
-     Fase de propuestas: abrir o cerrar el formulario
-     ========================================================== */
-  function ajustarFaseFormulario(){
-    var algunaAbierta = CONFIG.ferias.some(function(fe){ return faseDe(fe) === "propuestas"; });
-    f("zonaProponer").classList.toggle("oculto", !algunaAbierta);
-    f("zonaProponerCerrada").classList.toggle("oculto", algunaAbierta);
-
-    var proximas = CONFIG.ferias.filter(function(fe){ return faseDe(fe) === "propuestas"; });
-    if (proximas.length) {
-      var ultima = proximas[proximas.length - 1];
-      f("plazoPropuesta").textContent = "Cierre de propuestas: " + fechaCorta(ultima.propuestasHasta) + ", 18:00 h.";
-    }
-
-    var haciaInscripcion = CONFIG.ferias.some(function(fe){ return faseDe(fe) === "inscripciones"; });
-    var cta = f("ctaNav");
-    if (!algunaAbierta && haciaInscripcion) {
-      cta.textContent = "Inscribirme";
-      cta.setAttribute("href", "#catalogo");
-    }
-
-    // Las casillas de fecha solo se ofrecen para ferias que siguen recibiendo propuestas
-    CONFIG.ferias.forEach(function(fe){
-      var casilla = f("p_" + fe.id);
-      if (casilla && faseDe(fe) !== "propuestas") {
-        casilla.checked = false;
-        casilla.disabled = true;
-        casilla.parentNode.style.opacity = ".45";
-      }
-    });
-  }
-
-  /* ==========================================================
-     Catálogo
-     ========================================================== */
-  function pintarFiltro(){
-    var cont = f("filtroFechas");
-    cont.innerHTML = "";
-    var opciones = [{id:"todas", txt:"Las dos fechas"}].concat(
-      CONFIG.ferias.map(function(fe){ return {id: fe.id, txt: fe.corta}; })
-    );
-    opciones.forEach(function(o){
-      var b = document.createElement("button");
-      b.type = "button";
-      b.textContent = o.txt;
-      b.setAttribute("aria-pressed", o.id === filtroActivo ? "true" : "false");
-      b.addEventListener("click", function(){
-        filtroActivo = o.id;
-        pintarFiltro();
-        pintarCatalogo();
-      });
-      cont.appendChild(b);
-    });
-  }
-
-  function pintarCatalogo(){
-    var cont = f("listaTalleres");
-    cont.innerHTML = "";
-
-    var lista = talleres.filter(function(t){
-      return filtroActivo === "todas" || t.fecha === filtroActivo;
-    });
-
-    if (!lista.length) {
-      cont.innerHTML =
-        '<div class="vacio-catalogo">' +
-          '<h4>Todavía no hay talleres publicados</h4>' +
-          '<p>El catálogo se llena cuando cierran las propuestas y la coordinación arma el programa. Mientras tanto, la parte interesante es la de allá arriba: proponer el tuyo.</p>' +
-        '</div>';
-      return;
-    }
-
-    var grid = document.createElement("div");
-    grid.className = "catalogo-grid";
-
-    lista.forEach(function(t, i){
-      var feria = CONFIG.ferias.filter(function(fe){ return fe.id === t.fecha; })[0];
-      var fase = feria ? faseDe(feria) : "cerrado";
-      var libres = Math.max(0, (t.cupo || 0) - (t.inscritos || 0));
-      var abierto = fase === "inscripciones" && libres > 0;
-
-      var el = document.createElement("article");
-      el.className = "taller";
-      el.innerHTML =
-        '<div class="franja" style="background:' + COLORES[i % COLORES.length] + '"></div>' +
-        '<div class="in">' +
-          '<div class="quien">' + (feria ? feria.corta : "") + ' · ' + (t.quien || "") + '</div>' +
-          '<h4>' + t.titulo + '</h4>' +
-          '<div class="frase">' + (t.frase || "") + '</div>' +
-          '<p>' + (t.descripcion || "") + '</p>' +
-          '<div class="meta">' +
-            '<span class="cupo' + (libres ? '' : ' lleno') + '">' +
-              (libres ? libres + ' lugares libres de ' + t.cupo : 'Cupo lleno') +
-            '</span>' +
-          '</div>' +
-        '</div>';
-
-      var boton = document.createElement("button");
-      boton.className = "btn-mini";
-      boton.textContent = abierto ? "Inscribirme" : (fase === "propuestas" ? "Aún no abre" : (libres ? "Cerrado" : "Sin lugares"));
-      boton.disabled = !abierto;
-      boton.addEventListener("click", function(){ abrirModal(t, feria); });
-      el.querySelector(".meta").appendChild(boton);
-
-      grid.appendChild(el);
-    });
-
-    cont.appendChild(grid);
-  }
-
-  function cargarTalleres(){
-    if (!hayBackend) {
-      talleres = DEMO_TALLERES;
-      pintarCatalogo();
-      return;
-    }
-    google.script.run
-      .withSuccessHandler(function(r){
-        talleres = (r && r.talleres) || [];
-        pintarCatalogo();
-      })
-      .withFailureHandler(function(){
-        talleres = [];
-        pintarCatalogo();
-      })
-      .obtenerTalleres();
-  }
-
-  /* ==========================================================
-     Modal de inscripción
-     ========================================================== */
-  function abrirModal(t, feria){
-    tallerElegido = t;
-    f("modalTitulo").textContent = t.titulo;
-    f("modalSub").textContent = (feria ? feria.etiqueta : "") + " · imparte " + (t.quien || "") + (t.espacio ? " · " + t.espacio : "");
-    f("msjInscripcion").className = "msj";
-    f("velo").classList.add("abierto");
-    setTimeout(function(){ f("i_nombre").focus(); }, 120);
-  }
-
-  function cerrarModal(){
-    f("velo").classList.remove("abierto");
-    tallerElegido = null;
-  }
-
-  f("btnCerrar").addEventListener("click", cerrarModal);
-  f("velo").addEventListener("click", function(e){ if (e.target === f("velo")) cerrarModal(); });
-  document.addEventListener("keydown", function(e){ if (e.key === "Escape") cerrarModal(); });
-
-  function mensaje(id, tipo, texto){
-    var el = f(id);
-    el.className = "msj " + tipo;
-    el.textContent = texto;
-    el.scrollIntoView({behavior:"smooth", block:"nearest"});
-  }
-
-  /* ==========================================================
-     Envío de la propuesta
-     ========================================================== */
-  f("formPropuesta").addEventListener("submit", function(e){
-    e.preventDefault();
-    var form = e.target;
-    if (!form.reportValidity()) return;
-
-    var fechas = [];
-    if (c("p_ago")) fechas.push("ago");
-    if (c("p_sep")) fechas.push("sep");
-    if (!fechas.length) {
-      mensaje("msjPropuesta","error","Marca al menos una fecha en la que puedas impartir el taller.");
-      return;
-    }
-
-    var datos = {
-      nombre: v("p_nombre"), grupo: v("p_grupo"), contacto: v("p_contacto"),
-      titulo: v("p_titulo"), frase: v("p_frase"), descripcion: v("p_descripcion"),
-      nivel: v("p_nivel"), cupo: v("p_cupo"),
-      fechas: fechas.join(", "),
-      espacio: v("p_espacio"), materiales: v("p_materiales"),
-      acompanamiento: c("p_apoyo") ? "Sí" : "No",
-      enEquipo: c("p_equipo") ? "Sí" : "No",
-      costoMateriales: c("p_costo") ? "Sí" : "No"
-    };
-
-    var btn = f("btnPropuesta");
-    btn.disabled = true; btn.textContent = "Enviando…";
-
-    if (!hayBackend) {
-      setTimeout(function(){
-        btn.disabled = false; btn.textContent = "Enviar mi propuesta";
-        mensaje("msjPropuesta","demo","Vista previa sin conexión al servidor. Al desplegar la página como aplicación web de Apps Script, la propuesta se guarda en la hoja. Capturado: «" + datos.titulo + "», cupo " + datos.cupo + ", fechas " + datos.fechas + ".");
-      }, 450);
-      return;
-    }
-
-    google.script.run
-      .withSuccessHandler(function(r){
-        btn.disabled = false; btn.textContent = "Enviar mi propuesta";
-        if (r && r.ok) {
-          form.reset();
-          ajustarFaseFormulario();
-          mensaje("msjPropuesta","ok","Propuesta recibida. Folio " + r.folio + ". La coordinación te escribe para acordar espacio y horario antes de publicarla en el catálogo.");
-        } else {
-          mensaje("msjPropuesta","error",(r && r.mensaje) || "No fue posible guardar la propuesta.");
+// Al cargar la página, consultar cupos reales
+window.addEventListener('DOMContentLoaded', function() {
+  if (!SCRIPT_URL) return;
+  fetch(SCRIPT_URL)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.ok) return;
+      document.querySelectorAll('.cupo').forEach(el => {
+        const nombreTaller = el.dataset.taller;
+        if (data.restantes.hasOwnProperty(nombreTaller)) {
+          actualizarCupo(el, data.restantes[nombreTaller]);
         }
-      })
-      .withFailureHandler(function(err){
-        btn.disabled = false; btn.textContent = "Enviar mi propuesta";
-        mensaje("msjPropuesta","error","Error de conexión: " + (err && err.message ? err.message : "intenta de nuevo en un momento."));
-      })
-      .proponerTaller(datos);
-  });
+      });
+    })
+    .catch(() => { /* si falla, se queda el cupo inicial mostrado */ });
+});
 
-  /* ==========================================================
-     Envío de la inscripción
-     ========================================================== */
-  f("formInscripcion").addEventListener("submit", function(e){
-    e.preventDefault();
-    var form = e.target;
-    if (!form.reportValidity() || !tallerElegido) return;
+function actualizarCupo(el, restantes) {
+  if (restantes <= 0) {
+    el.textContent = 'Cupo lleno';
+    el.classList.add('lleno');
+    const btn = el.closest('.taller').querySelector('.btn-inscribir');
+    if (btn) { btn.disabled = true; btn.textContent = 'Lleno'; }
+  } else {
+    el.textContent = 'Cupo: ' + restantes + ' lugares';
+    el.classList.remove('lleno');
+  }
+}
 
-    var datos = {
-      tallerId: tallerElegido.id,
-      taller: tallerElegido.titulo,
-      fecha: tallerElegido.fecha,
-      nombre: v("i_nombre"), grupo: v("i_grupo"), contacto: v("i_contacto"), nota: v("i_nota")
-    };
+function abrirModal(tid, clave, nombreVisible) {
+  tallerActual = clave;
+  document.getElementById('modal-titulo').textContent = nombreVisible;
+  document.getElementById('modal-form').style.display = 'block';
+  document.getElementById('modal-exito').style.display = 'none';
+  document.getElementById('f-nombre').value = '';
+  document.getElementById('f-rol').value = '';
+  document.getElementById('f-tel').value = '';
+  document.getElementById('modal').dataset.tid = tid;
+  document.getElementById('modal').classList.add('abierto');
+}
 
-    var btn = f("btnInscribir");
-    btn.disabled = true; btn.textContent = "Apartando…";
+function cerrarModal() {
+  document.getElementById('modal').classList.remove('abierto');
+}
 
-    if (!hayBackend) {
-      setTimeout(function(){
-        btn.disabled = false; btn.textContent = "Apartar mi lugar";
-        mensaje("msjInscripcion","demo","Vista previa sin conexión al servidor. Aquí se guardaría la inscripción de " + datos.nombre + " en «" + datos.taller + "».");
-      }, 450);
-      return;
+function mostrarExito(tid) {
+  document.getElementById('mat-caja').innerHTML = MATERIALES[tid] || '';
+  const btnGrupo = document.getElementById('btn-grupo');
+  const enlace = GRUPOS[tid];
+  if (enlace) {
+    btnGrupo.href = enlace;
+    btnGrupo.classList.remove('pronto');
+    btnGrupo.textContent = '💬 Unirme al grupo de WhatsApp';
+  } else {
+    btnGrupo.href = '#';
+    btnGrupo.classList.add('pronto');
+    btnGrupo.textContent = 'El enlace del grupo se publicará muy pronto';
+  }
+  document.getElementById('modal-form').style.display = 'none';
+  document.getElementById('modal-exito').style.display = 'block';
+}
+
+function enviarRegistro() {
+  const nombre = document.getElementById('f-nombre').value.trim();
+  const rol = document.getElementById('f-rol').value;
+  const tel = document.getElementById('f-tel').value.trim();
+  if (!nombre || !rol || !tel) {
+    alert('Por favor completa todos los campos.');
+    return;
+  }
+  const btn = document.querySelector('#modal-form .btn-enviar');
+  const tid = document.getElementById('modal').dataset.tid;
+
+  // Modo vista previa: sin backend, simular el registro
+  if (!SCRIPT_URL) {
+    mostrarExito(tid);
+    return;
+  }
+
+  btn.disabled = true; btn.textContent = 'Enviando…';
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify({ taller: tallerActual, nombre: nombre, rol: rol, telefono: tel })
+  })
+  .then(r => r.json())
+  .then(data => {
+    btn.disabled = false; btn.textContent = 'Apartar mi lugar';
+    if (data.ok) {
+      const cupoEl = document.getElementById('cupo-' + tid);
+      if (cupoEl && typeof data.restantes === 'number') actualizarCupo(cupoEl, data.restantes);
+      mostrarExito(tid);
+    } else if (data.motivo === 'lleno') {
+      alert('Lo sentimos, este taller acaba de llenarse.');
+      const cupoEl = document.getElementById('cupo-' + tid);
+      if (cupoEl) actualizarCupo(cupoEl, 0);
+      cerrarModal();
+    } else {
+      alert('Hubo un problema al registrar. Intenta de nuevo.');
     }
-
-    google.script.run
-      .withSuccessHandler(function(r){
-        btn.disabled = false; btn.textContent = "Apartar mi lugar";
-        if (r && r.ok) {
-          form.reset();
-          mensaje("msjInscripcion","ok","Lugar apartado. Folio " + r.folio + ". Te esperamos a las 11:00 en " + (r.espacio || "el espacio que se te confirmará") + ".");
-          cargarTalleres();
-        } else {
-          mensaje("msjInscripcion","error",(r && r.mensaje) || "No fue posible apartar el lugar.");
-        }
-      })
-      .withFailureHandler(function(err){
-        btn.disabled = false; btn.textContent = "Apartar mi lugar";
-        mensaje("msjInscripcion","error","Error de conexión: " + (err && err.message ? err.message : "intenta de nuevo en un momento."));
-      })
-      .inscribirseTaller(datos);
+  })
+  .catch(() => {
+    btn.disabled = false; btn.textContent = 'Apartar mi lugar';
+    alert('No se pudo conectar. Revisa tu internet e intenta de nuevo.');
   });
-
-  /* ==========================================================
-     Arranque
-     ========================================================== */
-  pintarFerias();
-  pintarChips();
-  ajustarFaseFormulario();
-  pintarFiltro();
-  cargarTalleres();
-})();
+}
 </script>
+
 </body>
 </html>
