@@ -174,7 +174,7 @@ footer a { color:var(--vc); }
   <span class="hero-eyebrow">Campus Concá · UAQ · Área de Sustentabilidad</span>
   <span class="hero-subtitulo">Página de registros · Mercadito Sustentable · Semestre 2026-2</span>
   <h1>Solicitud de <em>venta</em></h1>
-  <p>Ventas Universitarias Saludables &amp; Sustentables + Cero Residuos. El Área de Sustentabilidad revisa tu solicitud y notifica a las coordinaciones. El registro cierra una semana antes de cada fecha y la resolución de solicitudes llega tres días antes, con tu ficha de proveedor.</p>
+  <p>Ventas Universitarias Saludables &amp; Sustentables + Cero Residuos. El Comité de Planeación y el Área de Sustentabilidad revisan tu solicitud y notifican a las coordinaciones. El registro cierra una semana antes de cada fecha y la resolución de solicitudes llega tres días antes, con tu ficha de proveedor.</p>
   <span class="rapido">Una sola solicitud puede cubrir las cuatro fechas del semestre</span>
 </header>
 
@@ -241,7 +241,7 @@ footer a { color:var(--vc); }
     <!-- PASO 2 -->
     <section class="paso" id="paso-2" hidden>
       <h2>Qué vas a vender</h2>
-      <p class="intro">La lista de productos debe permitir distinguir con claridad qué se ofrece. Lo demás se resuelve con toques.</p>
+      <p class="intro">La lista de productos debe permitir distinguir con claridad qué productos ofrecerás. Debes apoyar la iniciativa Cero Residuos: ¡sé creativo y diversifica tanto como quieras tus productos y/o emprendimientos sustentables!</p>
 
       <div class="campo">
         <label for="proyecto">Nombre de tu proyecto de venta</label>
@@ -273,8 +273,10 @@ footer a { color:var(--vc); }
           <label class="chip"><input type="checkbox" value="Utensilios de madera"><span>Utensilios de madera</span></label>
           <label class="chip"><input type="checkbox" value="Servilleta de papel"><span>Servilleta</span></label>
           <label class="chip"><input type="checkbox" value="Tela o morral"><span>Tela o morral</span></label>
+          <label class="chip"><input type="checkbox" value="Mesa de la Honestidad" id="chip-mesa"><span>Mesa de la Honestidad</span></label>
         </div>
         <div class="otro"><input type="text" id="presentacion-otro" placeholder="Otra forma de entrega (opcional)"></div>
+        <p class="hint" id="hint-mesa" hidden><strong>Mesa de la Honestidad:</strong> negocio basado 100 % en la honestidad de la comunidad. Es una mesa con tus productos, sin vendedores: dejas una ficha o letrero con los precios y una cajita para que ahí entreguen el dinero de tus ventas, y cada quien se lleva el producto que quiere. Se recomienda para productos pequeños, armados o envasados (conservas, mermeladas, etc.). Recuerda que no se permiten desechables plásticos ;)</p>
         <p class="hint">Nada de unicel, bolsas de plástico ni plásticos de un solo uso. Los desechables permitidos son solo los 100 % compostables.</p>
       </fieldset>
 
@@ -288,9 +290,14 @@ footer a { color:var(--vc); }
       <div class="alerta rojo" id="alerta-riesgo" hidden>Los lineamientos no permiten preparar alimentos en el campus ni vender productos que requieran refrigeración o se descompongan con facilidad. Ajusta tu propuesta o consúltalo antes de enviar.</div>
 
       <div class="campo">
-        <label for="ilustracion">Liga a fotos de tus productos <span style="font-weight:400;color:#aaa;">(opcional)</span></label>
+        <label for="fotos">Imágenes de tus productos</label>
+        <input type="file" id="fotos" accept="image/*" multiple>
+        <p class="hint">Agrega imágenes de cómo se verán tus productos y considera los posibles empaques o alguno de ellos. Puede ser una imagen de referencia, un dibujo, una fotografía o una simulación. Hasta 3 imágenes.</p>
+        <p class="hint" id="fotos-estado" style="color:var(--vs);font-weight:600;" hidden></p>
+      </div>
+      <div class="campo">
+        <label for="ilustracion">…o pega una liga a tus fotos</label>
         <input type="url" id="ilustracion" inputmode="url" autocapitalize="off" spellcheck="false" placeholder="https://…">
-        <p class="hint">Si no tienes liga, puedes mandarlas por WhatsApp al Área de Sustentabilidad.</p>
       </div>
 
       <div class="acciones">
@@ -302,7 +309,7 @@ footer a { color:var(--vc); }
     <!-- PASO 3 -->
     <section class="paso" id="paso-3" hidden>
       <h2>Residuos y envío</h2>
-      <p class="intro">El mejor residuo es el que no se genera: previene, reduce, reutiliza, recicla y composta antes de optar por la última opción, la basura general. Separa tus residuos reciclables: cada proyecto responde por los que genera.</p>
+      <p class="intro"><strong>El mejor residuo es el que no se genera</strong>: previene, reduce, reutiliza, recicla y composta antes de optar por la última opción: la basura general. Separa tus residuos reciclables: cada proyecto responde por los que genera.</p>
 
       <fieldset>
         <legend>¿Qué residuos va a generar tu venta?</legend>
@@ -313,19 +320,21 @@ footer a { color:var(--vc); }
           <label class="chip"><input type="checkbox" value="Vidrio"><span>Vidrio</span></label>
           <label class="chip"><input type="checkbox" value="Metal o aluminio"><span>Metal</span></label>
           <label class="chip"><input type="checkbox" value="Plástico reciclable"><span>Plástico reciclable</span></label>
+          <label class="chip"><input type="checkbox" value="Servilletas"><span>Servilletas</span></label>
+          <label class="chip"><input type="checkbox" value="Envolturas vegetales (hoja de plátano, hoja de maíz)"><span>Envolturas vegetales: hoja de plátano o maíz</span></label>
         </div>
         <div class="otro"><input type="text" id="residuos-otro" placeholder="Otro residuo (opcional)"></div>
+        <p class="hint">Recuerda que si utilizas cartón y queda sucio no podrá reciclarse: se vuelve residuo general. Evítalo.</p>
       </fieldset>
 
       <fieldset>
-        <legend>¿Qué vas a hacer con ellos?</legend>
+        <legend>¿Qué vas a hacer con ellos? ¿Cómo te comprometes a mejorar su gestión integral?</legend>
         <div class="chips" id="chips-plan">
+          <label class="chip"><input type="checkbox" value="Productos sin envases"><span>Productos sin envases</span></label>
           <label class="chip"><input type="checkbox" value="Me los llevo del campus"><span>Me los llevo</span></label>
-          <label class="chip"><input type="checkbox" value="Composto en casa"><span>Composto en casa</span></label>
-          <label class="chip"><input type="checkbox" value="Separo y entrego en la jaula del campus"><span>Separo y entrego en la jaula</span></label>
-          <label class="chip"><input type="checkbox" value="Reutilizo los empaques"><span>Reutilizo empaques</span></label>
-          <label class="chip"><input type="checkbox" value="Los devuelvo a mi proveedor"><span>Los devuelvo al proveedor</span></label>
-          <label class="chip"><input type="checkbox" value="Los reduzco desde la compra de insumos"><span>Los reduzco desde la compra</span></label>
+          <label class="chip"><input type="checkbox" value="Separo y deposito en los contenedores del edificio"><span>Separo y deposito en contenedores del edificio</span></label>
+          <label class="chip"><input type="checkbox" value="El cliente lleva sus utensilios"><span>Cliente lleva sus utensilios</span></label>
+          <label class="chip"><input type="checkbox" value="Prestaré utensilios"><span>Prestaré utensilios</span></label>
         </div>
         <div class="otro"><input type="text" id="plan-otro" placeholder="Otra medida (opcional)"></div>
       </fieldset>
@@ -336,6 +345,7 @@ footer a { color:var(--vc); }
           <label class="opcion"><input type="radio" name="desech" value="Ninguno"><span>Ninguno</span></label>
           <label class="opcion"><input type="radio" name="desech" value="Solo compostables"><span>Solo compostables</span></label>
         </div>
+        <p class="hint">Tanto al momento de la oferta como al de la entrega de tus productos, se recomienda informar con anticipación a tus clientes (p. ej., en el grupo de ventas) acerca de las condiciones sobre el uso limitado de envases y bolsas desechables.</p>
       </fieldset>
 
       <fieldset>
@@ -348,6 +358,8 @@ footer a { color:var(--vc); }
       <div class="alerta amb" id="alerta-capac" hidden>Sin capacitación no se puede participar en la venta de productos. Puedes solicitar una al Área de Sustentabilidad: se te avisará de la siguiente capacitación del campus y firmarás la carta responsiva y de conformidad con los Lineamientos antes de vender.</div>
 
       <div class="resumen" id="resumen"></div>
+
+      <div class="alerta amb" style="margin-bottom:16px;">Antes de aceptar, lee los <a href="lineamientos-ventas-conca-2026.pdf" target="_blank" rel="noopener" style="color:inherit;font-weight:600;">Lineamientos completos de venta del campus Concá (PDF)</a>.</div>
 
       <label class="opcion" style="margin-bottom:16px;">
         <input type="checkbox" id="compromiso">
@@ -368,7 +380,7 @@ footer a { color:var(--vc); }
     <section class="paso exito" id="paso-exito" hidden>
       <div class="check">✅</div>
       <h2>Solicitud enviada</h2>
-      <p>El Área de Sustentabilidad la revisa durante la semana previa y notifica a tu Coordinación. La resolución de solicitudes llega tres días antes del Mercadito: si hay observaciones aparecerán en tu correo, y si todo está en orden recibirás tu ficha de proveedor.</p>
+      <p>El Comité de Planeación y el Área de Sustentabilidad la revisan durante la semana previa y notifican a tu Coordinación. La resolución de solicitudes llega tres días antes del Mercadito: si hay observaciones aparecerán en tu correo, y si todo está en orden recibirás tu ficha de proveedor.</p>
       <div class="acciones" style="justify-content:center;">
         <button class="btn btn-sec" onclick="window.print()">Imprimir una copia</button>
       </div>
@@ -381,6 +393,7 @@ footer a { color:var(--vc); }
   <strong>Campus Concá · UAQ</strong><br>
   Área de Sustentabilidad · Lic. Jhoana Paola Hernández Bravo · jhoana.hernandez@uaq.mx<br>
   Comité de Planeación · Mc. Adán Mercado Luna · adan.mercado@uaq.mx<br>
+  <a href="lineamientos-ventas-conca-2026.pdf" target="_blank" rel="noopener">Lineamientos para ventas dentro del campus Concá (PDF)</a> ·
   <a href="https://vidasaludable.gob.mx/storage/recursos/materiales/Manual-cooperativas.pdf" target="_blank" rel="noopener">Manual para quienes preparan, distribuyen y venden alimentos en las escuelas</a>
 </footer>
 
@@ -414,6 +427,9 @@ function siguiente(n) {
       return alert('Indica cómo vas a entregar tus productos.');
     }
     if (!radio('riesgo')) return alert('Indica si algún producto requiere cuidados especiales.');
+    if (fotosData.length === 0 && !val('ilustracion')) {
+      return alert('Agrega al menos una imagen de tus productos, o una liga a ellas.');
+    }
     armarResumen();
   }
   verPaso(n+1);
@@ -437,6 +453,37 @@ function junta(contenedor, idOtro) {
 function fechasElegidas() {
   return Array.prototype.slice.call(document.querySelectorAll('.fecha:checked'));
 }
+
+// ===== IMÁGENES DE PRODUCTOS =====
+var fotosData = [];
+document.getElementById('chip-mesa').addEventListener('change', function(){
+  document.getElementById('hint-mesa').hidden = !this.checked;
+});
+document.getElementById('fotos').addEventListener('change', function(){
+  var archivos = Array.prototype.slice.call(this.files).slice(0, 3);
+  fotosData = [];
+  var estado = document.getElementById('fotos-estado');
+  if (!archivos.length) { estado.hidden = true; return; }
+  estado.hidden = false; estado.textContent = 'Preparando imágenes…';
+  var listas = 0;
+  archivos.forEach(function(archivo, i){
+    var lector = new FileReader();
+    lector.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var esc = Math.min(1, 900 / Math.max(img.width, img.height));
+        var c = document.createElement('canvas');
+        c.width = Math.round(img.width * esc); c.height = Math.round(img.height * esc);
+        c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+        fotosData[i] = { nombre: archivo.name, datos: c.toDataURL('image/jpeg', 0.75) };
+        listas++;
+        estado.textContent = listas + (listas === 1 ? ' imagen lista.' : ' imágenes listas.');
+      };
+      img.src = e.target.result;
+    };
+    lector.readAsDataURL(archivo);
+  });
+});
 
 // ===== AVISOS EN VIVO =====
 document.querySelectorAll('.fecha').forEach(function(c){ c.addEventListener('change', revisarPlazo); });
@@ -482,6 +529,7 @@ function datos() {
     proyecto: val('proyecto'),
     fechas: fechasElegidas().map(function(c){ return c.value; }).join('; '),
     productos: val('productos'), ilustracion: val('ilustracion'),
+    imagenes: fotosData.filter(Boolean),
     presentacion: junta('chips-presentacion','presentacion-otro'),
     cuidadosEspeciales: radio('riesgo'),
     residuos: junta('chips-residuos','residuos-otro'),
@@ -502,7 +550,9 @@ function armarResumen() {
     ['Residuos', d.residuos || '—'], ['Manejo', d.plan || '—'],
     ['Desechables', d.desechables || '—'], ['Capacitación', d.capacitacion || '—']
   ];
-  if (d.ilustracion) filas.splice(10, 0, ['Fotos', d.ilustracion]);
+  var fotosTxt = (d.imagenes.length ? d.imagenes.length + (d.imagenes.length === 1 ? ' imagen adjunta' : ' imágenes adjuntas') : '') +
+    (d.ilustracion ? (d.imagenes.length ? ' · ' : '') + d.ilustracion : '');
+  filas.splice(10, 0, ['Imágenes', fotosTxt || '—']);
   document.getElementById('resumen').innerHTML =
     '<h3>Tu solicitud</h3><dl>' +
     filas.map(function(f){ return '<dt>'+f[0]+'</dt><dd>'+escapar(f[1])+'</dd>'; }).join('') +
