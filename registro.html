@@ -114,58 +114,6 @@ footer a { color:var(--vc); }
   .resumen dd { margin-bottom:10px; }
 }
 </style>
-<style id="cerrojo-css">body{visibility:hidden}</style>
-<script>
-(function () {
-  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
-
-  function abrir() {
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-    // El pase se hereda a las ligas internas del sitio
-    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
-      if (a.getAttribute('href').indexOf('preview') === -1) {
-        a.setAttribute('href', a.getAttribute('href') + '?preview');
-      }
-    });
-    var aviso = document.createElement('div');
-    aviso.className = 'cinta-preview';
-    aviso.textContent = 'Vista previa · esta página todavía no se publica';
-    document.body.insertBefore(aviso, document.body.firstChild);
-  }
-
-  function cerrar() {
-    document.body.innerHTML =
-      '<div class="espera">' +
-        '<span class="espera-emoji">\uD83C\uDF31</span>' +
-        '<h1>Próximamente</h1>' +
-        '<p>Esta página todavía no se publica. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
-        '<a href="index.html">← Volver a Franja Libre</a>' +
-      '</div>';
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-  }
-
-  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
-})();
-</script>
-<style>
-.cinta-preview {
-  background:#E8A85A; color:#3A2A10; text-align:center;
-  font-family:'Instrument Sans',sans-serif; font-size:12.5px; font-weight:600;
-  letter-spacing:.08em; text-transform:uppercase; padding:8px 16px;
-}
-.espera {
-  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:40px 24px; background:#1A3A2A; color:#F5EED8;
-  font-family:'Instrument Sans',sans-serif;
-}
-.espera-emoji { font-size:54px; margin-bottom:14px; }
-.espera h1 { font-family:'Fraunces',serif; font-size:38px; font-weight:900; margin-bottom:12px; }
-.espera p { font-size:15.5px; color:rgba(245,238,216,.8); max-width:420px; line-height:1.7; margin-bottom:26px; }
-.espera a { color:#7AB88A; font-size:14px; font-weight:600; text-decoration:none; }
-.espera a:hover { color:#E8A85A; }
-</style>
 </head>
 <body>
 
@@ -250,7 +198,7 @@ footer a { color:var(--vc); }
 
       <fieldset>
         <legend>¿En qué fechas quieres vender? Puedes elegir varias.</legend>
-        <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 27 de agosto" data-cierre="2026-08-20" data-cierre-txt="jueves 20 de agosto"><span>Jueves 27 de agosto<small>Registro abierto hasta el jueves 20 de agosto · resolución de solicitudes el lunes 24 de agosto</small></span></label>
+        <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 27 de agosto" data-cierre="2026-08-25" data-cierre-txt="martes 25 de agosto"><span>Jueves 27 de agosto<small>Registro abierto hasta el martes 25 de agosto · resolución de solicitudes el miércoles 26 de agosto</small></span></label>
         <label class="opcion"><input type="checkbox" class="fecha" value="Martes 29 de septiembre" data-cierre="2026-09-22" data-cierre-txt="martes 22 de septiembre"><span>Martes 29 de septiembre<small>Registro abierto hasta el martes 22 de septiembre · resolución de solicitudes el sábado 26 de septiembre</small></span></label>
         <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 29 de octubre" data-cierre="2026-10-22" data-cierre-txt="jueves 22 de octubre"><span>Jueves 29 de octubre<small>Registro abierto hasta el jueves 22 de octubre · resolución de solicitudes el lunes 26 de octubre</small></span></label>
         <label class="opcion"><input type="checkbox" class="fecha" value="Jueves 26 de noviembre" data-cierre="2026-11-19" data-cierre-txt="jueves 19 de noviembre"><span>Jueves 26 de noviembre<small>Registro abierto hasta el jueves 19 de noviembre · resolución de solicitudes el lunes 23 de noviembre</small></span></label>

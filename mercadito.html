@@ -83,7 +83,6 @@ a { color:inherit; }
 .ed-chip.v { background:var(--ven-l); color:var(--ven); }
 .ed-nombre { font-family:'Fraunces',serif; font-size:21px; font-weight:700; margin:8px 0 6px; }
 .ed-desc { font-size:14px; color:#555; line-height:1.6; }
-.ed-prop { display:inline-block; margin-top:8px; font-size:12px; font-weight:600; color:var(--oc); letter-spacing:.04em; }
 
 /* ===== QUÉ ES EL TRUEQUE ===== */
 .destacado { background:#fff; border-left:5px solid var(--tru); border-radius:0 14px 14px 0; padding:26px 28px; margin:0 auto; max-width:760px; }
@@ -178,58 +177,6 @@ footer a { color:var(--vc); }
   .ed-dia { font-size:34px; }
 }
 </style>
-<style id="cerrojo-css">body{visibility:hidden}</style>
-<script>
-(function () {
-  var enPreview = /(^|[?&])preview($|[=&])/.test(location.search);
-
-  function abrir() {
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-    // El pase se hereda a las ligas internas del sitio
-    document.querySelectorAll('a[href$=".html"]').forEach(function (a) {
-      if (a.getAttribute('href').indexOf('preview') === -1) {
-        a.setAttribute('href', a.getAttribute('href') + '?preview');
-      }
-    });
-    var aviso = document.createElement('div');
-    aviso.className = 'cinta-preview';
-    aviso.textContent = 'Vista previa · esta página todavía no se publica';
-    document.body.insertBefore(aviso, document.body.firstChild);
-  }
-
-  function cerrar() {
-    document.body.innerHTML =
-      '<div class="espera">' +
-        '<span class="espera-emoji">\uD83C\uDF31</span>' +
-        '<h1>Próximamente</h1>' +
-        '<p>Esta página todavía no se publica. Estamos afinando los detalles con las coordinaciones del campus.</p>' +
-        '<a href="index.html">← Volver a Franja Libre</a>' +
-      '</div>';
-    var css = document.getElementById('cerrojo-css');
-    if (css) css.remove();
-  }
-
-  document.addEventListener('DOMContentLoaded', enPreview ? abrir : cerrar);
-})();
-</script>
-<style>
-.cinta-preview {
-  background:#E8A85A; color:#3A2A10; text-align:center;
-  font-family:'Instrument Sans',sans-serif; font-size:12.5px; font-weight:600;
-  letter-spacing:.08em; text-transform:uppercase; padding:8px 16px;
-}
-.espera {
-  min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
-  text-align:center; padding:40px 24px; background:#1A3A2A; color:#F5EED8;
-  font-family:'Instrument Sans',sans-serif;
-}
-.espera-emoji { font-size:54px; margin-bottom:14px; }
-.espera h1 { font-family:'Fraunces',serif; font-size:38px; font-weight:900; margin-bottom:12px; }
-.espera p { font-size:15.5px; color:rgba(245,238,216,.8); max-width:420px; line-height:1.7; margin-bottom:26px; }
-.espera a { color:#7AB88A; font-size:14px; font-weight:600; text-decoration:none; }
-.espera a:hover { color:#E8A85A; }
-</style>
 </head>
 <body>
 
@@ -283,9 +230,8 @@ footer a { color:var(--vc); }
         <span class="ed-badge">Feria de Intercambio de Saberes</span>
         <h3 class="ed-nombre">Mercadito de arranque</h3>
         <p class="ed-desc">La primera edición abre el semestre junto a la Feria de Intercambio de Saberes: lo que se intercambia no son solo objetos, también oficios y conocimientos. Trae lo que quieras truequear, lo que quieras vender (previo registro) y comparte algo que sepas hacer en el <a href="feria-saberes.html"><strong>Intercambio de Saberes</strong></a>: conoce la Feria y regístrate en su propia página.</p>
-        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 20 de agosto</strong> · resolución de solicitudes el <strong>lunes 24 de agosto</strong></p>
+        <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>martes 25 de agosto</strong> · resolución de solicitudes el <strong>miércoles 26 de agosto</strong><br><em>Plazo recorrido solo para esta primera edición, por la cercanía de la fecha.</em></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
-        <span class="ed-prop" data-pendiente>Propuesta por confirmar</span>
       </div>
     </article>
 
@@ -316,7 +262,6 @@ footer a { color:var(--vc); }
         <p class="ed-desc">El mercadito se instala junto a la ofrenda colectiva, en la víspera del Día de Muertos. Buen momento para dar salida a lo que ya cumplió su ciclo y a lo que la ofrenda pide prestado: papel picado, veladoras, ropa, objetos de memoria, pan y cempasúchil.</p>
         <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 22 de octubre</strong> · resolución de solicitudes el <strong>lunes 26 de octubre</strong></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
-        <span class="ed-prop" data-pendiente>Propuesta: se recorre del martes 20 al jueves 29 para acercarla al 2 de noviembre</span>
       </div>
     </article>
 
@@ -332,7 +277,6 @@ footer a { color:var(--vc); }
         <p class="ed-desc">Último jueves del semestre y cierre de la Franja Libre. El mercadito se acompaña de lo que dejaron los talleres: música, danza, teatro y la muestra de lo trabajado en todos los talleres durante 18 semanas.</p>
         <p class="ed-plazo">🗓 Registro de ventas hasta el <strong>jueves 19 de noviembre</strong> · resolución de solicitudes el <strong>lunes 23 de noviembre</strong></p>
         <div class="ed-ambas"><span class="ed-chip t">🔄 Trueque</span><span class="ed-chip v">🥬 Ventas + Cero Residuos</span></div>
-        <span class="ed-prop" data-pendiente>Propuesta: se recorre del martes 24 al jueves 26 para cerrar el semestre</span>
       </div>
     </article>
 
@@ -467,7 +411,7 @@ footer a { color:var(--vc); }
       <div class="cta-via">
         <span class="cta-emoji">🥬</span>
         <h3>Voy a vender</h3>
-        <p>La venta requiere autorización. El registro cierra una semana antes de cada fecha, lo revisan el Comité de Planeación y el Área de Sustentabilidad, y la resolución de solicitudes llega tres días antes, con tu ficha de proveedor.</p>
+        <p>La venta requiere autorización. El registro cierra una semana antes de cada fecha, lo revisan el Comité de Planeación y el Área de Sustentabilidad, y la resolución de solicitudes llega tres días antes, con tu ficha de proveedor. <strong>Para el Mercadito del 27 de agosto el plazo se recorrió: hay tiempo hasta el martes 25.</strong></p>
         <a class="btn-grande" href="registro.html">Llenar la solicitud</a>
       </div>
     </div>
