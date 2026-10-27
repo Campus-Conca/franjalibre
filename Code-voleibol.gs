@@ -1,6 +1,6 @@
 /**
- * TORNEO DE BÁSQUETBOL MIXTO · FRANJA LIBRE · CAMPUS CONCÁ UAQ
- * Recibe los registros de basquetbol.html y los guarda en la hoja de cálculo.
+ * TORNEO DE VOLEIBOL MIXTO · FRANJA LIBRE · CAMPUS CONCÁ UAQ
+ * Recibe los registros de voleibol.html y los guarda en la hoja de cálculo.
  * Atiende dos tipos de envío: equipos (cuatro hombres y tres mujeres) y árbitros.
  *
  * CÓMO INSTALARLO
@@ -11,7 +11,7 @@
  *  4. Ejecuta una vez la función preparar() para crear las pestañas y encabezados.
  *  5. Implementar → Nueva implementación → Aplicación web.
  *       Ejecutar como: Yo.   Quién tiene acceso: Cualquier usuario.
- *  6. Copia la URL que termina en /exec y pégala en la constante SCRIPT_URL de basquetbol.html.
+ *  6. Copia la URL que termina en /exec y pégala en la constante SCRIPT_URL de voleibol.html.
  *
  * Si más adelante cambias el código, hay que crear una NUEVA implementación
  * (o actualizar la versión) para que la URL /exec sirva el código nuevo.
@@ -81,7 +81,7 @@ function doPost(e) {
 /** Prueba rápida en el navegador: la URL /exec debe responder este texto. */
 function doGet() {
   return ContentService
-    .createTextOutput('Torneo de básquetbol Franja Libre · registro listo (equipos y árbitros)')
+    .createTextOutput('Torneo de voleibol Franja Libre · registro listo (equipos y árbitros)')
     .setMimeType(ContentService.MimeType.TEXT);
 }
 
@@ -140,7 +140,7 @@ function avisarEquipo(d, gente) {
   }).join('\n');
 
   var cuerpo =
-    'Nuevo equipo en el torneo de básquetbol mixto de la Franja Libre.\n\n' +
+    'Nuevo equipo en el torneo de voleibol mixto de la Franja Libre.\n\n' +
     'EQUIPO: ' + (d.equipo || '') + '\n' +
     'Color: ' + (d.color || '—') + '\n' +
     'Capitanea: ' + (d.capitan || '') + '\n' +
@@ -151,7 +151,7 @@ function avisarEquipo(d, gente) {
 
   MailApp.sendEmail({
     to: CORREO_ORGANIZA,
-    subject: 'Torneo de básquetbol Franja Libre · nuevo equipo: ' + (d.equipo || 'sin nombre'),
+    subject: 'Torneo de voleibol Franja Libre · nuevo equipo: ' + (d.equipo || 'sin nombre'),
     body: cuerpo
   });
 }
@@ -169,9 +169,9 @@ function guardarArbitro(d) {
   if (CORREO_ORGANIZA) {
     MailApp.sendEmail({
       to: CORREO_ORGANIZA,
-      subject: 'Torneo de básquetbol Franja Libre · nueva persona para arbitrar: ' + (d.nombre || 'sin nombre'),
+      subject: 'Torneo de voleibol Franja Libre · nueva persona para arbitrar: ' + (d.nombre || 'sin nombre'),
       body:
-        'Alguien se anotó para arbitrar en el torneo de básquetbol de la Franja Libre.\n\n' +
+        'Alguien se anotó para arbitrar en el torneo de voleibol de la Franja Libre.\n\n' +
         'Nombre: ' + (d.nombre || '') + '\n' +
         'Adscripción: ' + (d.adscripcion || '') + '\n' +
         'WhatsApp: ' + (d.telefono || '') + '\n' +
