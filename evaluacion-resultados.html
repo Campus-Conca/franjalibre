@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Lo que dijo el campus · Balance de la Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="Resultados en vivo del balance de la Franja Libre 2026-2: qué se queda, qué cambia y qué se va en enero.">
+<meta property="og:title" content="Lo que dijo el campus · Balance de la Franja Libre">
+<meta property="og:description" content="Resultados en vivo: qué se queda, qué cambia y qué se va en la Franja de enero.">
+<meta property="og:image" content="https://franjalibre.campusconcauaq.workers.dev/evaluacion-og.png">
+<meta name="theme-color" content="#1A3A2A">
+<link rel="icon" type="image/png" href="icono-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="evaluacion-datos.js?v=1"></script>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+[hidden] { display:none !important; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4; --na:#EE7D1D; --na-l:#FFEBD6; --na-t:#A9500F;
+  --papel:#FFFDF7; --gris:#5E6D63; --tenue:#8A968D; --rejilla:#E6E1D2;
+  /* Colores de datos, validados (daltonismo y visión normal) contra #FFFDF7 */
+  --c-barra:#2E8555;
+  --c-igual:#1F7046; --c-cambios:#6DB283; --c-no:#C4532B;
+  --c-neutro:#DCD6C8; --c-calido:#D9822B; --c-frio:#11787C;
+  --c-p1:#1F5A3A; --c-p2:#3F8F5E; --c-p3:#96CDA3; --c-p4:#E07A1F;
+  --r1:#7FB98E; --r2:#559D6B; --r3:#337F4E; --r4:#1C5A36;
+}
+html { -webkit-text-size-adjust:100%; }
+body { font-family:'Instrument Sans', system-ui, sans-serif; background:var(--cs); color:var(--vp); min-height:100vh; overflow-x:hidden; }
+a { color:inherit; }
+button { font:inherit; color:inherit; cursor:pointer; }
+.fondo-puntos {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:radial-gradient(circle, rgba(238,125,29,.28) 1.3px, transparent 1.7px); background-size:11px 11px;
+  -webkit-mask-image:radial-gradient(ellipse 60% 32% at 100% 0%, #000, transparent 72%);
+          mask-image:radial-gradient(ellipse 60% 32% at 100% 0%, #000, transparent 72%);
+}
+#app { position:relative; z-index:1; max-width:980px; margin:0 auto; padding:0 16px 60px; }
+
+/* Papel picado */
+.tira { display:flex; justify-content:center; gap:6px; margin:0 -16px; padding:0 8px; position:relative; }
+.tira::before { content:''; position:absolute; left:0; right:0; top:2px; height:2.5px; background:var(--vp); opacity:.6; }
+.tira .bandera { flex:1; max-width:62px; height:40px; transform-origin:50% 0; }
+.tira .bandera:nth-child(odd) { animation:mecer 3.1s ease-in-out infinite; }
+.tira .bandera:nth-child(even) { animation:mecer 2.7s ease-in-out infinite reverse; }
+.bandera svg { display:block; width:100%; height:100%; }
+@keyframes mecer { 0%,100% { transform:rotate(-2.5deg); } 50% { transform:rotate(2.5deg); } }
+
+/* Encabezado */
+.cab { padding:16px 0 6px; }
+.volver { font-size:13.5px; font-weight:600; color:var(--vs); text-decoration:none; }
+.p-flag { font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--vs); margin:16px 0 4px; }
+.titulo { font-family:'Fraunces', serif; font-weight:900; font-size:clamp(42px, 11vw, 76px); line-height:.95; letter-spacing:-.02em; text-shadow:4px 4px 0 var(--na); }
+.titulo span { color:var(--na); text-shadow:4px 4px 0 var(--vp); }
+.lead { font-size:16px; line-height:1.55; color:#34463b; margin:14px 0 8px; max-width:62ch; }
+.lead a { font-weight:700; color:var(--vs); }
+.estado { font-size:13px; color:var(--gris); display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
+.punto-vivo { flex-shrink:0; margin-top:4px; width:9px; height:9px; border-radius:50%; background:var(--c-barra); box-shadow:0 0 0 0 rgba(46,133,85,.5); animation:latido 2s infinite; }
+@keyframes latido { 0% { box-shadow:0 0 0 0 rgba(46,133,85,.5); } 70% { box-shadow:0 0 0 9px rgba(46,133,85,0); } 100% { box-shadow:0 0 0 0 rgba(46,133,85,0); } }
+.quienes { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0 4px; }
+.quien { display:flex; align-items:center; gap:7px; background:var(--papel); border:2px solid var(--vp); border-radius:999px; padding:6px 12px 6px 9px; font-size:13.5px; font-weight:600; }
+.quien b { font-size:16px; }
+.ejemplo {
+  margin:14px 0 6px; border-radius:14px; padding:12px 16px; font-size:14px; line-height:1.45; font-weight:600;
+  background:repeating-linear-gradient(135deg, #FFE2C4 0 14px, #FFEBD6 14px 28px); border:2px solid var(--na-t); color:#5b2c07;
+}
+.contesta { display:inline-block; margin-top:10px; background:var(--vp); color:var(--cr); text-decoration:none; font-weight:700; font-size:14.5px; padding:10px 18px; border-radius:999px; box-shadow:3px 3px 0 var(--na); }
+
+/* Filtro y pestañas */
+.filtro { display:flex; gap:8px; overflow-x:auto; padding:14px 2px 6px; scrollbar-width:none; }
+.filtro::-webkit-scrollbar { display:none; }
+.filtro-t { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); align-self:center; flex-shrink:0; }
+.seg { flex-shrink:0; border:2px solid var(--vp); background:var(--papel); border-radius:999px; padding:8px 13px; font-size:14px; font-weight:600; white-space:nowrap; }
+.seg small { color:var(--gris); font-weight:600; margin-left:3px; }
+.seg[aria-pressed="true"] { background:var(--vp); color:var(--cr); box-shadow:3px 3px 0 var(--na); }
+.seg[aria-pressed="true"] small { color:var(--vc); }
+.kpis { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin:10px 0 6px; }
+@media (min-width:760px) { .kpis { grid-template-columns:repeat(4, 1fr); } }
+.kpi { background:var(--papel); border:2px solid var(--vp); border-radius:16px; padding:12px 14px; box-shadow:3px 3px 0 var(--vp); }
+.kpi-v { font-size:34px; font-weight:700; line-height:1.05; letter-spacing:-.01em; }
+.kpi-t { font-size:13px; color:var(--gris); line-height:1.3; margin-top:3px; }
+.pestanas { position:sticky; top:0; z-index:5; display:flex; gap:4px; overflow-x:auto; margin:14px -16px 0; padding:10px 16px 0;
+  background:linear-gradient(var(--cs) 85%, rgba(247,244,228,0)); border-bottom:2px solid var(--vp); scrollbar-width:none; }
+.pestanas::-webkit-scrollbar { display:none; }
+.pest { flex-shrink:0; border:2px solid var(--vp); border-bottom:0; border-radius:12px 12px 0 0; background:#EFEAD6; padding:9px 14px; font-size:14.5px; font-weight:700; position:relative; top:2px; }
+.pest[aria-selected="true"] { background:var(--papel); }
+.panel { padding-top:18px; outline:none; }
+.rejilla { display:grid; gap:16px; }
+@media (min-width:860px) { .rejilla.dos { grid-template-columns:1fr 1fr; align-items:start; } }
+
+/* Tarjetas de gráfica */
+.tarjeta { background:var(--papel); border:2px solid var(--vp); border-radius:18px; padding:18px 18px 14px; box-shadow:4px 4px 0 var(--vp); }
+.tarjeta.ancha { grid-column:1/-1; }
+.tarjeta h2 { font-family:'Fraunces', serif; font-weight:900; font-size:23px; line-height:1.12; letter-spacing:-.005em; }
+.tarjeta .sub { font-size:13.5px; color:var(--gris); margin:5px 0 14px; line-height:1.4; }
+.decide { margin-top:14px; font-size:13.5px; line-height:1.45; background:#F1EDDC; border-radius:10px; padding:9px 12px; color:#34463b; }
+.decide b { color:var(--vp); }
+.vacio { font-size:14px; color:var(--gris); padding:8px 0; line-height:1.45; }
+.oculto { background:var(--papel); border:2px dashed var(--vs); border-radius:16px; padding:20px; font-size:15px; line-height:1.5; }
+
+/* Barras ordenadas */
+.barras { display:grid; gap:10px; }
+.fila { display:grid; gap:4px; border-radius:8px; outline:none; }
+.fila:focus-visible { box-shadow:0 0 0 3px rgba(238,125,29,.5); }
+.f-et { display:flex; gap:7px; align-items:baseline; font-size:14px; font-weight:600; line-height:1.25; }
+.f-et .e { font-size:16px; }
+.f-barra { display:flex; align-items:center; gap:8px; min-height:18px; flex-wrap:nowrap; white-space:nowrap; }
+.f-barra i { display:block; flex-shrink:0; height:16px; border-radius:0 4px 4px 0; background:var(--c-barra); min-width:2px; transition:width .5s ease, filter .15s; }
+.fila:hover .f-barra i, .fila:focus .f-barra i { filter:brightness(1.1); }
+.f-barra b { font-size:14px; font-variant-numeric:tabular-nums; }
+.f-barra small { font-size:12.5px; color:var(--gris); font-variant-numeric:tabular-nums; }
+
+/* Barra segmentada */
+.segm { display:flex; gap:2px; height:28px; border-radius:4px; overflow:visible; margin:4px 0 10px; }
+.bloque { height:100%; border-radius:4px; display:flex; align-items:center; padding:0 7px; font-size:12.5px; font-weight:700; white-space:nowrap; min-width:3px; transition:flex-grow .5s ease, filter .15s; outline:none; }
+.bloque:hover, .bloque:focus-visible { filter:brightness(1.08); }
+.bloque:focus-visible { box-shadow:0 0 0 3px rgba(238,125,29,.6); }
+.leyenda { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:#34463b; }
+.leyenda span { display:inline-flex; align-items:center; gap:6px; }
+.leyenda i { width:12px; height:12px; border-radius:3px; display:inline-block; }
+.heroe { display:flex; align-items:baseline; gap:10px; margin-bottom:6px; }
+.heroe b { font-size:52px; font-weight:700; line-height:1; letter-spacing:-.02em; }
+.heroe span { font-size:15px; color:#34463b; font-weight:600; }
+
+/* Veredictos */
+.ver-fila { display:grid; grid-template-columns:minmax(118px, 34%) 1fr; gap:4px 12px; align-items:center; padding:9px 0; border-top:1px solid var(--rejilla); }
+.ver-fila:first-of-type { border-top:0; }
+.ver-nom { font-size:14px; font-weight:700; line-height:1.2; display:flex; gap:6px; align-items:baseline; }
+.ver-nom small { display:block; font-weight:500; color:var(--gris); font-size:12px; }
+.ver-barra { position:relative; height:20px; margin:0 46px 0 40px; }
+.ver-barra .cero { position:absolute; top:-4px; bottom:-4px; width:1px; background:var(--vp); opacity:.55; }
+.ver-barra .seg-v { position:absolute; top:0; height:20px; outline:none; transition:left .5s, width .5s, filter .15s; }
+.ver-barra .seg-v:hover, .ver-barra .seg-v:focus-visible { filter:brightness(1.1); }
+.ver-barra .seg-v:focus-visible { box-shadow:0 0 0 3px rgba(238,125,29,.6); }
+.ver-barra .no { background:var(--c-no); border-radius:4px 0 0 4px; }
+.ver-barra .cambios { background:var(--c-cambios); }
+.ver-barra .igual { background:var(--c-igual); border-radius:0 4px 4px 0; }
+.ver-barra .num { position:absolute; top:1px; font-size:12px; font-weight:700; white-space:nowrap; font-variant-numeric:tabular-nums; }
+.ver-det { grid-column:2; font-size:12.5px; color:var(--gris); line-height:1.35; }
+.ver-det b { color:#34463b; font-weight:600; }
+@media (max-width:560px) {
+  .ver-fila { grid-template-columns:1fr; }
+  .ver-det { grid-column:1; }
+}
+.ver-poco { font-size:12.5px; color:var(--tenue); }
+
+/* Nube de palabras */
+.nube { display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap:4px 14px; padding:8px 0 4px; }
+.nube span { font-family:'Fraunces', serif; font-weight:700; line-height:1.1; color:var(--vp); outline:none; }
+.nube span:nth-child(3n+2) { color:var(--na-t); }
+.nube span:nth-child(3n) { color:var(--vv); }
+
+/* Citas */
+.citas { display:grid; gap:12px; }
+@media (min-width:760px) { .citas { grid-template-columns:1fr 1fr; } }
+.cita { background:var(--papel); border:2px solid var(--vp); border-radius:16px 16px 16px 4px; padding:14px 16px; box-shadow:3px 3px 0 var(--vp); }
+.cita p { font-family:'Fraunces', serif; font-size:17px; line-height:1.4; }
+.cita p::before { content:'«'; color:var(--na); font-weight:900; }
+.cita p::after { content:'»'; color:var(--na); font-weight:900; }
+.cita small { display:block; margin-top:8px; font-size:12.5px; color:var(--gris); font-weight:600; }
+
+/* Tabla */
+details.tabla { margin-top:12px; font-size:13px; }
+details.tabla summary { cursor:pointer; color:var(--vs); font-weight:600; }
+details.tabla table { width:100%; border-collapse:collapse; margin-top:8px; font-variant-numeric:tabular-nums; }
+details.tabla th, details.tabla td { text-align:left; padding:5px 6px; border-bottom:1px solid var(--rejilla); }
+details.tabla td.n { text-align:right; }
+
+/* Tooltip */
+.tip { position:fixed; z-index:40; pointer-events:none; background:var(--vp); color:var(--cr); border-radius:10px; padding:8px 11px; font-size:13px; line-height:1.35; max-width:260px; box-shadow:0 8px 24px rgba(26,58,42,.25); }
+.tip b { color:#fff; font-size:15px; }
+
+.metodo { margin-top:36px; font-size:13px; color:var(--gris); line-height:1.6; border-top:2px solid var(--vp); padding-top:14px; }
+.metodo b { color:var(--vp); }
+
+/* Modo pantalla (proyector) */
+.qr-pantalla { display:none; }
+body.pantalla #app { max-width:1500px; padding:0 40px 40px; }
+body.pantalla .filtro, body.pantalla .volver, body.pantalla .lead, body.pantalla .metodo, body.pantalla details.tabla, body.pantalla .contesta { display:none; }
+body.pantalla .titulo { font-size:84px; }
+body.pantalla .tarjeta h2 { font-size:32px; }
+body.pantalla .tarjeta .sub, body.pantalla .decide { font-size:17px; }
+body.pantalla .f-et { font-size:19px; } body.pantalla .f-barra b { font-size:19px; } body.pantalla .f-barra i { height:22px; }
+body.pantalla .ver-nom { font-size:18px; } body.pantalla .ver-barra, body.pantalla .ver-barra .seg-v { height:24px; }
+body.pantalla .kpi-v { font-size:52px; } body.pantalla .kpi-t { font-size:16px; }
+body.pantalla .pest { font-size:18px; padding:10px 20px; }
+body.pantalla .nube span { margin:0 6px; }
+body.pantalla .qr-pantalla {
+  display:flex; position:fixed; right:24px; bottom:24px; z-index:30; gap:14px; align-items:center; background:var(--papel);
+  border:3px solid var(--vp); border-radius:20px; padding:14px 18px; box-shadow:6px 6px 0 var(--vp);
+}
+.qr-pantalla img { width:150px; height:150px; display:block; }
+.qr-pantalla b { font-family:'Fraunces', serif; font-size:30px; display:block; line-height:1.05; }
+.qr-pantalla span { font-size:15px; color:var(--gris); display:block; max-width:220px; margin-top:4px; }
+.qr-pantalla .cuantos { font-size:44px; font-weight:700; color:var(--na-t); }
+body.pantalla .panel { padding-bottom:200px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="fondo-puntos" aria-hidden="true"></div>
+<div id="app">
+  <div class="tira" id="tira" aria-hidden="true"></div>
+  <header class="cab">
+    <a class="volver" href="./" id="volver">← Franja Libre</a>
+    <div class="p-flag" id="flag">Franja Libre · Balance</div>
+    <h1 class="titulo">Lo que dijo <span>el campus</span></h1>
+    <p class="lead">Resultados en vivo de <a href="evaluacion.html" id="a-encuesta">«¿Qué se queda?»</a>, el balance que estudiantes, docentes y administrativos hacen de la Franja. Sirven para decidir cómo será la de <span id="proximo"></span>.</p>
+    <p class="estado" id="estado" aria-live="polite">Cargando…</p>
+    <div class="quienes" id="quienes" aria-label="Quién respondió"></div>
+    <div id="ejemplo" class="ejemplo" hidden></div>
+  </header>
+  <nav class="filtro" id="filtro" aria-label="Ver los resultados de"></nav>
+  <section class="kpis" id="kpis" aria-label="Cifras clave"></section>
+  <nav class="pestanas" id="pestanas" role="tablist" aria-label="Secciones"></nav>
+  <main class="panel" id="panel" role="tabpanel" tabindex="-1"></main>
+  <footer class="metodo" id="metodo"></footer>
+</div>
+<div class="qr-pantalla" aria-hidden="true">
+  <img src="evaluacion-qr.svg" alt="">
+  <div><b>¿Ya dijiste qué se queda?</b><span>Escanea y responde en cinco minutos. Van <span class="cuantos" id="qr-cuantos" style="display:inline;font-size:inherit;color:var(--na-t);font-weight:700">0</span> respuestas.</span></div>
+</div>
+<div class="tip" id="tip" role="tooltip" hidden></div>
+
+<script>
+(function () {
+'use strict';
+var D = window.EVAL;
+var P = new URLSearchParams(location.search);
+var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+var API = (LOCAL && P.get('api')) || D.scriptUrl || '';
+var EJEMPLO = P.has('ejemplo') || !API;
+var PANTALLA = P.has('pantalla');
+var MIN = D.minimoGrupo || 5;
+var DATOS = null, SEG = 'todos', TAB = 'panorama';
+var COLORES = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A'];
+
+var TABS = [
+  { id:'panorama', t:'Panorama' }, { id:'actividades', t:'Actividades' }, { id:'porque', t:'¿Por qué no?' },
+  { id:'enero', t:'Enero' }, { id:'grupos', t:'Por grupo' }, { id:'voces', t:'Voces' }
+];
+var GRUPO_SEG = { prepa:'estudiante', lic:'estudiante', docentes:'docente', admin:'admin' };
+var CITA_SEG = { prepa:['Estudiante de prepa'], lic:['Estudiante de PAS', 'Estudiante de Agroindustrial'], docentes:['Docente'], admin:['Administrativo'] };
+var TODOS = {
+  'frenos:choque':'Tenía clase o trabajo, o no podía dejar su puesto',
+  'canal:whatsapp':'El WhatsApp de su grupo', 'canal:clase':'Que se lo digan en clase o en junta',
+  'sumarme:cuenta':'Que cuente o se reconozca (o tener permiso)'
+};
+var MARTES = {
+  taller:'En un taller', dando:'Dando un taller', comer:'Comiendo o descansando', tarea:'Haciendo tarea o estudiando',
+  amigos:'Con sus amigos, platicando', clase:'En clase o con algún maestro', fuera:'Fuera del campus',
+  trabajo:'Trabajando: planear, calificar, papeles', atender:'Atendiendo estudiantes', junta:'En junta o comisión',
+  puesto:'En su puesto, atendiendo', apoyo:'Apoyando algún evento de la Franja'
+};
+var MARTES_E = {};
+['estudiante', 'docente', 'admin'].forEach(function (g) { D.op.martes[g].forEach(function (o) { MARTES_E[o.id] = o.e; }); });
+
+/* ---------------- ayudas ---------------- */
+function $(s) { return document.querySelector(s); }
+function h(tag, props, hijos) {
+  var e = document.createElement(tag);
+  if (props) Object.keys(props).forEach(function (k) {
+    var v = props[k];
+    if (v == null || v === false) return;
+    if (k === 'class') e.className = v;
+    else if (k === 'text') e.textContent = v;
+    else if (k === 'style') e.setAttribute('style', v);
+    else if (k.slice(0, 2) === 'on') e.addEventListener(k.slice(2), v);
+    else e.setAttribute(k, v === true ? '' : v);
+  });
+  (hijos || []).forEach(function (c) { if (c == null || c === false) return; e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+  return e;
+}
+function pct(n, base) { return base ? Math.round(100 * n / base) : 0; }
+function pctS(n, base) { return base >= MIN ? pct(n, base) + '%' : '—'; }
+function suma(o) { return Object.keys(o || {}).reduce(function (s, k) { return s + (o[k] || 0); }, 0); }
+function etq(lista, id, clave) {
+  var o = lista.filter(function (x) { return x.id === id; })[0];
+  if (!o) return id;
+  if (typeof o.t === 'string') return o.t;
+  var g = GRUPO_SEG[SEG];
+  return g ? o.t[g] : (TODOS[clave + ':' + id] || o.t.estudiante);
+}
+function emo(lista, id) { var o = lista.filter(function (x) { return x.id === id; })[0]; return o && o.e ? o.e : ''; }
+function seg() { return DATOS && DATOS.seg ? DATOS.seg[SEG] : null; }
+function normal(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zñ0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+function nombreAct(id) {
+  var t = D.talleres.filter(function (x) { return x.id === id; })[0];
+  if (t) {
+    var dup = D.talleres.filter(function (x) { return x.t === t.t; }).length > 1;
+    return { n:t.t + (dup ? ' · ' + t.dia.toLowerCase() : ''), e:t.e, tipo:'taller' };
+  }
+  var e = D.eventos.filter(function (x) { return x.id === id; })[0];
+  return e ? { n:e.t, e:e.e, tipo:'evento' } : { n:id, e:'', tipo:'' };
+}
+function bandera(color) {
+  return '<svg viewBox="0 0 60 44"><path d="M2 2H58V34L54.5 40L51 34L47.5 40L44 34L40.5 40L37 34L33.5 40L30 34L26.5 40L23 34L19.5 40L16 34L12.5 40L9 34L5.5 40L2 34Z" fill="' + color + '"/>' +
+    '<g fill="#F7F4E4"><circle cx="30" cy="17" r="5"/><circle cx="30" cy="8.5" r="2.3"/><circle cx="30" cy="25.5" r="2.3"/><circle cx="21.5" cy="17" r="2.3"/><circle cx="38.5" cy="17" r="2.3"/>' +
+    '<path d="M10 8l3 4-3 4-3-4zM50 8l3 4-3 4-3-4zM10 22l3 4-3 4-3-4zM50 22l3 4-3 4-3-4z"/></g></svg>';
+}
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+function dia(iso) { var d = new Date(Date.parse(iso) - 6 * 3600e3); return d.getUTCDate() + ' de ' + MESES[d.getUTCMonth()]; }
+function haceCuanto(iso) {
+  var m = Math.round((Date.now() - Date.parse(iso)) / 60000);
+  if (!isFinite(m)) return '';
+  if (m < 1) return 'hace un momento';
+  if (m < 60) return 'hace ' + m + ' min';
+  var hr = Math.round(m / 60);
+  return hr < 24 ? 'hace ' + hr + (hr === 1 ? ' hora' : ' horas') : 'el ' + dia(iso);
+}
+
+/* ---------------- tooltip ---------------- */
+var tip = $('#tip');
+function conTip(el, texto) {
+  el.setAttribute('aria-label', texto.replace(/\n/g, '. '));
+  function mostrar(x, y) {
+    tip.innerHTML = '';
+    texto.split('\n').forEach(function (linea, i) { tip.appendChild(i === 0 ? h('b', { text:linea }) : h('div', { text:linea })); });
+    tip.hidden = false;
+    var r = tip.getBoundingClientRect();
+    var px = Math.min(window.innerWidth - r.width - 8, Math.max(8, x + 14));
+    var py = y - r.height - 12; if (py < 8) py = y + 18;
+    tip.style.left = px + 'px'; tip.style.top = py + 'px';
+  }
+  el.addEventListener('pointermove', function (ev) { mostrar(ev.clientX, ev.clientY); });
+  el.addEventListener('pointerleave', function () { tip.hidden = true; });
+  el.addEventListener('focus', function () { var r = el.getBoundingClientRect(); mostrar(r.left + r.width / 2, r.top); });
+  el.addEventListener('blur', function () { tip.hidden = true; });
+  return el;
+}
+
+/* ---------------- piezas de gráfica ---------------- */
+function tarjeta(titulo, sub, cuerpo, decide, tabla, clase) {
+  return h('article', { class:'tarjeta' + (clase ? ' ' + clase : '') }, [
+    h('h2', { text:titulo }), sub ? h('p', { class:'sub', text:sub }) : null,
+    cuerpo, decide ? h('p', { class:'decide' }, [h('b', { text:'Para decidir: ' }), decide]) : null, tabla || null
+  ]);
+}
+function tablaDe(cab, filas) {
+  return h('details', { class:'tabla' }, [h('summary', { text:'Ver como tabla' }), h('table', null, [
+    h('thead', null, [h('tr', null, cab.map(function (c, i) { return h('th', { text:c, class:i ? 'n' : null }); }))]),
+    h('tbody', null, filas.map(function (f) { return h('tr', null, f.map(function (c, i) { return h('td', { text:String(c), class:i ? 'n' : null }); })); }))
+  ])]);
+}
+function vacio(t) { return h('p', { class:'vacio', text:t }); }
+function poquitas(n) { return 'Solo ' + (n === 1 ? 'una persona contestó' : n + ' personas contestaron') + ' esto. Se muestra a partir de ' + MIN + ', para que nadie quede expuesto.'; }
+
+/** Barras horizontales ordenadas, un solo tono. items: [{e, t, n}] ; base: total para el % */
+function barras(items, base, opts) {
+  opts = opts || {};
+  var lista = items.filter(function (x) { return x.n > 0 || opts.todos; });
+  if (!opts.fijo) lista.sort(function (a, b) { return b.n - a.n; });
+  if (opts.max) lista = lista.slice(0, opts.max);
+  if (!lista.length || !base) return { el:vacio(opts.vacio || 'Todavía no hay respuestas para esto.'), tabla:null };
+  if (!opts.soloN && base < MIN) return { el:vacio(poquitas(base)), tabla:null };
+  var maxP = Math.max.apply(null, lista.map(function (x) { return x.n / base; })) || 1;
+  var cont = h('div', { class:'barras' }, lista.map(function (x, i) {
+    var p = pct(x.n, base), w = Math.max(0.6, (x.n / base) / maxP * 72);
+    var color = opts.rampa ? opts.rampa[Math.min(opts.rampa.length - 1, i)] : 'var(--c-barra)';
+    var fila = h('div', { class:'fila', tabindex:'0' }, [
+      h('div', { class:'f-et' }, [x.e ? h('span', { class:'e', 'aria-hidden':'true', text:x.e }) : null, h('span', { text:x.t })]),
+      h('div', { class:'f-barra' }, [h('i', { style:'width:' + w.toFixed(1) + '%;background:' + color }), h('b', { text:opts.soloN ? String(x.n) : p + '%' }),
+        opts.soloN ? h('small', { text:x.n === 1 ? 'persona' : 'personas' }) : h('small', { text:'· ' + x.n })])
+    ]);
+    return conTip(fila, (opts.soloN ? x.n + (x.n === 1 ? ' persona' : ' personas') : p + '%') + '\n' + x.t + (opts.soloN ? '' : '\n' + x.n + ' de ' + base));
+  }));
+  var tabla = tablaDe(['Respuesta', 'Personas', opts.soloN ? '' : '%'].filter(Boolean),
+    lista.map(function (x) { return opts.soloN ? [x.t, x.n] : [x.t, x.n, pct(x.n, base) + '%']; }));
+  return { el:cont, tabla:tabla };
+}
+
+/** Barra segmentada de 28 px: un todo partido. partes: [{t, n, color, tinta}] */
+function segmentada(partes, opts) {
+  opts = opts || {};
+  var total = partes.reduce(function (s, x) { return s + x.n; }, 0);
+  if (!total) return { el:vacio('Todavía no hay respuestas para esto.'), tabla:null };
+  if (total < MIN) return { el:vacio(poquitas(total)), tabla:null };
+  var barra = h('div', { class:'segm', role:'img', 'aria-label':(opts.nombre || '') + ': ' + partes.map(function (x) { return x.t + ' ' + pct(x.n, total) + '%'; }).join(', ') },
+    partes.filter(function (x) { return x.n > 0; }).map(function (x) {
+      var p = pct(x.n, total);
+      var b = h('div', { class:'bloque', tabindex:'0', style:'flex:' + x.n + ' 1 0;background:' + x.color + ';color:' + (x.tinta || '#fff') }, [p >= 9 ? p + '%' : '']);
+      return conTip(b, p + '%\n' + x.t + '\n' + x.n + ' de ' + total);
+    }));
+  var leyenda = h('div', { class:'leyenda' }, partes.map(function (x) {
+    return h('span', null, [h('i', { style:'background:' + x.color }), x.t]);
+  }));
+  var tabla = tablaDe(['Respuesta', 'Personas', '%'], partes.map(function (x) { return [x.t, x.n, pct(x.n, total) + '%']; }));
+  return { el:h('div', null, [barra, leyenda]), tabla:tabla, total:total };
+}
+
+/** Veredictos: barra divergente con el cero común. filas: [{id, n, ver:{igual,cambios,no}, ...}] */
+function veredictos(filas, tipo) {
+  if (!filas.length) return { el:vacio('Nadie ha evaluado todavía ' + (tipo === 'taller' ? 'un taller.' : 'un evento.')), tabla:null };
+  var datos = filas.map(function (f) {
+    var v = f.ver || {}, tot = (v.igual || 0) + (v.cambios || 0) + (v.no || 0);
+    return { f:f, tot:tot, igual:pct(v.igual || 0, tot), cambios:pct(v.cambios || 0, tot), no:pct(v.no || 0, tot) };
+  });
+  var conDatos = datos.filter(function (d) { return d.tot >= MIN; });
+  conDatos.sort(function (a, b) { return (b.igual + b.cambios) - (a.igual + a.cambios) || b.igual - a.igual; });
+  var pocos = datos.filter(function (d) { return d.tot < MIN; }).sort(function (a, b) { return b.tot - a.tot; });
+  var maxNo = Math.max.apply(null, [12].concat(conDatos.map(function (d) { return d.no; })));
+  var maxSi = 100;
+  var ancho = maxNo + maxSi;
+  var x0 = maxNo / ancho * 100;
+  var cambiosLista = tipo === 'taller' ? D.op.cambiosTaller : D.op.cambiosEvento;
+  var cont = h('div', null, conDatos.concat(pocos).map(function (d) {
+    var a = nombreAct(d.f.id);
+    var nom = h('div', { class:'ver-nom' }, [h('span', { 'aria-hidden':'true', text:a.e }), h('span', null, [a.n, h('small', { text:d.tot + (d.tot === 1 ? ' persona' : ' personas') })])]);
+    if (d.tot < MIN) {
+      return h('div', { class:'ver-fila' }, [nom, h('div', { class:'ver-poco', text:'Pocas respuestas: se muestra a partir de ' + MIN + '.' })]);
+    }
+    var barra = h('div', { class:'ver-barra' }, [h('div', { class:'cero', style:'left:' + x0 + '%' })]);
+    var sNo = d.no / ancho * 100, sCa = d.cambios / ancho * 100, sIg = d.igual / ancho * 100;
+    if (d.no) barra.appendChild(conTip(h('div', { class:'seg-v no', tabindex:'0', style:'left:' + (x0 - sNo) + '%;width:' + sNo + '%' }), d.no + '% · Que ya no siga\n' + a.n + '\n' + (d.f.ver.no || 0) + ' de ' + d.tot));
+    if (d.cambios) barra.appendChild(conTip(h('div', { class:'seg-v cambios', tabindex:'0', style:'left:' + x0 + '%;width:' + sCa + '%;' + (d.igual ? '' : 'border-radius:0 4px 4px 0') }), d.cambios + '% · Que siga, con cambios\n' + a.n + '\n' + (d.f.ver.cambios || 0) + ' de ' + d.tot));
+    if (d.igual) barra.appendChild(conTip(h('div', { class:'seg-v igual', tabindex:'0', style:'left:calc(' + (x0 + sCa) + '% + ' + (d.cambios ? 2 : 0) + 'px);width:calc(' + sIg + '% - ' + (d.cambios ? 2 : 0) + 'px)' }), d.igual + '% · Que siga igual\n' + a.n + '\n' + (d.f.ver.igual || 0) + ' de ' + d.tot));
+    var queda = d.igual + d.cambios;
+    barra.appendChild(h('span', { class:'num', style:'left:calc(' + (x0 + (sCa + sIg)) + '% + 6px)', text:queda + '%' }));
+    if (d.no >= 1) barra.appendChild(h('span', { class:'num', style:'right:calc(' + (100 - x0 + sNo) + '% + 6px);color:var(--c-no)', text:d.no + '%' }));
+    var det = [];
+    var topC = Object.keys(d.f.cambios || {}).sort(function (x, y) { return d.f.cambios[y] - d.f.cambios[x]; }).filter(function (k) { return k !== 'otra'; }).slice(0, 2);
+    if (topC.length) det.push(h('span', null, [h('b', { text:'Piden cambiar: ' }), topC.map(function (k) { return etq(cambiosLista, k).toLowerCase(); }).join(', ')]));
+    if (tipo === 'taller' && d.f.asist) {
+      var at = suma(d.f.asist), dej = (d.f.asist.deje || 0) + (d.f.asist.nunca || 0);
+      if (at && dej) det.push(h('span', null, [(det.length ? ' · ' : ''), h('b', { text:'Lo dejó o nunca fue: ' }), pct(dej, at) + '%']));
+    }
+    return h('div', { class:'ver-fila' }, [nom, barra].concat(det.length ? [h('div', { class:'ver-det' }, det)] : []));
+  }));
+  var leyenda = h('div', { class:'leyenda', style:'margin-top:12px' }, [
+    h('span', null, [h('i', { style:'background:var(--c-no)' }), 'Que ya no siga']),
+    h('span', null, [h('i', { style:'background:var(--c-cambios)' }), 'Que siga, con cambios']),
+    h('span', null, [h('i', { style:'background:var(--c-igual)' }), 'Que siga igual'])
+  ]);
+  var tabla = tablaDe(['Actividad', 'Personas', 'Igual', 'Con cambios', 'Ya no'], datos.map(function (d) {
+    return [nombreAct(d.f.id).n, d.tot, d.igual + '%', d.cambios + '%', d.no + '%'];
+  }));
+  return { el:h('div', null, [cont, leyenda]), tabla:tabla };
+}
+
+function nube(palabras) {
+  if (!palabras || !palabras.length) return vacio('Las palabras aparecen cuando al menos dos personas eligen la misma.');
+  var max = palabras[0].n, min = palabras[palabras.length - 1].n;
+  return h('div', { class:'nube' }, palabras.slice(0, 40).map(function (p) {
+    var f = max === min ? 1 : (Math.sqrt(p.n) - Math.sqrt(min)) / (Math.sqrt(max) - Math.sqrt(min));
+    var tam = (PANTALLA ? 22 : 15) + f * (PANTALLA ? 54 : 34);
+    return conTip(h('span', { tabindex:'0', style:'font-size:' + tam.toFixed(0) + 'px', text:p.t }), p.t + '\n' + p.n + (p.n === 1 ? ' persona' : ' personas'));
+  }));
+}
+
+/* ---------------- secciones ---------------- */
+function itemsDe(lista, conteo, clave) {
+  return lista.map(function (o) { return { id:o.id, e:o.e, t:etq(lista, o.id, clave), n:(conteo || {})[o.id] || 0 }; });
+}
+
+function panorama(a) {
+  var r = h('div', { class:'rejilla dos' });
+  // ¿Quién se sumó?
+  var p = a.part || {};
+  var s = segmentada([
+    { t:'Dio un taller', n:p.da || 0, color:'var(--c-p1)' },
+    { t:'Fue a talleres', n:p.talleres || 0, color:'var(--c-p2)' },
+    { t:'Solo a eventos', n:p.eventos || 0, color:'var(--c-p3)', tinta:'#1A3A2A' },
+    { t:'No se sumó a nada', n:p.nada || 0, color:'var(--c-p4)', tinta:'#1A3A2A' }
+  ], { nombre:'Quién se sumó' });
+  var hero = h('div', { class:'heroe' }, [h('b', { text:pct(p.nada || 0, a.n) + '%' }), h('span', { text:'no se sumó a nada este semestre' })]);
+  r.appendChild(tarjeta('¿Quién se sumó?', 'De ' + a.n + ' respuestas, según lo que cada quien selló en su pasaporte.', h('div', null, [hero, s.el]),
+    'a quién hay que ir a buscar en enero. La pestaña «¿Por qué no?» dice qué los frenó.', s.tabla));
+  // Si ya no hubiera Franja
+  var sin = a.sin || {}, bs = a.base.sin || 0;
+  var s2 = segmentada([
+    { t:'Mejor sin ella', n:sin.mejor || 0, color:'var(--c-calido)', tinta:'#1A3A2A' },
+    { t:'Me daría igual', n:sin.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
+    { t:'Un poco', n:sin.poco || 0, color:'var(--c-cambios)', tinta:'#1A3A2A' },
+    { t:'La extrañaría mucho', n:sin.mucho || 0, color:'var(--c-igual)' }
+  ], { nombre:'Si ya no hubiera Franja' });
+  r.appendChild(tarjeta('Si en enero ya no hubiera Franja…', 'La pregunta para saber si vale de verdad, sin aplausos.',
+    h('div', null, [h('div', { class:'heroe' }, [h('b', { text:pctS(sin.mucho || 0, bs) }), h('span', { text:'la extrañaría mucho' })]), s2.el]),
+    'qué tan en serio defenderla ante la institución, y para quién vale.', s2.tabla));
+  // Qué le dejó
+  var b1 = barras(itemsDe(D.op.dejo, a.dejo), a.base.dejo, { vacio:'Todavía nadie que haya participado contestó esto.' });
+  r.appendChild(tarjeta('¿Qué les dejó?', 'Hasta dos opciones por persona, solo quienes participaron (' + (a.base.dejo || 0) + ').', b1.el,
+    'qué no se puede perder al rediseñar.', b1.tabla));
+  // Gente nueva
+  var g = a.gente || {}, bg = a.base.gente || 0;
+  var b2 = barras(D.op.gente.map(function (o) { return { e:'', t:o.t, n:g[o.id] || 0 }; }), bg, { fijo:true, todos:true, rampa:['var(--r1)', 'var(--r2)', 'var(--r3)', 'var(--r4)'] });
+  var conocio = (g['3'] || 0) + (g['6'] || 0);
+  r.appendChild(tarjeta('¿A cuántas personas nuevas conocieron?', 'De otro grupo, programa o rol. Que el campus se mezcle era el objetivo número uno.',
+    h('div', null, [h('div', { class:'heroe' }, [h('b', { text:pctS(conocio, bg) }), h('span', { text:'conoció a tres o más' })]), b2.el]),
+    'si la Franja de verdad junta a la gente o cada quien va con los suyos.', b2.tabla));
+  // Martes 12:10
+  var m = a.martes || {}, bm = a.base.martes || 0;
+  var b3 = barras(Object.keys(MARTES).map(function (k) { return { id:k, e:MARTES_E[k] || '', t:MARTES[k], n:m[k] || 0 }; }), bm);
+  r.appendChild(tarjeta('Es martes, 12:10. ¿Dónde están?', 'Lo que la gente hace casi siempre en el horario de la Franja.', b3.el,
+    'si el horario está libre de verdad: «en clase» y «en su puesto» son horas que la Franja no alcanzó.', b3.tabla, 'ancha'));
+  return r;
+}
+
+function actividades(a) {
+  var r = h('div', { class:'rejilla' });
+  var act = a.act || {};
+  var talleres = D.talleres.filter(function (t) { return act[t.id]; }).map(function (t) { return Object.assign({ id:t.id }, act[t.id]); });
+  var eventos = D.eventos.filter(function (e) { return act[e.id]; }).map(function (e) { return Object.assign({ id:e.id }, act[e.id]); });
+  // los que se apuntaron pero nunca fueron no tienen veredicto
+  var vt = veredictos(talleres.filter(function (t) { return suma(t.ver) > 0 || (t.asist && t.asist.nunca); }), 'taller');
+  r.appendChild(tarjeta('Talleres permanentes: ¿qué hacemos en enero?', 'Cada barra suma lo que dijeron quienes se apuntaron. A la derecha del cero, «que siga»; a la izquierda, «que ya no siga». Ordenados de más a menos apoyo.',
+    vt.el, 'qué talleres se repiten igual, cuáles se ajustan (y en qué) y cuáles se cambian por otros.', vt.tabla));
+  var ve = veredictos(eventos.filter(function (e) { return suma(e.ver) > 0; }), 'evento');
+  r.appendChild(tarjeta('Eventos del semestre: ¿qué hacemos en enero?', 'Solo cuenta quien fue a cada evento.',
+    ve.el, 'qué eventos se repiten en el calendario de enero–junio y cuáles hay que repensar.', ve.tabla));
+  return r;
+}
+
+function porQueNo(a) {
+  var r = h('div', { class:'rejilla dos' });
+  var b1 = barras(itemsDe(D.op.frenos, a.frenos, 'frenos'), a.base.frenos, { vacio:'Nadie de este grupo dejó de entrar a un taller… o todavía no contestan.' });
+  r.appendChild(tarjeta('¿Qué los frenó?', 'Quienes no entraron a ningún taller (' + (a.base.frenos || 0) + '). Hasta tres razones por persona.', b1.el,
+    'qué arreglar primero para que en enero se sumen los que no vinieron.', b1.tabla));
+  var b2 = barras(itemsDe(D.op.sumarme, a.sumarme, 'sumarme'), a.base.sumarme);
+  r.appendChild(tarjeta('¿Qué haría que se sumen?', 'Las mismas personas, hasta dos opciones.', b2.el,
+    'qué cambiar en el diseño: oferta, horario, aviso o reconocimiento.', b2.tabla));
+  var b3 = barras(itemsDe(D.op.canal, a.canal, 'canal'), a.base.canal, { vacio:'Nadie dijo que no se enteró.' });
+  r.appendChild(tarjeta('¿Por dónde se habrían enterado?', 'Solo quienes dijeron que no se enteraron a tiempo (' + (a.base.canal || 0) + ').', b3.el,
+    'por dónde mandar la convocatoria de enero.', b3.tabla));
+  // Abandono: suma de todos los talleres
+  var asist = { siempre:0, aveces:0, deje:0, nunca:0 }, motivos = {};
+  Object.keys(a.act || {}).forEach(function (id) {
+    var o = a.act[id];
+    Object.keys(o.asist || {}).forEach(function (k) { asist[k] = (asist[k] || 0) + o.asist[k]; });
+    Object.keys(o.motivos || {}).forEach(function (k) { motivos[k] = (motivos[k] || 0) + o.motivos[k]; });
+  });
+  var s = segmentada([
+    { t:'Casi siempre', n:asist.siempre, color:'var(--r4)' }, { t:'A veces', n:asist.aveces, color:'var(--r3)' },
+    { t:'Lo dejó a medias', n:asist.deje, color:'var(--r2)' }, { t:'Nunca fue', n:asist.nunca, color:'var(--r1)', tinta:'#1A3A2A' }
+  ], { nombre:'Asistencia a los talleres' });
+  var bajas = asist.deje + asist.nunca;
+  var b4 = barras(itemsDe(D.op.motivos, motivos), bajas, { vacio:'Nadie ha dicho que dejó un taller.' });
+  r.appendChild(tarjeta('Los que se apuntaron y se fueron', 'Asistencia en ' + suma(asist) + ' inscripciones a talleres, y por qué se fueron quienes lo dejaron o nunca llegaron (' + bajas + ').',
+    h('div', null, [s.el, h('div', { style:'height:14px' }), b4.el]),
+    'qué cuidar para que un taller no se vacíe a medio semestre.', s.tabla));
+  return r;
+}
+
+function deseosDe(a) {
+  var cuenta = {};
+  D.op.deseo.forEach(function (o) { cuenta[o.t] = { e:o.e, t:o.t, n:(a.deseo || {})[o.id] || 0 }; });
+  (a.deseosEscritos || []).forEach(function (w) {
+    var igual = D.op.deseo.filter(function (o) { return normal(o.t) === normal(w.t); })[0];
+    var k = igual ? igual.t : w.t.charAt(0).toUpperCase() + w.t.slice(1);
+    if (!cuenta[k]) cuenta[k] = { e:'✏️', t:k, n:0 };
+    cuenta[k].n += w.n;
+  });
+  return Object.keys(cuenta).map(function (k) { return cuenta[k]; });
+}
+
+function enero(a) {
+  var r = h('div', { class:'rejilla dos' });
+  var mz = a.maiz || { total:0, suma:{} };
+  var b1 = barras(D.maiz.map(function (m) { return { e:m.e, t:m.t, n:mz.suma[m.id] || 0 }; }), mz.total, { todos:true });
+  r.appendChild(tarjeta('La milpa de enero', 'Cada persona repartió diez maíces donde quiere que crezca la Franja. Porcentaje de los ' + (mz.total || 0) + ' maíces sembrados por ' + (mz.personas || 0) + ' personas.',
+    b1.el, 'hacia dónde crece la oferta: qué tipo de talleres y eventos abrir, y cuánto espacio dejar libre.', b1.tabla));
+  var bal = a.balance || {};
+  var s = segmentada([
+    { t:'Menos eventos: que los talleres avancen', n:bal.talleres || 0, color:'var(--c-frio)' },
+    { t:'Así como estuvo', n:bal.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
+    { t:'Más eventos, aunque haya menos talleres', n:bal.eventos || 0, color:'var(--c-calido)', tinta:'#1A3A2A' }
+  ], { nombre:'Eventos o talleres' });
+  r.appendChild(tarjeta('¿Fiesta o constancia?', 'Los días de evento se suspenden los talleres. Esto prefieren para enero.', s.el,
+    'cuántos eventos caben en el semestre sin romper el ritmo de los talleres.', s.tabla));
+  var b2 = barras(itemsDe(D.op.torneo, a.torneo), a.base.torneo, { vacio:'Todavía nadie que haya sembrado en deporte elige.' });
+  r.appendChild(tarjeta('El torneo de enero', 'Solo quienes sembraron algún maíz en deporte (' + (a.base.torneo || 0) + ').', b2.el,
+    'de qué deporte se arma el torneo interno, antes de abrir el registro.', b2.tabla));
+  var des = deseosDe(a);
+  var b3 = barras(des, 1, { soloN:true, max:10, vacio:'Todavía no hay talleres pedidos.' });
+  r.appendChild(tarjeta('Los talleres que piden', 'Personas que lo pidieron. Lo escrito a mano aparece cuando lo repiten al menos dos.', b3.el,
+    'a quién buscar como tallerista para enero.', b3.tabla));
+  if (SEG === 'todos' && DATOS.voluntarios) {
+    r.appendChild(tarjeta('Se ofrecieron', null,
+      h('div', { class:'heroe' }, [h('b', { text:String(DATOS.voluntarios) }), h('span', { text:DATOS.voluntarios === 1 ? 'persona dijo que se anima a dar un taller u organizar algo en enero.' : 'personas dijeron que se animan a dar un taller u organizar algo en enero.' })]),
+      'con quién arrancar la lista de talleres. Sus nombres están en la pestaña Voluntarios de la hoja, aparte de las respuestas.'));
+  }
+  return r;
+}
+
+function grupos(a) {
+  var r = h('div', { class:'rejilla dos' });
+  var hay = false;
+  function poner(t) { r.appendChild(t); hay = true; }
+  if (SEG === 'todos' || SEG === 'prepa' || SEG === 'lic') {
+    if (a.base.porque) {
+      var b1 = barras(itemsDe(D.op.porque, a.porque), a.base.porque, { fijo:true, todos:true });
+      poner(tarjeta('Estudiantes: ¿por qué fueron?', 'Solo estudiantes que participaron (' + a.base.porque + ').', b1.el,
+        'si los puntos y créditos siguen siendo necesarios o la gente ya va por gusto.', b1.tabla));
+    }
+    if (a.base.choque) {
+      var ch = a.choque || {};
+      var s1 = segmentada([
+        { t:'Nunca', n:ch.nunca || 0, color:'var(--c-igual)' }, { t:'Una o dos veces', n:ch.pocas || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
+        { t:'Seguido', n:ch.seguido || 0, color:'var(--c-no)' }
+      ], { nombre:'Clase a la hora de la Franja' });
+      poner(tarjeta('Estudiantes: ¿les pusieron clase a la hora de la Franja?', 'Clase, examen o tarea en ese horario (' + a.base.choque + ' estudiantes).', s1.el,
+        'si hay que recordarle a las coordinaciones que ese horario no se toca.', s1.tabla));
+    }
+  }
+  if ((SEG === 'todos' || SEG === 'docentes') && a.base.suspension) {
+    var su = a.suspension || {};
+    var s2 = segmentada([
+      { t:'Al contrario, perdieron más', n:su.mas || 0, color:'var(--c-no)' }, { t:'No notaron diferencia', n:su.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
+      { t:'Sí, perdieron menos', n:su.menos || 0, color:'var(--c-igual)' }
+    ], { nombre:'Clases perdidas por eventos' });
+    poner(tarjeta('Docentes: ¿perdieron menos clases por eventos?', 'Uno de los motivos de la Franja era dejar de suspender clases (' + a.base.suspension + ' docentes).', s2.el,
+      'si la Franja cumple con no quitarle horas a las materias, y si se puede mostrar a la institución.', s2.tabla));
+  }
+  if ((SEG === 'todos' || SEG === 'docentes' || SEG === 'admin') && a.base.carga) {
+    var ca = a.carga || {};
+    var s3 = segmentada([
+      { t:'Nada', n:ca.nada || 0, color:'var(--r1)', tinta:'#1A3A2A' }, { t:'Poco', n:ca.poco || 0, color:'var(--r2)' },
+      { t:'Bastante', n:ca.bastante || 0, color:'var(--r3)' }, { t:'Demasiado', n:ca.demasiado || 0, color:'var(--r4)' }
+    ], { nombre:'Trabajo extra' });
+    var b2 = barras(itemsDe(D.op.cargaTipo, a.cargaTipo), a.base.cargaTipo, { vacio:'Nadie dijo que le cargaron bastante.' });
+    poner(tarjeta((SEG === 'admin' ? 'Administrativos' : SEG === 'docentes' ? 'Docentes' : 'Docentes y administrativos') + ': ¿trabajo extra?',
+      'Lo que no se ve también cuenta (' + a.base.carga + ' personas). Abajo, de qué tipo, entre quienes dijeron «bastante» o «demasiado».',
+      h('div', null, [s3.el, h('div', { style:'height:14px' }), b2.el]), 'cómo repartir la carga de los eventos: limpieza, vigilancia, montaje.', s3.tabla));
+  }
+  if ((SEG === 'todos' || SEG === 'admin') && a.base.salir) {
+    var b3 = barras(itemsDe(D.op.salir, a.salir), a.base.salir, { fijo:true, todos:true });
+    poner(tarjeta('Administrativos: ¿pudieron darse un rato?', 'La Franja también es para el personal (' + a.base.salir + ' administrativos).', b3.el,
+      'si hace falta un acuerdo con las jefaturas, o actividades pensadas para el personal.', b3.tabla));
+  }
+  if (a.base.talOtra) {
+    var to = a.talOtra || {};
+    var s4 = segmentada([
+      { t:'No', n:to.no || 0, color:'var(--c-no)' }, { t:'Sí, con cambios', n:to.cambios || 0, color:'var(--c-cambios)', tinta:'#1A3A2A' },
+      { t:'Sí, igual', n:to.igual || 0, color:'var(--c-igual)' }
+    ], { nombre:'Talleristas: lo darían otra vez' });
+    var b4 = barras(itemsDe(D.op.talFalto, a.talFalto), a.base.talFalto);
+    poner(tarjeta('Talleristas: ¿lo darían otra vez?', 'Quienes dieron un taller este semestre (' + a.base.talOtra + '), y lo que les hizo falta.',
+      h('div', null, [s4.el, h('div', { style:'height:14px' }), b4.el]), 'con cuántos talleristas se cuenta para enero y qué apoyo pedir.', s4.tabla));
+  }
+  if (!hay) r.appendChild(h('div', { class:'oculto', text:'Para este grupo todavía no hay preguntas propias con respuestas suficientes.' }));
+  return r;
+}
+
+function voces(a) {
+  var r = h('div', { class:'rejilla' });
+  r.appendChild(tarjeta('La Franja, en una palabra', 'Más grande, más gente la eligió. Aparece cuando la repiten al menos dos personas.', nube(a.palabras), null, null));
+  var citas = (DATOS.citas || []).filter(function (c) { return SEG === 'todos' || (CITA_SEG[SEG] || []).indexOf(c.g) >= 0; });
+  var cuerpo = citas.length ? h('div', { class:'citas' }, citas.map(function (c) { return h('div', { class:'cita' }, [h('p', { text:c.t }), h('small', { text:c.g })]); }))
+    : vacio('Las respuestas a esta pregunta se publican después de que la coordinación las lee.');
+  r.appendChild(tarjeta('«Si yo coordinara la Franja…»', 'Lo primero que cambiaría cada quien. Se publican después de leerlas; las demás también se toman en cuenta.', cuerpo,
+    'qué se corrige primero.', null));
+  return r;
+}
+
+/* ---------------- armar la página ---------------- */
+function encabezado() {
+  $('#tira').innerHTML = COLORES.concat(COLORES.slice(0, 3)).map(function (c) { return '<div class="bandera">' + bandera(c) + '</div>'; }).join('');
+  $('#flag').textContent = 'Franja Libre · Balance ' + D.semestre;
+  $('#proximo').textContent = D.proximo;
+  var abierta = Date.now() >= Date.parse(D.abre) && Date.now() <= Date.parse(D.cierra) && !!D.scriptUrl;
+  if (abierta) $('.cab').appendChild(h('a', { class:'contesta', href:'evaluacion.html', text:'¿Aún no respondes? Contesta en cinco minutos →' }));
+}
+
+function filtro() {
+  var f = $('#filtro'); f.innerHTML = '';
+  f.appendChild(h('span', { class:'filtro-t', text:'Ver' }));
+  D.segmentos.forEach(function (s) {
+    var n = DATOS && DATOS.seg && DATOS.seg[s.id] ? DATOS.seg[s.id].n : 0;
+    f.appendChild(h('button', { type:'button', class:'seg', 'aria-pressed':String(SEG === s.id), onclick:function () { SEG = s.id; pintar(); } },
+      [s.t, h('small', { text:String(n) })]));
+  });
+}
+
+function pestanas() {
+  var p = $('#pestanas'); p.innerHTML = '';
+  TABS.forEach(function (t) {
+    p.appendChild(h('button', { type:'button', role:'tab', class:'pest', id:'tab-' + t.id, 'aria-selected':String(TAB === t.id), 'aria-controls':'panel',
+      onclick:function () { TAB = t.id; pintar(); try { history.replaceState(null, '', location.pathname + location.search + '#' + t.id); } catch (e) {} } }, [t.t]));
+  });
+}
+
+function kpis(a) {
+  var k = $('#kpis'); k.innerHTML = '';
+  function tile(v, t) { k.appendChild(h('div', { class:'kpi' }, [h('div', { class:'kpi-v', text:v }), h('div', { class:'kpi-t', text:t })])); }
+  if (!a || a.oculto) { k.hidden = true; return; }
+  k.hidden = false;
+  var p = a.part || {};
+  tile(String(a.n), a.n === 1 ? 'respuesta' : 'respuestas');
+  tile(pct((p.da || 0) + (p.talleres || 0) + (p.eventos || 0), a.n) + '%', 'se sumó a algo este semestre');
+  tile(pctS((a.sin || {}).mucho || 0, a.base.sin), 'la extrañaría mucho');
+  var g = a.gente || {};
+  tile(pctS((g['1'] || 0) + (g['3'] || 0) + (g['6'] || 0), a.base.gente), 'conoció a alguien nuevo gracias a la Franja');
+}
+
+function quienes() {
+  var q = $('#quienes'); q.innerHTML = '';
+  if (!DATOS || !DATOS.total) return;
+  D.roles.forEach(function (r) {
+    var n = (DATOS.porRol || {})[r.id] || 0;
+    q.appendChild(h('span', { class:'quien', title:r.t }, [h('span', { 'aria-hidden':'true', text:r.e }), h('b', { text:String(n) }), r.corto]));
+  });
+}
+
+function estado() {
+  var e = $('#estado'); e.innerHTML = '';
+  if (!DATOS) { e.textContent = 'No se pudieron cargar los resultados. Se vuelve a intentar en un minuto.'; return; }
+  if (EJEMPLO) { e.textContent = 'Ejemplo inventado: ' + DATOS.total + ' respuestas de mentira.'; return; }
+  e.appendChild(h('span', { class:'punto-vivo', 'aria-hidden':'true' }));
+  var t = DATOS.total + (DATOS.total === 1 ? ' respuesta' : ' respuestas');
+  if (DATOS.desde) t += ' desde el ' + dia(DATOS.desde);
+  t += ' · actualizado ' + haceCuanto(DATOS.actualizado) + ' · se renueva solo';
+  e.appendChild(h('span', { text:t }));
+}
+
+function metodo() {
+  $('#metodo').innerHTML = '';
+  $('#metodo').appendChild(h('p', null, [h('b', { text:'Cómo se hizo. ' }),
+    'Respuestas anónimas de estudiantes de prepa y de las dos licenciaturas, docentes y administrativos del Campus Concá, del ' + dia(D.abre) + ' al ' + dia(D.cierra) + ' de 2026. ' +
+    'Cada teléfono cuenta una vez: si alguien vuelve a contestar, vale su última respuesta. Un grupo se desglosa cuando tiene al menos ' + MIN + ' respuestas, para que nadie quede expuesto. ' +
+    'Las palabras y los talleres escritos a mano aparecen cuando dos o más personas los repiten, y las citas se publican después de que la coordinación las lee. ' +
+    'Los porcentajes se calculan sobre quienes contestaron cada pregunta.']));
+}
+
+function pintar() {
+  filtro(); pestanas();
+  var panel = $('#panel'); panel.innerHTML = '';
+  tip.hidden = true;
+  if (!DATOS) { kpis(null); return; }
+  if (!DATOS.total) {
+    kpis(null);
+    panel.appendChild(h('div', { class:'oculto' }, ['Todavía no hay respuestas. El balance se abre el ' + dia(D.abre) + '; los resultados aparecen aquí solos en cuanto lleguen las primeras ' + MIN + '.']));
+    return;
+  }
+  var a = seg();
+  kpis(a);
+  if (!a || a.oculto) {
+    panel.appendChild(h('div', { class:'oculto' }, ['Este grupo lleva ' + (a ? a.n : 0) + (a && a.n === 1 ? ' respuesta' : ' respuestas') + '. Se desglosa cuando tenga al menos ' + MIN + ', para que nadie quede expuesto.']));
+    return;
+  }
+  var f = { panorama:panorama, actividades:actividades, porque:porQueNo, enero:enero, grupos:grupos, voces:voces }[TAB];
+  panel.appendChild(f(a));
+}
+
+function cargar() {
+  var url = EJEMPLO ? 'evaluacion-ejemplo.json' : API + (API.indexOf('?') >= 0 ? '&' : '?') + 'accion=resultados';
+  return fetch(url, { cache:'no-store' }).then(function (r) { return r.json(); }).then(function (d) {
+    if (!d || !d.ok) throw new Error('respuesta');
+    var igual = DATOS && JSON.stringify([DATOS.seg, DATOS.citas, DATOS.voluntarios]) === JSON.stringify([d.seg, d.citas, d.voluntarios]);
+    DATOS = d;
+    var q = $('#qr-cuantos'); if (q) q.textContent = String(d.total || 0);
+    estado();
+    if (!igual) { quienes(); pintar(); }   // si nada cambió, no se redibuja (no se cierran las tablas abiertas)
+  }).catch(function () { if (!DATOS) { estado(); pintar(); } });
+}
+
+/* ---------------- arranque ---------------- */
+encabezado(); metodo();
+if (location.hash) { var t0 = location.hash.slice(1); if (TABS.some(function (t) { return t.id === t0; })) TAB = t0; }
+if (P.get('grupo') && D.segmentos.some(function (s) { return s.id === P.get('grupo'); })) SEG = P.get('grupo');
+if (EJEMPLO) {
+  var av = $('#ejemplo'); av.hidden = false;
+  av.textContent = API ? 'Estás viendo un ejemplo inventado. Quita «?ejemplo» de la dirección para ver los resultados reales.'
+    : 'Ejemplo inventado: así se verán los resultados cuando la gente responda. Ninguna de estas cifras es real todavía.';
+}
+if (PANTALLA) document.body.classList.add('pantalla');
+window.addEventListener('hashchange', function () {
+  var t1 = location.hash.slice(1);
+  if (TABS.some(function (t) { return t.id === t1; }) && t1 !== TAB) { TAB = t1; pintar(); }
+});
+cargar();
+setInterval(function () { if (document.visibilityState === 'visible' && !EJEMPLO) cargar(); }, PANTALLA ? 30000 : 60000);
+if (PANTALLA) {
+  // En el proyector: cada pestaña baja despacio hasta el final y luego pasa a la siguiente.
+  var DURA = 18000, inicioTab = 0, desdeY = 0;
+  function mostrarSiguiente() {
+    var i = TABS.map(function (t) { return t.id; }).indexOf(TAB);
+    TAB = TABS[(i + 1) % TABS.length].id; SEG = 'todos'; pintar();
+    desdeY = $('#pestanas').getBoundingClientRect().top + window.scrollY - 8;
+    window.scrollTo(0, desdeY);
+    inicioTab = performance.now();
+  }
+  function rodar(t) {
+    if (!inicioTab) { inicioTab = t; desdeY = Math.max(0, $('#pestanas').getBoundingClientRect().top + window.scrollY - 8); window.scrollTo(0, desdeY); }
+    var trans = t - inicioTab;
+    var hasta = Math.max(desdeY, document.documentElement.scrollHeight - window.innerHeight);
+    var f = Math.min(1, Math.max(0, (trans - 3000) / (DURA - 6000)));   // 3 s quieto, baja, 3 s quieto
+    window.scrollTo(0, desdeY + (hasta - desdeY) * (f < .5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2));
+    if (trans >= DURA) mostrarSiguiente();
+    requestAnimationFrame(rodar);
+  }
+  requestAnimationFrame(rodar);
+}
+setInterval(estado, 60000);
+})();
+</script>
+</body>
+</html>

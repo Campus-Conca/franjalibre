@@ -1,0 +1,1700 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>¿Qué se queda? · Balance de la Franja Libre · Campus Concá UAQ</title>
+<meta name="description" content="Balance de la Franja Libre 2026-2. Cinco minutos y anónimo: decide qué sigue en enero, qué cambia y qué ya no.">
+<meta property="og:title" content="¿Qué se queda en la Franja Libre?">
+<meta property="og:description" content="Cinco minutos y anónimo: decide qué sigue en enero, qué cambia y qué ya no.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://franjalibre.campusconcauaq.workers.dev/evaluacion-og.png">
+<meta name="theme-color" content="#1A3A2A">
+<link rel="icon" type="image/png" href="icono-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="evaluacion-datos.js?v=1"></script>
+<style>
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+[hidden] { display:none !important; }
+:root {
+  --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
+  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
+  --na:#EE7D1D; --na-l:#FFEBD6; --na-t:#A9500F;
+  --rojo:#B23A26; --rojo-l:#F9E1DA; --verde-l:#E3F1E6;
+  --papel:#FFFDF7; --gris:#5E6D63;
+}
+html { -webkit-text-size-adjust:100%; }
+body {
+  font-family:'Instrument Sans', system-ui, sans-serif; background:var(--cs); color:var(--vp);
+  min-height:100vh; min-height:100dvh; overflow-x:hidden;
+}
+button { font:inherit; color:inherit; cursor:pointer; -webkit-tap-highlight-color:transparent; }
+a { color:inherit; }
+input, textarea { font:inherit; color:inherit; }
+
+/* Puntitos de semitono, como en los carteles */
+.fondo-puntos {
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:radial-gradient(circle, rgba(238,125,29,.30) 1.3px, transparent 1.7px);
+  background-size:11px 11px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 38% at 100% 0%, #000 0%, transparent 72%), radial-gradient(ellipse 60% 34% at 0% 100%, #000 0%, transparent 72%);
+          mask-image:radial-gradient(ellipse 70% 38% at 100% 0%, #000 0%, transparent 72%), radial-gradient(ellipse 60% 34% at 0% 100%, #000 0%, transparent 72%);
+}
+#app { position:relative; z-index:1; max-width:560px; margin:0 auto; min-height:100vh; min-height:100dvh; display:flex; flex-direction:column; padding:0 16px; }
+
+/* ---------- BARRA: regresar + papel picado de avance ---------- */
+.barra {
+  position:sticky; top:0; z-index:6; padding:10px 0 8px;
+  background:linear-gradient(var(--cs) 78%, rgba(247,244,228,0));
+  display:grid; grid-template-columns:40px 1fr; column-gap:10px; align-items:center;
+}
+.atras {
+  width:38px; height:38px; border-radius:50%; border:2px solid var(--vp); background:var(--papel);
+  font-size:19px; font-weight:700; line-height:1; display:grid; place-items:center;
+}
+.picado { position:relative; display:flex; gap:5px; padding-top:3px; }
+.picado .hilo { position:absolute; left:-3px; right:-3px; top:3px; height:2.5px; border-radius:3px; background:rgba(26,58,42,.25); overflow:hidden; }
+.picado .hilo i { position:absolute; inset:0 auto 0 0; width:0; background:var(--vp); transition:width .45s ease; }
+.bandera { flex:1; height:28px; transform-origin:50% 0; }
+.bandera svg { display:block; width:100%; height:100%; }
+.bandera.actual { animation:mecer 2.6s ease-in-out infinite; }
+@keyframes mecer { 0%,100% { transform:rotate(-2.5deg); } 50% { transform:rotate(2.5deg); } }
+.seccion { grid-column:2; display:flex; justify-content:space-between; gap:8px; margin-top:4px; font-size:11px; font-weight:700; letter-spacing:.11em; text-transform:uppercase; color:var(--vs); }
+.seccion span:last-child { color:var(--gris); letter-spacing:.04em; text-transform:none; font-weight:600; }
+
+/* ---------- PANTALLA ---------- */
+.pantalla { flex:1; padding:6px 0 130px; outline:none; }
+.pantalla.entra { animation:entra .34s cubic-bezier(.2,.8,.2,1) both; }
+.pantalla.entra.izq { animation-name:entraIzq; }
+@keyframes entra { from { opacity:0; transform:translateX(28px); } to { opacity:1; transform:none; } }
+@keyframes entraIzq { from { opacity:0; transform:translateX(-28px); } to { opacity:1; transform:none; } }
+
+/* Conejo guía con su globo */
+.guia { display:flex; align-items:flex-end; gap:8px; margin:4px 0 12px; min-height:70px; }
+.guia-cara { width:60px; height:72px; flex-shrink:0; }
+.guia-cara svg { width:100%; height:100%; overflow:visible; }
+.guia-cara.salta { animation:salta .45s ease; }
+@keyframes salta { 0%,100% { transform:none; } 40% { transform:translateY(-7px) rotate(-4deg); } }
+.globo {
+  position:relative; background:var(--papel); border:2px solid var(--vp); border-radius:16px;
+  padding:9px 13px; font-size:14px; line-height:1.42; font-weight:500; box-shadow:3px 3px 0 var(--vp);
+  margin-bottom:12px;
+}
+.globo::before {
+  content:''; position:absolute; left:-9px; bottom:10px; width:12px; height:12px; background:var(--papel);
+  border-left:2px solid var(--vp); border-bottom:2px solid var(--vp); transform:rotate(45deg);
+}
+
+.preg {
+  font-family:'Fraunces', serif; font-weight:900; font-size:clamp(25px, 7.2vw, 32px);
+  line-height:1.08; letter-spacing:-.01em; margin:2px 0 8px; text-wrap:balance;
+}
+.preg em { font-style:normal; color:var(--na-t); }
+.sub { font-size:14.5px; color:var(--gris); margin:-2px 0 16px; line-height:1.45; }
+
+/* Ficha chica de la actividad en turno */
+.ficha-act {
+  display:flex; align-items:center; gap:12px; background:var(--na-l); border:2px solid var(--na-t);
+  border-radius:14px; padding:10px 14px; margin:0 0 14px;
+}
+.ficha-act .e { font-size:30px; line-height:1; }
+.ficha-act b { display:block; font-size:16px; }
+.ficha-act small { display:block; font-size:12.5px; color:#7b5a3a; margin-top:1px; }
+
+/* Opciones de una sola respuesta */
+.ops { display:grid; gap:10px; }
+.op {
+  display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  background:var(--papel); border:2px solid var(--vp); border-radius:14px;
+  padding:11px 14px; min-height:56px; font-size:16px; font-weight:600; line-height:1.25;
+  box-shadow:4px 4px 0 var(--vp); transition:transform .1s, box-shadow .1s, background .15s, color .15s;
+}
+.op:active { transform:translate(2px,2px); box-shadow:2px 2px 0 var(--vp); }
+.op .e { font-size:24px; width:32px; text-align:center; flex-shrink:0; line-height:1; }
+.op .tx { flex:1; }
+.op .s { display:block; font-size:12.5px; font-weight:500; color:var(--gris); margin-top:2px; }
+.op.si { background:var(--vp); color:var(--cr); box-shadow:4px 4px 0 var(--na); }
+.op.si .s { color:var(--vc); }
+.op:disabled { opacity:.35; cursor:default; }
+/* Opciones de varias respuestas (lista con casilla) */
+.op.multi { min-height:50px; padding:9px 12px; font-size:15px; box-shadow:3px 3px 0 var(--vp); }
+.op.multi .e { font-size:20px; width:26px; }
+.caja { width:22px; height:22px; border-radius:7px; border:2px solid var(--vp); flex-shrink:0; display:grid; place-items:center; background:var(--papel); }
+.op.si .caja { background:var(--na); border-color:var(--na); }
+.op.si .caja::after { content:''; width:6px; height:11px; border:solid var(--vp); border-width:0 3px 3px 0; transform:translateY(-1px) rotate(45deg); }
+
+/* Fichitas para respuestas cortas */
+.chips { display:flex; flex-wrap:wrap; gap:8px; }
+.chip {
+  display:inline-flex; align-items:center; gap:7px; background:var(--papel); border:2px solid var(--vp);
+  border-radius:999px; padding:9px 14px; font-size:14.5px; font-weight:600; line-height:1.2; text-align:left;
+  box-shadow:2px 2px 0 var(--vp);
+}
+.chip .e { font-size:18px; line-height:1; }
+.chip.si { background:var(--vp); color:var(--cr); box-shadow:2px 2px 0 var(--na); }
+.chip.si::after { content:'✓'; color:var(--oc); font-weight:800; }
+.chip:disabled { opacity:.35; cursor:default; }
+
+.nota-wrap { margin-top:14px; }
+.campo, .nota {
+  width:100%; border:2px solid var(--vp); border-radius:12px; background:var(--papel);
+  padding:12px 14px; font-size:16px; outline:none;
+}
+.campo:focus, .nota:focus { box-shadow:0 0 0 3px rgba(238,125,29,.45); }
+textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
+.contador { text-align:right; font-size:12px; color:var(--gris); margin-top:4px; }
+.palabra { font-family:'Fraunces', serif; font-weight:900; font-size:30px; text-align:center; padding:16px; }
+
+/* ---------- PASAPORTE ---------- */
+.pasaporte { display:grid; grid-template-columns:repeat(3, 1fr); gap:9px; }
+.pasaporte.ev { grid-template-columns:repeat(2, 1fr); }
+@media (min-width:480px) { .pasaporte { grid-template-columns:repeat(4, 1fr); } .pasaporte.ev { grid-template-columns:repeat(3, 1fr); } }
+.dia-tit { grid-column:1/-1; font-size:11.5px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--vs); margin:6px 0 -2px; }
+.sello-t {
+  position:relative; overflow:hidden; background:var(--papel); border:2px solid var(--vp); border-radius:14px;
+  padding:12px 6px 10px; min-height:98px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px;
+  text-align:center; box-shadow:3px 3px 0 var(--vp); transition:background .15s, border-color .15s;
+}
+.sello-t .e { font-size:30px; line-height:1; }
+.sello-t .n { font-size:13.5px; font-weight:700; line-height:1.15; }
+.sello-t .h { font-size:11px; color:var(--gris); line-height:1.2; }
+.sello-t.si { background:var(--na-l); border-color:var(--na-t); }
+.tinta {
+  position:absolute; top:34%; left:50%; transform:translate(-50%,-50%) rotate(-14deg);
+  border:2.5px solid var(--rojo); color:var(--rojo); border-radius:6px; padding:2px 6px;
+  font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; white-space:nowrap;
+  background:rgba(255,253,247,.72); opacity:0; pointer-events:none;
+}
+.sello-t.si .tinta { opacity:.93; }
+.sello-t.recien .tinta { animation:sellar .36s cubic-bezier(.3,1.5,.5,1); }
+@keyframes sellar { 0% { opacity:0; transform:translate(-50%,-50%) rotate(-14deg) scale(2.3); } 100% { opacity:.93; transform:translate(-50%,-50%) rotate(-14deg) scale(1); } }
+.ninguno {
+  margin-top:14px; width:100%; border:2px dashed var(--vs); background:transparent; border-radius:14px;
+  padding:13px; font-weight:600; font-size:15px;
+}
+.ninguno.si { background:var(--vp); color:var(--cr); border-style:solid; }
+.cuenta-sellos { text-align:center; font-size:13px; color:var(--gris); margin-top:10px; min-height:18px; }
+
+/* ---------- TARJETA DE VEREDICTO ---------- */
+.mazo { position:relative; margin:6px 6px 22px 0; }
+.mazo.con-mas::before, .mazo.con-mas::after {
+  content:''; position:absolute; inset:0; border:3px solid var(--vp); border-radius:22px; background:var(--papel);
+}
+.mazo.con-mas::before { transform:translate(9px, 9px) rotate(2.4deg); opacity:.55; }
+.mazo.con-mas::after { transform:translate(4px, 4px) rotate(1deg); opacity:.85; }
+.tarjeta {
+  position:relative; z-index:1; background:var(--papel); border:3px solid var(--vp); border-radius:22px;
+  padding:20px 16px 18px; text-align:center; box-shadow:5px 5px 0 var(--vp); overflow:hidden;
+}
+.t-cuenta { position:absolute; top:12px; right:14px; font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--vs); text-transform:uppercase; }
+.t-emoji { font-size:50px; width:86px; height:86px; border-radius:50%; background:var(--cr); display:grid; place-items:center; margin:0 auto 10px; border:2px dashed rgba(26,58,42,.3); line-height:1; }
+.t-nombre { font-family:'Fraunces', serif; font-weight:900; font-size:25px; line-height:1.1; text-wrap:balance; }
+.t-cuando { font-size:13.5px; color:var(--gris); margin-top:5px; }
+.t-sello {
+  position:absolute; top:46%; left:50%; transform:translate(-50%,-50%) rotate(-12deg) scale(2.2); opacity:0;
+  font-family:'Fraunces', serif; font-weight:900; font-size:30px; letter-spacing:.04em; text-transform:uppercase;
+  padding:3px 14px; border:4px solid currentColor; border-radius:10px; background:rgba(255,253,247,.82); white-space:nowrap; pointer-events:none;
+}
+.tarjeta.sellada .t-sello { animation:selloGrande .38s cubic-bezier(.3,1.5,.5,1) forwards; }
+@keyframes selloGrande { to { opacity:.95; transform:translate(-50%,-50%) rotate(-12deg) scale(1); } }
+.tarjeta.v-igual .t-sello { color:var(--vv); }
+.tarjeta.v-cambios .t-sello { color:var(--na-t); }
+.tarjeta.v-no .t-sello { color:var(--rojo); }
+.mazo.sale-igual .tarjeta { animation:saleArriba .5s .42s cubic-bezier(.5,0,.8,.4) forwards; }
+.mazo.sale-cambios .tarjeta { animation:saleDer .5s .42s cubic-bezier(.5,0,.8,.4) forwards; }
+.mazo.sale-no .tarjeta { animation:saleIzq .5s .42s cubic-bezier(.5,0,.8,.4) forwards; }
+@keyframes saleArriba { to { transform:translate(30px,-140%) rotate(10deg); opacity:0; } }
+@keyframes saleDer { to { transform:translate(130%, 10px) rotate(16deg); opacity:0; } }
+@keyframes saleIzq { to { transform:translate(-130%, 30px) rotate(-16deg); opacity:0; } }
+.veredictos .op { min-height:54px; }
+.veredictos .v-igual { border-color:var(--vv); box-shadow:4px 4px 0 var(--vv); }
+.veredictos .v-cambios { border-color:var(--na-t); box-shadow:4px 4px 0 var(--na-t); }
+.veredictos .v-no { border-color:var(--rojo); box-shadow:4px 4px 0 var(--rojo); }
+.veredictos .v-igual.si { background:var(--vv); color:#fff; }
+.veredictos .v-cambios.si { background:var(--na-t); color:#fff; }
+.veredictos .v-no.si { background:var(--rojo); color:#fff; }
+
+/* ---------- MILPA DE LOS DIEZ MAÍCES ---------- */
+.costal {
+  display:flex; align-items:center; gap:12px; background:var(--papel); border:2px solid var(--vp); border-radius:14px;
+  padding:10px 12px; margin-bottom:12px; box-shadow:3px 3px 0 var(--vp); position:sticky; top:84px; z-index:3;
+}
+.costal-n { font-family:'Fraunces', serif; font-weight:900; font-size:30px; line-height:1; color:var(--na-t); min-width:34px; text-align:center; }
+.costal-t { font-size:12.5px; font-weight:600; color:var(--gris); line-height:1.25; }
+.granos { display:flex; gap:2px; flex-wrap:wrap; margin-top:3px; }
+.grano { width:13px; height:17px; display:block; transition:opacity .2s, transform .2s; }
+.grano.usado { opacity:.16; transform:scale(.8); }
+.macetas { display:grid; grid-template-columns:repeat(2, 1fr); gap:9px; }
+.maceta { position:relative; background:var(--papel); border:2px solid var(--vp); border-radius:16px; box-shadow:3px 3px 0 var(--vp); transition:background .2s; }
+.maceta.con { background:#F1F7EA; }
+.sembrar { display:flex; align-items:flex-end; gap:6px; width:100%; background:none; border:0; padding:6px 8px 8px 4px; border-radius:14px; text-align:left; min-height:108px; }
+.sembrar:disabled { cursor:default; }
+.dib { width:58px; flex-shrink:0; }
+.sembrar svg { width:58px; height:103px; display:block; }
+.sembrar svg .crece { transform-origin:50px 80px; animation:crecer .42s cubic-bezier(.3,1.6,.5,1); }
+@keyframes crecer { from { transform:scale(.6, .4); } to { transform:none; } }
+.m-t { flex:1; font-size:13px; font-weight:700; line-height:1.18; padding-bottom:4px; }
+.m-t .e { display:block; font-size:20px; margin-bottom:3px; }
+.m-n { display:block; font-family:'Fraunces', serif; font-weight:900; font-size:19px; color:var(--na-t); margin-top:3px; min-height:20px; }
+.menos {
+  position:absolute; top:6px; right:6px; width:30px; height:30px; border-radius:50%; border:2px solid var(--vp);
+  background:var(--cs); font-weight:800; font-size:18px; line-height:1; display:grid; place-items:center;
+}
+.vuela { position:fixed; z-index:50; width:16px; height:21px; pointer-events:none; }
+
+/* ---------- PIE CON EL BOTÓN ---------- */
+.pie-accion {
+  position:fixed; left:0; right:0; bottom:0; z-index:8; padding:12px 16px calc(12px + env(safe-area-inset-bottom));
+  background:linear-gradient(rgba(247,244,228,0), var(--cs) 30%);
+}
+.pie-in { max-width:528px; margin:0 auto; display:flex; gap:10px; align-items:center; }
+.btn-sig, .btn-grande {
+  flex:1; border:0; border-radius:999px; background:var(--vp); color:var(--cr); font-size:17px; font-weight:700;
+  padding:15px 22px; box-shadow:4px 4px 0 var(--na); transition:transform .1s, box-shadow .1s, opacity .2s;
+}
+.btn-sig:active, .btn-grande:active { transform:translate(2px,2px); box-shadow:2px 2px 0 var(--na); }
+.btn-sig:disabled { opacity:.35; cursor:default; transform:none; }
+.btn-sec {
+  display:inline-flex; justify-content:center; align-items:center; gap:6px; border:2px solid var(--vp); border-radius:999px;
+  background:var(--papel); padding:12px 20px; font-weight:700; font-size:15px; text-decoration:none; box-shadow:3px 3px 0 var(--vp);
+}
+.aviso {
+  background:var(--rojo-l); border:2px solid var(--rojo); color:#6d2416; border-radius:12px; padding:10px 14px;
+  font-size:14px; line-height:1.4; margin:12px 0;
+}
+
+/* ---------- PORTADA ---------- */
+.tira { display:flex; justify-content:center; gap:6px; margin:0 -16px; padding:0 8px; position:relative; }
+.tira::before { content:''; position:absolute; left:0; right:0; top:2px; height:2.5px; background:var(--vp); opacity:.6; }
+.tira .bandera { flex:1; max-width:62px; height:42px; }
+.tira .bandera:nth-child(odd) { animation:mecer 3.1s ease-in-out infinite; }
+.tira .bandera:nth-child(even) { animation:mecer 2.7s ease-in-out infinite reverse; }
+.portada { padding:18px 0 40px; }
+.p-flag { display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--vs); margin:14px 0 6px; }
+.p-titulo {
+  font-family:'Fraunces', serif; font-weight:900; font-size:clamp(58px, 18vw, 96px); line-height:.9; letter-spacing:-.02em;
+  color:var(--vp); text-shadow:4px 4px 0 var(--na);
+}
+.p-titulo span { color:var(--na); text-shadow:4px 4px 0 var(--vp); }
+.p-lead { font-size:16.5px; line-height:1.55; color:#34463b; margin:16px 0 14px; }
+.p-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
+.p-pills span { background:var(--vp); color:var(--cr); border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; }
+.p-conejo { display:flex; align-items:flex-end; gap:6px; margin:4px 0 18px; }
+.p-conejo .cuerpo { width:122px; flex-shrink:0; }
+.p-conejo .cuerpo svg { width:100%; height:auto; display:block; overflow:visible; }
+.p-conejo .globo { margin-bottom:56px; font-size:14.5px; }
+.p-acciones { display:grid; gap:12px; }
+.p-acciones .btn-grande { width:100%; font-size:18px; padding:17px 22px; }
+.p-link { display:block; text-align:center; font-weight:600; font-size:14.5px; color:var(--vs); margin-top:6px; }
+.p-letra { font-size:12.5px; color:var(--gris); text-align:center; margin-top:18px; line-height:1.5; }
+.ventana {
+  background:var(--papel); border:2px solid var(--vp); border-radius:16px; padding:16px 18px; box-shadow:4px 4px 0 var(--vp);
+  font-size:15px; line-height:1.5;
+}
+.ventana b { font-family:'Fraunces', serif; font-weight:900; font-size:21px; display:block; margin-bottom:4px; line-height:1.15; }
+.cinta-prueba { background:var(--na); color:var(--vp); font-weight:700; font-size:12.5px; text-align:center; padding:6px 10px; border-radius:0 0 12px 12px; margin:0 auto; max-width:420px; }
+
+/* ---------- FINAL ---------- */
+.final { padding:26px 0 60px; text-align:center; }
+.f-conejo { width:150px; margin:0 auto; }
+.f-conejo svg { width:100%; height:auto; overflow:visible; }
+.f-titulo { font-family:'Fraunces', serif; font-weight:900; font-size:64px; line-height:1; text-shadow:4px 4px 0 var(--na); margin-top:6px; }
+.f-lead { font-size:17px; margin:10px 0 4px; font-weight:600; }
+.f-tiempo { font-size:14.5px; color:var(--gris); }
+.f-tarjeta { margin:22px auto 14px; max-width:330px; border:3px solid var(--vp); border-radius:18px; overflow:hidden; box-shadow:6px 6px 0 var(--vp); background:var(--papel); }
+.f-tarjeta canvas { display:block; width:100%; height:auto; }
+.f-botones { display:grid; gap:10px; max-width:360px; margin:0 auto; }
+.f-campus { margin:28px 0 16px; text-align:left; }
+.f-campus h2 { font-family:'Fraunces', serif; font-weight:900; font-size:24px; margin-bottom:10px; text-align:center; }
+.dato {
+  display:flex; gap:12px; align-items:center; background:var(--papel); border:2px solid var(--vp); border-radius:14px;
+  padding:12px 14px; margin-bottom:10px; box-shadow:3px 3px 0 var(--vp); font-size:14.5px; line-height:1.35;
+}
+.dato .n { font-family:'Fraunces', serif; font-weight:900; font-size:28px; color:var(--na-t); min-width:66px; text-align:center; line-height:1; }
+#confeti { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:60; display:none; }
+.sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+}
+</style>
+</head>
+<body>
+<div class="fondo-puntos" aria-hidden="true"></div>
+<div id="app">
+  <header class="barra" id="barra" hidden>
+    <button class="atras" id="btn-atras" type="button" aria-label="Regresar a la pregunta anterior">←</button>
+    <div class="picado" id="picado" aria-hidden="true"></div>
+    <div class="seccion" id="seccion"></div>
+  </header>
+  <main id="pantalla" class="pantalla" tabindex="-1">
+    <noscript><p class="aviso">Para contestar hace falta tener activado JavaScript en el navegador.</p></noscript>
+  </main>
+</div>
+<footer class="pie-accion" id="pie" hidden>
+  <div class="pie-in"><button class="btn-sig" id="btn-sig" type="button">Siguiente →</button></div>
+</footer>
+<canvas id="confeti" aria-hidden="true"></canvas>
+
+<script>
+(function () {
+'use strict';
+
+/* ======================================================================
+   CONFIGURACIÓN Y ESTADO
+   ====================================================================== */
+var D = window.EVAL;
+var P = new URLSearchParams(location.search);
+var PREVIEW = P.has('preview');
+var LOCAL = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+var API = (LOCAL && P.get('api')) || D.scriptUrl || '';
+var PASE = (function () {
+  var q = [];
+  if (PREVIEW) q.push('preview');
+  if (LOCAL && P.get('api')) q.push('api=' + encodeURIComponent(P.get('api')));
+  return q.length ? '?' + q.join('&') : '';
+})();
+var REDUCIR = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+var SECCIONES = ['Tú', 'Lo que viviste', 'Veredictos', 'La Franja', 'Enero'];
+var COLORES = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A'];
+var MIN_SEG = 9;  // segundos estimados por pantalla, para el «te faltan»
+
+var almacen = {
+  leer: function (k) { try { return JSON.parse(localStorage.getItem(k)); } catch (e) { return null; } },
+  poner: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  quitar: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
+};
+var K = { id:'flb-id', borrador:'flb-borrador', enviada:'flb-enviada', pendiente:'flb-pendiente' };
+
+function nuevoId() {
+  var a = new Uint8Array(8);
+  if (window.crypto && crypto.getRandomValues) crypto.getRandomValues(a);
+  else for (var i = 0; i < a.length; i++) a[i] = Math.floor(Math.random() * 256);
+  return Array.prototype.map.call(a, function (b) { return ('0' + b.toString(16)).slice(-2); }).join('');
+}
+var ID = almacen.leer(K.id);
+if (!ID) { ID = nuevoId(); almacen.poner(K.id, ID); }
+
+function estadoVacio() {
+  var maiz = {};
+  D.maiz.forEach(function (m) { maiz[m.id] = 0; });
+  return {
+    v:1, inicio:Date.now(), rol:null, martes:null,
+    talleres:[], ningunTaller:false, eventos:[], ningunEvento:false, act:{},
+    frenos:[], canal:[], sumarme:[], talOtra:null, talFalto:[],
+    palabra:'', dejo:[], gente:null, sin:null, balance:null,
+    maiz:maiz, maizSaltado:false, torneo:null,
+    porque:null, choque:null, suspension:null, carga:null, cargaTipo:[], salir:null,
+    deseo:[], deseoOtro:'', coordinara:'',
+    vol:null, volNombre:'', volTel:'', volQue:'', notas:{}
+  };
+}
+var S = estadoVacio();
+var actual = null;      // clave de la pantalla en turno
+var historial = [];
+var bloqueado = false;
+
+/* ======================================================================
+   AYUDAS
+   ====================================================================== */
+function $(s, r) { return (r || document).querySelector(s); }
+function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c];
+  });
+}
+function rolDe(id) { return D.roles.filter(function (r) { return r.id === id; })[0]; }
+function grupo() { var r = rolDe(S.rol); return r ? r.grupo : 'estudiante'; }
+function txt(t) { return typeof t === 'string' ? t : (t[grupo()] || t.estudiante); }
+function busca(lista, id) { return lista.filter(function (o) { return o.id === id; })[0]; }
+function taller(id) { return busca(D.talleres, id); }
+function evento(id) { return busca(D.eventos, id); }
+function act(id) {
+  if (!S.act[id]) S.act[id] = { asist:null, motivos:[], ver:null, cambios:[], porqueNo:[] };
+  return S.act[id];
+}
+var repetidos = {};
+D.talleres.forEach(function (t) { repetidos[t.t] = (repetidos[t.t] || 0) + 1; });
+function nombreTaller(t) { return t.t + (repetidos[t.t] > 1 ? ' · ' + t.dia.toLowerCase() : ''); }
+function hoyConca() { return new Date(Date.now() - 6 * 3600e3).toISOString().slice(0, 10); }
+function eventosVisibles() {
+  var hoy = hoyConca();
+  return D.eventos.filter(function (e) { return !e.fecha || e.fecha <= hoy || PREVIEW; });
+}
+function esTallerista() { return S.martes === 'dando'; }
+function participo() {
+  return esTallerista() || S.eventos.length > 0 ||
+    S.talleres.some(function (id) { var a = S.act[id]; return a && a.asist && a.asist !== 'nunca'; });
+}
+var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+var DIAS = ['domingo','lunes','martes','miércoles','jueves','viernes','sábado'];
+function fechaLarga(iso, conHora) {
+  var d = new Date(Date.parse(iso) - 6 * 3600e3);   // hora de Concá
+  var s = DIAS[d.getUTCDay()] + ' ' + d.getUTCDate() + ' de ' + MESES[d.getUTCMonth()];
+  if (conHora) s += ' a las ' + d.getUTCHours() + ':' + ('0' + d.getUTCMinutes()).slice(-2);
+  return s;
+}
+
+/* ======================================================================
+   DIBUJOS: conejo guía, papel picado, macetas, granos
+   ====================================================================== */
+var T = '#1A3A2A', PP = '#FFFDF7', N = '#EE7D1D', ROSA = '#F6B48F';
+
+function conejo(o) {
+  o = o || {};
+  var expr = o.expr || 'neutral', d = o.disfraz || '', cuerpo = !!o.cuerpo;
+  var s = '';
+  var vb = cuerpo ? '22 -6 168 238' : '36 -6 128 158';
+  // Cola y cuerpo
+  if (cuerpo) {
+    s += '<circle cx="147" cy="196" r="11" fill="' + PP + '" stroke="' + T + '" stroke-width="4"/>';
+    s += '<path d="M70 132C52 162 54 212 100 216C146 212 148 162 130 132Z" fill="' + PP + '" stroke="' + T + '" stroke-width="4" stroke-linejoin="round"/>';
+    s += '<ellipse cx="100" cy="183" rx="25" ry="26" fill="#F4EBD5"/>';
+    s += '<ellipse cx="80" cy="218" rx="17" ry="8.5" fill="' + PP + '" stroke="' + T + '" stroke-width="4"/>';
+    s += '<ellipse cx="120" cy="218" rx="17" ry="8.5" fill="' + PP + '" stroke="' + T + '" stroke-width="4"/>';
+    s += '<path d="M74 214.5v5M80 213.5v6M86 214.5v5M114 214.5v5M120 213.5v6M126 214.5v5" stroke="' + T + '" stroke-width="2" stroke-linecap="round"/>';
+    // Brazo izquierdo saludando
+    s += '<path d="M76 146C62 140 52 127 50 111" fill="none" stroke="' + T + '" stroke-width="15" stroke-linecap="round"/>';
+    s += '<path d="M76 146C62 140 52 127 50 111" fill="none" stroke="' + PP + '" stroke-width="8" stroke-linecap="round"/>';
+    s += '<circle cx="50" cy="106" r="9.5" fill="' + PP + '" stroke="' + T + '" stroke-width="4"/>';
+    // Tabla con hojas, en la otra mano
+    s += '<g transform="rotate(9 141 181)"><rect x="118" y="152" width="46" height="58" rx="5" fill="#C98B4B" stroke="' + T + '" stroke-width="3.5"/>';
+    s += '<rect x="123" y="160" width="36" height="44" rx="2" fill="#FFFFFF"/>';
+    s += '<path d="M127 170l3 3 5-6M127 182l3 3 5-6M127 194l3 3 5-6" stroke="' + N + '" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+    s += '<path d="M138 170h16M138 182h17M138 194h12" stroke="#9BB5A3" stroke-width="2.6" stroke-linecap="round"/>';
+    s += '<rect x="133" y="147" width="16" height="9" rx="2" fill="' + T + '"/></g>';
+    s += '<path d="M126 146C130 156 128 168 122 177" fill="none" stroke="' + T + '" stroke-width="15" stroke-linecap="round"/>';
+    s += '<path d="M126 146C130 156 128 168 122 177" fill="none" stroke="' + PP + '" stroke-width="8" stroke-linecap="round"/>';
+    s += '<circle cx="121" cy="180" r="9.5" fill="' + PP + '" stroke="' + T + '" stroke-width="4"/>';
+  }
+  // Paliacate
+  s += '<path d="M68 128Q100 146 132 128L124 146Q100 158 76 146Z" fill="' + N + '" stroke="' + T + '" stroke-width="3.2" stroke-linejoin="round"/>';
+  s += '<path d="M92 150L100 170L108 150Z" fill="' + N + '" stroke="' + T + '" stroke-width="3.2" stroke-linejoin="round"/>';
+  // Orejas
+  s += '<path d="M78 66C64 44 56 14 66 6C77-2 92 26 97 62Z" fill="' + PP + '" stroke="' + T + '" stroke-width="4" stroke-linejoin="round"/>';
+  s += '<path d="M81.5 57C72 40 67 21 70.5 15C75.5 10 86 31 90.5 55Z" fill="' + ROSA + '"/>';
+  s += '<path d="M103 62C110 26 126 0 138 6C149 13 136 44 122 66Z" fill="' + PP + '" stroke="' + T + '" stroke-width="4" stroke-linejoin="round"/>';
+  s += '<path d="M108.5 55C113 32 125.5 13 132.5 15.5C139.5 20 130 41 119 57Z" fill="' + ROSA + '"/>';
+  // Cabeza
+  s += '<ellipse cx="100" cy="96" rx="46" ry="40" fill="' + (d === 'mascara' ? N : PP) + '" stroke="' + T + '" stroke-width="4"/>';
+  if (d === 'mascara') {
+    s += '<path d="M100 58L106 68L100 78L94 68Z" fill="' + PP + '" stroke="' + T + '" stroke-width="2.2"/>';
+    s += '<path d="M71 97Q74 82 92 85Q97 98 86 103Q75 105 71 97Z" fill="' + PP + '" stroke="' + T + '" stroke-width="2.5"/>';
+    s += '<path d="M129 97Q126 82 108 85Q103 98 114 103Q125 105 129 97Z" fill="' + PP + '" stroke="' + T + '" stroke-width="2.5"/>';
+    s += '<ellipse cx="100" cy="112.5" rx="13" ry="9.5" fill="' + PP + '" stroke="' + T + '" stroke-width="2.5"/>';
+  }
+  // Mejillas y bigotes
+  if (d !== 'mascara' && d !== 'calavera') {
+    s += '<ellipse cx="73" cy="108" rx="7.5" ry="4.5" fill="' + ROSA + '" opacity=".75"/>';
+    s += '<ellipse cx="127" cy="108" rx="7.5" ry="4.5" fill="' + ROSA + '" opacity=".75"/>';
+  }
+  if (d !== 'mascara') s += '<path d="M60 103L47 100M60 109L48 112M140 103L153 100M140 109L152 112" stroke="' + T + '" stroke-width="2.2" stroke-linecap="round"/>';
+  // Ojos
+  var ojos = '';
+  if (d === 'calavera') {
+    ojos = '<ellipse cx="84" cy="93" rx="9" ry="10" fill="' + T + '"/><ellipse cx="116" cy="93" rx="9" ry="10" fill="' + T + '"/>' +
+           '<circle cx="85.5" cy="91.5" r="2.8" fill="#fff"/><circle cx="117.5" cy="91.5" r="2.8" fill="#fff"/>';
+  } else if (d === 'venda') {
+    ojos = '';
+  } else if (expr === 'feliz') {
+    ojos = '<path d="M78.5 94Q84 87 89.5 94M110.5 94Q116 87 121.5 94" stroke="' + T + '" stroke-width="3.4" fill="none" stroke-linecap="round"/>';
+  } else if (expr === 'guino') {
+    ojos = '<path d="M78.5 94Q84 87 89.5 94" stroke="' + T + '" stroke-width="3.4" fill="none" stroke-linecap="round"/>' +
+           '<circle cx="116" cy="93" r="5.5" fill="' + T + '"/><circle cx="118" cy="91" r="1.7" fill="#fff"/>';
+  } else if (expr === 'sorpresa') {
+    ojos = '<circle cx="84" cy="92" r="7" fill="' + T + '"/><circle cx="116" cy="92" r="7" fill="' + T + '"/>' +
+           '<circle cx="86.5" cy="89.5" r="2.2" fill="#fff"/><circle cx="118.5" cy="89.5" r="2.2" fill="#fff"/>';
+  } else if (expr === 'pensando') {
+    ojos = '<circle cx="86" cy="90" r="5.2" fill="' + T + '"/><circle cx="118" cy="90" r="5.2" fill="' + T + '"/>' +
+           '<circle cx="87.6" cy="88.3" r="1.6" fill="#fff"/><circle cx="119.6" cy="88.3" r="1.6" fill="#fff"/>' +
+           '<path d="M109 79Q117 75 125 79" stroke="' + T + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
+  } else if (expr === 'triste') {
+    ojos = '<circle cx="84" cy="94" r="5.2" fill="' + T + '"/><circle cx="116" cy="94" r="5.2" fill="' + T + '"/>' +
+           '<path d="M76 84L89 81M111 81L124 84" stroke="' + T + '" stroke-width="2.8" stroke-linecap="round"/>';
+  } else {
+    ojos = '<circle cx="84" cy="93" r="5.5" fill="' + T + '"/><circle cx="116" cy="93" r="5.5" fill="' + T + '"/>' +
+           '<circle cx="86" cy="91" r="1.7" fill="#fff"/><circle cx="118" cy="91" r="1.7" fill="#fff"/>';
+  }
+  if (d === 'mascara') ojos += '<path d="M74 84L90 89M126 84L110 89" stroke="' + T + '" stroke-width="3" stroke-linecap="round"/>';
+  s += ojos;
+  // Nariz y boca
+  if (d === 'calavera') {
+    s += '<path d="M100 108C96 104 93 100 97 98.5C99 98 100 99.5 100 100.5C100 99.5 101 98 103 98.5C107 100 104 104 100 108Z" fill="' + T + '"/>';
+    s += '<path d="M82 114Q100 120 118 114" stroke="' + T + '" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
+    s += '<path d="M86 111.5v6M93 113.2v6.5M100 114v6.5M107 113.2v6.5M114 111.5v6" stroke="' + T + '" stroke-width="2.2" stroke-linecap="round"/>';
+  } else {
+    s += '<path d="M95.5 103.5Q100 100 104.5 103.5Q102.5 108 100 108Q97.5 108 95.5 103.5Z" fill="' + N + '" stroke="' + T + '" stroke-width="2.2" stroke-linejoin="round"/>';
+    if (expr === 'feliz' || d === 'venda') {
+      s += '<path d="M91 110.5Q100 125 109 110.5Q100 114 91 110.5Z" fill="#7A2E1F" stroke="' + T + '" stroke-width="2.6" stroke-linejoin="round"/>';
+    } else if (expr === 'sorpresa') {
+      s += '<ellipse cx="100" cy="115.5" rx="4.2" ry="5.2" fill="#7A2E1F" stroke="' + T + '" stroke-width="2.4"/>';
+    } else if (expr === 'pensando') {
+      s += '<path d="M94 114.5Q100 112.5 107 115.5" stroke="' + T + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
+    } else if (expr === 'triste') {
+      s += '<path d="M93 117Q100 111 107 117" stroke="' + T + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
+    } else if (expr === 'guino') {
+      s += '<path d="M92 111Q100 119.5 108 111" stroke="' + T + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
+    } else {
+      s += '<path d="M100 108V112M100 112Q95.5 117 91.5 113.5M100 112Q104.5 117 108.5 113.5" stroke="' + T + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
+    }
+  }
+  // Disfraces sobre la cabeza
+  if (d === 'calavera') {
+    s += '<g transform="rotate(-10 100 58)"><path d="M80 59L82 22Q100 17 118 22L120 59Z" fill="' + N + '" stroke="' + T + '" stroke-width="3.5" stroke-linejoin="round"/>' +
+         '<path d="M81.3 49H118.7L119.3 57H80.7Z" fill="' + T + '"/>' +
+         '<ellipse cx="100" cy="60" rx="37" ry="7.5" fill="' + N + '" stroke="' + T + '" stroke-width="3.5"/></g>';
+  } else if (d === 'venda') {
+    s += '<path d="M53 86Q100 77 147 86L147 100Q100 91 53 100Z" fill="#D8342C" stroke="' + T + '" stroke-width="3" stroke-linejoin="round"/>';
+    s += '<path d="M146 91Q158 80 165 86Q161 95 146 93Z" fill="#D8342C" stroke="' + T + '" stroke-width="2.5" stroke-linejoin="round"/>';
+    s += '<path d="M146 95Q161 96 163 106Q153 108 146 97Z" fill="#D8342C" stroke="' + T + '" stroke-width="2.5" stroke-linejoin="round"/>';
+  } else if (d === 'banda') {
+    s += '<path d="M55 80Q100 66 145 80L144 90Q100 76 56 90Z" fill="' + N + '" stroke="' + T + '" stroke-width="3" stroke-linejoin="round"/>';
+    s += '<path d="M97 74.5L101 71L104 77L107 73.5" stroke="' + PP + '" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+  } else if (d === 'palma') {
+    s += '<path d="M72 63C72 36 128 36 128 63Z" fill="#E9C46A" stroke="' + T + '" stroke-width="3.5" stroke-linejoin="round"/>';
+    s += '<path d="M73.2 55Q100 50 126.8 55L127.6 62Q100 57 72.4 62Z" fill="#2D5A3D"/>';
+    s += '<ellipse cx="100" cy="64" rx="56" ry="11" fill="#E9C46A" stroke="' + T + '" stroke-width="3.5"/>';
+    s += '<path d="M58 62l6 4M70 58l5 6M130 58l-5 6M142 62l-6 4M86 70l3 3M114 70l-3 3" stroke="#B9902F" stroke-width="2" stroke-linecap="round"/>';
+  }
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + vb + '" role="img" aria-label="El conejo de la Franja">' + s + '</svg>';
+}
+
+function bandera(color) {
+  return '<svg viewBox="0 0 60 44" aria-hidden="true"><path d="M2 2H58V34L54.5 40L51 34L47.5 40L44 34L40.5 40L37 34L33.5 40L30 34L26.5 40L23 34L19.5 40L16 34L12.5 40L9 34L5.5 40L2 34Z" fill="' + color + '"/>' +
+    '<g fill="#F7F4E4"><circle cx="30" cy="17" r="5"/><circle cx="30" cy="8.5" r="2.3"/><circle cx="30" cy="25.5" r="2.3"/><circle cx="21.5" cy="17" r="2.3"/><circle cx="38.5" cy="17" r="2.3"/>' +
+    '<path d="M10 8l3 4-3 4-3-4zM50 8l3 4-3 4-3-4zM10 22l3 4-3 4-3-4zM50 22l3 4-3 4-3-4z"/></g></svg>';
+}
+
+function grano() {
+  return '<svg class="grano" viewBox="0 0 14 18" aria-hidden="true"><path d="M7 1C12 1 13 7 12 11C11 15 9 17 7 17C5 17 3 15 2 11C1 7 2 1 7 1Z" fill="#F2C14E" stroke="#1A3A2A" stroke-width="1.6"/><path d="M5 5q1-2 3-2" stroke="#fff" stroke-width="1.4" fill="none" opacity=".75"/></svg>';
+}
+
+/* Una mata de maíz que crece un poco con cada grano: de brote a milpa con elotes y espiga. */
+function planta(k, nueva, vb) {
+  k = Math.max(0, Math.min(10, k || 0));
+  var base = 80, H = k ? Math.min(72, 12 + (k - 1) * 6.7) : 0, top = base - H, s = '';
+  function hoja(y, L, dir) {
+    return '<path d="M50 ' + y.toFixed(1) + 'q' + (dir * L * 0.5).toFixed(1) + ' ' + (-L * 0.62).toFixed(1) + ' ' + (dir * L).toFixed(1) + ' ' + (-L * 0.32).toFixed(1) +
+      'q' + (-dir * L * 0.42).toFixed(1) + ' ' + (L * 0.42).toFixed(1) + ' ' + (-dir * L).toFixed(1) + ' ' + (L * 0.32).toFixed(1) + 'Z" fill="#4A8C5C" stroke="#2D5A3D" stroke-width="2" stroke-linejoin="round"/>';
+  }
+  function elote(y, dir) {
+    var x = 50 + dir * 6;
+    return '<g transform="rotate(' + (dir * 22) + ' ' + x + ' ' + y.toFixed(1) + ')"><ellipse cx="' + x + '" cy="' + y.toFixed(1) + '" rx="4.8" ry="10" fill="#F2C14E" stroke="#1A3A2A" stroke-width="2"/>' +
+      '<path d="M' + (x - dir * 4) + ' ' + (y + 9).toFixed(1) + 'q' + (dir * 9) + ' -3 ' + (dir * 9) + ' -15" stroke="#7AB88A" stroke-width="3" fill="none" stroke-linecap="round"/></g>';
+  }
+  if (k > 0) {
+    s += '<path d="M50 ' + base + 'C49 ' + (base - H * 0.4).toFixed(1) + ' 51 ' + (base - H * 0.7).toFixed(1) + ' 50 ' + top.toFixed(1) + '" stroke="#2D5A3D" stroke-width="' + (k > 5 ? 4.6 : 3.8) + '" fill="none" stroke-linecap="round"/>';
+    var n = Math.min(7, k + 1), L = 10 + H * 0.17;
+    for (var i = 0; i < n; i++) {
+      var f = k === 1 ? 0.92 : (i + 1) / (n + 0.6), y = base - H * f, dir = i % 2 === 0 ? 1 : -1;
+      s += hoja(y, L * (1 - f * 0.35), dir);
+      if (k <= 2) s += hoja(y, L * (1 - f * 0.35), -dir);
+    }
+    if (k >= 4) s += elote(base - H * 0.5, 1);
+    if (k >= 7) s += elote(base - H * 0.68, -1);
+    if (k >= 6) s += '<path d="M50 ' + top.toFixed(1) + 'l-7 -9M50 ' + top.toFixed(1) + 'v-11M50 ' + top.toFixed(1) + 'l7 -9" stroke="#C9A04A" stroke-width="2.6" stroke-linecap="round"/>';
+  } else {
+    s += '<path d="M50 70v-8M46 66h8" stroke="#9BB5A3" stroke-width="2.6" stroke-linecap="round"/>';
+  }
+  var maceta = '<path d="M29 82H71L66.5 104H33.5Z" fill="#C8693A" stroke="#1A3A2A" stroke-width="3" stroke-linejoin="round"/>' +
+    '<rect x="25" y="76" width="50" height="9" rx="3" fill="#D9804C" stroke="#1A3A2A" stroke-width="3"/>';
+  return '<svg viewBox="' + (vb || '18 -8 64 114') + '" aria-hidden="true"><g class="' + (nueva ? 'crece' : '') + '">' + s + '</g>' + maceta + '</svg>';
+}
+
+/* ======================================================================
+   LA RUTA: qué pantallas tocan según lo contestado
+   ====================================================================== */
+function clave(p) { return p.k + (p.id ? ':' + p.id : ''); }
+
+function ruta() {
+  var L = [], g = grupo();
+  L.push({ k:'rol', sec:0 });
+  L.push({ k:'martes', sec:0 });
+  L.push({ k:'talleres', sec:1 });
+  L.push({ k:'eventos', sec:1 });
+  var sinTaller = S.talleres.length === 0;
+  if (sinTaller && !esTallerista()) {
+    L.push({ k:'frenos', sec:1 });
+    if (S.frenos.indexOf('enterar') >= 0) L.push({ k:'canal', sec:1 });
+    L.push({ k:'sumarme', sec:1 });
+  }
+  if (esTallerista()) { L.push({ k:'talOtra', sec:1 }); L.push({ k:'talFalto', sec:1 }); }
+  var tarjetas = [];
+  S.talleres.forEach(function (id) {
+    L.push({ k:'asist', id:id, sec:2 });
+    var a = act(id);
+    if (a.asist === 'deje' || a.asist === 'nunca') L.push({ k:'motivo', id:id, sec:2 });
+    if (a.asist && a.asist !== 'nunca') {
+      var v = { k:'ver', id:id, tipo:'taller', sec:2 }; L.push(v); tarjetas.push(v);
+      if (a.ver === 'cambios') L.push({ k:'cambios', id:id, tipo:'taller', sec:2 });
+      if (a.ver === 'no') L.push({ k:'porqueNo', id:id, tipo:'taller', sec:2 });
+    }
+  });
+  S.eventos.forEach(function (id) {
+    var a = act(id);
+    var v = { k:'ver', id:id, tipo:'evento', sec:2 }; L.push(v); tarjetas.push(v);
+    if (a.ver === 'cambios') L.push({ k:'cambios', id:id, tipo:'evento', sec:2 });
+    if (a.ver === 'no') L.push({ k:'porqueNo', id:id, tipo:'evento', sec:2 });
+  });
+  // Total esperado: un taller sin contestar todavía cuenta, uno al que nunca fue no.
+  var esperadas = S.eventos.length + S.talleres.filter(function (id) { return act(id).asist !== 'nunca'; }).length;
+  tarjetas.forEach(function (t, i) { t.n = i + 1; t.total = Math.max(esperadas, tarjetas.length); });
+  L.push({ k:'palabra', sec:3 });
+  if (participo()) { L.push({ k:'dejo', sec:3 }); L.push({ k:'gente', sec:3 }); }
+  L.push({ k:'sin', sec:3 });
+  L.push({ k:'balance', sec:3 });
+  L.push({ k:'maiz', sec:4 });
+  if (!S.maizSaltado && S.maiz.deporte > 0) L.push({ k:'torneo', sec:4 });
+  if (g === 'estudiante') { if (participo()) L.push({ k:'porque', sec:4 }); L.push({ k:'choque', sec:4 }); }
+  if (g === 'docente') L.push({ k:'suspension', sec:4 });
+  if (g === 'docente' || g === 'admin') {
+    L.push({ k:'carga', sec:4 });
+    if (S.carga === 'bastante' || S.carga === 'demasiado') L.push({ k:'cargaTipo', sec:4 });
+  }
+  if (g === 'admin') L.push({ k:'salir', sec:4 });
+  L.push({ k:'deseo', sec:4 });
+  L.push({ k:'coordinara', sec:4 });
+  L.push({ k:'voluntario', sec:4 });
+  return L;
+}
+function buscaEnRuta(k) {
+  var L = ruta();
+  for (var i = 0; i < L.length; i++) if (clave(L[i]) === k) return L[i];
+  return null;
+}
+function desdeClave(k) {
+  var p = buscaEnRuta(k);
+  if (p) return p;
+  var partes = k.split(':');
+  return { k:partes[0], id:partes[1], sec:0 };
+}
+
+/* ======================================================================
+   QUÉ DICE CADA PANTALLA
+   ====================================================================== */
+var FRASES_TARJETA = ['Siguiente tarjeta.', 'Sin miedo: para eso es esto.', 'Va otra.', 'Ya mero.', 'Tú mandas.'];
+
+function definir(p) {
+  var g = grupo();
+  var a, t, e;
+  switch (p.k) {
+    case 'rol': return {
+      tipo:'uno', t:'¿Quién eres?', b:'Primero lo primero. No te voy a pedir tu nombre.', cara:'neutral',
+      ops:D.roles, val:function () { return S.rol; },
+      set:function (v) { if (S.rol && S.rol !== v) S.martes = null; S.rol = v; }
+    };
+    case 'martes': return {
+      tipo:'uno', t:'Es martes, 12:10. ¿Dónde te encontramos casi siempre?', b:'Con la mano en el corazón: aquí nadie pasa lista.', cara:'guino',
+      ops:D.op.martes[g], val:function () { return S.martes; }, set:function (v) { S.martes = v; }
+    };
+    case 'talleres': {
+      var grupos = [];
+      ['Martes', 'Jueves', 'Martes y jueves'].forEach(function (dia) {
+        var items = D.talleres.filter(function (x) { return x.dia === dia; }).map(function (x) {
+          return { id:x.id, e:x.e, n:x.t, h:(dia === 'Martes y jueves' ? 'Mar y jue · ' : '') + x.hora };
+        });
+        if (items.length) grupos.push({ titulo:dia === 'Martes y jueves' ? 'Los dos días' : dia, items:items });
+      });
+      return {
+        tipo:'pasaporte', t:'¿A qué talleres te apuntaste este semestre?',
+        s:'Los permanentes, los de cada semana. Toca todos los que apliquen.',
+        b:esTallerista() ? 'Si diste un taller, el tuyo no se sella: aquí van solo los que tomaste.' : 'Sella tu pasaporte. Cuenta aunque lo hayas dejado.',
+        cara:'feliz', grupos:grupos, sello:'¡Me apunté!',
+        val:function () { return S.talleres; },
+        ninguno:function () { return S.ningunTaller; }, setNinguno:function (v) { S.ningunTaller = v; },
+        tNinguno:'No me apunté a ninguno'
+      };
+    }
+    case 'eventos': return {
+      tipo:'pasaporte', ev:true, t:'¿Y a cuáles eventos llegaste?', s:'Cuenta aunque hayas ido un ratito.',
+      b:'Ahora, los días grandes del semestre.', cara:'feliz',
+      grupos:[{ items:eventosVisibles().map(function (x) { return { id:x.id, e:x.e, n:x.t, h:x.cuando }; }) }],
+      sello:'¡Fui!', val:function () { return S.eventos; },
+      ninguno:function () { return S.ningunEvento; }, setNinguno:function (v) { S.ningunEvento = v; },
+      tNinguno:'No fui a ninguno'
+    };
+    case 'frenos': {
+      var nada = S.eventos.length === 0;
+      return {
+        tipo:'varios', t:nada ? '¿Qué te frenó para no sumarte?' : '¿Por qué no te apuntaste a ningún taller?',
+        s:'Elige hasta tres.', max:3, cara:'pensando',
+        b:nada ? 'No pasa nada. Esto es justo lo que necesitamos entender.' : 'Fuiste a eventos, pero a ningún taller. ¿Qué pasó?',
+        ops:D.op.frenos, val:function () { return S.frenos; }
+      };
+    }
+    case 'canal': return {
+      tipo:'varios', t:'¿Por dónde sí te habrías enterado?', s:'Elige las que apliquen.', cara:'pensando',
+      b:'Anotado. Para la próxima, ¿por dónde te avisamos?', ops:D.op.canal, val:function () { return S.canal; }
+    };
+    case 'sumarme': {
+      var nada2 = S.eventos.length === 0;
+      return {
+        tipo:'varios', t:nada2 ? '¿Qué tendría que pasar para que te sumes en enero?' : '¿Qué haría que te apuntes a un taller en enero?',
+        s:'Elige hasta dos.', max:2, cara:'guino', b:'Sin promesas: dime qué sí funcionaría contigo.',
+        ops:D.op.sumarme, val:function () { return S.sumarme; }
+      };
+    }
+    case 'talOtra': return {
+      tipo:'uno', t:'Diste un taller. ¿Lo darías otra vez en enero?', b:'Gracias por darlo. Ahora, sin pena:', cara:'feliz',
+      ops:D.op.talOtra, val:function () { return S.talOtra; }, set:function (v) { S.talOtra = v; }
+    };
+    case 'talFalto': return {
+      tipo:'varios', t:'¿Qué te hizo falta como tallerista?', s:'Elige las que apliquen.', cara:'pensando',
+      b:'Esto ayuda a que el siguiente semestre te cueste menos.', ops:D.op.talFalto, val:function () { return S.talFalto; }
+    };
+    case 'asist':
+      t = taller(p.id); a = act(p.id);
+      return {
+        tipo:'uno', t:'¿Qué tanto fuiste?', ficha:{ e:t.e, n:nombreTaller(t), h:t.dia + ' · ' + t.hora },
+        b:S.talleres.indexOf(p.id) === 0 ? 'Vamos uno por uno con tus talleres.' : 'Ahora este.', cara:'neutral',
+        ops:D.op.asist, val:function () { return a.asist; },
+        set:function (v) { a.asist = v; if (v === 'nunca') { a.ver = null; a.cambios = []; a.porqueNo = []; } if (v !== 'deje' && v !== 'nunca') a.motivos = []; }
+      };
+    case 'motivo':
+      t = taller(p.id); a = act(p.id);
+      return {
+        tipo:'varios', t:a.asist === 'nunca' ? '¿Qué pasó que no fuiste?' : '¿Por qué lo dejaste?',
+        s:'Elige hasta tres.', max:3, ficha:{ e:t.e, n:nombreTaller(t), h:t.dia + ' · ' + t.hora },
+        b:'Esto vale oro para enero.', cara:'pensando', ops:D.op.motivos, val:function () { return a.motivos; }
+      };
+    case 'ver': {
+      a = act(p.id);
+      var esT = p.tipo === 'taller';
+      e = esT ? taller(p.id) : evento(p.id);
+      return {
+        tipo:'veredicto', t:'¿Qué hacemos con esto en enero?',
+        b:p.n === 1 ? 'Una tarjeta por cada cosa en la que estuviste. Tú decides.' : (p.n === p.total ? 'Última tarjeta.' : FRASES_TARJETA[(p.n - 2) % FRASES_TARJETA.length]),
+        cara:esT ? 'neutral' : 'guino', disfraz:esT ? '' : (e.disfraz || ''),
+        tarjeta:{ e:e.e, n:esT ? nombreTaller(e) : e.t, h:esT ? e.dia + ' · ' + e.hora : e.cuando, num:p.n, total:p.total },
+        a:a
+      };
+    }
+    case 'cambios': {
+      a = act(p.id);
+      var esT2 = p.tipo === 'taller';
+      e = esT2 ? taller(p.id) : evento(p.id);
+      return {
+        tipo:'varios', chips:true, opcional:true, t:'¿Qué le cambiarías?', s:'Toca las que quieras. Si hace falta, escribe algo.',
+        ficha:{ e:e.e, n:esT2 ? nombreTaller(e) : e.t, h:esT2 ? e.dia + ' · ' + e.hora : e.cuando },
+        b:'Que siga, pero mejor. ¿Qué le mueves?', cara:'pensando', disfraz:esT2 ? '' : (e.disfraz || ''),
+        ops:esT2 ? D.op.cambiosTaller : D.op.cambiosEvento, val:function () { return a.cambios; }, notaSiempre:true
+      };
+    }
+    case 'porqueNo': {
+      a = act(p.id);
+      var esT3 = p.tipo === 'taller';
+      e = esT3 ? taller(p.id) : evento(p.id);
+      return {
+        tipo:'varios', chips:true, opcional:true, t:'¿Por qué ya no?', s:'Toca las que apliquen.',
+        ficha:{ e:e.e, n:esT3 ? nombreTaller(e) : e.t, h:esT3 ? e.dia + ' · ' + e.hora : e.cuando },
+        b:'Anotado. Saber qué no funcionó también sirve.', cara:'sorpresa', disfraz:esT3 ? '' : (e.disfraz || ''),
+        ops:D.op.porqueNo, val:function () { return a.porqueNo; }
+      };
+    }
+    case 'palabra': return {
+      tipo:'palabra', t:'La Franja, en una palabra.', b:'La primera que te venga a la cabeza. Buena, mala o rara.', cara:'guino'
+    };
+    case 'dejo': return {
+      tipo:'varios', t:'¿Qué te dejó la Franja?', s:'Elige hasta dos.', max:2, cara:'feliz',
+      b:'Lo que de verdad, no lo que suena bonito.', ops:D.op.dejo, val:function () { return S.dejo; }
+    };
+    case 'gente': return {
+      tipo:'numeros', t:'¿A cuántas personas nuevas conociste gracias a la Franja?',
+      s:'De otro grupo, de otro programa, o entre maestros y administrativos.', cara:'feliz',
+      b:'Para esto se inventó: para que coincidamos.', ops:D.op.gente, val:function () { return S.gente; }, set:function (v) { S.gente = v; }
+    };
+    case 'sin': return {
+      tipo:'uno', t:'Si en enero ya no hubiera Franja, ¿cómo te sentirías?', b:'Esta es la pregunta difícil. Contéstala de verdad.', cara:'sorpresa',
+      ops:D.op.sin, val:function () { return S.sin; }, set:function (v) { S.sin = v; }
+    };
+    case 'balance': return {
+      tipo:'uno', t:'Los días de evento se suspenden los talleres. Para enero, ¿qué prefieres?',
+      b:'Fiesta o constancia: no se puede todo.', cara:'pensando',
+      ops:D.op.balance, val:function () { return S.balance; }, set:function (v) { S.balance = v; }
+    };
+    case 'maiz': return {
+      tipo:'maiz', t:'Tienes 10 maíces. Siémbralos donde quieras que crezca la Franja de enero.',
+      b:'Toca una maceta para sembrar. Donde pongas más, más crece.', cara:'feliz', disfraz:'palma'
+    };
+    case 'torneo': return {
+      tipo:'uno', t:'Sembraste en deporte. ¿De qué quieres el torneo de enero?',
+      b:'Así sabemos qué deporte junta a más gente.', cara:'guino', disfraz:'banda',
+      ops:D.op.torneo, val:function () { return S.torneo; }, set:function (v) { S.torneo = v; }
+    };
+    case 'porque': return {
+      tipo:'uno', t:'Siendo honestos: ¿por qué fuiste?', b:'Nadie se va a enterar, de veras.', cara:'guino',
+      ops:D.op.porque, val:function () { return S.porque; }, set:function (v) { S.porque = v; }
+    };
+    case 'choque': return {
+      tipo:'uno', t:'¿Algún maestro te puso clase, examen o tarea a la hora de la Franja?',
+      b:'La Franja es para que a esa hora nadie tenga clase.', cara:'pensando',
+      ops:D.op.choque, val:function () { return S.choque; }, set:function (v) { S.choque = v; }
+    };
+    case 'suspension': return {
+      tipo:'uno', t:'Con la Franja, ¿perdiste menos clases por eventos?',
+      s:'Antes, las visitas y celebraciones caían en horario de clase.', b:'Uno de los motivos de la Franja era este.', cara:'pensando',
+      ops:D.op.suspension, val:function () { return S.suspension; }, set:function (v) { S.suspension = v; }
+    };
+    case 'carga': return {
+      tipo:'uno', t:'¿La Franja o sus eventos te cargaron trabajo extra?', b:'Lo que no se ve también cuenta.', cara:'triste',
+      ops:D.op.carga, val:function () { return S.carga; }, set:function (v) { S.carga = v; if (v !== 'bastante' && v !== 'demasiado') S.cargaTipo = []; }
+    };
+    case 'cargaTipo': return {
+      tipo:'varios', t:'¿De qué tipo?', s:'Elige las que apliquen.', cara:'pensando',
+      b:'Para repartirlo mejor la próxima vez.', ops:D.op.cargaTipo, val:function () { return S.cargaTipo; }
+    };
+    case 'salir': return {
+      tipo:'uno', t:'¿Pudiste darte un rato para la Franja?', b:'La Franja también es para el personal.', cara:'neutral',
+      ops:D.op.salir, val:function () { return S.salir; }, set:function (v) { S.salir = v; }
+    };
+    case 'deseo': return {
+      tipo:'varios', chips:true, opcional:true, max:3, t:'¿Qué taller te gustaría que hubiera en enero?',
+      s:'Elige hasta tres, o escribe el tuyo.', b:'Si nadie lo pide, nadie lo abre.', cara:'feliz',
+      ops:D.op.deseo, val:function () { return S.deseo; }, otro:true
+    };
+    case 'coordinara': return {
+      tipo:'abierta', t:'Si tú coordinaras la Franja, ¿qué cambiarías primero?',
+      b:'Una frase basta. Esto lo lee la coordinación, completo.', cara:'pensando'
+    };
+    case 'voluntario': return {
+      tipo:'voluntario', t:'¿Te animas a dar un taller u organizar algo en enero?',
+      b:'Los talleres de la Franja los da gente del campus. Gente como tú.', cara:'feliz'
+    };
+  }
+  return { tipo:'uno', t:'', ops:[], val:function () { return null; }, set:function () {} };
+}
+
+/* ======================================================================
+   DIBUJAR UNA PANTALLA
+   ====================================================================== */
+function guiaHTML(c) {
+  return '<div class="guia"><div class="guia-cara">' + conejo({ expr:c.cara, disfraz:c.disfraz }) + '</div>' +
+    '<div class="globo" aria-live="polite">' + esc(c.b || '') + '</div></div>';
+}
+function fichaHTML(f) {
+  if (!f) return '';
+  return '<div class="ficha-act"><span class="e" aria-hidden="true">' + f.e + '</span><span><b>' + esc(f.n) + '</b><small>' + esc(f.h) + '</small></span></div>';
+}
+
+function mostrar(k, dir) {
+  var p = desdeClave(k);
+  var c = definir(p);
+  actual = k;
+  bloqueado = false;
+  document.body.classList.add('en-curso');
+  $('#barra').hidden = false;
+  var el = $('#pantalla');
+  el.className = 'pantalla';
+  el.innerHTML = guiaHTML(c) + fichaHTML(c.ficha) + '<h1 class="preg">' + esc(c.t) + '</h1>' +
+    (c.s ? '<p class="sub">' + esc(c.s) + '</p>' : '') + '<div class="cuerpo"></div>';
+  var cuerpo = $('.cuerpo', el);
+  var pie = configurarPie(c);
+  ({ uno:cuerpoUno, numeros:cuerpoUno, varios:cuerpoVarios, pasaporte:cuerpoPasaporte, veredicto:cuerpoVeredicto,
+     palabra:cuerpoPalabra, abierta:cuerpoAbierta, maiz:cuerpoMaiz, voluntario:cuerpoVoluntario })[c.tipo](c, cuerpo, pie);
+  dibujarBarra(p);
+  void el.offsetWidth;
+  el.classList.add('entra');
+  if (dir < 0) el.classList.add('izq');
+  window.scrollTo(0, 0);
+  try { el.focus({ preventScroll:true }); } catch (e) { el.focus(); }
+  guardarBorrador();
+}
+
+function configurarPie(c) {
+  var pie = $('#pie'), btn = $('#btn-sig');
+  var auto = c.tipo === 'uno' || c.tipo === 'numeros' || c.tipo === 'veredicto';
+  pie.hidden = auto;
+  btn.disabled = false;
+  btn.textContent = 'Siguiente →';
+  btn.onclick = function () { if (!btn.disabled) siguiente(); };
+  return {
+    btn:btn,
+    listo:function (ok, etiqueta) { btn.disabled = !ok; if (etiqueta) btn.textContent = etiqueta; }
+  };
+}
+
+function dibujarBarra(p) {
+  var L = ruta(), sec = p.sec;
+  var enSec = L.filter(function (x) { return x.sec === sec; });
+  var j = Math.max(0, enSec.map(clave).indexOf(clave(p)));
+  var i = Math.max(0, L.map(clave).indexOf(clave(p)));
+  var avance = (sec + j / Math.max(1, enSec.length)) / SECCIONES.length;
+  var html = '<div class="hilo"><i style="width:' + Math.round(avance * 100) + '%"></i></div>';
+  SECCIONES.forEach(function (n, s) {
+    var color = s < sec ? COLORES[s] : (s === sec ? COLORES[s] : '#E3DBBD');
+    html += '<div class="bandera' + (s === sec ? ' actual' : '') + '" style="opacity:' + (s === sec ? 1 : (s < sec ? 1 : .9)) + '">' + bandera(color) + '</div>';
+  });
+  $('#picado').innerHTML = html;
+  var quedan = Math.max(0, L.length - i - 1);
+  var min = Math.ceil(quedan * MIN_SEG / 60);
+  $('#seccion').innerHTML = '<span>' + (sec + 1) + ' de 5 · ' + SECCIONES[sec] + '</span><span>' +
+    (quedan <= 2 ? 'Ya casi' : 'te falta' + (min > 1 ? 'n' : '') + ' ~' + min + ' min') + '</span>';
+  $('#btn-atras').onclick = atras;
+}
+
+/* ---------- una sola respuesta ---------- */
+function cuerpoUno(c, cuerpo) {
+  var v = c.val();
+  var numeros = c.tipo === 'numeros';
+  cuerpo.innerHTML = '<div class="ops">' + c.ops.map(function (o) {
+    var izq = numeros ? '<span class="e" style="font-family:Fraunces,serif;font-weight:900;font-size:22px;width:46px">' + esc(o.n) + '</span>'
+                      : (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '');
+    return '<button type="button" class="op' + (v === o.id ? ' si' : '') + '" data-id="' + o.id + '">' + izq +
+      '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(o.s) + '</span>' : '') + '</span></button>';
+  }).join('') + '</div>';
+  $$('.op', cuerpo).forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (bloqueado) return;
+      bloqueado = true;
+      $$('.op', cuerpo).forEach(function (x) { x.classList.toggle('si', x === b); });
+      c.set(b.dataset.id);
+      guardarBorrador();
+      setTimeout(siguiente, REDUCIR ? 120 : 330);
+    });
+  });
+}
+
+/* ---------- varias respuestas ---------- */
+function cuerpoVarios(c, cuerpo, pie) {
+  var sel = c.val();
+  var chips = !!c.chips;
+  var conTexto = c.ops.some(function (o) { return o.texto; }) || c.otro;
+  var html = '<div class="' + (chips ? 'chips' : 'ops') + '">' + c.ops.map(function (o) {
+    var on = sel.indexOf(o.id) >= 0;
+    return '<button type="button" class="' + (chips ? 'chip' : 'op multi') + (on ? ' si' : '') + '" data-id="' + o.id + '" aria-pressed="' + on + '">' +
+      (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '') + '<span class="tx">' + esc(txt(o.t)) + '</span>' +
+      (chips ? '' : '<span class="caja" aria-hidden="true"></span>') + '</button>';
+  }).join('') + '</div>';
+  if (conTexto) {
+    var ph = c.otro ? 'Otro taller: escríbelo aquí' : 'Escríbelo aquí (opcional)';
+    html += '<div class="nota-wrap"' + (c.otro ? '' : ' hidden') + '><label class="sr" for="nota">' + ph + '</label>' +
+      '<input id="nota" class="nota" type="text" maxlength="' + (c.otro ? 60 : 160) + '" placeholder="' + ph + '" autocomplete="off"></div>';
+  }
+  cuerpo.innerHTML = html;
+  var nota = $('.nota', cuerpo);
+  if (nota) {
+    nota.value = c.otro ? S.deseoOtro : (S.notas[actual] || '');
+    nota.addEventListener('input', function () {
+      if (c.otro) S.deseoOtro = nota.value; else S.notas[actual] = nota.value;
+      validar(); guardarBorrador();
+    });
+    nota.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); nota.blur(); } });
+  }
+  function validar() {
+    var hay = sel.length > 0 || (c.otro && S.deseoOtro.trim());
+    if (c.opcional) pie.listo(true, hay ? 'Siguiente →' : 'Saltar →');
+    else pie.listo(sel.length > 0, 'Siguiente →');
+  }
+  function refrescar() {
+    $$('[data-id]', cuerpo).forEach(function (b) {
+      var o = busca(c.ops, b.dataset.id), on = sel.indexOf(o.id) >= 0;
+      b.classList.toggle('si', on);
+      b.setAttribute('aria-pressed', on);
+      b.disabled = !on && !!c.max && sel.length >= c.max && !o.solo;
+    });
+    if (nota && !c.otro) {
+      var abre = c.ops.some(function (o) { return o.texto && sel.indexOf(o.id) >= 0; });
+      nota.parentNode.hidden = !abre;
+    }
+    validar();
+  }
+  $$('[data-id]', cuerpo).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var o = busca(c.ops, b.dataset.id), i = sel.indexOf(o.id);
+      if (i >= 0) sel.splice(i, 1);
+      else {
+        if (o.solo) sel.splice(0, sel.length);
+        else {
+          for (var k = sel.length - 1; k >= 0; k--) { var x = busca(c.ops, sel[k]); if (x && x.solo) sel.splice(k, 1); }
+        }
+        if (!c.max || sel.length < c.max) sel.push(o.id);
+      }
+      refrescar(); guardarBorrador();
+      if (o.texto && sel.indexOf(o.id) >= 0 && nota) setTimeout(function () { nota.focus(); }, 60);
+    });
+  });
+  refrescar();
+}
+
+/* ---------- pasaporte ---------- */
+function cuerpoPasaporte(c, cuerpo, pie) {
+  var sel = c.val();
+  var html = '<div class="pasaporte' + (c.ev ? ' ev' : '') + '">';
+  c.grupos.forEach(function (gr) {
+    if (gr.titulo) html += '<div class="dia-tit">' + esc(gr.titulo) + '</div>';
+    gr.items.forEach(function (it) {
+      var on = sel.indexOf(it.id) >= 0;
+      html += '<button type="button" class="sello-t' + (on ? ' si' : '') + '" data-id="' + it.id + '" aria-pressed="' + on + '">' +
+        '<span class="e" aria-hidden="true">' + it.e + '</span><span class="n">' + esc(it.n) + '</span><span class="h">' + esc(it.h) + '</span>' +
+        '<span class="tinta" aria-hidden="true">' + c.sello + '</span></button>';
+    });
+  });
+  html += '</div><button type="button" class="ninguno' + (c.ninguno() ? ' si' : '') + '" aria-pressed="' + c.ninguno() + '">' + esc(c.tNinguno) + '</button>' +
+    '<p class="cuenta-sellos" aria-live="polite"></p>';
+  cuerpo.innerHTML = html;
+  var nin = $('.ninguno', cuerpo);
+  function refrescar() {
+    var n = sel.length;
+    $('.cuenta-sellos', cuerpo).textContent = n ? (n === 1 ? 'Un sello en tu pasaporte.' : n + ' sellos en tu pasaporte.') : (c.ninguno() ? 'Va. Ninguno.' : '');
+    nin.classList.toggle('si', c.ninguno());
+    nin.setAttribute('aria-pressed', c.ninguno());
+    pie.listo(n > 0 || c.ninguno(), 'Siguiente →');
+  }
+  $$('.sello-t', cuerpo).forEach(function (b) {
+    b.addEventListener('click', function () {
+      var id = b.dataset.id, i = sel.indexOf(id);
+      if (i >= 0) { sel.splice(i, 1); b.classList.remove('si', 'recien'); }
+      else {
+        sel.push(id); c.setNinguno(false);
+        b.classList.remove('recien'); void b.offsetWidth; b.classList.add('si', 'recien');
+      }
+      b.setAttribute('aria-pressed', sel.indexOf(id) >= 0);
+      // conserva el orden del catálogo
+      var orden = c.grupos.reduce(function (acc, gr) { return acc.concat(gr.items.map(function (x) { return x.id; })); }, []);
+      sel.sort(function (x, y) { return orden.indexOf(x) - orden.indexOf(y); });
+      refrescar(); guardarBorrador();
+    });
+  });
+  nin.addEventListener('click', function () {
+    var v = !c.ninguno();
+    c.setNinguno(v);
+    if (v) { sel.splice(0, sel.length); $$('.sello-t', cuerpo).forEach(function (b) { b.classList.remove('si', 'recien'); b.setAttribute('aria-pressed', 'false'); }); }
+    refrescar(); guardarBorrador();
+  });
+  refrescar();
+}
+
+/* ---------- tarjeta de veredicto ---------- */
+function cuerpoVeredicto(c, cuerpo) {
+  var a = c.a, tj = c.tarjeta;
+  cuerpo.innerHTML = '<div class="mazo' + (tj.num < tj.total ? ' con-mas' : '') + '"><div class="tarjeta">' +
+    '<span class="t-cuenta">' + tj.num + ' de ' + tj.total + '</span>' +
+    '<div class="t-emoji" aria-hidden="true">' + tj.e + '</div><div class="t-nombre">' + esc(tj.n) + '</div>' +
+    '<div class="t-cuando">' + esc(tj.h) + '</div><div class="t-sello" aria-hidden="true"></div></div></div>' +
+    '<div class="ops veredictos">' + D.op.veredicto.map(function (o) {
+      return '<button type="button" class="op v-' + o.id + (a.ver === o.id ? ' si' : '') + '" data-id="' + o.id + '">' +
+        '<span class="e" aria-hidden="true">' + o.e + '</span><span class="tx">' + esc(o.t) + '</span></button>';
+    }).join('') + '</div>';
+  var mazo = $('.mazo', cuerpo), tarjeta = $('.tarjeta', cuerpo), sello = $('.t-sello', cuerpo);
+  $$('.veredictos .op', cuerpo).forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (bloqueado) return;
+      bloqueado = true;
+      var o = busca(D.op.veredicto, b.dataset.id);
+      a.ver = o.id;
+      if (o.id !== 'cambios') a.cambios = [];
+      if (o.id !== 'no') a.porqueNo = [];
+      $$('.veredictos .op', cuerpo).forEach(function (x) { x.classList.toggle('si', x === b); });
+      sello.textContent = o.sello;
+      tarjeta.classList.add('v-' + o.id, 'sellada');
+      mazo.classList.add('sale-' + o.id);
+      guardarBorrador();
+      setTimeout(siguiente, REDUCIR ? 200 : 900);
+    });
+  });
+}
+
+/* ---------- una palabra ---------- */
+function cuerpoPalabra(c, cuerpo, pie) {
+  cuerpo.innerHTML = '<label class="sr" for="palabra">Una palabra</label>' +
+    '<input id="palabra" class="campo palabra" type="text" maxlength="24" placeholder="una palabra" autocomplete="off" autocapitalize="none" spellcheck="false" enterkeyhint="next">';
+  var inp = $('#palabra');
+  inp.value = S.palabra;
+  function validar() { var v = inp.value.trim(); pie.listo(true, v ? 'Siguiente →' : 'No se me ocurre →'); }
+  inp.addEventListener('input', function () {
+    var v = inp.value.replace(/\s+/g, ' ');
+    if (v.trim().indexOf(' ') > 0 && v.trim().split(' ').length > 2) v = v.trim().split(' ').slice(0, 2).join(' ');
+    if (v !== inp.value) inp.value = v;
+    S.palabra = inp.value; validar(); guardarBorrador();
+  });
+  inp.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); siguiente(); } });
+  validar();
+  setTimeout(function () { if (window.innerWidth > 700) inp.focus(); }, 350);
+}
+
+/* ---------- pregunta abierta ---------- */
+function cuerpoAbierta(c, cuerpo, pie) {
+  cuerpo.innerHTML = '<label class="sr" for="abierta">Tu respuesta</label>' +
+    '<textarea id="abierta" class="campo" maxlength="500" placeholder="Yo cambiaría…"></textarea><div class="contador"></div>';
+  var ta = $('#abierta'), cont = $('.contador', cuerpo);
+  ta.value = S.coordinara;
+  function validar() { var v = ta.value.trim(); cont.textContent = ta.value.length + ' / 500'; pie.listo(true, v ? 'Siguiente →' : 'Saltar →'); }
+  ta.addEventListener('input', function () { S.coordinara = ta.value; validar(); guardarBorrador(); });
+  validar();
+}
+
+/* ---------- los diez maíces ---------- */
+function cuerpoMaiz(c, cuerpo, pie) {
+  var TOTAL = 10;
+  function usados() { return D.maiz.reduce(function (s, m) { return s + (S.maiz[m.id] || 0); }, 0); }
+  var html = '<div class="costal"><div class="costal-n" id="quedan"></div><div><div class="costal-t" id="costal-t"></div><div class="granos" id="granos"></div></div></div><div class="macetas">';
+  D.maiz.forEach(function (m) {
+    html += '<div class="maceta" data-id="' + m.id + '">' +
+      '<button type="button" class="sembrar" aria-label="Sembrar un maíz en ' + esc(m.t) + '"><span class="dib"></span>' +
+      '<span class="m-t"><span class="e" aria-hidden="true">' + m.e + '</span>' + esc(m.t) + '<span class="m-n" aria-hidden="true"></span></span></button>' +
+      '<button type="button" class="menos" aria-label="Quitar un maíz de ' + esc(m.t) + '" hidden>−</button></div>';
+  });
+  html += '</div>';
+  cuerpo.innerHTML = html;
+  function pintar(idNuevo) {
+    var u = usados(), q = TOTAL - u;
+    $('#quedan').textContent = q;
+    $('#costal-t').textContent = q === 0 ? '¡Listo! Sembraste los diez.' : (q === 1 ? 'Te queda un maíz.' : 'Te quedan ' + q + ' maíces.');
+    $('#granos').innerHTML = Array.apply(null, Array(TOTAL)).map(function (_, i) { return grano(); }).join('');
+    $$('#granos .grano').forEach(function (g, i) { g.classList.toggle('usado', i >= q); });
+    $$('.maceta', cuerpo).forEach(function (mc) {
+      var id = mc.dataset.id, k = S.maiz[id] || 0;
+      $('.dib', mc).innerHTML = planta(k, id === idNuevo);
+      $('.m-n', mc).textContent = k ? k + (k === 1 ? ' maíz' : ' maíces') : '';
+      $('.menos', mc).hidden = k === 0;
+      $('.sembrar', mc).disabled = q === 0;
+      mc.classList.toggle('con', k > 0);
+    });
+    pie.listo(q === 0, q === 0 ? 'Siguiente →' : 'Siembra los diez');
+  }
+  function vuelo(destino) {
+    if (REDUCIR) return;
+    var origen = $('#granos .grano:not(.usado):last-of-type') || $('#granos');
+    var a = origen.getBoundingClientRect(), b = destino.getBoundingClientRect();
+    var g = document.createElement('div');
+    g.className = 'vuela'; g.innerHTML = grano();
+    g.style.left = a.left + 'px'; g.style.top = a.top + 'px';
+    document.body.appendChild(g);
+    var dx = b.left + b.width / 2 - a.left - 8, dy = b.top + b.height * 0.42 - a.top;
+    if (g.animate) {
+      g.animate([
+        { transform:'translate(0,0) rotate(0) scale(1)' },
+        { transform:'translate(' + dx * 0.5 + 'px,' + (dy * 0.5 - 60) + 'px) rotate(200deg) scale(1.3)', offset:.5 },
+        { transform:'translate(' + dx + 'px,' + dy + 'px) rotate(400deg) scale(.7)' }
+      ], { duration:520, easing:'cubic-bezier(.4,0,.6,1)' }).onfinish = function () { g.remove(); };
+    } else setTimeout(function () { g.remove(); }, 10);
+  }
+  $$('.maceta', cuerpo).forEach(function (mc) {
+    var id = mc.dataset.id;
+    $('.sembrar', mc).addEventListener('click', function () {
+      if (usados() >= TOTAL) return;
+      vuelo(mc);
+      S.maiz[id] = (S.maiz[id] || 0) + 1; S.maizSaltado = false;
+      setTimeout(function () { pintar(id); }, REDUCIR ? 0 : 380);
+      guardarBorrador();
+    });
+    $('.menos', mc).addEventListener('click', function () {
+      if (!S.maiz[id]) return;
+      S.maiz[id]--; pintar(); guardarBorrador();
+    });
+  });
+  pie.btn.onclick = function () { if (usados() === TOTAL) siguiente(); };
+  // Saltar: un enlace discreto bajo las macetas
+  var saltar = document.createElement('button');
+  saltar.type = 'button'; saltar.className = 'p-link'; saltar.style.cssText = 'background:none;border:0;margin:16px auto 0;text-decoration:underline';
+  saltar.textContent = 'Prefiero no sembrar';
+  saltar.addEventListener('click', function () {
+    D.maiz.forEach(function (m) { S.maiz[m.id] = 0; });
+    S.maizSaltado = true; S.torneo = null; siguiente();
+  });
+  cuerpo.appendChild(saltar);
+  pintar();
+}
+
+/* ---------- voluntariado y envío ---------- */
+function cuerpoVoluntario(c, cuerpo, pie) {
+  cuerpo.innerHTML = '<div class="ops">' + D.op.voluntario.map(function (o) {
+    return '<button type="button" class="op' + (S.vol === o.id ? ' si' : '') + '" data-id="' + o.id + '"><span class="e" aria-hidden="true">' + o.e + '</span><span class="tx">' + esc(o.t) + '</span></button>';
+  }).join('') + '</div>' +
+  '<div id="vol-datos" hidden style="margin-top:16px;display:grid;gap:10px">' +
+    '<p class="sub" style="margin:0">Esto se guarda aparte de tus respuestas, que siguen siendo anónimas. Solo lo ve la coordinación para buscarte.</p>' +
+    '<label class="sr" for="vol-nombre">Tu nombre</label><input id="vol-nombre" class="campo" type="text" maxlength="80" placeholder="Tu nombre" autocomplete="name">' +
+    '<label class="sr" for="vol-tel">WhatsApp</label><input id="vol-tel" class="campo" type="tel" maxlength="20" placeholder="WhatsApp (10 dígitos)" autocomplete="tel">' +
+    '<label class="sr" for="vol-que">Qué podrías dar u organizar</label><textarea id="vol-que" class="campo" maxlength="300" style="min-height:90px" placeholder="¿Qué podrías dar u organizar?"></textarea>' +
+  '</div><div id="aviso-envio"></div>';
+  var datos = $('#vol-datos'), n = $('#vol-nombre'), t = $('#vol-tel'), q = $('#vol-que');
+  n.value = S.volNombre; t.value = S.volTel; q.value = S.volQue;
+  function refrescar() {
+    $$('.op', cuerpo).forEach(function (b) { b.classList.toggle('si', b.dataset.id === S.vol); });
+    datos.hidden = !(S.vol === 'si' || S.vol === 'talvez');
+    pie.listo(!!S.vol, 'Enviar mis respuestas');
+  }
+  $$('.op', cuerpo).forEach(function (b) {
+    b.addEventListener('click', function () {
+      S.vol = b.dataset.id; refrescar(); guardarBorrador();
+      if (!datos.hidden) setTimeout(function () { n.focus(); }, 80);
+    });
+  });
+  [[n, 'volNombre'], [t, 'volTel'], [q, 'volQue']].forEach(function (par) {
+    par[0].addEventListener('input', function () { S[par[1]] = par[0].value; guardarBorrador(); });
+  });
+  pie.btn.onclick = function () { if (!pie.btn.disabled) enviar(); };
+  refrescar();
+}
+
+/* ======================================================================
+   NAVEGACIÓN
+   ====================================================================== */
+function siguiente() {
+  var L = ruta(), ks = L.map(clave), i = ks.indexOf(actual);
+  // Si la pantalla en turno ya no está en la ruta (cambió una respuesta anterior), sigue desde la última visitada que sí esté.
+  for (var hh = historial.length - 1; i < 0 && hh >= 0; hh--) i = ks.indexOf(historial[hh]);
+  if (i < 0) i = 0;
+  var sig = L[i + 1];
+  if (!sig) return enviar();
+  historial.push(actual);
+  mostrar(clave(sig), 1);
+}
+function atras() {
+  var ant = historial.pop();
+  if (ant) mostrar(ant, -1); else portada();
+}
+
+function guardarBorrador() {
+  if (!actual) return;
+  almacen.poner(K.borrador, { S:S, actual:actual, historial:historial, guardado:Date.now() });
+}
+
+/* ======================================================================
+   ARMAR Y MANDAR
+   ====================================================================== */
+function etiquetas(lista, ids) {
+  return (ids || []).map(function (id) { var o = busca(lista, id); return o ? txt(o.t) : id; }).join(' · ');
+}
+function etiqueta(lista, id) { var o = busca(lista, id); return o ? txt(o.t) : (id || ''); }
+
+function armarPaquete() {
+  var L = ruta(), vis = {};
+  L.forEach(function (p) { vis[clave(p)] = true; });
+  var rol = rolDe(S.rol);
+  var segundos = Math.max(1, Math.round((Date.now() - S.inicio) / 1000));
+  function nota(k) { return (S.notas[k] || '').trim().slice(0, 160); }
+
+  var talleresR = S.talleres.map(function (id) {
+    var a = act(id), ver = vis['ver:' + id] ? a.ver : null;
+    return { id:id, asist:a.asist, motivos:vis['motivo:' + id] ? a.motivos.slice() : [], ver:ver,
+             cambios:ver === 'cambios' ? a.cambios.slice() : [], porqueNo:ver === 'no' ? a.porqueNo.slice() : [] };
+  });
+  var eventosR = S.eventos.map(function (id) {
+    var a = act(id);
+    return { id:id, ver:a.ver, cambios:a.ver === 'cambios' ? a.cambios.slice() : [], porqueNo:a.ver === 'no' ? a.porqueNo.slice() : [] };
+  });
+  var maiz = null;
+  if (!S.maizSaltado) { maiz = {}; D.maiz.forEach(function (m) { maiz[m.id] = S.maiz[m.id] || 0; }); }
+  var r = {
+    rol:S.rol, martes:S.martes, talleres:talleresR, eventos:eventosR,
+    frenos:vis.frenos ? S.frenos.slice() : [], canal:vis.canal ? S.canal.slice() : [], sumarme:vis.sumarme ? S.sumarme.slice() : [],
+    talOtra:vis.talOtra ? S.talOtra : null, talFalto:vis.talFalto ? S.talFalto.slice() : [],
+    palabra:S.palabra.trim().toLowerCase().slice(0, 24),
+    dejo:vis.dejo ? S.dejo.slice() : [], gente:vis.gente ? S.gente : null,
+    sin:S.sin, balance:S.balance, maiz:maiz, torneo:vis.torneo ? S.torneo : null,
+    porque:vis.porque ? S.porque : null, choque:vis.choque ? S.choque : null,
+    suspension:vis.suspension ? S.suspension : null, carga:vis.carga ? S.carga : null,
+    cargaTipo:vis.cargaTipo ? S.cargaTipo.slice() : [], salir:vis.salir ? S.salir : null,
+    deseo:S.deseo.slice(), deseoOtro:S.deseoOtro.trim().slice(0, 60)
+  };
+
+  var g = rol ? rol.grupo : '';
+  var fila = {
+    'Quién': rol ? rol.t : '',
+    'Grupo': { estudiante:'Estudiante', docente:'Docente', admin:'Administrativo' }[g] || '',
+    'Martes 12:10': etiqueta(D.op.martes[g] || [], S.martes),
+    'Talleres': talleresR.map(function (x) { return nombreTaller(taller(x.id)) + ' (' + etiqueta(D.op.asist, x.asist).toLowerCase() + ')'; }).join(' · '),
+    'Eventos': eventosR.map(function (x) { return evento(x.id).corto; }).join(' · '),
+    'Frenos': etiquetas(D.op.frenos, r.frenos) + (nota('frenos') ? ' — «' + nota('frenos') + '»' : ''),
+    'Por dónde enterarse': etiquetas(D.op.canal, r.canal),
+    'Para sumarse': etiquetas(D.op.sumarme, r.sumarme),
+    'Tallerista: ¿otra vez?': etiqueta(D.op.talOtra, r.talOtra),
+    'Tallerista: le hizo falta': etiquetas(D.op.talFalto, r.talFalto) + (nota('talFalto') ? ' — «' + nota('talFalto') + '»' : ''),
+    'Palabra': r.palabra,
+    'Qué le dejó': etiquetas(D.op.dejo, r.dejo),
+    'Gente nueva': etiqueta(D.op.gente, r.gente),
+    'Si ya no hubiera Franja': etiqueta(D.op.sin, r.sin),
+    'Eventos o talleres': etiqueta(D.op.balance, r.balance)
+  };
+  D.maiz.forEach(function (m) { fila['Maíz: ' + m.t] = maiz ? maiz[m.id] : ''; });
+  fila['Torneo de enero'] = etiqueta(D.op.torneo, r.torneo);
+  fila['Por qué fue (estudiantes)'] = etiqueta(D.op.porque, r.porque);
+  fila['Clase a la hora de la Franja (estudiantes)'] = etiqueta(D.op.choque, r.choque);
+  fila['Clases perdidas por eventos (docentes)'] = etiqueta(D.op.suspension, r.suspension);
+  fila['Trabajo extra'] = etiqueta(D.op.carga, r.carga);
+  fila['Tipo de trabajo extra'] = etiquetas(D.op.cargaTipo, r.cargaTipo) + (nota('cargaTipo') ? ' — «' + nota('cargaTipo') + '»' : '');
+  fila['Salir del puesto (administrativos)'] = etiqueta(D.op.salir, r.salir);
+  fila['Taller que pide'] = [etiquetas(D.op.deseo, r.deseo), r.deseoOtro].filter(Boolean).join(' · ');
+  fila['Si coordinara la Franja'] = S.coordinara.trim().slice(0, 500);
+
+  var actividades = talleresR.map(function (x) {
+    return {
+      'Tipo':'Taller', 'Actividad':nombreTaller(taller(x.id)), 'Asistencia':etiqueta(D.op.asist, x.asist),
+      'Por qué lo dejó':etiquetas(D.op.motivos, x.motivos) + (nota('motivo:' + x.id) ? ' — «' + nota('motivo:' + x.id) + '»' : ''),
+      'Veredicto':etiqueta(D.op.veredicto, x.ver), 'Qué le cambiaría':etiquetas(D.op.cambiosTaller, x.cambios),
+      'Por qué ya no':etiquetas(D.op.porqueNo, x.porqueNo),
+      'Nota':(x.ver === 'cambios' ? nota('cambios:' + x.id) : (x.ver === 'no' ? nota('porqueNo:' + x.id) : ''))
+    };
+  }).concat(eventosR.map(function (x) {
+    return {
+      'Tipo':'Evento', 'Actividad':evento(x.id).t, 'Asistencia':'Fue',
+      'Por qué lo dejó':'', 'Veredicto':etiqueta(D.op.veredicto, x.ver), 'Qué le cambiaría':etiquetas(D.op.cambiosEvento, x.cambios),
+      'Por qué ya no':etiquetas(D.op.porqueNo, x.porqueNo),
+      'Nota':(x.ver === 'cambios' ? nota('cambios:' + x.id) : (x.ver === 'no' ? nota('porqueNo:' + x.id) : ''))
+    };
+  }));
+
+  var voluntario = null;
+  if ((S.vol === 'si' || S.vol === 'talvez') && (S.volNombre.trim() || S.volTel.trim())) {
+    voluntario = { nombre:S.volNombre.trim().slice(0, 80), tel:S.volTel.trim().slice(0, 20), que:S.volQue.trim().slice(0, 300),
+                   disposicion:etiqueta(D.op.voluntario, S.vol) };
+  }
+  return {
+    tipo:'balance', v:1, id:ID, prueba:PREVIEW, segundos:segundos, enviada:new Date().toISOString(),
+    r:r, fila:fila, actividades:actividades, cita:S.coordinara.trim().slice(0, 500), voluntario:voluntario,
+    disposicion:S.vol
+  };
+}
+
+function mandar(paquete) {
+  if (!API) return Promise.resolve({ ok:false, sinUrl:true });
+  return fetch(API, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body:JSON.stringify(paquete) })
+    .then(function (r) { return r.json(); })
+    .then(function (d) { return d && d.ok ? d : { ok:false, error:(d && d.error) || 'respuesta' }; })
+    .catch(function () { return { ok:false, error:'red' }; });
+}
+
+var enviando = false;
+function enviar() {
+  if (enviando) return;
+  enviando = true;
+  var btn = $('#btn-sig');
+  btn.disabled = true; btn.textContent = 'Enviando…';
+  var paquete = armarPaquete();
+  mandar(paquete).then(function (res) {
+    enviando = false;
+    if (res.ok) {
+      almacen.poner(K.enviada, { fecha:paquete.enviada, numero:res.numero || null, prueba:PREVIEW });
+      almacen.quitar(K.borrador); almacen.quitar(K.pendiente);
+      final(paquete, res);
+    } else if (res.sinUrl) {
+      almacen.quitar(K.borrador);
+      final(paquete, res);
+    } else {
+      almacen.poner(K.pendiente, paquete);
+      btn.disabled = false; btn.textContent = 'Reintentar el envío';
+      var av = $('#aviso-envio');
+      if (av) av.innerHTML = '<p class="aviso">No se pudo enviar. Revisa la señal y vuelve a tocar el botón: tus respuestas siguen guardadas en este teléfono.</p>';
+    }
+  });
+}
+
+function reintentarPendiente() {
+  var pend = almacen.leer(K.pendiente);
+  if (!pend || !API) return;
+  mandar(pend).then(function (res) {
+    if (res.ok) {
+      almacen.quitar(K.pendiente);
+      almacen.poner(K.enviada, { fecha:pend.enviada, numero:res.numero || null, prueba:!!pend.prueba });
+      if (!actual) portada();
+    }
+  });
+}
+
+/* ======================================================================
+   PORTADA
+   ====================================================================== */
+function ventana() {
+  var ahora = Date.now();
+  if (PREVIEW || (LOCAL && P.has('abierta'))) return 'abierta';
+  if (!API) return 'pronto';
+  if (ahora < Date.parse(D.abre)) return 'pronto';
+  if (ahora > Date.parse(D.cierra)) return 'cerrada';
+  return 'abierta';
+}
+
+function portada() {
+  actual = null; historial = [];
+  document.body.classList.remove('en-curso');
+  $('#barra').hidden = true;
+  $('#pie').hidden = true;
+  var estado = ventana();
+  var enviada = almacen.leer(K.enviada);
+  var borr = almacen.leer(K.borrador);
+  var resultados = 'evaluacion-resultados.html' + PASE;
+  var tira = '<div class="tira" aria-hidden="true">' + COLORES.concat(COLORES.slice(0, 3)).map(function (c) { return '<div class="bandera">' + bandera(c) + '</div>'; }).join('') + '</div>';
+  var acciones = '';
+  if (estado === 'pronto') {
+    var dias = Math.ceil((Date.parse(D.abre) - Date.now()) / 864e5);
+    acciones = '<div class="ventana"><b>' + (API && dias > 0 ? 'Se abre el ' + fechaLarga(D.abre, true) + '.' : 'Muy pronto.') + '</b>' +
+      (API && dias > 0 ? 'Faltan ' + dias + (dias === 1 ? ' día' : ' días') + '. El enlace llega por WhatsApp; guárdalo.' : 'Estamos terminando de prepararlo. El enlace llega por WhatsApp.') + '</div>';
+  } else if (estado === 'cerrada') {
+    acciones = '<div class="ventana"><b>El balance ya cerró.</b>Gracias a quienes respondieron. Lo que dijeron ya está en los resultados.</div>' +
+      '<a class="btn-grande" style="text-align:center;text-decoration:none;display:block" href="' + resultados + '">Ver los resultados →</a>';
+  } else if (enviada && !(enviada.prueba && !PREVIEW)) {
+    acciones = '<div class="ventana"><b>Ya respondiste. ¡Gracias!</b>Si quieres, puedes cambiar tus respuestas: las nuevas reemplazan a las anteriores.</div>' +
+      '<a class="btn-grande" style="text-align:center;text-decoration:none;display:block" href="' + resultados + '">Ver cómo va →</a>' +
+      '<button type="button" class="btn-sec" id="b-otra">Cambiar mis respuestas</button>';
+  } else if (borr && borr.actual) {
+    acciones = '<button type="button" class="btn-grande" id="b-seguir">Seguir donde me quedé →</button>' +
+      '<button type="button" class="btn-sec" id="b-empezar">Empezar de nuevo</button>';
+  } else {
+    acciones = '<button type="button" class="btn-grande" id="b-empezar">Empezar →</button>';
+  }
+  $('#pantalla').className = 'pantalla';
+  $('#pantalla').innerHTML = (PREVIEW ? '<div class="cinta-prueba">Vista previa · lo que envíes llega marcado como prueba y no cuenta</div>' : '') +
+    tira + '<section class="portada">' +
+    '<div class="p-flag">Franja Libre · Balance ' + esc(D.semestre) + '</div>' +
+    '<h1 class="p-titulo">¿Qué se <span>queda?</span></h1>' +
+    '<p class="p-lead">Talleres, Mercadito, Feria de Saberes, Día del Maíz, concurso de disfraces, voleibol y posada. Ahora decides tú qué sigue en enero, qué cambia y qué ya no.</p>' +
+    '<div class="p-pills"><span>⏱️ 5 minutos o menos</span><span>🙈 Anónimo</span><span>📊 Resultados públicos</span></div>' +
+    '<div class="p-conejo"><div class="cuerpo">' + conejo({ expr:'guino', cuerpo:true }) + '</div>' +
+    '<div class="globo">No vengo por aplausos. Si algo no te gustó, o si nunca fuiste a nada, eso es justo lo que necesito saber.</div></div>' +
+    '<div class="p-acciones">' + acciones + '</div>' +
+    (estado === 'abierta' && !(enviada && !(enviada.prueba && !PREVIEW)) ? '<a class="p-link" href="' + resultados + '">Ver cómo va →</a>' : '') +
+    '<p class="p-letra">Para estudiantes de los tres programas, docentes y administrativos del Campus Concá.<br>No pedimos tu nombre. Este teléfono guarda un número al azar para no contar dos veces la misma respuesta.</p>' +
+    '</section>';
+  var bE = $('#b-empezar'), bS = $('#b-seguir'), bO = $('#b-otra');
+  if (bE) bE.onclick = function () { almacen.quitar(K.borrador); S = estadoVacio(); mostrar('rol', 1); };
+  if (bS) bS.onclick = function () {
+    S = Object.assign(estadoVacio(), borr.S);
+    S.inicio = Date.now() - Math.min(240e3, Math.max(0, (borr.guardado || Date.now()) - (borr.S.inicio || Date.now())));
+    historial = borr.historial || [];
+    mostrar(borr.actual, 1);
+  };
+  if (bO) bO.onclick = function () { almacen.quitar(K.borrador); S = estadoVacio(); mostrar('rol', 1); };
+  window.scrollTo(0, 0);
+}
+
+/* ======================================================================
+   FINAL: gracias, tarjeta para compartir y cómo va el campus
+   ====================================================================== */
+function final(paquete, res) {
+  actual = null;
+  document.body.classList.remove('en-curso');
+  $('#barra').hidden = true; $('#pie').hidden = true;
+  var seg = paquete.segundos, min = Math.floor(seg / 60), s = seg % 60;
+  var resultados = 'evaluacion-resultados.html' + PASE;
+  var wa = 'https://wa.me/?text=' + encodeURIComponent('¿Qué se queda en la Franja Libre? Cinco minutos y es anónimo: ' + D.url);
+  var puedeCompartir = !!(navigator.canShare && window.File);
+  $('#pantalla').className = 'pantalla entra';
+  $('#pantalla').innerHTML = '<section class="final">' +
+    '<div class="f-conejo">' + conejo({ expr:'feliz', cuerpo:true }) + '</div>' +
+    '<h1 class="f-titulo">¡Listo!</h1>' +
+    '<p class="f-lead">Tu voz ya cuenta para la Franja de ' + esc(D.proximo) + '.</p>' +
+    '<p class="f-tiempo">Lo hiciste en ' + (min ? min + ' min ' : '') + s + ' s' + (seg <= 300 ? ', dentro de los cinco minutos prometidos.' : '.') + '</p>' +
+    (res.sinUrl ? '<p class="aviso">Vista previa: la hoja de cálculo todavía no está conectada, así que esto no se envió.</p>' : '') +
+    (paquete.prueba && !res.sinUrl ? '<p class="aviso" style="background:var(--na-l);border-color:var(--na-t);color:#6b3a0e">Respuesta de prueba: llegó a la hoja, pero no cuenta en los resultados.</p>' : '') +
+    '<div class="f-tarjeta"><canvas id="tarjeta" width="1080" height="1350" aria-label="Tu tarjeta de la Franja"></canvas></div>' +
+    '<div class="f-botones"><button type="button" class="btn-grande" id="b-tarjeta">' + (puedeCompartir ? 'Compartir mi tarjeta' : 'Guardar mi tarjeta') + '</button>' +
+    '<a class="btn-sec" href="' + wa + '" target="_blank" rel="noopener">💬 Pasar el enlace por WhatsApp</a></div>' +
+    '<div class="f-campus" id="f-campus"></div>' +
+    '<a class="btn-sec" href="' + resultados + '">📊 Ver todos los resultados →</a>' +
+    '</section>';
+  window.scrollTo(0, 0);
+  confeti();
+  dibujarTarjeta(paquete).then(function () {
+    $('#b-tarjeta').onclick = function () { compartirTarjeta(); };
+  });
+  cargarCampus(res);
+}
+
+function compartirTarjeta() {
+  var cv = $('#tarjeta');
+  cv.toBlob(function (blob) {
+    if (!blob) return;
+    var nombre = 'mi-franja-' + D.semestre + '.png';
+    var archivo = null;
+    try { archivo = new File([blob], nombre, { type:'image/png' }); } catch (e) {}
+    if (archivo && navigator.canShare && navigator.canShare({ files:[archivo] })) {
+      navigator.share({ files:[archivo], text:'Yo ya dije qué se queda en la Franja Libre. ¿Y tú? ' + D.url })
+        .catch(function (e) { if (e && e.name !== 'AbortError') descargar(blob, nombre); });
+    } else descargar(blob, nombre);
+  }, 'image/png');
+}
+function descargar(blob, nombre) {
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = nombre;
+  document.body.appendChild(a); a.click();
+  setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+}
+
+function dibujarTarjeta(paq) {
+  var cv = $('#tarjeta'), x = cv.getContext('2d');
+  var r = paq.r;
+  var fuentes = document.fonts && document.fonts.load ? Promise.all([
+    document.fonts.load('900 120px Fraunces'), document.fonts.load('italic 400 40px Fraunces'),
+    document.fonts.load('700 40px "Instrument Sans"'), document.fonts.load('600 40px "Instrument Sans"')
+  ]).catch(function () {}) : Promise.resolve();
+  var img = new Image();
+  var cargaImg = new Promise(function (ok) {
+    img.onload = ok; img.onerror = ok;
+    img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(conejo({ expr:'feliz', cuerpo:true }));
+  });
+  return Promise.all([fuentes, cargaImg]).then(function () {
+    x.fillStyle = '#F7F4E4'; x.fillRect(0, 0, 1080, 1350);
+    // semitono
+    for (var i = 0; i < 36; i++) for (var j = 0; j < 26; j++) {
+      var dd = Math.hypot(i, j * 1.25); if (dd > 24) continue;
+      x.fillStyle = 'rgba(238,125,29,' + (0.42 * (1 - dd / 24)).toFixed(3) + ')';
+      x.beginPath(); x.arc(1080 - i * 20, 150 + j * 20, 3.4, 0, 7); x.fill();
+    }
+    // papel picado
+    x.strokeStyle = '#1A3A2A'; x.lineWidth = 5; x.beginPath(); x.moveTo(0, 30); x.lineTo(1080, 30); x.stroke();
+    var cols = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A', '#D23C6E', '#E8A85A'];
+    cols.forEach(function (c, k) { banderaCanvas(x, 24 + k * 150, 30, 134, 100, c); });
+    // encabezado
+    x.textBaseline = 'alphabetic';
+    x.fillStyle = '#2D5A3D'; x.font = '700 30px "Instrument Sans", sans-serif';
+    espaciado(x, 'CAMPUS CONCÁ · UAQ · FRANJA LIBRE', 80, 228, 5);
+    x.font = '900 170px Fraunces, serif';
+    x.fillStyle = '#EE7D1D'; x.fillText('Mi Franja', 88, 398);
+    x.fillStyle = '#1A3A2A'; x.fillText('Mi Franja', 80, 390);
+    x.font = '900 104px Fraunces, serif'; x.fillStyle = '#4A8C5C'; x.fillText(D.semestre, 84, 500);
+    // lo vivido
+    var nt = r.talleres.filter(function (t) { return t.asist && t.asist !== 'nunca'; }).length, ne = r.eventos.length;
+    var y = 610;
+    x.fillStyle = '#1A3A2A';
+    if (r.martes === 'dando') {
+      x.font = '700 46px "Instrument Sans", sans-serif'; x.fillText('Di un taller', 84, y); y += 60;
+      if (nt || ne) { x.font = '600 38px "Instrument Sans", sans-serif'; x.fillText('y estuve en ' + cuenta(nt, 'taller', 'talleres') + ' y ' + cuenta(ne, 'evento', 'eventos'), 84, y); y += 56; }
+    } else if (nt || ne) {
+      x.font = '600 36px "Instrument Sans", sans-serif'; x.fillStyle = '#5E6D63'; x.fillText('Estuve en', 84, y); y += 70;
+      x.fillStyle = '#1A3A2A'; x.font = '900 76px Fraunces, serif';
+      x.fillText(cuenta(nt, 'taller', 'talleres'), 84, y); y += 84;
+      x.fillText(cuenta(ne, 'evento', 'eventos'), 84, y); y += 40;
+    } else {
+      x.font = '700 44px "Instrument Sans", sans-serif';
+      x.fillText('No me sumé a nada…', 84, y); y += 58;
+      x.font = '600 38px "Instrument Sans", sans-serif'; x.fillStyle = '#5E6D63'; x.fillText('y dije por qué.', 84, y); y += 40;
+    }
+    // palabra
+    if (r.palabra) {
+      y += 60;
+      x.fillStyle = '#5E6D63'; x.font = '600 34px "Instrument Sans", sans-serif'; x.fillText('Mi palabra:', 84, y); y += 74;
+      x.fillStyle = '#A9500F'; x.font = 'italic 400 72px Fraunces, serif';
+      x.fillText('«' + r.palabra + '»', 80, y, 600);
+    }
+    // conejo
+    x.drawImage(img, 640, 560, 380, 538);
+    // lo sembrado
+    if (r.maiz) {
+      var top = D.maiz.map(function (m) { return { m:m, n:r.maiz[m.id] || 0 }; }).filter(function (o) { return o.n > 0; })
+        .sort(function (a, b) { return b.n - a.n; }).slice(0, 3);
+      if (top.length) {
+        var y2 = 1058;
+        x.fillStyle = '#5E6D63'; x.font = '600 34px "Instrument Sans", sans-serif'; x.fillText('Para enero sembré:', 84, y2);
+        x.font = '700 40px "Instrument Sans", sans-serif'; x.fillStyle = '#1A3A2A';
+        var xx = 84;
+        top.forEach(function (o) {
+          var tx = o.m.e + ' ' + o.n + '  ';
+          x.fillText(tx, xx, y2 + 60); xx += x.measureText(tx).width + 18;
+        });
+      }
+    }
+    // pie
+    redondo(x, 60, 1168, 960, 136, 40, '#1A3A2A');
+    x.fillStyle = '#F5EED8'; x.font = '700 40px "Instrument Sans", sans-serif';
+    x.fillText('Yo ya dije qué se queda. ¿Y tú?', 104, 1228);
+    x.fillStyle = '#E8A85A'; x.font = '600 28px "Instrument Sans", sans-serif';
+    x.fillText(D.url.replace(/^https?:\/\//, ''), 104, 1274);
+  });
+}
+function cuenta(n, uno, varios) { return (n === 0 ? 'cero' : n) + ' ' + (n === 1 ? uno : varios); }
+function espaciado(x, t, px, py, sp) {
+  if ('letterSpacing' in x) { x.letterSpacing = sp + 'px'; x.fillText(t, px, py); x.letterSpacing = '0px'; return; }
+  for (var i = 0; i < t.length; i++) { x.fillText(t[i], px, py); px += x.measureText(t[i]).width + sp; }
+}
+function redondo(x, px, py, w, h, rr, color) {
+  x.fillStyle = color; x.beginPath();
+  x.moveTo(px + rr, py); x.arcTo(px + w, py, px + w, py + h, rr); x.arcTo(px + w, py + h, px, py + h, rr);
+  x.arcTo(px, py + h, px, py, rr); x.arcTo(px, py, px + w, py, rr); x.closePath(); x.fill();
+}
+function banderaCanvas(x, px, py, w, h, color) {
+  x.save(); x.translate(px, py);
+  var dient = 10, paso = w / dient, alto = h * 0.84;
+  x.fillStyle = color; x.beginPath(); x.moveTo(0, 0); x.lineTo(w, 0); x.lineTo(w, alto);
+  for (var i = dient; i > 0; i--) { x.lineTo(i * paso - paso / 2, h); x.lineTo((i - 1) * paso, alto); }
+  x.closePath(); x.fill();
+  x.fillStyle = '#F7F4E4';
+  var cx = w / 2, cy = h * 0.4;
+  [[0, 0, 9], [0, -16, 4.5], [0, 16, 4.5], [-16, 0, 4.5], [16, 0, 4.5]].forEach(function (c) { x.beginPath(); x.arc(cx + c[0], cy + c[1], c[2], 0, 7); x.fill(); });
+  [[w * 0.17, h * 0.22], [w * 0.83, h * 0.22], [w * 0.17, h * 0.6], [w * 0.83, h * 0.6]].forEach(function (c) {
+    x.beginPath(); x.moveTo(c[0], c[1] - 7); x.lineTo(c[0] + 6, c[1]); x.lineTo(c[0], c[1] + 7); x.lineTo(c[0] - 6, c[1]); x.closePath(); x.fill();
+  });
+  x.restore();
+}
+
+function cargarCampus(res) {
+  var caja = $('#f-campus');
+  if (!caja || !API) return;
+  fetch(API + (API.indexOf('?') >= 0 ? '&' : '?') + 'accion=resultados')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var t = d && d.seg && d.seg.todos;
+      var html = '<h2>Así va el campus</h2>';
+      if (res.numero) html += '<div class="dato"><span class="n">#' + res.numero + '</span><span>Eres la respuesta número ' + res.numero + '.</span></div>';
+      if (!t || t.oculto || !t.n) {
+        html += '<div class="dato"><span class="n">🌱</span><span>Los resultados se muestran cuando haya al menos ' + D.minimoGrupo + ' respuestas. Vas entre las primeras.</span></div>';
+        caja.innerHTML = html; return;
+      }
+      var mucho = t.sin && t.sin.mucho ? Math.round(100 * t.sin.mucho / t.n) : 0;
+      html += '<div class="dato"><span class="n">' + mucho + '%</span><span>la extrañaría mucho si en enero ya no hubiera Franja.</span></div>';
+      if (t.maiz && t.maiz.total) {
+        var mx = D.maiz.slice().sort(function (a, b) { return (t.maiz.suma[b.id] || 0) - (t.maiz.suma[a.id] || 0); })[0];
+        html += '<div class="dato"><span class="n">' + mx.e + '</span><span>Lo más sembrado para enero hasta ahora: <b>' + esc(mx.t) + '</b>.</span></div>';
+      }
+      var pedido = tallerMasPedido(t);
+      if (pedido) html += '<div class="dato"><span class="n">🙋</span><span>El taller nuevo más pedido: <b>' + esc(pedido) + '</b>.</span></div>';
+      caja.innerHTML = html;
+    })
+    .catch(function () {});
+}
+
+function normal(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zñ0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+/* Junta las fichitas elegidas con lo escrito a mano que coincide con alguna */
+function tallerMasPedido(t) {
+  var cuenta = {};
+  D.op.deseo.forEach(function (o) { cuenta[o.t] = (t.deseo && t.deseo[o.id]) || 0; });
+  (t.deseosEscritos || []).forEach(function (w) {
+    var igual = D.op.deseo.filter(function (o) { return normal(o.t) === normal(w.t); })[0];
+    var k = igual ? igual.t : w.t.charAt(0).toUpperCase() + w.t.slice(1);
+    cuenta[k] = (cuenta[k] || 0) + w.n;
+  });
+  var mejor = Object.keys(cuenta).sort(function (a, b) { return cuenta[b] - cuenta[a]; })[0];
+  return mejor && cuenta[mejor] > 0 ? mejor : '';
+}
+
+function confeti() {
+  if (REDUCIR) return;
+  var cv = $('#confeti'), x = cv.getContext('2d'), dpr = window.devicePixelRatio || 1;
+  var W = cv.width = innerWidth * dpr, H = cv.height = innerHeight * dpr;
+  cv.style.display = 'block';
+  var cols = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A', '#F2C14E'];
+  var ps = [];
+  for (var i = 0; i < 110; i++) ps.push({
+    x:Math.random() * W, y:-Math.random() * H * 0.7 - 20 * dpr, w:(10 + Math.random() * 12) * dpr, h:(14 + Math.random() * 12) * dpr,
+    c:cols[Math.floor(Math.random() * cols.length)], vy:(2.2 + Math.random() * 3) * dpr, vx:(Math.random() - 0.5) * 1.6 * dpr,
+    r:Math.random() * 6, vr:(Math.random() - 0.5) * 0.14, f:Math.random() * 6
+  });
+  var t0 = performance.now();
+  function cuadro(t) {
+    x.clearRect(0, 0, W, H);
+    ps.forEach(function (p) {
+      p.y += p.vy; p.x += p.vx + Math.sin(t / 420 + p.f) * 0.9 * dpr; p.r += p.vr;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.r); x.scale(1, Math.cos(t / 260 + p.f));
+      x.fillStyle = p.c; x.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      x.fillStyle = 'rgba(247,244,228,.92)'; x.beginPath(); x.arc(0, 0, p.w * 0.17, 0, 7); x.fill();
+      x.restore();
+    });
+    if (t - t0 < 4300) requestAnimationFrame(cuadro);
+    else { x.clearRect(0, 0, W, H); cv.style.display = 'none'; }
+  }
+  requestAnimationFrame(cuadro);
+}
+
+/* ======================================================================
+   ARRANQUE
+   ====================================================================== */
+portada();
+reintentarPendiente();
+if (LOCAL) window.__fl = { conejo:conejo, planta:planta, estado:function () { return S; }, paquete:armarPaquete, ruta:ruta };
+})();
+</script>
+</body>
+</html>
