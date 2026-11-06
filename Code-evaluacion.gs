@@ -259,6 +259,7 @@ function sumar(L) {
   });
   a.palabras = nube(L.map(function (r) { return r.palabra; }));
   a.deseosEscritos = nube(L.map(function (r) { return r.deseoOtro; }));
+  a.torneosEscritos = nube(L.map(function (r) { return r.torneoOtro; }));
   return a;
 }
 
@@ -331,6 +332,7 @@ function limpiarR(r) {
   }
   o.palabra = texto(r.palabra, 24).toLowerCase();
   o.deseoOtro = texto(r.deseoOtro, 60);
+  o.torneoOtro = o.torneo === 'otro' ? texto(r.torneoOtro, 40) : '';
   return o;
 }
 

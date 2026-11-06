@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>¿Qué se queda? · Balance de la Franja Libre · Campus Concá UAQ</title>
-<meta name="description" content="Balance de la Franja Libre 2026-2. Cinco minutos y anónimo: decide qué sigue en enero, qué cambia y qué ya no.">
+<meta name="description" content="Balance de la Franja Libre 2026-2. Cinco minutos y anónimo: decide qué sigue en 2027, qué cambia y qué ya no.">
 <meta property="og:title" content="¿Qué se queda en la Franja Libre?">
-<meta property="og:description" content="Cinco minutos y anónimo: decide qué sigue en enero, qué cambia y qué ya no.">
+<meta property="og:description" content="Cinco minutos y anónimo: decide qué sigue en 2027, qué cambia y qué ya no.">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://franjalibre.campusconcauaq.workers.dev/evaluacion-og.png">
 <meta name="theme-color" content="#1A3A2A">
@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=1"></script>
+<script src="evaluacion-datos.js?v=2"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -189,6 +189,7 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
   position:relative; z-index:1; background:var(--papel); border:3px solid var(--vp); border-radius:22px;
   padding:20px 16px 18px; text-align:center; box-shadow:5px 5px 0 var(--vp); overflow:hidden;
 }
+.t-anual { position:absolute; top:10px; left:12px; background:var(--na-l); border:1.5px solid var(--na-t); color:var(--na-t); border-radius:999px; padding:2px 9px; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 .t-cuenta { position:absolute; top:12px; right:14px; font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--vs); text-transform:uppercase; }
 .t-emoji { font-size:50px; width:86px; height:86px; border-radius:50%; background:var(--cr); display:grid; place-items:center; margin:0 auto 10px; border:2px dashed rgba(26,58,42,.3); line-height:1; }
 .t-nombre { font-family:'Fraunces', serif; font-weight:900; font-size:25px; line-height:1.1; text-wrap:balance; }
@@ -386,7 +387,7 @@ function estadoVacio() {
     talleres:[], ningunTaller:false, eventos:[], ningunEvento:false, act:{},
     frenos:[], canal:[], sumarme:[], talOtra:null, talFalto:[],
     palabra:'', dejo:[], gente:null, sin:null, balance:null,
-    maiz:maiz, maizSaltado:false, torneo:null,
+    maiz:maiz, maizSaltado:false, torneo:null, torneoOtro:'',
     porque:null, choque:null, suspension:null, carga:null, cargaTipo:[], salir:null,
     deseo:[], deseoOtro:'', coordinara:'',
     vol:null, volNombre:'', volTel:'', volQue:'', notas:{}
@@ -765,11 +766,14 @@ function definir(p) {
       a = act(p.id);
       var esT = p.tipo === 'taller';
       e = esT ? taller(p.id) : evento(p.id);
+      var anual = !esT && !!e.anual;
+      var frase = p.n === p.total ? 'Última tarjeta.' : FRASES_TARJETA[(p.n - 2) % FRASES_TARJETA.length];
       return {
-        tipo:'veredicto', t:'¿Qué hacemos con esto en enero?',
-        b:p.n === 1 ? 'Una tarjeta por cada cosa en la que estuviste. Tú decides.' : (p.n === p.total ? 'Última tarjeta.' : FRASES_TARJETA[(p.n - 2) % FRASES_TARJETA.length]),
+        tipo:'veredicto', t:anual ? '¿Qué hacemos con esto el próximo año?' : '¿Qué hacemos con esto en enero?',
+        b:(p.n === 1 ? 'Una tarjeta por cada cosa en la que estuviste. ' : '') +
+          (anual ? 'Esta pasa una vez al año: piensa en la edición de ' + D.anio + '.' : (p.n === 1 ? 'Tú decides.' : frase)),
         cara:esT ? 'neutral' : 'guino', disfraz:esT ? '' : (e.disfraz || ''),
-        tarjeta:{ e:e.e, n:esT ? nombreTaller(e) : e.t, h:esT ? e.dia + ' · ' + e.hora : e.cuando, num:p.n, total:p.total },
+        tarjeta:{ e:e.e, n:esT ? nombreTaller(e) : e.t, h:esT ? e.dia + ' · ' + e.hora : e.cuando, num:p.n, total:p.total, anual:anual },
         a:a
       };
     }
@@ -777,11 +781,15 @@ function definir(p) {
       a = act(p.id);
       var esT2 = p.tipo === 'taller';
       e = esT2 ? taller(p.id) : evento(p.id);
+      var anual2 = !esT2 && !!e.anual;
       return {
-        tipo:'varios', chips:true, opcional:true, t:'¿Qué le cambiarías?', s:'Toca las que quieras. Si hace falta, escribe algo.',
-        ficha:{ e:e.e, n:esT2 ? nombreTaller(e) : e.t, h:esT2 ? e.dia + ' · ' + e.hora : e.cuando },
+        tipo:'varios', chips:true, opcional:true, t:anual2 ? '¿Qué le cambiarías para ' + D.anio + '?' : '¿Qué le cambiarías?',
+        s:'Toca las que quieras. Si hace falta, escribe algo.',
+        ficha:{ e:e.e, n:esT2 ? nombreTaller(e) : e.t, h:esT2 ? e.dia + ' · ' + e.hora : e.cuando + (anual2 ? ' · cada año' : '') },
         b:'Que siga, pero mejor. ¿Qué le mueves?', cara:'pensando', disfraz:esT2 ? '' : (e.disfraz || ''),
-        ops:esT2 ? D.op.cambiosTaller : D.op.cambiosEvento, val:function () { return a.cambios; }, notaSiempre:true
+        // a una fiesta de cada año no se le pregunta si debe ser más o menos seguida
+        ops:esT2 ? D.op.cambiosTaller : D.op.cambiosEvento.filter(function (o) { return !anual2 || (o.id !== 'mas' && o.id !== 'menos'); }),
+        val:function () { return a.cambios; }, notaSiempre:true
       };
     }
     case 'porqueNo': {
@@ -821,9 +829,11 @@ function definir(p) {
       b:'Toca una maceta para sembrar. Donde pongas más, más crece.', cara:'feliz', disfraz:'palma'
     };
     case 'torneo': return {
-      tipo:'uno', t:'Sembraste en deporte. ¿De qué quieres el torneo de enero?',
-      b:'Así sabemos qué deporte junta a más gente.', cara:'guino', disfraz:'banda',
-      ops:D.op.torneo, val:function () { return S.torneo; }, set:function (v) { S.torneo = v; }
+      tipo:'uno', t:'¿De qué deporte quieres el torneo del próximo semestre?',
+      b:'Sembraste en deporte, así que dinos cuál. Si es otro, escríbelo.', cara:'guino', disfraz:'banda',
+      ops:D.op.torneo, val:function () { return S.torneo; }, set:function (v) { S.torneo = v; },
+      textoVal:function () { return S.torneoOtro || ''; }, textoSet:function (v) { S.torneoOtro = v; },
+      textoPh:'¿Cuál? Escribe el deporte'
     };
     case 'porque': return {
       tipo:'uno', t:'Siendo honestos: ¿por qué fuiste?', b:'Nadie se va a enterar, de veras.', cara:'guino',
@@ -937,22 +947,50 @@ function dibujarBarra(p) {
 }
 
 /* ---------- una sola respuesta ---------- */
-function cuerpoUno(c, cuerpo) {
+function cuerpoUno(c, cuerpo, pie) {
   var v = c.val();
   var numeros = c.tipo === 'numeros';
+  var ph = c.textoPh || 'Escríbelo aquí';
   cuerpo.innerHTML = '<div class="ops">' + c.ops.map(function (o) {
     var izq = numeros ? '<span class="e" style="font-family:Fraunces,serif;font-weight:900;font-size:22px;width:46px">' + esc(o.n) + '</span>'
                       : (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '');
     return '<button type="button" class="op' + (v === o.id ? ' si' : '') + '" data-id="' + o.id + '">' + izq +
-      '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(o.s) + '</span>' : '') + '</span></button>';
+      '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(o.s) + '</span>' : '') + '</span></button>' +
+      (o.texto ? '<div class="nota-wrap" style="margin-top:-2px" hidden><label class="sr" for="nota-uno">' + esc(ph) + '</label>' +
+        '<input id="nota-uno" class="nota" type="text" maxlength="40" placeholder="' + esc(ph) + '" autocomplete="off"></div>' : '');
   }).join('') + '</div>';
+  // Una opción con «texto» (como «Otro deporte») no avanza sola: abre un renglón y espera a que lo escriban.
+  var nota = $('#nota-uno', cuerpo);
+  function abrirTexto(abre) {
+    if (!nota) return;
+    nota.parentNode.hidden = !abre;
+    $('#pie').hidden = !abre;
+    if (abre) pie.listo(!!nota.value.trim(), 'Siguiente →');
+  }
+  if (nota) {
+    nota.value = c.textoVal ? c.textoVal() : '';
+    nota.addEventListener('input', function () {
+      if (c.textoSet) c.textoSet(nota.value);
+      pie.listo(!!nota.value.trim(), 'Siguiente →'); guardarBorrador();
+    });
+    nota.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); if (nota.value.trim()) siguiente(); } });
+    var elegida = busca(c.ops, v);
+    abrirTexto(!!(elegida && elegida.texto));
+  }
   $$('.op', cuerpo).forEach(function (b) {
     b.addEventListener('click', function () {
       if (bloqueado) return;
-      bloqueado = true;
+      var o = busca(c.ops, b.dataset.id);
       $$('.op', cuerpo).forEach(function (x) { x.classList.toggle('si', x === b); });
-      c.set(b.dataset.id);
+      c.set(o.id);
       guardarBorrador();
+      if (o.texto && nota) {
+        abrirTexto(true);
+        setTimeout(function () { nota.focus(); try { nota.scrollIntoView({ block:'center', behavior:'smooth' }); } catch (e) {} }, 60);
+        return;
+      }
+      abrirTexto(false);
+      bloqueado = true;
       setTimeout(siguiente, REDUCIR ? 120 : 330);
     });
   });
@@ -1072,6 +1110,7 @@ function cuerpoPasaporte(c, cuerpo, pie) {
 function cuerpoVeredicto(c, cuerpo) {
   var a = c.a, tj = c.tarjeta;
   cuerpo.innerHTML = '<div class="mazo' + (tj.num < tj.total ? ' con-mas' : '') + '"><div class="tarjeta">' +
+    (tj.anual ? '<span class="t-anual">Cada año</span>' : '') +
     '<span class="t-cuenta">' + tj.num + ' de ' + tj.total + '</span>' +
     '<div class="t-emoji" aria-hidden="true">' + tj.e + '</div><div class="t-nombre">' + esc(tj.n) + '</div>' +
     '<div class="t-cuando">' + esc(tj.h) + '</div><div class="t-sello" aria-hidden="true"></div></div></div>' +
@@ -1287,6 +1326,7 @@ function armarPaquete() {
     palabra:S.palabra.trim().toLowerCase().slice(0, 24),
     dejo:vis.dejo ? S.dejo.slice() : [], gente:vis.gente ? S.gente : null,
     sin:S.sin, balance:S.balance, maiz:maiz, torneo:vis.torneo ? S.torneo : null,
+    torneoOtro:(vis.torneo && S.torneo === 'otro') ? String(S.torneoOtro || '').trim().slice(0, 40) : '',
     porque:vis.porque ? S.porque : null, choque:vis.choque ? S.choque : null,
     suspension:vis.suspension ? S.suspension : null, carga:vis.carga ? S.carga : null,
     cargaTipo:vis.cargaTipo ? S.cargaTipo.slice() : [], salir:vis.salir ? S.salir : null,
@@ -1312,7 +1352,7 @@ function armarPaquete() {
     'Eventos o talleres': etiqueta(D.op.balance, r.balance)
   };
   D.maiz.forEach(function (m) { fila['Maíz: ' + m.t] = maiz ? maiz[m.id] : ''; });
-  fila['Torneo de enero'] = etiqueta(D.op.torneo, r.torneo);
+  fila['Torneo de enero'] = etiqueta(D.op.torneo, r.torneo) + (r.torneoOtro ? ': ' + r.torneoOtro : '');
   fila['Por qué fue (estudiantes)'] = etiqueta(D.op.porque, r.porque);
   fila['Clase a la hora de la Franja (estudiantes)'] = etiqueta(D.op.choque, r.choque);
   fila['Clases perdidas por eventos (docentes)'] = etiqueta(D.op.suspension, r.suspension);
@@ -1332,7 +1372,7 @@ function armarPaquete() {
     };
   }).concat(eventosR.map(function (x) {
     return {
-      'Tipo':'Evento', 'Actividad':evento(x.id).t, 'Asistencia':'Fue',
+      'Tipo':evento(x.id).anual ? 'Evento anual' : 'Evento', 'Actividad':evento(x.id).t, 'Asistencia':'Fue',
       'Por qué lo dejó':'', 'Veredicto':etiqueta(D.op.veredicto, x.ver), 'Qué le cambiaría':etiquetas(D.op.cambiosEvento, x.cambios),
       'Por qué ya no':etiquetas(D.op.porqueNo, x.porqueNo),
       'Nota':(x.ver === 'cambios' ? nota('cambios:' + x.id) : (x.ver === 'no' ? nota('porqueNo:' + x.id) : ''))
@@ -1441,7 +1481,7 @@ function portada() {
     tira + '<section class="portada">' +
     '<div class="p-flag">Franja Libre · Balance ' + esc(D.semestre) + '</div>' +
     '<h1 class="p-titulo">¿Qué se <span>queda?</span></h1>' +
-    '<p class="p-lead">Talleres, Mercadito, Feria de Saberes, Día del Maíz, concurso de disfraces, voleibol y posada. Ahora decides tú qué sigue en enero, qué cambia y qué ya no.</p>' +
+    '<p class="p-lead">Talleres, Mercadito, Feria de Saberes, Día del Maíz, concurso de disfraces, voleibol y posada. Ahora decides tú qué sigue en ' + esc(D.anio) + ', qué cambia y qué ya no.</p>' +
     '<div class="p-pills"><span>⏱️ 5 minutos o menos</span><span>🙈 Anónimo</span><span>📊 Resultados públicos</span></div>' +
     '<div class="p-conejo"><div class="cuerpo">' + conejo({ expr:'guino', cuerpo:true }) + '</div>' +
     '<div class="globo">No vengo por aplausos. Si algo no te gustó, o si nunca fuiste a nada, eso es justo lo que necesito saber.</div></div>' +
@@ -1476,7 +1516,7 @@ function final(paquete, res) {
   $('#pantalla').innerHTML = '<section class="final">' +
     '<div class="f-conejo">' + conejo({ expr:'feliz', cuerpo:true }) + '</div>' +
     '<h1 class="f-titulo">¡Listo!</h1>' +
-    '<p class="f-lead">Tu voz ya cuenta para la Franja de ' + esc(D.proximo) + '.</p>' +
+    '<p class="f-lead">Tu voz ya cuenta para la Franja de ' + esc(D.anio) + '.</p>' +
     '<p class="f-tiempo">Lo hiciste en ' + (min ? min + ' min ' : '') + s + ' s' + (seg <= 300 ? ', dentro de los cinco minutos prometidos.' : '.') + '</p>' +
     (res.sinUrl ? '<p class="aviso">Vista previa: la hoja de cálculo todavía no está conectada, así que esto no se envió.</p>' : '') +
     (paquete.prueba && !res.sinUrl ? '<p class="aviso" style="background:var(--na-l);border-color:var(--na-t);color:#6b3a0e">Respuesta de prueba: llegó a la hoja, pero no cuenta en los resultados.</p>' : '') +

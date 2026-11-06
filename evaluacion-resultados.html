@@ -4,16 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Lo que dijo el campus · Balance de la Franja Libre · Campus Concá UAQ</title>
-<meta name="description" content="Resultados en vivo del balance de la Franja Libre 2026-2: qué se queda, qué cambia y qué se va en enero.">
+<meta name="description" content="Resultados en vivo del balance de la Franja Libre 2026-2: qué se queda, qué cambia y qué se va en 2027.">
 <meta property="og:title" content="Lo que dijo el campus · Balance de la Franja Libre">
-<meta property="og:description" content="Resultados en vivo: qué se queda, qué cambia y qué se va en la Franja de enero.">
+<meta property="og:description" content="Resultados en vivo: qué se queda, qué cambia y qué se va en la Franja de 2027.">
 <meta property="og:image" content="https://franjalibre.campusconcauaq.workers.dev/evaluacion-og.png">
 <meta name="theme-color" content="#1A3A2A">
 <link rel="icon" type="image/png" href="icono-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=1"></script>
+<script src="evaluacion-datos.js?v=2"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -211,7 +211,7 @@ body.pantalla .panel { padding-bottom:200px; }
     <a class="volver" href="./" id="volver">← Franja Libre</a>
     <div class="p-flag" id="flag">Franja Libre · Balance</div>
     <h1 class="titulo">Lo que dijo <span>el campus</span></h1>
-    <p class="lead">Resultados en vivo de <a href="evaluacion.html" id="a-encuesta">«¿Qué se queda?»</a>, el balance que estudiantes, docentes y administrativos hacen de la Franja. Sirven para decidir cómo será la de <span id="proximo"></span>.</p>
+    <p class="lead">Resultados en vivo de <a href="evaluacion.html" id="a-encuesta">«¿Qué se queda?»</a>, el balance que estudiantes, docentes y administrativos hacen de la Franja. Sirven para decidir cómo será la de <span id="proximo"></span> y cómo se hacen el próximo año las fiestas que pasan una vez al año.</p>
     <p class="estado" id="estado" aria-live="polite">Cargando…</p>
     <div class="quienes" id="quienes" aria-label="Quién respondió"></div>
     <div id="ejemplo" class="ejemplo" hidden></div>
@@ -510,9 +510,17 @@ function actividades(a) {
   var vt = veredictos(talleres.filter(function (t) { return suma(t.ver) > 0 || (t.asist && t.asist.nunca); }), 'taller');
   r.appendChild(tarjeta('Talleres permanentes: ¿qué hacemos en enero?', 'Cada barra suma lo que dijeron quienes se apuntaron. A la derecha del cero, «que siga»; a la izquierda, «que ya no siga». Ordenados de más a menos apoyo.',
     vt.el, 'qué talleres se repiten igual, cuáles se ajustan (y en qué) y cuáles se cambian por otros.', vt.tabla));
-  var ve = veredictos(eventos.filter(function (e) { return suma(e.ver) > 0; }), 'evento');
-  r.appendChild(tarjeta('Eventos del semestre: ¿qué hacemos en enero?', 'Solo cuenta quien fue a cada evento.',
-    ve.el, 'qué eventos se repiten en el calendario de enero–junio y cuáles hay que repensar.', ve.tabla));
+  function esAnual(e) { var d = D.eventos.filter(function (x) { return x.id === e.id; })[0]; return !!(d && d.anual); }
+  var conVer = eventos.filter(function (e) { return suma(e.ver) > 0; });
+  var ve = veredictos(conVer.filter(function (e) { return !esAnual(e); }), 'evento');
+  r.appendChild(tarjeta('Eventos de cada semestre: ¿qué hacemos en enero?', 'Solo cuenta quien fue a cada evento.',
+    ve.el, 'qué eventos entran al calendario de enero–junio y cuáles hay que repensar.', ve.tabla));
+  var nombres = D.eventos.filter(function (x) { return x.anual; }).map(function (x) { return x.con; });
+  var listaNombres = nombres.length > 1 ? nombres.slice(0, -1).join(', ') + ' y ' + nombres[nombres.length - 1] : nombres.join('');
+  listaNombres = listaNombres.charAt(0).toUpperCase() + listaNombres.slice(1);
+  var va = veredictos(conVer.filter(esAnual), 'evento');
+  r.appendChild(tarjeta('Fiestas de cada año: ¿qué hacemos en ' + D.anio + '?', listaNombres + ' pasan una vez al año: aquí se decide la edición de ' + D.anio + '. Solo cuenta quien fue.',
+    va.el, 'cómo se hacen en ' + D.anio + ': qué se repite igual, qué se ajusta y qué se cambia por otra cosa.', va.tabla));
   return r;
 }
 
@@ -573,7 +581,10 @@ function enero(a) {
   r.appendChild(tarjeta('¿Fiesta o constancia?', 'Los días de evento se suspenden los talleres. Esto prefieren para enero.', s.el,
     'cuántos eventos caben en el semestre sin romper el ritmo de los talleres.', s.tabla));
   var b2 = barras(itemsDe(D.op.torneo, a.torneo), a.base.torneo, { vacio:'Todavía nadie que haya sembrado en deporte elige.' });
-  r.appendChild(tarjeta('El torneo de enero', 'Solo quienes sembraron algún maíz en deporte (' + (a.base.torneo || 0) + ').', b2.el,
+  var escritos = (a.torneosEscritos || []).slice(0, 8);
+  var cuerpoT = h('div', null, [b2.el, escritos.length ? h('p', { class:'sub', style:'margin:12px 0 0' }, [h('b', { text:'En «otro deporte» escribieron: ' }),
+    escritos.map(function (w) { return w.t + ' (' + w.n + ')'; }).join(', ') + '.']) : null]);
+  r.appendChild(tarjeta('El torneo del próximo semestre', 'Solo quienes sembraron algún maíz en deporte (' + (a.base.torneo || 0) + '). Lo escrito en «otro» aparece cuando lo repiten al menos dos.', cuerpoT,
     'de qué deporte se arma el torneo interno, antes de abrir el registro.', b2.tabla));
   var des = deseosDe(a);
   var b3 = barras(des, 1, { soloN:true, max:10, vacio:'Todavía no hay talleres pedidos.' });

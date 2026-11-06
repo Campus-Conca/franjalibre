@@ -10,7 +10,9 @@
                   Con ?preview en la dirección se puede probar antes; esas
                   respuestas llegan marcadas como prueba y no cuentan.
    · talleres y eventos → lo que se evalúa. Un evento con fecha futura no
-                  aparece en el pasaporte hasta ese día.
+                  aparece en el pasaporte hasta ese día. Un evento con
+                  anual:true se pregunta para el próximo año («¿qué hacemos el
+                  próximo año?») y no para enero.
    Si cambias el número de versión de este archivo, súbelo también en las
    dos páginas (evaluacion-datos.js?v=N) para que no se junte con el viejo.
    ========================================================================== */
@@ -19,6 +21,7 @@ window.EVAL = {
   scriptUrl: '',
   semestre: '2026-2',
   proximo: 'enero–junio 2027',
+  anio: '2027',      // el año de las fiestas anuales que se evalúan
   abre:   '2026-11-26T11:00:00-06:00',   // jueves del cierre de la Franja
   cierra: '2026-12-11T23:59:00-06:00',
   url: 'https://franjalibre.campusconcauaq.workers.dev/evaluacion',
@@ -62,10 +65,10 @@ window.EVAL = {
   eventos: [
     { id:'feria',      e:'🎪', t:'Feria de Intercambio de Saberes', corto:'Feria de Saberes', fecha:'2026-08-27', cuando:'Jueves 27 de agosto', con:'la Feria de Saberes', cat:'saberes' },
     { id:'mercadito',  e:'🛒', t:'Mercadito y trueque', corto:'Mercadito', fecha:'2026-08-27', cuando:'Cuatro fechas, de agosto a noviembre', con:'el Mercadito y el trueque', cat:'mercadito' },
-    { id:'maiz',       e:'🌽', t:'Día del Maíz', corto:'Día del Maíz', fecha:'2026-09-29', cuando:'Martes 29 de septiembre', con:'el Día del Maíz', cat:'fiestas', disfraz:'palma' },
-    { id:'disfraces',  e:'🦸', t:'Concurso de disfraces', corto:'Disfraces', fecha:'2026-10-29', cuando:'Día de Muertos · jueves 29 de octubre', con:'el concurso de disfraces', cat:'fiestas', disfraz:'mascara' },
+    { id:'maiz',       e:'🌽', t:'Día del Maíz', corto:'Día del Maíz', fecha:'2026-09-29', cuando:'Martes 29 de septiembre', con:'el Día del Maíz', cat:'fiestas', disfraz:'palma', anual:true },
+    { id:'disfraces',  e:'🦸', t:'Concurso de disfraces', corto:'Disfraces', fecha:'2026-10-29', cuando:'Día de Muertos · jueves 29 de octubre', con:'el concurso de disfraces', cat:'fiestas', disfraz:'mascara', anual:true },
     { id:'voleibol',   e:'🏐', t:'Torneo de voleibol mixto', corto:'Voleibol', fecha:'2026-11-05', cuando:'Jueves de 11:00 a 12:00', con:'el torneo de voleibol', cat:'deporte', disfraz:'banda' },
-    { id:'posada',     e:'🪅', t:'Posada navideña', corto:'Posada', fecha:'2026-11-24', cuando:'Martes 24 de noviembre', con:'la Posada', cat:'fiestas', disfraz:'venda' },
+    { id:'posada',     e:'🪅', t:'Posada navideña', corto:'Posada', fecha:'2026-11-24', cuando:'Martes 24 de noviembre', con:'la Posada', cat:'fiestas', disfraz:'venda', anual:true },
     { id:'cierre',     e:'🎉', t:'Cierre y muestra de talleres', corto:'Cierre', fecha:'2026-11-26', cuando:'Jueves 26 de noviembre', con:'el cierre y la muestra', cat:'fiestas' }
   ],
 
@@ -239,6 +242,7 @@ window.EVAL = {
       { id:'voleibol',   e:'🏐', t:'Voleibol' },
       { id:'balonmano',  e:'🤾', t:'Balonmano' },
       { id:'ajedrez',    e:'♟️', t:'Ajedrez' },
+      { id:'otro',       e:'✏️', t:'Otro deporte', texto:true },
       { id:'ninguno',    e:'🙅', t:'Ninguno: mejor talleres' }
     ],
     porque: [
