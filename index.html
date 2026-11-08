@@ -43,15 +43,15 @@ body { font-family:'Instrument Sans',sans-serif; background:var(--cs); color:var
 }
 
 /* BANDA DEL BALANCE (aparece sola mientras el instrumento está abierto) */
-.balance-banda { background:linear-gradient(135deg, #F6BF77, #EE7D1D); color:var(--vp); }
+.balance-banda { background:linear-gradient(135deg, #3A7CAB, #1F4F73); color:#fff; }
 .balance-banda[hidden] { display:none; }
-.balance-banda::before { background:radial-gradient(circle, rgba(255,253,247,.45), transparent 70%); }
+.balance-banda::before { background:radial-gradient(circle, rgba(255,253,247,.22), transparent 70%); }
 .balance-banda .torneo-emoji { width:66px; height:80px; }
 .balance-banda .torneo-emoji svg { width:100%; height:100%; overflow:visible; }
 .balance-banda .torneo-flag { background:var(--vp); color:var(--cr); }
-.balance-banda .torneo-nombre { color:var(--vp); }
-.balance-banda .torneo-desc { color:#3A2A10; }
-.balance-banda .torneo-cta, .balance-banda:hover .torneo-cta { color:var(--vp); text-decoration:underline; }
+.balance-banda .torneo-nombre { color:#fff; }
+.balance-banda .torneo-desc { color:rgba(255,255,255,.92); }
+.balance-banda .torneo-cta, .balance-banda:hover .torneo-cta { color:#fff; text-decoration:underline; }
 
 /* HERO */
 .hero {
@@ -226,7 +226,7 @@ footer a:hover { color:#fff; }
 <div class="wrap">
 
   <a class="torneo-banda balance-banda" id="banda-balance" href="evaluacion.html" hidden>
-    <span class="torneo-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="36 -6 128 158" aria-hidden="true" focusable="false"><path d="M68 128Q100 146 132 128L124 146Q100 158 76 146Z" fill="#EE7D1D" stroke="#1A3A2A" stroke-width="3.2" stroke-linejoin="round"/><path d="M92 150L100 170L108 150Z" fill="#EE7D1D" stroke="#1A3A2A" stroke-width="3.2" stroke-linejoin="round"/><path d="M78 66C64 44 56 14 66 6C77-2 92 26 97 62Z" fill="#FFFDF7" stroke="#1A3A2A" stroke-width="4" stroke-linejoin="round"/><path d="M81.5 57C72 40 67 21 70.5 15C75.5 10 86 31 90.5 55Z" fill="#F6B48F"/><path d="M103 62C110 26 126 0 138 6C149 13 136 44 122 66Z" fill="#FFFDF7" stroke="#1A3A2A" stroke-width="4" stroke-linejoin="round"/><path d="M108.5 55C113 32 125.5 13 132.5 15.5C139.5 20 130 41 119 57Z" fill="#F6B48F"/><ellipse cx="100" cy="96" rx="46" ry="40" fill="#FFFDF7" stroke="#1A3A2A" stroke-width="4"/><ellipse cx="73" cy="108" rx="7.5" ry="4.5" fill="#F6B48F" opacity=".75"/><ellipse cx="127" cy="108" rx="7.5" ry="4.5" fill="#F6B48F" opacity=".75"/><path d="M60 103L47 100M60 109L48 112M140 103L153 100M140 109L152 112" stroke="#1A3A2A" stroke-width="2.2" stroke-linecap="round"/><path d="M78.5 94Q84 87 89.5 94" stroke="#1A3A2A" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="116" cy="93" r="5.5" fill="#1A3A2A"/><circle cx="118" cy="91" r="1.7" fill="#fff"/><path d="M95.5 103.5Q100 100 104.5 103.5Q102.5 108 100 108Q97.5 108 95.5 103.5Z" fill="#EE7D1D" stroke="#1A3A2A" stroke-width="2.2" stroke-linejoin="round"/><path d="M92 111Q100 119.5 108 111" stroke="#1A3A2A" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg></span>
+    <span class="torneo-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="36 -6 128 158" aria-hidden="true" focusable="false"><path d="M68 128Q100 146 132 128L124 146Q100 158 76 146Z" fill="#3478A8" stroke="#1A3A2A" stroke-width="3.2" stroke-linejoin="round"/><path d="M92 150L100 170L108 150Z" fill="#3478A8" stroke="#1A3A2A" stroke-width="3.2" stroke-linejoin="round"/><path d="M78 66C64 44 56 14 66 6C77-2 92 26 97 62Z" fill="#FFFDF7" stroke="#1A3A2A" stroke-width="4" stroke-linejoin="round"/><path d="M81.5 57C72 40 67 21 70.5 15C75.5 10 86 31 90.5 55Z" fill="#F4CFD3"/><path d="M103 62C110 26 126 0 138 6C149 13 136 44 122 66Z" fill="#FFFDF7" stroke="#1A3A2A" stroke-width="4" stroke-linejoin="round"/><path d="M108.5 55C113 32 125.5 13 132.5 15.5C139.5 20 130 41 119 57Z" fill="#F4CFD3"/><ellipse cx="100" cy="96" rx="46" ry="40" fill="#FFFDF7" stroke="#1A3A2A" stroke-width="4"/><ellipse cx="73" cy="108" rx="7.5" ry="4.5" fill="#F4CFD3" opacity=".75"/><ellipse cx="127" cy="108" rx="7.5" ry="4.5" fill="#F4CFD3" opacity=".75"/><path d="M60 103L47 100M60 109L48 112M140 103L153 100M140 109L152 112" stroke="#1A3A2A" stroke-width="2.2" stroke-linecap="round"/><path d="M78.5 94Q84 87 89.5 94" stroke="#1A3A2A" stroke-width="3.4" fill="none" stroke-linecap="round"/><circle cx="116" cy="93" r="5.5" fill="#1A3A2A"/><circle cx="118" cy="91" r="1.7" fill="#fff"/><path d="M95.5 103.5Q100 100 104.5 103.5Q102.5 108 100 108Q97.5 108 95.5 103.5Z" fill="#E39AA8" stroke="#1A3A2A" stroke-width="2.2" stroke-linejoin="round"/><path d="M92 111Q100 119.5 108 111" stroke="#1A3A2A" stroke-width="2.8" fill="none" stroke-linecap="round"/></svg></span>
     <div class="torneo-body">
       <span class="torneo-flag" id="bb-flag">Balance del semestre</span>
       <h2 class="torneo-nombre" id="bb-nombre">¿Qué se queda?</h2>

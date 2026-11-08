@@ -22,8 +22,8 @@
 :root {
   --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
   --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4;
-  --na:#EE7D1D; --na-l:#FFEBD6; --na-t:#A9500F;
-  --rojo:#B23A26; --rojo-l:#F9E1DA; --verde-l:#E3F1E6;
+  --ac:#3478A8; --ac-l:#E2EEF6; --ac-t:#1F5A82;
+  --vino:#A8445F; --vino-l:#F6E3E8; --verde-l:#E3F1E6;
   --papel:#FFFDF7; --gris:#5E6D63;
 }
 html { -webkit-text-size-adjust:100%; }
@@ -38,7 +38,7 @@ input, textarea { font:inherit; color:inherit; }
 /* Puntitos de semitono, como en los carteles */
 .fondo-puntos {
   position:fixed; inset:0; pointer-events:none; z-index:0;
-  background-image:radial-gradient(circle, rgba(238,125,29,.30) 1.3px, transparent 1.7px);
+  background-image:radial-gradient(circle, rgba(52,120,168,.30) 1.3px, transparent 1.7px);
   background-size:11px 11px;
   -webkit-mask-image:radial-gradient(ellipse 70% 38% at 100% 0%, #000 0%, transparent 72%), radial-gradient(ellipse 60% 34% at 0% 100%, #000 0%, transparent 72%);
           mask-image:radial-gradient(ellipse 70% 38% at 100% 0%, #000 0%, transparent 72%), radial-gradient(ellipse 60% 34% at 0% 100%, #000 0%, transparent 72%);
@@ -92,17 +92,17 @@ input, textarea { font:inherit; color:inherit; }
   font-family:'Fraunces', serif; font-weight:900; font-size:clamp(25px, 7.2vw, 32px);
   line-height:1.08; letter-spacing:-.01em; margin:2px 0 8px; text-wrap:balance;
 }
-.preg em { font-style:normal; color:var(--na-t); }
+.preg em { font-style:normal; color:var(--ac-t); }
 .sub { font-size:14.5px; color:var(--gris); margin:-2px 0 16px; line-height:1.45; }
 
 /* Ficha chica de la actividad en turno */
 .ficha-act {
-  display:flex; align-items:center; gap:12px; background:var(--na-l); border:2px solid var(--na-t);
+  display:flex; align-items:center; gap:12px; background:var(--ac-l); border:2px solid var(--ac-t);
   border-radius:14px; padding:10px 14px; margin:0 0 14px;
 }
 .ficha-act .e { font-size:30px; line-height:1; }
 .ficha-act b { display:block; font-size:16px; }
-.ficha-act small { display:block; font-size:12.5px; color:#7b5a3a; margin-top:1px; }
+.ficha-act small { display:block; font-size:12.5px; color:var(--ac-t); margin-top:1px; }
 
 /* Opciones de una sola respuesta */
 .ops { display:grid; gap:10px; }
@@ -116,15 +116,15 @@ input, textarea { font:inherit; color:inherit; }
 .op .e { font-size:24px; width:32px; text-align:center; flex-shrink:0; line-height:1; }
 .op .tx { flex:1; }
 .op .s { display:block; font-size:12.5px; font-weight:500; color:var(--gris); margin-top:2px; }
-.op.si { background:var(--vp); color:var(--cr); box-shadow:4px 4px 0 var(--na); }
+.op.si { background:var(--vp); color:var(--cr); box-shadow:4px 4px 0 var(--ac); }
 .op.si .s { color:var(--vc); }
 .op:disabled { opacity:.35; cursor:default; }
 /* Opciones de varias respuestas (lista con casilla) */
 .op.multi { min-height:50px; padding:9px 12px; font-size:15px; box-shadow:3px 3px 0 var(--vp); }
 .op.multi .e { font-size:20px; width:26px; }
 .caja { width:22px; height:22px; border-radius:7px; border:2px solid var(--vp); flex-shrink:0; display:grid; place-items:center; background:var(--papel); }
-.op.si .caja { background:var(--na); border-color:var(--na); }
-.op.si .caja::after { content:''; width:6px; height:11px; border:solid var(--vp); border-width:0 3px 3px 0; transform:translateY(-1px) rotate(45deg); }
+.op.si .caja { background:var(--ac); border-color:var(--ac); }
+.op.si .caja::after { content:''; width:6px; height:11px; border:solid #fff; border-width:0 3px 3px 0; transform:translateY(-1px) rotate(45deg); }
 
 /* Fichitas para respuestas cortas */
 .chips { display:flex; flex-wrap:wrap; gap:8px; }
@@ -134,8 +134,8 @@ input, textarea { font:inherit; color:inherit; }
   box-shadow:2px 2px 0 var(--vp);
 }
 .chip .e { font-size:18px; line-height:1; }
-.chip.si { background:var(--vp); color:var(--cr); box-shadow:2px 2px 0 var(--na); }
-.chip.si::after { content:'✓'; color:var(--oc); font-weight:800; }
+.chip.si { background:var(--vp); color:var(--cr); box-shadow:2px 2px 0 var(--ac); }
+.chip.si::after { content:'✓'; color:#9CC7E3; font-weight:800; }
 .chip:disabled { opacity:.35; cursor:default; }
 
 .nota-wrap { margin-top:14px; }
@@ -143,7 +143,7 @@ input, textarea { font:inherit; color:inherit; }
   width:100%; border:2px solid var(--vp); border-radius:12px; background:var(--papel);
   padding:12px 14px; font-size:16px; outline:none;
 }
-.campo:focus, .nota:focus { box-shadow:0 0 0 3px rgba(238,125,29,.45); }
+.campo:focus, .nota:focus { box-shadow:0 0 0 3px rgba(52,120,168,.45); }
 textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 .contador { text-align:right; font-size:12px; color:var(--gris); margin-top:4px; }
 .palabra { font-family:'Fraunces', serif; font-weight:900; font-size:30px; text-align:center; padding:16px; }
@@ -161,10 +161,10 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 .sello-t .e { font-size:30px; line-height:1; }
 .sello-t .n { font-size:13.5px; font-weight:700; line-height:1.15; }
 .sello-t .h { font-size:11px; color:var(--gris); line-height:1.2; }
-.sello-t.si { background:var(--na-l); border-color:var(--na-t); }
+.sello-t.si { background:var(--ac-l); border-color:var(--ac-t); }
 .tinta {
   position:absolute; top:34%; left:50%; transform:translate(-50%,-50%) rotate(-14deg);
-  border:2.5px solid var(--rojo); color:var(--rojo); border-radius:6px; padding:2px 6px;
+  border:2.5px solid var(--ac-t); color:var(--ac-t); border-radius:6px; padding:2px 6px;
   font-size:11px; font-weight:800; letter-spacing:.07em; text-transform:uppercase; white-space:nowrap;
   background:rgba(255,253,247,.72); opacity:0; pointer-events:none;
 }
@@ -189,7 +189,7 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
   position:relative; z-index:1; background:var(--papel); border:3px solid var(--vp); border-radius:22px;
   padding:20px 16px 18px; text-align:center; box-shadow:5px 5px 0 var(--vp); overflow:hidden;
 }
-.t-anual { position:absolute; top:10px; left:12px; background:var(--na-l); border:1.5px solid var(--na-t); color:var(--na-t); border-radius:999px; padding:2px 9px; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+.t-anual { position:absolute; top:10px; left:12px; background:var(--ac-l); border:1.5px solid var(--ac-t); color:var(--ac-t); border-radius:999px; padding:2px 9px; font-size:10.5px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
 .t-cuenta { position:absolute; top:12px; right:14px; font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--vs); text-transform:uppercase; }
 .t-emoji { font-size:50px; width:86px; height:86px; border-radius:50%; background:var(--cr); display:grid; place-items:center; margin:0 auto 10px; border:2px dashed rgba(26,58,42,.3); line-height:1; }
 .t-nombre { font-family:'Fraunces', serif; font-weight:900; font-size:25px; line-height:1.1; text-wrap:balance; }
@@ -202,8 +202,8 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 .tarjeta.sellada .t-sello { animation:selloGrande .38s cubic-bezier(.3,1.5,.5,1) forwards; }
 @keyframes selloGrande { to { opacity:.95; transform:translate(-50%,-50%) rotate(-12deg) scale(1); } }
 .tarjeta.v-igual .t-sello { color:var(--vv); }
-.tarjeta.v-cambios .t-sello { color:var(--na-t); }
-.tarjeta.v-no .t-sello { color:var(--rojo); }
+.tarjeta.v-cambios .t-sello { color:var(--ac-t); }
+.tarjeta.v-no .t-sello { color:var(--vino); }
 .mazo.sale-igual .tarjeta { animation:saleArriba .5s .42s cubic-bezier(.5,0,.8,.4) forwards; }
 .mazo.sale-cambios .tarjeta { animation:saleDer .5s .42s cubic-bezier(.5,0,.8,.4) forwards; }
 .mazo.sale-no .tarjeta { animation:saleIzq .5s .42s cubic-bezier(.5,0,.8,.4) forwards; }
@@ -212,18 +212,18 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 @keyframes saleIzq { to { transform:translate(-130%, 30px) rotate(-16deg); opacity:0; } }
 .veredictos .op { min-height:54px; }
 .veredictos .v-igual { border-color:var(--vv); box-shadow:4px 4px 0 var(--vv); }
-.veredictos .v-cambios { border-color:var(--na-t); box-shadow:4px 4px 0 var(--na-t); }
-.veredictos .v-no { border-color:var(--rojo); box-shadow:4px 4px 0 var(--rojo); }
+.veredictos .v-cambios { border-color:var(--ac-t); box-shadow:4px 4px 0 var(--ac-t); }
+.veredictos .v-no { border-color:var(--vino); box-shadow:4px 4px 0 var(--vino); }
 .veredictos .v-igual.si { background:var(--vv); color:#fff; }
-.veredictos .v-cambios.si { background:var(--na-t); color:#fff; }
-.veredictos .v-no.si { background:var(--rojo); color:#fff; }
+.veredictos .v-cambios.si { background:var(--ac-t); color:#fff; }
+.veredictos .v-no.si { background:var(--vino); color:#fff; }
 
 /* ---------- MILPA DE LOS DIEZ MAÍCES ---------- */
 .costal {
   display:flex; align-items:center; gap:12px; background:var(--papel); border:2px solid var(--vp); border-radius:14px;
   padding:10px 12px; margin-bottom:12px; box-shadow:3px 3px 0 var(--vp); position:sticky; top:84px; z-index:3;
 }
-.costal-n { font-family:'Fraunces', serif; font-weight:900; font-size:30px; line-height:1; color:var(--na-t); min-width:34px; text-align:center; }
+.costal-n { font-family:'Fraunces', serif; font-weight:900; font-size:30px; line-height:1; color:var(--ac-t); min-width:34px; text-align:center; }
 .costal-t { font-size:12.5px; font-weight:600; color:var(--gris); line-height:1.25; }
 .granos { display:flex; gap:2px; flex-wrap:wrap; margin-top:3px; }
 .grano { width:13px; height:17px; display:block; transition:opacity .2s, transform .2s; }
@@ -239,7 +239,7 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 @keyframes crecer { from { transform:scale(.6, .4); } to { transform:none; } }
 .m-t { flex:1; font-size:13px; font-weight:700; line-height:1.18; padding-bottom:4px; }
 .m-t .e { display:block; font-size:20px; margin-bottom:3px; }
-.m-n { display:block; font-family:'Fraunces', serif; font-weight:900; font-size:19px; color:var(--na-t); margin-top:3px; min-height:20px; }
+.m-n { display:block; font-family:'Fraunces', serif; font-weight:900; font-size:19px; color:var(--ac-t); margin-top:3px; min-height:20px; }
 .menos {
   position:absolute; top:6px; right:6px; width:30px; height:30px; border-radius:50%; border:2px solid var(--vp);
   background:var(--cs); font-weight:800; font-size:18px; line-height:1; display:grid; place-items:center;
@@ -254,16 +254,16 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 .pie-in { max-width:528px; margin:0 auto; display:flex; gap:10px; align-items:center; }
 .btn-sig, .btn-grande {
   flex:1; border:0; border-radius:999px; background:var(--vp); color:var(--cr); font-size:17px; font-weight:700;
-  padding:15px 22px; box-shadow:4px 4px 0 var(--na); transition:transform .1s, box-shadow .1s, opacity .2s;
+  padding:15px 22px; box-shadow:4px 4px 0 var(--ac); transition:transform .1s, box-shadow .1s, opacity .2s;
 }
-.btn-sig:active, .btn-grande:active { transform:translate(2px,2px); box-shadow:2px 2px 0 var(--na); }
+.btn-sig:active, .btn-grande:active { transform:translate(2px,2px); box-shadow:2px 2px 0 var(--ac); }
 .btn-sig:disabled { opacity:.35; cursor:default; transform:none; }
 .btn-sec {
   display:inline-flex; justify-content:center; align-items:center; gap:6px; border:2px solid var(--vp); border-radius:999px;
   background:var(--papel); padding:12px 20px; font-weight:700; font-size:15px; text-decoration:none; box-shadow:3px 3px 0 var(--vp);
 }
 .aviso {
-  background:var(--rojo-l); border:2px solid var(--rojo); color:#6d2416; border-radius:12px; padding:10px 14px;
+  background:var(--vino-l); border:2px solid var(--vino); color:#5E1F33; border-radius:12px; padding:10px 14px;
   font-size:14px; line-height:1.4; margin:12px 0;
 }
 
@@ -277,9 +277,9 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 .p-flag { display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--vs); margin:14px 0 6px; }
 .p-titulo {
   font-family:'Fraunces', serif; font-weight:900; font-size:clamp(58px, 18vw, 96px); line-height:.9; letter-spacing:-.02em;
-  color:var(--vp); text-shadow:4px 4px 0 var(--na);
+  color:var(--vp); text-shadow:4px 4px 0 var(--ac);
 }
-.p-titulo span { color:var(--na); text-shadow:4px 4px 0 var(--vp); }
+.p-titulo span { color:var(--ac); text-shadow:4px 4px 0 var(--vp); }
 .p-lead { font-size:16.5px; line-height:1.55; color:#34463b; margin:16px 0 14px; }
 .p-pills { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:18px; }
 .p-pills span { background:var(--vp); color:var(--cr); border-radius:999px; padding:7px 13px; font-size:13px; font-weight:600; }
@@ -296,13 +296,13 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
   font-size:15px; line-height:1.5;
 }
 .ventana b { font-family:'Fraunces', serif; font-weight:900; font-size:21px; display:block; margin-bottom:4px; line-height:1.15; }
-.cinta-prueba { background:var(--na); color:var(--vp); font-weight:700; font-size:12.5px; text-align:center; padding:6px 10px; border-radius:0 0 12px 12px; margin:0 auto; max-width:420px; }
+.cinta-prueba { background:var(--ac); color:#fff; font-weight:700; font-size:12.5px; text-align:center; padding:6px 10px; border-radius:0 0 12px 12px; margin:0 auto; max-width:420px; }
 
 /* ---------- FINAL ---------- */
 .final { padding:26px 0 60px; text-align:center; }
 .f-conejo { width:150px; margin:0 auto; }
 .f-conejo svg { width:100%; height:auto; overflow:visible; }
-.f-titulo { font-family:'Fraunces', serif; font-weight:900; font-size:64px; line-height:1; text-shadow:4px 4px 0 var(--na); margin-top:6px; }
+.f-titulo { font-family:'Fraunces', serif; font-weight:900; font-size:64px; line-height:1; text-shadow:4px 4px 0 var(--ac); margin-top:6px; }
 .f-lead { font-size:17px; margin:10px 0 4px; font-weight:600; }
 .f-tiempo { font-size:14.5px; color:var(--gris); }
 .f-tarjeta { margin:22px auto 14px; max-width:330px; border:3px solid var(--vp); border-radius:18px; overflow:hidden; box-shadow:6px 6px 0 var(--vp); background:var(--papel); }
@@ -314,7 +314,7 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
   display:flex; gap:12px; align-items:center; background:var(--papel); border:2px solid var(--vp); border-radius:14px;
   padding:12px 14px; margin-bottom:10px; box-shadow:3px 3px 0 var(--vp); font-size:14.5px; line-height:1.35;
 }
-.dato .n { font-family:'Fraunces', serif; font-weight:900; font-size:28px; color:var(--na-t); min-width:66px; text-align:center; line-height:1; }
+.dato .n { font-family:'Fraunces', serif; font-weight:900; font-size:28px; color:var(--ac-t); min-width:66px; text-align:center; line-height:1; }
 #confeti { position:fixed; inset:0; width:100%; height:100%; pointer-events:none; z-index:60; display:none; }
 .sr { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
 
@@ -360,7 +360,7 @@ var PASE = (function () {
 })();
 var REDUCIR = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 var SECCIONES = ['Tú', 'Lo que viviste', 'Veredictos', 'La Franja', 'Enero'];
-var COLORES = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A'];
+var COLORES = ['#2D7A4F', '#3478A8', '#7AB88A', '#1F5A82', '#6FA8D0'];
 var MIN_SEG = 9;  // segundos estimados por pantalla, para el «te faltan»
 
 var almacen = {
@@ -443,7 +443,7 @@ function fechaLarga(iso, conHora) {
 /* ======================================================================
    DIBUJOS: conejo guía, papel picado, macetas, granos
    ====================================================================== */
-var T = '#1A3A2A', PP = '#FFFDF7', N = '#EE7D1D', ROSA = '#F6B48F';
+var T = '#1A3A2A', PP = '#FFFDF7', N = '#3478A8', ROSA = '#F4CFD3', VE = '#4A8C5C';
 
 function conejo(o) {
   o = o || {};
@@ -463,9 +463,9 @@ function conejo(o) {
     s += '<path d="M76 146C62 140 52 127 50 111" fill="none" stroke="' + PP + '" stroke-width="8" stroke-linecap="round"/>';
     s += '<circle cx="50" cy="106" r="9.5" fill="' + PP + '" stroke="' + T + '" stroke-width="4"/>';
     // Tabla con hojas, en la otra mano
-    s += '<g transform="rotate(9 141 181)"><rect x="118" y="152" width="46" height="58" rx="5" fill="#C98B4B" stroke="' + T + '" stroke-width="3.5"/>';
+    s += '<g transform="rotate(9 141 181)"><rect x="118" y="152" width="46" height="58" rx="5" fill="#8FB8D6" stroke="' + T + '" stroke-width="3.5"/>';
     s += '<rect x="123" y="160" width="36" height="44" rx="2" fill="#FFFFFF"/>';
-    s += '<path d="M127 170l3 3 5-6M127 182l3 3 5-6M127 194l3 3 5-6" stroke="' + N + '" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
+    s += '<path d="M127 170l3 3 5-6M127 182l3 3 5-6M127 194l3 3 5-6" stroke="' + VE + '" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
     s += '<path d="M138 170h16M138 182h17M138 194h12" stroke="#9BB5A3" stroke-width="2.6" stroke-linecap="round"/>';
     s += '<rect x="133" y="147" width="16" height="9" rx="2" fill="' + T + '"/></g>';
     s += '<path d="M126 146C130 156 128 168 122 177" fill="none" stroke="' + T + '" stroke-width="15" stroke-linecap="round"/>';
@@ -528,11 +528,11 @@ function conejo(o) {
     s += '<path d="M82 114Q100 120 118 114" stroke="' + T + '" stroke-width="2.6" fill="none" stroke-linecap="round"/>';
     s += '<path d="M86 111.5v6M93 113.2v6.5M100 114v6.5M107 113.2v6.5M114 111.5v6" stroke="' + T + '" stroke-width="2.2" stroke-linecap="round"/>';
   } else {
-    s += '<path d="M95.5 103.5Q100 100 104.5 103.5Q102.5 108 100 108Q97.5 108 95.5 103.5Z" fill="' + N + '" stroke="' + T + '" stroke-width="2.2" stroke-linejoin="round"/>';
+    s += '<path d="M95.5 103.5Q100 100 104.5 103.5Q102.5 108 100 108Q97.5 108 95.5 103.5Z" fill="#E39AA8" stroke="' + T + '" stroke-width="2.2" stroke-linejoin="round"/>';
     if (expr === 'feliz' || d === 'venda') {
-      s += '<path d="M91 110.5Q100 125 109 110.5Q100 114 91 110.5Z" fill="#7A2E1F" stroke="' + T + '" stroke-width="2.6" stroke-linejoin="round"/>';
+      s += '<path d="M91 110.5Q100 125 109 110.5Q100 114 91 110.5Z" fill="#6A2D3F" stroke="' + T + '" stroke-width="2.6" stroke-linejoin="round"/>';
     } else if (expr === 'sorpresa') {
-      s += '<ellipse cx="100" cy="115.5" rx="4.2" ry="5.2" fill="#7A2E1F" stroke="' + T + '" stroke-width="2.4"/>';
+      s += '<ellipse cx="100" cy="115.5" rx="4.2" ry="5.2" fill="#6A2D3F" stroke="' + T + '" stroke-width="2.4"/>';
     } else if (expr === 'pensando') {
       s += '<path d="M94 114.5Q100 112.5 107 115.5" stroke="' + T + '" stroke-width="2.8" fill="none" stroke-linecap="round"/>';
     } else if (expr === 'triste') {
@@ -549,17 +549,17 @@ function conejo(o) {
          '<path d="M81.3 49H118.7L119.3 57H80.7Z" fill="' + T + '"/>' +
          '<ellipse cx="100" cy="60" rx="37" ry="7.5" fill="' + N + '" stroke="' + T + '" stroke-width="3.5"/></g>';
   } else if (d === 'venda') {
-    s += '<path d="M53 86Q100 77 147 86L147 100Q100 91 53 100Z" fill="#D8342C" stroke="' + T + '" stroke-width="3" stroke-linejoin="round"/>';
-    s += '<path d="M146 91Q158 80 165 86Q161 95 146 93Z" fill="#D8342C" stroke="' + T + '" stroke-width="2.5" stroke-linejoin="round"/>';
-    s += '<path d="M146 95Q161 96 163 106Q153 108 146 97Z" fill="#D8342C" stroke="' + T + '" stroke-width="2.5" stroke-linejoin="round"/>';
+    s += '<path d="M53 86Q100 77 147 86L147 100Q100 91 53 100Z" fill="' + N + '" stroke="' + T + '" stroke-width="3" stroke-linejoin="round"/>';
+    s += '<path d="M146 91Q158 80 165 86Q161 95 146 93Z" fill="' + N + '" stroke="' + T + '" stroke-width="2.5" stroke-linejoin="round"/>';
+    s += '<path d="M146 95Q161 96 163 106Q153 108 146 97Z" fill="' + N + '" stroke="' + T + '" stroke-width="2.5" stroke-linejoin="round"/>';
   } else if (d === 'banda') {
-    s += '<path d="M55 80Q100 66 145 80L144 90Q100 76 56 90Z" fill="' + N + '" stroke="' + T + '" stroke-width="3" stroke-linejoin="round"/>';
+    s += '<path d="M55 80Q100 66 145 80L144 90Q100 76 56 90Z" fill="' + VE + '" stroke="' + T + '" stroke-width="3" stroke-linejoin="round"/>';
     s += '<path d="M97 74.5L101 71L104 77L107 73.5" stroke="' + PP + '" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>';
   } else if (d === 'palma') {
-    s += '<path d="M72 63C72 36 128 36 128 63Z" fill="#E9C46A" stroke="' + T + '" stroke-width="3.5" stroke-linejoin="round"/>';
+    s += '<path d="M72 63C72 36 128 36 128 63Z" fill="#EFE3C2" stroke="' + T + '" stroke-width="3.5" stroke-linejoin="round"/>';
     s += '<path d="M73.2 55Q100 50 126.8 55L127.6 62Q100 57 72.4 62Z" fill="#2D5A3D"/>';
-    s += '<ellipse cx="100" cy="64" rx="56" ry="11" fill="#E9C46A" stroke="' + T + '" stroke-width="3.5"/>';
-    s += '<path d="M58 62l6 4M70 58l5 6M130 58l-5 6M142 62l-6 4M86 70l3 3M114 70l-3 3" stroke="#B9902F" stroke-width="2" stroke-linecap="round"/>';
+    s += '<ellipse cx="100" cy="64" rx="56" ry="11" fill="#EFE3C2" stroke="' + T + '" stroke-width="3.5"/>';
+    s += '<path d="M58 62l6 4M70 58l5 6M130 58l-5 6M142 62l-6 4M86 70l3 3M114 70l-3 3" stroke="#C2AE78" stroke-width="2" stroke-linecap="round"/>';
   }
   return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + vb + '" role="img" aria-label="El conejo de la Franja">' + s + '</svg>';
 }
@@ -601,8 +601,9 @@ function planta(k, nueva, vb) {
   } else {
     s += '<path d="M50 70v-8M46 66h8" stroke="#9BB5A3" stroke-width="2.6" stroke-linecap="round"/>';
   }
-  var maceta = '<path d="M29 82H71L66.5 104H33.5Z" fill="#C8693A" stroke="#1A3A2A" stroke-width="3" stroke-linejoin="round"/>' +
-    '<rect x="25" y="76" width="50" height="9" rx="3" fill="#D9804C" stroke="#1A3A2A" stroke-width="3"/>';
+  var maceta = '<path d="M29 82H71L66.5 104H33.5Z" fill="#E2EEF6" stroke="#1A3A2A" stroke-width="3" stroke-linejoin="round"/>' +
+    '<path d="M33 93q4.2-4 8.4 0t8.4 0t8.4 0t8.4 0" stroke="#3478A8" stroke-width="2.4" fill="none" stroke-linecap="round"/>' +
+    '<rect x="25" y="76" width="50" height="9" rx="3" fill="#3478A8" stroke="#1A3A2A" stroke-width="3"/>';
   return '<svg viewBox="' + (vb || '18 -8 64 114') + '" aria-hidden="true"><g class="' + (nueva ? 'crece' : '') + '">' + s + '</g>' + maceta + '</svg>';
 }
 
@@ -1519,7 +1520,7 @@ function final(paquete, res) {
     '<p class="f-lead">Tu voz ya cuenta para la Franja de ' + esc(D.anio) + '.</p>' +
     '<p class="f-tiempo">Lo hiciste en ' + (min ? min + ' min ' : '') + s + ' s' + (seg <= 300 ? ', dentro de los cinco minutos prometidos.' : '.') + '</p>' +
     (res.sinUrl ? '<p class="aviso">Vista previa: la hoja de cálculo todavía no está conectada, así que esto no se envió.</p>' : '') +
-    (paquete.prueba && !res.sinUrl ? '<p class="aviso" style="background:var(--na-l);border-color:var(--na-t);color:#6b3a0e">Respuesta de prueba: llegó a la hoja, pero no cuenta en los resultados.</p>' : '') +
+    (paquete.prueba && !res.sinUrl ? '<p class="aviso" style="background:var(--ac-l);border-color:var(--ac-t);color:#173F5C">Respuesta de prueba: llegó a la hoja, pero no cuenta en los resultados.</p>' : '') +
     '<div class="f-tarjeta"><canvas id="tarjeta" width="1080" height="1350" aria-label="Tu tarjeta de la Franja"></canvas></div>' +
     '<div class="f-botones"><button type="button" class="btn-grande" id="b-tarjeta">' + (puedeCompartir ? 'Compartir mi tarjeta' : 'Guardar mi tarjeta') + '</button>' +
     '<a class="btn-sec" href="' + wa + '" target="_blank" rel="noopener">💬 Pasar el enlace por WhatsApp</a></div>' +
@@ -1571,19 +1572,19 @@ function dibujarTarjeta(paq) {
     // semitono
     for (var i = 0; i < 36; i++) for (var j = 0; j < 26; j++) {
       var dd = Math.hypot(i, j * 1.25); if (dd > 24) continue;
-      x.fillStyle = 'rgba(238,125,29,' + (0.42 * (1 - dd / 24)).toFixed(3) + ')';
+      x.fillStyle = 'rgba(52,120,168,' + (0.42 * (1 - dd / 24)).toFixed(3) + ')';
       x.beginPath(); x.arc(1080 - i * 20, 150 + j * 20, 3.4, 0, 7); x.fill();
     }
     // papel picado
     x.strokeStyle = '#1A3A2A'; x.lineWidth = 5; x.beginPath(); x.moveTo(0, 30); x.lineTo(1080, 30); x.stroke();
-    var cols = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A', '#D23C6E', '#E8A85A'];
+    var cols = ['#2D7A4F', '#3478A8', '#7AB88A', '#1F5A82', '#6FA8D0', '#2D7A4F', '#3478A8'];
     cols.forEach(function (c, k) { banderaCanvas(x, 24 + k * 150, 30, 134, 100, c); });
     // encabezado
     x.textBaseline = 'alphabetic';
     x.fillStyle = '#2D5A3D'; x.font = '700 30px "Instrument Sans", sans-serif';
     espaciado(x, 'CAMPUS CONCÁ · UAQ · FRANJA LIBRE', 80, 228, 5);
     x.font = '900 170px Fraunces, serif';
-    x.fillStyle = '#EE7D1D'; x.fillText('Mi Franja', 88, 398);
+    x.fillStyle = '#3478A8'; x.fillText('Mi Franja', 88, 398);
     x.fillStyle = '#1A3A2A'; x.fillText('Mi Franja', 80, 390);
     x.font = '900 104px Fraunces, serif'; x.fillStyle = '#4A8C5C'; x.fillText(D.semestre, 84, 500);
     // lo vivido
@@ -1607,7 +1608,7 @@ function dibujarTarjeta(paq) {
     if (r.palabra) {
       y += 60;
       x.fillStyle = '#5E6D63'; x.font = '600 34px "Instrument Sans", sans-serif'; x.fillText('Mi palabra:', 84, y); y += 74;
-      x.fillStyle = '#A9500F'; x.font = 'italic 400 72px Fraunces, serif';
+      x.fillStyle = '#1F5A82'; x.font = 'italic 400 72px Fraunces, serif';
       x.fillText('«' + r.palabra + '»', 80, y, 600);
     }
     // conejo
@@ -1631,7 +1632,7 @@ function dibujarTarjeta(paq) {
     redondo(x, 60, 1168, 960, 136, 40, '#1A3A2A');
     x.fillStyle = '#F5EED8'; x.font = '700 40px "Instrument Sans", sans-serif';
     x.fillText('Yo ya dije qué se queda. ¿Y tú?', 104, 1228);
-    x.fillStyle = '#E8A85A'; x.font = '600 28px "Instrument Sans", sans-serif';
+    x.fillStyle = '#9CC7E3'; x.font = '600 28px "Instrument Sans", sans-serif';
     x.fillText(D.url.replace(/^https?:\/\//, ''), 104, 1274);
   });
 }
@@ -1705,7 +1706,7 @@ function confeti() {
   var cv = $('#confeti'), x = cv.getContext('2d'), dpr = window.devicePixelRatio || 1;
   var W = cv.width = innerWidth * dpr, H = cv.height = innerHeight * dpr;
   cv.style.display = 'block';
-  var cols = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A', '#F2C14E'];
+  var cols = ['#2D7A4F', '#3478A8', '#7AB88A', '#1F5A82', '#6FA8D0', '#A9D3B5'];
   var ps = [];
   for (var i = 0; i < 110; i++) ps.push({
     x:Math.random() * W, y:-Math.random() * H * 0.7 - 20 * dpr, w:(10 + Math.random() * 12) * dpr, h:(14 + Math.random() * 12) * dpr,

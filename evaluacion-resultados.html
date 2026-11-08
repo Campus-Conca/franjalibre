@@ -19,13 +19,14 @@
 [hidden] { display:none !important; }
 :root {
   --vp:#1A3A2A; --vs:#2D5A3D; --vv:#4A8C5C; --vc:#7AB88A;
-  --oc:#E8A85A; --cr:#F5EED8; --cs:#F7F4E4; --na:#EE7D1D; --na-l:#FFEBD6; --na-t:#A9500F;
+  --cr:#F5EED8; --cs:#F7F4E4; --ac:#3478A8; --ac-l:#E2EEF6; --ac-t:#1F5A82;
   --papel:#FFFDF7; --gris:#5E6D63; --tenue:#8A968D; --rejilla:#E6E1D2;
-  /* Colores de datos, validados (daltonismo y visión normal) contra #FFFDF7 */
+  /* Colores de datos: verde y azul, y vino solo para «que ya no siga».
+     Validados (daltonismo y visión normal) contra #FFFDF7. */
   --c-barra:#2E8555;
-  --c-igual:#1F7046; --c-cambios:#6DB283; --c-no:#C4532B;
-  --c-neutro:#DCD6C8; --c-calido:#D9822B; --c-frio:#11787C;
-  --c-p1:#1F5A3A; --c-p2:#3F8F5E; --c-p3:#96CDA3; --c-p4:#E07A1F;
+  --c-igual:#1F7046; --c-cambios:#3478A8; --c-no:#A8445F; --c-poco:#6DB283;
+  --c-neutro:#DCD6C8; --c-azul:#3478A8;
+  --c-p1:#1F5A3A; --c-p2:#3F8F5E; --c-p3:#96CDA3; --c-p4:#3478A8;
   --r1:#7FB98E; --r2:#559D6B; --r3:#337F4E; --r4:#1C5A36;
 }
 html { -webkit-text-size-adjust:100%; }
@@ -34,7 +35,7 @@ a { color:inherit; }
 button { font:inherit; color:inherit; cursor:pointer; }
 .fondo-puntos {
   position:fixed; inset:0; pointer-events:none; z-index:0;
-  background-image:radial-gradient(circle, rgba(238,125,29,.28) 1.3px, transparent 1.7px); background-size:11px 11px;
+  background-image:radial-gradient(circle, rgba(52,120,168,.28) 1.3px, transparent 1.7px); background-size:11px 11px;
   -webkit-mask-image:radial-gradient(ellipse 60% 32% at 100% 0%, #000, transparent 72%);
           mask-image:radial-gradient(ellipse 60% 32% at 100% 0%, #000, transparent 72%);
 }
@@ -53,8 +54,8 @@ button { font:inherit; color:inherit; cursor:pointer; }
 .cab { padding:16px 0 6px; }
 .volver { font-size:13.5px; font-weight:600; color:var(--vs); text-decoration:none; }
 .p-flag { font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--vs); margin:16px 0 4px; }
-.titulo { font-family:'Fraunces', serif; font-weight:900; font-size:clamp(42px, 11vw, 76px); line-height:.95; letter-spacing:-.02em; text-shadow:4px 4px 0 var(--na); }
-.titulo span { color:var(--na); text-shadow:4px 4px 0 var(--vp); }
+.titulo { font-family:'Fraunces', serif; font-weight:900; font-size:clamp(42px, 11vw, 76px); line-height:.95; letter-spacing:-.02em; text-shadow:4px 4px 0 var(--ac); }
+.titulo span { color:var(--ac); text-shadow:4px 4px 0 var(--vp); }
 .lead { font-size:16px; line-height:1.55; color:#34463b; margin:14px 0 8px; max-width:62ch; }
 .lead a { font-weight:700; color:var(--vs); }
 .estado { font-size:13px; color:var(--gris); display:flex; align-items:flex-start; gap:8px; line-height:1.4; }
@@ -65,9 +66,9 @@ button { font:inherit; color:inherit; cursor:pointer; }
 .quien b { font-size:16px; }
 .ejemplo {
   margin:14px 0 6px; border-radius:14px; padding:12px 16px; font-size:14px; line-height:1.45; font-weight:600;
-  background:repeating-linear-gradient(135deg, #FFE2C4 0 14px, #FFEBD6 14px 28px); border:2px solid var(--na-t); color:#5b2c07;
+  background:repeating-linear-gradient(135deg, #D7E8F3 0 14px, #E6F0F7 14px 28px); border:2px solid var(--ac-t); color:#173F5C;
 }
-.contesta { display:inline-block; margin-top:10px; background:var(--vp); color:var(--cr); text-decoration:none; font-weight:700; font-size:14.5px; padding:10px 18px; border-radius:999px; box-shadow:3px 3px 0 var(--na); }
+.contesta { display:inline-block; margin-top:10px; background:var(--vp); color:var(--cr); text-decoration:none; font-weight:700; font-size:14.5px; padding:10px 18px; border-radius:999px; box-shadow:3px 3px 0 var(--ac); }
 
 /* Filtro y pestañas */
 .filtro { display:flex; gap:8px; overflow-x:auto; padding:14px 2px 6px; scrollbar-width:none; }
@@ -75,7 +76,7 @@ button { font:inherit; color:inherit; cursor:pointer; }
 .filtro-t { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--gris); align-self:center; flex-shrink:0; }
 .seg { flex-shrink:0; border:2px solid var(--vp); background:var(--papel); border-radius:999px; padding:8px 13px; font-size:14px; font-weight:600; white-space:nowrap; }
 .seg small { color:var(--gris); font-weight:600; margin-left:3px; }
-.seg[aria-pressed="true"] { background:var(--vp); color:var(--cr); box-shadow:3px 3px 0 var(--na); }
+.seg[aria-pressed="true"] { background:var(--vp); color:var(--cr); box-shadow:3px 3px 0 var(--ac); }
 .seg[aria-pressed="true"] small { color:var(--vc); }
 .kpis { display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin:10px 0 6px; }
 @media (min-width:760px) { .kpis { grid-template-columns:repeat(4, 1fr); } }
@@ -104,7 +105,7 @@ button { font:inherit; color:inherit; cursor:pointer; }
 /* Barras ordenadas */
 .barras { display:grid; gap:10px; }
 .fila { display:grid; gap:4px; border-radius:8px; outline:none; }
-.fila:focus-visible { box-shadow:0 0 0 3px rgba(238,125,29,.5); }
+.fila:focus-visible { box-shadow:0 0 0 3px rgba(52,120,168,.5); }
 .f-et { display:flex; gap:7px; align-items:baseline; font-size:14px; font-weight:600; line-height:1.25; }
 .f-et .e { font-size:16px; }
 .f-barra { display:flex; align-items:center; gap:8px; min-height:18px; flex-wrap:nowrap; white-space:nowrap; }
@@ -117,7 +118,7 @@ button { font:inherit; color:inherit; cursor:pointer; }
 .segm { display:flex; gap:2px; height:28px; border-radius:4px; overflow:visible; margin:4px 0 10px; }
 .bloque { height:100%; border-radius:4px; display:flex; align-items:center; padding:0 7px; font-size:12.5px; font-weight:700; white-space:nowrap; min-width:3px; transition:flex-grow .5s ease, filter .15s; outline:none; }
 .bloque:hover, .bloque:focus-visible { filter:brightness(1.08); }
-.bloque:focus-visible { box-shadow:0 0 0 3px rgba(238,125,29,.6); }
+.bloque:focus-visible { box-shadow:0 0 0 3px rgba(52,120,168,.6); }
 .leyenda { display:flex; flex-wrap:wrap; gap:6px 14px; font-size:13px; color:#34463b; }
 .leyenda span { display:inline-flex; align-items:center; gap:6px; }
 .leyenda i { width:12px; height:12px; border-radius:3px; display:inline-block; }
@@ -134,7 +135,7 @@ button { font:inherit; color:inherit; cursor:pointer; }
 .ver-barra .cero { position:absolute; top:-4px; bottom:-4px; width:1px; background:var(--vp); opacity:.55; }
 .ver-barra .seg-v { position:absolute; top:0; height:20px; outline:none; transition:left .5s, width .5s, filter .15s; }
 .ver-barra .seg-v:hover, .ver-barra .seg-v:focus-visible { filter:brightness(1.1); }
-.ver-barra .seg-v:focus-visible { box-shadow:0 0 0 3px rgba(238,125,29,.6); }
+.ver-barra .seg-v:focus-visible { box-shadow:0 0 0 3px rgba(52,120,168,.6); }
 .ver-barra .no { background:var(--c-no); border-radius:4px 0 0 4px; }
 .ver-barra .cambios { background:var(--c-cambios); }
 .ver-barra .igual { background:var(--c-igual); border-radius:0 4px 4px 0; }
@@ -150,7 +151,7 @@ button { font:inherit; color:inherit; cursor:pointer; }
 /* Nube de palabras */
 .nube { display:flex; flex-wrap:wrap; justify-content:center; align-items:baseline; gap:4px 14px; padding:8px 0 4px; }
 .nube span { font-family:'Fraunces', serif; font-weight:700; line-height:1.1; color:var(--vp); outline:none; }
-.nube span:nth-child(3n+2) { color:var(--na-t); }
+.nube span:nth-child(3n+2) { color:var(--ac-t); }
 .nube span:nth-child(3n) { color:var(--vv); }
 
 /* Citas */
@@ -158,8 +159,8 @@ button { font:inherit; color:inherit; cursor:pointer; }
 @media (min-width:760px) { .citas { grid-template-columns:1fr 1fr; } }
 .cita { background:var(--papel); border:2px solid var(--vp); border-radius:16px 16px 16px 4px; padding:14px 16px; box-shadow:3px 3px 0 var(--vp); }
 .cita p { font-family:'Fraunces', serif; font-size:17px; line-height:1.4; }
-.cita p::before { content:'«'; color:var(--na); font-weight:900; }
-.cita p::after { content:'»'; color:var(--na); font-weight:900; }
+.cita p::before { content:'«'; color:var(--ac); font-weight:900; }
+.cita p::after { content:'»'; color:var(--ac); font-weight:900; }
 .cita small { display:block; margin-top:8px; font-size:12.5px; color:var(--gris); font-weight:600; }
 
 /* Tabla */
@@ -195,7 +196,7 @@ body.pantalla .qr-pantalla {
 .qr-pantalla img { width:150px; height:150px; display:block; }
 .qr-pantalla b { font-family:'Fraunces', serif; font-size:30px; display:block; line-height:1.05; }
 .qr-pantalla span { font-size:15px; color:var(--gris); display:block; max-width:220px; margin-top:4px; }
-.qr-pantalla .cuantos { font-size:44px; font-weight:700; color:var(--na-t); }
+.qr-pantalla .cuantos { font-size:44px; font-weight:700; color:var(--ac-t); }
 body.pantalla .panel { padding-bottom:200px; }
 
 @media (prefers-reduced-motion: reduce) {
@@ -224,7 +225,7 @@ body.pantalla .panel { padding-bottom:200px; }
 </div>
 <div class="qr-pantalla" aria-hidden="true">
   <img src="evaluacion-qr.svg" alt="">
-  <div><b>¿Ya dijiste qué se queda?</b><span>Escanea y responde en cinco minutos. Van <span class="cuantos" id="qr-cuantos" style="display:inline;font-size:inherit;color:var(--na-t);font-weight:700">0</span> respuestas.</span></div>
+  <div><b>¿Ya dijiste qué se queda?</b><span>Escanea y responde en cinco minutos. Van <span class="cuantos" id="qr-cuantos" style="display:inline;font-size:inherit;color:var(--ac-t);font-weight:700">0</span> respuestas.</span></div>
 </div>
 <div class="tip" id="tip" role="tooltip" hidden></div>
 
@@ -239,7 +240,7 @@ var EJEMPLO = P.has('ejemplo') || !API;
 var PANTALLA = P.has('pantalla');
 var MIN = D.minimoGrupo || 5;
 var DATOS = null, SEG = 'todos', TAB = 'panorama';
-var COLORES = ['#D23C6E', '#E8A85A', '#2D7A4F', '#EE7D1D', '#1A6B5A'];
+var COLORES = ['#2D7A4F', '#3478A8', '#7AB88A', '#1F5A82', '#6FA8D0'];
 
 var TABS = [
   { id:'panorama', t:'Panorama' }, { id:'actividades', t:'Actividades' }, { id:'porque', t:'¿Por qué no?' },
@@ -466,7 +467,7 @@ function panorama(a) {
     { t:'Dio un taller', n:p.da || 0, color:'var(--c-p1)' },
     { t:'Fue a talleres', n:p.talleres || 0, color:'var(--c-p2)' },
     { t:'Solo a eventos', n:p.eventos || 0, color:'var(--c-p3)', tinta:'#1A3A2A' },
-    { t:'No se sumó a nada', n:p.nada || 0, color:'var(--c-p4)', tinta:'#1A3A2A' }
+    { t:'No se sumó a nada', n:p.nada || 0, color:'var(--c-p4)' }
   ], { nombre:'Quién se sumó' });
   var hero = h('div', { class:'heroe' }, [h('b', { text:pct(p.nada || 0, a.n) + '%' }), h('span', { text:'no se sumó a nada este semestre' })]);
   r.appendChild(tarjeta('¿Quién se sumó?', 'De ' + a.n + ' respuestas, según lo que cada quien selló en su pasaporte.', h('div', null, [hero, s.el]),
@@ -474,9 +475,9 @@ function panorama(a) {
   // Si ya no hubiera Franja
   var sin = a.sin || {}, bs = a.base.sin || 0;
   var s2 = segmentada([
-    { t:'Mejor sin ella', n:sin.mejor || 0, color:'var(--c-calido)', tinta:'#1A3A2A' },
+    { t:'Mejor sin ella', n:sin.mejor || 0, color:'var(--c-no)' },
     { t:'Me daría igual', n:sin.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
-    { t:'Un poco', n:sin.poco || 0, color:'var(--c-cambios)', tinta:'#1A3A2A' },
+    { t:'Un poco', n:sin.poco || 0, color:'var(--c-poco)', tinta:'#1A3A2A' },
     { t:'La extrañaría mucho', n:sin.mucho || 0, color:'var(--c-igual)' }
   ], { nombre:'Si ya no hubiera Franja' });
   r.appendChild(tarjeta('Si en enero ya no hubiera Franja…', 'La pregunta para saber si vale de verdad, sin aplausos.',
@@ -574,9 +575,9 @@ function enero(a) {
     b1.el, 'hacia dónde crece la oferta: qué tipo de talleres y eventos abrir, y cuánto espacio dejar libre.', b1.tabla));
   var bal = a.balance || {};
   var s = segmentada([
-    { t:'Menos eventos: que los talleres avancen', n:bal.talleres || 0, color:'var(--c-frio)' },
+    { t:'Menos eventos: que los talleres avancen', n:bal.talleres || 0, color:'var(--c-igual)' },
     { t:'Así como estuvo', n:bal.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
-    { t:'Más eventos, aunque haya menos talleres', n:bal.eventos || 0, color:'var(--c-calido)', tinta:'#1A3A2A' }
+    { t:'Más eventos, aunque haya menos talleres', n:bal.eventos || 0, color:'var(--c-azul)' }
   ], { nombre:'Eventos o talleres' });
   r.appendChild(tarjeta('¿Fiesta o constancia?', 'Los días de evento se suspenden los talleres. Esto prefieren para enero.', s.el,
     'cuántos eventos caben en el semestre sin romper el ritmo de los talleres.', s.tabla));
@@ -646,7 +647,7 @@ function grupos(a) {
   if (a.base.talOtra) {
     var to = a.talOtra || {};
     var s4 = segmentada([
-      { t:'No', n:to.no || 0, color:'var(--c-no)' }, { t:'Sí, con cambios', n:to.cambios || 0, color:'var(--c-cambios)', tinta:'#1A3A2A' },
+      { t:'No', n:to.no || 0, color:'var(--c-no)' }, { t:'Sí, con cambios', n:to.cambios || 0, color:'var(--c-cambios)' },
       { t:'Sí, igual', n:to.igual || 0, color:'var(--c-igual)' }
     ], { nombre:'Talleristas: lo darían otra vez' });
     var b4 = barras(itemsDe(D.op.talFalto, a.talFalto), a.base.talFalto);
