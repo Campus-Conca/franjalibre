@@ -18,7 +18,7 @@
    ========================================================================== */
 
 window.EVAL = {
-  scriptUrl: '',
+  scriptUrl: 'https://script.google.com/macros/s/AKfycbxsojXv7Tpk7LlAiWlgOUud_WI67gha0vvEx27FVz24yswF8yGc37w548a1uK7do4CnxA/exec',
   semestre: '2026-2',
   proximo: 'enero–junio 2027',
   anio: '2027',      // el año de las fiestas anuales que se evalúan
