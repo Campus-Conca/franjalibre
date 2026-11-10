@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=4"></script>
+<script src="evaluacion-datos.js?v=5"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -239,6 +239,8 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
 @keyframes crecer { from { transform:scale(.6, .4); } to { transform:none; } }
 .m-t { flex:1; font-size:13px; font-weight:700; line-height:1.18; padding-bottom:4px; }
 .m-t .e { display:block; font-size:20px; margin-bottom:3px; }
+.m-s { display:block; font-size:11px; font-weight:500; color:var(--gris); line-height:1.25; margin-top:2px; }
+.maiz-otra { margin-top:12px; }
 .m-n { display:block; font-family:'Fraunces', serif; font-weight:900; font-size:19px; color:var(--ac-t); margin-top:3px; min-height:20px; }
 .menos {
   position:absolute; top:6px; right:6px; width:30px; height:30px; border-radius:50%; border:2px solid var(--vp);
@@ -368,7 +370,8 @@ var almacen = {
   poner: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
   quitar: function (k) { try { localStorage.removeItem(k); } catch (e) {} }
 };
-var K = { id:'flb-id', borrador:'flb-borrador', enviada:'flb-enviada', pendiente:'flb-pendiente' };
+// El borrador lleva versión: uno guardado con las preguntas viejas no se mezcla con las nuevas.
+var K = { id:'flb-id', borrador:'flb-borrador-2', enviada:'flb-enviada', pendiente:'flb-pendiente' };
 
 function nuevoId() {
   var a = new Uint8Array(8);
@@ -383,12 +386,13 @@ function estadoVacio() {
   var maiz = {};
   D.maiz.forEach(function (m) { maiz[m.id] = 0; });
   return {
-    v:1, inicio:Date.now(), rol:null, martes:null,
+    v:2, inicio:Date.now(), rol:null, area:null, martes:null,
     talleres:[], ningunTaller:false, eventos:[], ningunEvento:false, act:{},
     frenos:[], canal:[], sumarme:[], talOtra:null, talFalto:[],
     palabra:'', dejo:[], gente:null, sin:null, balance:null,
-    maiz:maiz, maizSaltado:false, torneo:null, torneoOtro:'',
-    porque:null, choque:null, suspension:null, carga:null, cargaTipo:[], salir:null,
+    maiz:maiz, maizSaltado:false, maizOtro:'', torneo:null, torneoOtro:'',
+    porque:null, choque:null, suspension:null, respeto:[], carga:null, cargaTipo:[],
+    salir:null, aviso:null, ayuda:[],
     deseo:[], deseoOtro:'', coordinara:'',
     vol:null, volNombre:'', volTel:'', volQue:'', notas:{}
   };
@@ -410,8 +414,22 @@ function esc(s) {
 }
 function rolDe(id) { return D.roles.filter(function (r) { return r.id === id; })[0]; }
 function grupo() { var r = rolDe(S.rol); return r ? r.grupo : 'estudiante'; }
-function txt(t) { return typeof t === 'string' ? t : (t[grupo()] || t.estudiante); }
+function area() { return grupo() === 'admin' ? S.area : null; }
+/* Un texto puede ser una cadena o un objeto con llaves por grupo y, para el personal, por área. */
+function txt(t) {
+  if (t == null) return '';
+  if (typeof t !== 'object') return String(t);
+  var a = area();
+  return (a && t[a]) || t[grupo()] || t.estudiante || t.admin || t.docente || '';
+}
 function busca(lista, id) { return lista.filter(function (o) { return o.id === id; })[0]; }
+function areaDe(id) { return busca(D.areas, id); }
+function quienArea() { var a = areaDe(S.area); return a ? a.de : 'el personal del campus'; }
+function listaCarga() {
+  var c = D.op.cargaTipo;
+  return grupo() === 'docente' ? c.docente : (c[S.area] || c.admin);
+}
+function listaMotivos(a) { return a && a.asist === 'nunca' ? D.op.motivosNunca : D.op.motivos; }
 function taller(id) { return busca(D.talleres, id); }
 function evento(id) { return busca(D.eventos, id); }
 function act(id) {
@@ -511,6 +529,7 @@ function clave(p) { return p.k + (p.id ? ':' + p.id : ''); }
 function ruta() {
   var L = [], g = grupo();
   L.push({ k:'rol', sec:0 });
+  if (g === 'admin') L.push({ k:'area', sec:0 });
   L.push({ k:'martes', sec:0 });
   L.push({ k:'talleres', sec:1 });
   L.push({ k:'eventos', sec:1 });
@@ -545,15 +564,17 @@ function ruta() {
   if (participo()) { L.push({ k:'dejo', sec:3 }); L.push({ k:'gente', sec:3 }); }
   L.push({ k:'sin', sec:3 });
   L.push({ k:'balance', sec:3 });
+  // Preguntas de cada grupo: miran hacia atrás (cómo te fue con la Franja en tu papel), por eso van antes de «Enero».
+  if (g === 'estudiante') { L.push({ k:'choque', sec:3 }); if (participo()) L.push({ k:'porque', sec:3 }); }
+  if (g === 'docente') { L.push({ k:'suspension', sec:3 }); L.push({ k:'respeto', sec:3 }); }
+  if (g === 'admin') { L.push({ k:'salir', sec:3 }); L.push({ k:'aviso', sec:3 }); }
+  if (g === 'docente' || g === 'admin') {
+    L.push({ k:'carga', sec:3 });
+    if (S.carga === 'bastante' || S.carga === 'demasiado') L.push({ k:'cargaTipo', sec:3 });
+  }
+  if (g === 'admin') L.push({ k:'ayuda', sec:3 });
   L.push({ k:'maiz', sec:4 });
   if (!S.maizSaltado && S.maiz.deporte > 0) L.push({ k:'torneo', sec:4 });
-  if (g === 'estudiante') { if (participo()) L.push({ k:'porque', sec:4 }); L.push({ k:'choque', sec:4 }); }
-  if (g === 'docente') L.push({ k:'suspension', sec:4 });
-  if (g === 'docente' || g === 'admin') {
-    L.push({ k:'carga', sec:4 });
-    if (S.carga === 'bastante' || S.carga === 'demasiado') L.push({ k:'cargaTipo', sec:4 });
-  }
-  if (g === 'admin') L.push({ k:'salir', sec:4 });
   L.push({ k:'deseo', sec:4 });
   L.push({ k:'coordinara', sec:4 });
   L.push({ k:'voluntario', sec:4 });
@@ -583,7 +604,18 @@ function definir(p) {
     case 'rol': return {
       tipo:'uno', t:'¿Quién eres?', b:'Primero lo primero. No te voy a pedir tu nombre.', cara:'neutral',
       ops:D.roles, val:function () { return S.rol; },
-      set:function (v) { if (S.rol && S.rol !== v) S.martes = null; S.rol = v; }
+      set:function (v) {
+        // Cambiar de grupo cambia las opciones: lo que dependía del grupo anterior se borra.
+        if (S.rol && S.rol !== v) { S.martes = null; S.area = null; S.cargaTipo = []; S.ayuda = []; }
+        S.rol = v;
+      }
+    };
+    case 'area': return {
+      tipo:'uno', t:'¿En qué área trabajas?',
+      s:'Así te pregunto por tu trabajo. En los resultados públicos, todo el personal sale junto.',
+      b:'Cada área vive la Franja distinto: no es lo mismo la caseta que la oficina.', cara:'pensando',
+      ops:D.areas, val:function () { return S.area; },
+      set:function (v) { if (S.area !== v) S.cargaTipo = []; S.area = v; }
     };
     case 'martes': return {
       tipo:'uno', t:'Es martes, 12:10. ¿Dónde te encontramos casi siempre?', b:'Con la mano en el corazón: aquí nadie pasa lista.', cara:'guino',
@@ -619,7 +651,7 @@ function definir(p) {
       var nada = S.eventos.length === 0;
       return {
         tipo:'varios', t:nada ? '¿Qué te frenó para no sumarte?' : '¿Por qué no te apuntaste a ningún taller?',
-        s:'Elige hasta tres.', max:3, cara:'pensando',
+        s:'Elige hasta dos: las que más pesaron.', max:2, cara:'pensando',
         b:nada ? 'No pasa nada. Esto es justo lo que necesitamos entender.' : 'Fuiste a eventos, pero a ningún taller. ¿Qué pasó?',
         ops:D.op.frenos, val:function () { return S.frenos; }
       };
@@ -650,14 +682,19 @@ function definir(p) {
         tipo:'uno', t:'¿Qué tanto fuiste?', ficha:{ e:t.e, n:nombreTaller(t), h:t.dia + ' · ' + t.hora },
         b:S.talleres.indexOf(p.id) === 0 ? 'Vamos uno por uno con tus talleres.' : 'Ahora este.', cara:'neutral',
         ops:D.op.asist, val:function () { return a.asist; },
-        set:function (v) { a.asist = v; if (v === 'nunca') { a.ver = null; a.cambios = []; a.porqueNo = []; } if (v !== 'deje' && v !== 'nunca') a.motivos = []; }
+        set:function (v) {
+          // «Lo dejé» y «nunca fui» tienen listas de motivos distintas: al cambiar de una a otra se empieza de cero.
+          if (a.asist !== v) a.motivos = [];
+          a.asist = v;
+          if (v === 'nunca') { a.ver = null; a.cambios = []; a.porqueNo = []; }
+        }
       };
     case 'motivo':
       t = taller(p.id); a = act(p.id);
       return {
         tipo:'varios', t:a.asist === 'nunca' ? '¿Qué pasó que no fuiste?' : '¿Por qué lo dejaste?',
-        s:'Elige hasta tres.', max:3, ficha:{ e:t.e, n:nombreTaller(t), h:t.dia + ' · ' + t.hora },
-        b:'Esto vale oro para enero.', cara:'pensando', ops:D.op.motivos, val:function () { return a.motivos; }
+        s:'Elige hasta dos.', max:2, ficha:{ e:t.e, n:nombreTaller(t), h:t.dia + ' · ' + t.hora },
+        b:'Esto vale oro para enero.', cara:'pensando', ops:listaMotivos(a), val:function () { return a.motivos; }
       };
     case 'ver': {
       a = act(p.id);
@@ -681,12 +718,12 @@ function definir(p) {
       var anual2 = !esT2 && !!e.anual;
       return {
         tipo:'varios', chips:true, opcional:true, t:anual2 ? '¿Qué le cambiarías para ' + D.anio + '?' : '¿Qué le cambiarías?',
-        s:'Toca las que quieras. Si hace falta, escribe algo.',
+        s:'Toca las que quieras. Si es otra cosa, tócala y escríbela.',
         ficha:{ e:e.e, n:esT2 ? nombreTaller(e) : e.t, h:esT2 ? e.dia + ' · ' + e.hora : e.cuando + (anual2 ? ' · cada año' : '') },
         b:'Que siga, pero mejor. ¿Qué le mueves?', cara:'pensando', disfraz:esT2 ? '' : (e.disfraz || ''),
         // a una fiesta de cada año no se le pregunta si debe ser más o menos seguida
         ops:esT2 ? D.op.cambiosTaller : D.op.cambiosEvento.filter(function (o) { return !anual2 || (o.id !== 'mas' && o.id !== 'menos'); }),
-        val:function () { return a.cambios; }, notaSiempre:true
+        val:function () { return a.cambios; }
       };
     }
     case 'porqueNo': {
@@ -729,38 +766,58 @@ function definir(p) {
       tipo:'uno', t:'¿De qué deporte quieres el torneo del próximo semestre?',
       b:'Sembraste en deporte, así que dinos cuál. Si es otro, escríbelo.', cara:'guino', disfraz:'banda',
       ops:D.op.torneo, val:function () { return S.torneo; }, set:function (v) { S.torneo = v; },
-      textoVal:function () { return S.torneoOtro || ''; }, textoSet:function (v) { S.torneoOtro = v; },
-      textoPh:'¿Cuál? Escribe el deporte'
+      textoVal:function () { return S.torneoOtro || ''; }, textoSet:function (v) { S.torneoOtro = v; }, textoMax:40
     };
-    case 'porque': return {
-      tipo:'uno', t:'Siendo honestos: ¿por qué fuiste?', b:'Nadie se va a enterar, de veras.', cara:'guino',
-      ops:D.op.porque, val:function () { return S.porque; }, set:function (v) { S.porque = v; }
-    };
+    /* ---------- solo estudiantes ---------- */
     case 'choque': return {
-      tipo:'uno', t:'¿Algún maestro te puso clase, examen o tarea a la hora de la Franja?',
-      b:'La Franja es para que a esa hora nadie tenga clase.', cara:'pensando',
+      tipo:'uno', t:'¿Algún maestro te puso clase, examen o práctica a la hora de la Franja?',
+      b:'Esta es solo para estudiantes. La Franja es para que a esa hora nadie tenga clase.', cara:'pensando',
       ops:D.op.choque, val:function () { return S.choque; }, set:function (v) { S.choque = v; }
     };
+    case 'porque': return {
+      tipo:'uno', t:'Si la Franja no diera puntos ni créditos, ¿habrías ido igual?', b:'Siendo honestos. Nadie se va a enterar, de veras.', cara:'guino',
+      ops:D.op.porque, val:function () { return S.porque; }, set:function (v) { S.porque = v; }
+    };
+    /* ---------- solo docentes ---------- */
     case 'suspension': return {
-      tipo:'uno', t:'Con la Franja, ¿perdiste menos clases por eventos?',
-      s:'Antes, las visitas y celebraciones caían en horario de clase.', b:'Uno de los motivos de la Franja era este.', cara:'pensando',
+      tipo:'uno', t:'Con la Franja, ¿se te suspendieron menos clases por eventos?',
+      s:'Antes, las visitas, ceremonias y fiestas caían en horario de clase.',
+      b:'Ahora, unas solo para docentes. Uno de los motivos de la Franja era este.', cara:'pensando',
       ops:D.op.suspension, val:function () { return S.suspension; }, set:function (v) { S.suspension = v; }
     };
+    case 'respeto': return {
+      tipo:'varios', t:'¿Te tocó dar clase o estar en junta a la hora de la Franja?', s:'Elige las que apliquen.',
+      b:'Sin culpas: si pasó, queremos saber por qué, para arreglarlo con quien toca.', cara:'pensando',
+      ops:D.op.respeto, val:function () { return S.respeto; }
+    };
+    /* ---------- solo personal ---------- */
+    case 'salir': return {
+      tipo:'uno', t:'¿Pudiste darte un rato para la Franja?', s:'Para un taller, un evento o solo para asomarte.',
+      b:'Ahora, unas solo para ' + quienArea() + '. La Franja también es para ustedes.', cara:'neutral',
+      ops:D.op.salir, val:function () { return S.salir; }, set:function (v) { S.salir = v; }
+    };
+    case 'aviso': return {
+      tipo:'uno', t:'¿Con cuánto tiempo te avisaban de los eventos?',
+      s:'Feria, Mercadito, torneos, Posada: los días en que llega más gente o se mueve el campus.',
+      b:'Para que nada te caiga de sorpresa.', cara:'pensando',
+      ops:D.op.aviso, val:function () { return S.aviso; }, set:function (v) { S.aviso = v; }
+    };
+    /* ---------- docentes y personal ---------- */
     case 'carga': return {
       tipo:'uno', t:'¿La Franja o sus eventos te cargaron trabajo extra?', b:'Lo que no se ve también cuenta.', cara:'triste',
       ops:D.op.carga, val:function () { return S.carga; }, set:function (v) { S.carga = v; if (v !== 'bastante' && v !== 'demasiado') S.cargaTipo = []; }
     };
     case 'cargaTipo': return {
-      tipo:'varios', t:'¿De qué tipo?', s:'Elige las que apliquen.', cara:'pensando',
-      b:'Para repartirlo mejor la próxima vez.', ops:D.op.cargaTipo, val:function () { return S.cargaTipo; }
+      tipo:'varios', t:'¿Qué te cargó más?', s:'Elige las que apliquen.', cara:'pensando',
+      b:'Para repartirlo mejor la próxima vez.', ops:listaCarga(), val:function () { return S.cargaTipo; }
     };
-    case 'salir': return {
-      tipo:'uno', t:'¿Pudiste darte un rato para la Franja?', b:'La Franja también es para el personal.', cara:'neutral',
-      ops:D.op.salir, val:function () { return S.salir; }, set:function (v) { S.salir = v; }
+    case 'ayuda': return {
+      tipo:'varios', t:'Para los eventos de ' + D.anio + ', ¿qué te ayudaría más?', s:'Elige hasta dos.', max:2, cara:'feliz',
+      b:'Nadie sabe mejor que tú cómo se hace tu trabajo.', ops:D.op.ayuda, val:function () { return S.ayuda; }
     };
     case 'deseo': return {
-      tipo:'varios', chips:true, opcional:true, max:3, t:'¿Qué taller te gustaría que hubiera en enero?',
-      s:'Elige hasta tres, o escribe el tuyo.', b:'Si nadie lo pide, nadie lo abre.', cara:'feliz',
+      tipo:'varios', chips:true, opcional:true, max:2, t:'¿Qué taller nuevo te gustaría en enero?',
+      s:'Elige hasta dos, o escribe el tuyo.', b:'Si nadie lo pide, nadie lo abre.', cara:'feliz',
       ops:D.op.deseo, val:function () { return S.deseo; }, otro:true
     };
     case 'coordinara': return {
@@ -769,7 +826,9 @@ function definir(p) {
     };
     case 'voluntario': return {
       tipo:'voluntario', t:'¿Te animas a dar un taller u organizar algo en enero?',
-      b:'Los talleres de la Franja los da gente del campus. Gente como tú.', cara:'feliz'
+      b:{ estudiante:'Los talleres de la Franja los da gente del campus. Gente como tú.',
+          docente:'Un taller de lo que te gusta fuera del aula también es Franja.',
+          admin:'Lo que sabes hacer también puede ser un taller: cocina, plantas, primeros auxilios, un oficio…' }[g], cara:'feliz'
     };
   }
   return { tipo:'uno', t:'', ops:[], val:function () { return null; }, set:function () {} };
@@ -847,28 +906,31 @@ function dibujarBarra(p) {
 function cuerpoUno(c, cuerpo, pie) {
   var v = c.val();
   var numeros = c.tipo === 'numeros';
-  var ph = c.textoPh || 'Escríbelo aquí';
+  // El renglón de «Otra» guarda en S.notas, salvo que la pantalla traiga su propio lugar (el torneo).
+  var leerTexto = c.textoVal || function () { return S.notas[actual] || ''; };
+  var ponerTexto = c.textoSet || function (x) { S.notas[actual] = x; };
   cuerpo.innerHTML = '<div class="ops">' + c.ops.map(function (o) {
     var izq = numeros ? '<span class="e" style="font-family:Fraunces,serif;font-weight:900;font-size:22px;width:46px">' + esc(o.n) + '</span>'
                       : (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '');
+    var ph = o.ph || 'Escríbelo aquí';
     return '<button type="button" class="op' + (v === o.id ? ' si' : '') + '" data-id="' + o.id + '">' + izq +
-      '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(o.s) + '</span>' : '') + '</span></button>' +
+      '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(txt(o.s)) + '</span>' : '') + '</span></button>' +
       (o.texto ? '<div class="nota-wrap" style="margin-top:-2px" hidden><label class="sr" for="nota-uno">' + esc(ph) + '</label>' +
-        '<input id="nota-uno" class="nota" type="text" maxlength="40" placeholder="' + esc(ph) + '" autocomplete="off"></div>' : '');
+        '<input id="nota-uno" class="nota" type="text" maxlength="' + (c.textoMax || 60) + '" placeholder="' + esc(ph) + '" autocomplete="off"></div>' : '');
   }).join('') + '</div>';
-  // Una opción con «texto» (como «Otro deporte») no avanza sola: abre un renglón y espera a que lo escriban.
+  // Una opción con «texto» (como «Otra cosa») no avanza sola: abre un renglón y espera a que lo escriban.
   var nota = $('#nota-uno', cuerpo);
   function abrirTexto(abre) {
     if (!nota) return;
     nota.parentNode.hidden = !abre;
     $('#pie').hidden = !abre;
-    if (abre) pie.listo(!!nota.value.trim(), 'Siguiente →');
+    if (abre) pie.listo(!!nota.value.trim(), nota.value.trim() ? 'Siguiente →' : 'Escribe cuál ↑');
   }
   if (nota) {
-    nota.value = c.textoVal ? c.textoVal() : '';
+    nota.value = leerTexto();
     nota.addEventListener('input', function () {
-      if (c.textoSet) c.textoSet(nota.value);
-      pie.listo(!!nota.value.trim(), 'Siguiente →'); guardarBorrador();
+      ponerTexto(nota.value);
+      pie.listo(!!nota.value.trim(), nota.value.trim() ? 'Siguiente →' : 'Escribe cuál ↑'); guardarBorrador();
     });
     nota.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); if (nota.value.trim()) siguiente(); } });
     var elegida = busca(c.ops, v);
@@ -901,11 +963,12 @@ function cuerpoVarios(c, cuerpo, pie) {
   var html = '<div class="' + (chips ? 'chips' : 'ops') + '">' + c.ops.map(function (o) {
     var on = sel.indexOf(o.id) >= 0;
     return '<button type="button" class="' + (chips ? 'chip' : 'op multi') + (on ? ' si' : '') + '" data-id="' + o.id + '" aria-pressed="' + on + '">' +
-      (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '') + '<span class="tx">' + esc(txt(o.t)) + '</span>' +
+      (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '') +
+      '<span class="tx">' + esc(txt(o.t)) + (!chips && o.s ? '<span class="s">' + esc(txt(o.s)) + '</span>' : '') + '</span>' +
       (chips ? '' : '<span class="caja" aria-hidden="true"></span>') + '</button>';
   }).join('') + '</div>';
   if (conTexto) {
-    var ph = c.otro ? 'Otro taller: escríbelo aquí' : 'Escríbelo aquí (opcional)';
+    var ph = c.otro ? 'Otro taller: escríbelo aquí' : 'Escríbelo aquí';
     html += '<div class="nota-wrap"' + (c.otro ? '' : ' hidden') + '><label class="sr" for="nota">' + ph + '</label>' +
       '<input id="nota" class="nota" type="text" maxlength="' + (c.otro ? 60 : 160) + '" placeholder="' + ph + '" autocomplete="off"></div>';
   }
@@ -919,8 +982,12 @@ function cuerpoVarios(c, cuerpo, pie) {
     });
     nota.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); nota.blur(); } });
   }
+  // La opción elegida que pide escribir («Otra», «Mejor otra cosa en su lugar»…), si hay una.
+  function pideTexto() { return c.ops.filter(function (o) { return o.texto && sel.indexOf(o.id) >= 0; })[0]; }
   function validar() {
     var hay = sel.length > 0 || (c.otro && S.deseoOtro.trim());
+    // Quien toca «Otra» escribe cuál: sin eso la respuesta no le dice nada a la coordinación.
+    if (!c.otro && pideTexto() && !(nota && nota.value.trim())) { pie.listo(false, 'Escribe cuál ↑'); return; }
     if (c.opcional) pie.listo(true, hay ? 'Siguiente →' : 'Saltar →');
     else pie.listo(sel.length > 0, 'Siguiente →');
   }
@@ -932,8 +999,13 @@ function cuerpoVarios(c, cuerpo, pie) {
       b.disabled = !on && !!c.max && sel.length >= c.max && !o.solo;
     });
     if (nota && !c.otro) {
-      var abre = c.ops.some(function (o) { return o.texto && sel.indexOf(o.id) >= 0; });
-      nota.parentNode.hidden = !abre;
+      var o = pideTexto();
+      nota.parentNode.hidden = !o;
+      if (o) {
+        var guia = o.ph || 'Escríbelo aquí';
+        nota.placeholder = guia;
+        $('label[for="nota"]', cuerpo).textContent = guia;
+      }
     }
     validar();
   }
@@ -1071,13 +1143,24 @@ function cuerpoMaiz(c, cuerpo, pie) {
   D.maiz.forEach(function (m) {
     html += '<div class="maceta" data-id="' + m.id + '">' +
       '<button type="button" class="sembrar" aria-label="Sembrar un maíz en ' + esc(m.t) + '"><span class="dib"></span>' +
-      '<span class="m-t"><span class="e" aria-hidden="true">' + m.e + '</span>' + esc(m.t) + '<span class="m-n" aria-hidden="true"></span></span></button>' +
+      '<span class="m-t"><span class="e" aria-hidden="true">' + m.e + '</span>' + esc(m.t) +
+      (m.s ? '<span class="m-s">' + esc(m.s) + '</span>' : '') + '<span class="m-n" aria-hidden="true"></span></span></button>' +
       '<button type="button" class="menos" aria-label="Quitar un maíz de ' + esc(m.t) + '" hidden>−</button></div>';
   });
   html += '</div>';
+  // La maceta de «Otra cosa» abre un renglón: lo sembrado ahí no sirve si no se sabe qué es.
+  html += '<div class="nota-wrap maiz-otra" hidden><label class="sr" for="maiz-otra">¿Qué otra cosa quieres que crezca?</label>' +
+    '<input id="maiz-otra" class="nota" type="text" maxlength="60" placeholder="¿Qué otra cosa quieres que crezca?" autocomplete="off"></div>';
   cuerpo.innerHTML = html;
+  var otraM = D.maiz.filter(function (m) { return m.texto; })[0];
+  var otraIn = $('#maiz-otra', cuerpo);
+  otraIn.value = S.maizOtro || '';
+  otraIn.addEventListener('input', function () { S.maizOtro = otraIn.value; pintar(); guardarBorrador(); });
+  otraIn.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); otraIn.blur(); } });
+  function faltaOtra() { return !!otraM && (S.maiz[otraM.id] || 0) > 0 && !String(S.maizOtro || '').trim(); }
   function pintar(idNuevo) {
     var u = usados(), q = TOTAL - u;
+    otraIn.parentNode.hidden = !(otraM && (S.maiz[otraM.id] || 0) > 0);
     $('#quedan').textContent = q;
     $('#costal-t').textContent = q === 0 ? '¡Listo! Sembraste los diez.' : (q === 1 ? 'Te queda un maíz.' : 'Te quedan ' + q + ' maíces.');
     $('#granos').innerHTML = Array.apply(null, Array(TOTAL)).map(function (_, i) { return grano(); }).join('');
@@ -1090,7 +1173,9 @@ function cuerpoMaiz(c, cuerpo, pie) {
       $('.sembrar', mc).disabled = q === 0;
       mc.classList.toggle('con', k > 0);
     });
-    pie.listo(q === 0, q === 0 ? 'Siguiente →' : 'Siembra los diez');
+    if (q > 0) pie.listo(false, 'Siembra los diez');
+    else if (faltaOtra()) pie.listo(false, 'Escribe qué otra cosa ↑');
+    else pie.listo(true, 'Siguiente →');
   }
   function vuelo(destino) {
     if (REDUCIR) return;
@@ -1123,14 +1208,14 @@ function cuerpoMaiz(c, cuerpo, pie) {
       S.maiz[id]--; pintar(); guardarBorrador();
     });
   });
-  pie.btn.onclick = function () { if (usados() === TOTAL) siguiente(); };
+  pie.btn.onclick = function () { if (usados() === TOTAL && !faltaOtra()) siguiente(); };
   // Saltar: un enlace discreto bajo las macetas
   var saltar = document.createElement('button');
   saltar.type = 'button'; saltar.className = 'p-link'; saltar.style.cssText = 'background:none;border:0;margin:16px auto 0;text-decoration:underline';
   saltar.textContent = 'Prefiero no sembrar';
   saltar.addEventListener('click', function () {
     D.maiz.forEach(function (m) { S.maiz[m.id] = 0; });
-    S.maizSaltado = true; S.torneo = null; siguiente();
+    S.maizSaltado = true; S.maizOtro = ''; S.torneo = null; siguiente();
   });
   cuerpo.appendChild(saltar);
   pintar();
@@ -1204,6 +1289,14 @@ function armarPaquete() {
   var rol = rolDe(S.rol);
   var segundos = Math.max(1, Math.round((Date.now() - S.inicio) / 1000));
   function nota(k) { return (S.notas[k] || '').trim().slice(0, 160); }
+  // Lo escrito en «Otra» solo cuenta si esa opción sigue elegida (alguien pudo escribir y luego cambiar de idea).
+  function notaSi(k, ids, lista) {
+    var pide = (ids || []).some(function (id) { var o = busca(lista || [], id); return o && o.texto; });
+    return pide ? nota(k) : '';
+  }
+  function con(texto, n) { return texto + (n ? ' — «' + n + '»' : ''); }
+  function lista(k, ops) { return con(etiquetas(ops, S[k]), notaSi(k, S[k], ops)); }
+  function una(k, ops) { return con(etiqueta(ops, S[k]), notaSi(k, [S[k]], ops)); }
 
   var talleresR = S.talleres.map(function (id) {
     var a = act(id), ver = vis['ver:' + id] ? a.ver : null;
@@ -1214,65 +1307,76 @@ function armarPaquete() {
     var a = act(id);
     return { id:id, ver:a.ver, cambios:a.ver === 'cambios' ? a.cambios.slice() : [], porqueNo:a.ver === 'no' ? a.porqueNo.slice() : [] };
   });
-  var maiz = null;
+  var maiz = null, otraM = D.maiz.filter(function (m) { return m.texto; })[0];
   if (!S.maizSaltado) { maiz = {}; D.maiz.forEach(function (m) { maiz[m.id] = S.maiz[m.id] || 0; }); }
+  var maizOtro = (maiz && otraM && maiz[otraM.id] > 0) ? String(S.maizOtro || '').trim().slice(0, 60) : '';
   var r = {
     rol:S.rol, martes:S.martes, talleres:talleresR, eventos:eventosR,
     frenos:vis.frenos ? S.frenos.slice() : [], canal:vis.canal ? S.canal.slice() : [], sumarme:vis.sumarme ? S.sumarme.slice() : [],
     talOtra:vis.talOtra ? S.talOtra : null, talFalto:vis.talFalto ? S.talFalto.slice() : [],
     palabra:S.palabra.trim().toLowerCase().slice(0, 24),
     dejo:vis.dejo ? S.dejo.slice() : [], gente:vis.gente ? S.gente : null,
-    sin:S.sin, balance:S.balance, maiz:maiz, torneo:vis.torneo ? S.torneo : null,
+    sin:S.sin, balance:S.balance, maiz:maiz, maizOtro:maizOtro, torneo:vis.torneo ? S.torneo : null,
     torneoOtro:(vis.torneo && S.torneo === 'otro') ? String(S.torneoOtro || '').trim().slice(0, 40) : '',
     porque:vis.porque ? S.porque : null, choque:vis.choque ? S.choque : null,
-    suspension:vis.suspension ? S.suspension : null, carga:vis.carga ? S.carga : null,
-    cargaTipo:vis.cargaTipo ? S.cargaTipo.slice() : [], salir:vis.salir ? S.salir : null,
+    suspension:vis.suspension ? S.suspension : null, respeto:vis.respeto ? S.respeto.slice() : [],
+    carga:vis.carga ? S.carga : null, cargaTipo:vis.cargaTipo ? S.cargaTipo.slice() : [],
+    salir:vis.salir ? S.salir : null, aviso:vis.aviso ? S.aviso : null, ayuda:vis.ayuda ? S.ayuda.slice() : [],
     deseo:S.deseo.slice(), deseoOtro:S.deseoOtro.trim().slice(0, 60)
   };
 
   var g = rol ? rol.grupo : '';
+  var ops = D.op.martes[g] || [];
+  // Las columnas de una pregunta que a esta persona no le tocó van vacías.
+  function si(k, v) { return vis[k] ? v : ''; }
   var fila = {
     'Quién': rol ? rol.t : '',
     'Grupo': { estudiante:'Estudiante', docente:'Docente', admin:'Administrativo' }[g] || '',
-    'Martes 12:10': etiqueta(D.op.martes[g] || [], S.martes),
+    'Área (personal)': si('area', una('area', D.areas)),
+    'Martes 12:10': una('martes', ops),
     'Talleres': talleresR.map(function (x) { return nombreTaller(taller(x.id)) + ' (' + etiqueta(D.op.asist, x.asist).toLowerCase() + ')'; }).join(' · '),
     'Eventos': eventosR.map(function (x) { return evento(x.id).corto; }).join(' · '),
-    'Frenos': etiquetas(D.op.frenos, r.frenos) + (nota('frenos') ? ' — «' + nota('frenos') + '»' : ''),
-    'Por dónde enterarse': etiquetas(D.op.canal, r.canal),
-    'Para sumarse': etiquetas(D.op.sumarme, r.sumarme),
+    'Frenos': si('frenos', lista('frenos', D.op.frenos)),
+    'Por dónde enterarse': si('canal', lista('canal', D.op.canal)),
+    'Para sumarse': si('sumarme', lista('sumarme', D.op.sumarme)),
     'Tallerista: ¿otra vez?': etiqueta(D.op.talOtra, r.talOtra),
-    'Tallerista: le hizo falta': etiquetas(D.op.talFalto, r.talFalto) + (nota('talFalto') ? ' — «' + nota('talFalto') + '»' : ''),
+    'Tallerista: le hizo falta': si('talFalto', lista('talFalto', D.op.talFalto)),
     'Palabra': r.palabra,
-    'Qué le dejó': etiquetas(D.op.dejo, r.dejo),
+    'Qué le dejó': si('dejo', lista('dejo', D.op.dejo)),
     'Gente nueva': etiqueta(D.op.gente, r.gente),
     'Si ya no hubiera Franja': etiqueta(D.op.sin, r.sin),
     'Eventos o talleres': etiqueta(D.op.balance, r.balance)
   };
   D.maiz.forEach(function (m) { fila['Maíz: ' + m.t] = maiz ? maiz[m.id] : ''; });
+  fila['Maíz: cuál otra cosa'] = maizOtro;
   fila['Torneo de enero'] = etiqueta(D.op.torneo, r.torneo) + (r.torneoOtro ? ': ' + r.torneoOtro : '');
-  fila['Por qué fue (estudiantes)'] = etiqueta(D.op.porque, r.porque);
   fila['Clase a la hora de la Franja (estudiantes)'] = etiqueta(D.op.choque, r.choque);
+  fila['Sin puntos, ¿habría ido? (estudiantes)'] = etiqueta(D.op.porque, r.porque);
   fila['Clases perdidas por eventos (docentes)'] = etiqueta(D.op.suspension, r.suspension);
-  fila['Trabajo extra'] = etiqueta(D.op.carga, r.carga);
-  fila['Tipo de trabajo extra'] = etiquetas(D.op.cargaTipo, r.cargaTipo) + (nota('cargaTipo') ? ' — «' + nota('cargaTipo') + '»' : '');
+  fila['Clase o junta a la hora de la Franja (docentes)'] = si('respeto', lista('respeto', D.op.respeto));
   fila['Salir del puesto (administrativos)'] = etiqueta(D.op.salir, r.salir);
+  fila['Aviso de los eventos (administrativos)'] = etiqueta(D.op.aviso, r.aviso);
+  fila['Trabajo extra'] = etiqueta(D.op.carga, r.carga);
+  fila['Tipo de trabajo extra'] = si('cargaTipo', lista('cargaTipo', listaCarga()));
+  fila['Qué le ayudaría (administrativos)'] = si('ayuda', lista('ayuda', D.op.ayuda));
   fila['Taller que pide'] = [etiquetas(D.op.deseo, r.deseo), r.deseoOtro].filter(Boolean).join(' · ');
   fila['Si coordinara la Franja'] = S.coordinara.trim().slice(0, 500);
 
   var actividades = talleresR.map(function (x) {
+    var mot = listaMotivos(x);
     return {
       'Tipo':'Taller', 'Actividad':nombreTaller(taller(x.id)), 'Asistencia':etiqueta(D.op.asist, x.asist),
-      'Por qué lo dejó':etiquetas(D.op.motivos, x.motivos) + (nota('motivo:' + x.id) ? ' — «' + nota('motivo:' + x.id) + '»' : ''),
+      'Por qué lo dejó':con(etiquetas(mot, x.motivos), notaSi('motivo:' + x.id, x.motivos, mot)),
       'Veredicto':etiqueta(D.op.veredicto, x.ver), 'Qué le cambiaría':etiquetas(D.op.cambiosTaller, x.cambios),
       'Por qué ya no':etiquetas(D.op.porqueNo, x.porqueNo),
-      'Nota':(x.ver === 'cambios' ? nota('cambios:' + x.id) : (x.ver === 'no' ? nota('porqueNo:' + x.id) : ''))
+      'Nota':(x.ver === 'cambios' ? notaSi('cambios:' + x.id, x.cambios, D.op.cambiosTaller) : (x.ver === 'no' ? notaSi('porqueNo:' + x.id, x.porqueNo, D.op.porqueNo) : ''))
     };
   }).concat(eventosR.map(function (x) {
     return {
       'Tipo':evento(x.id).anual ? 'Evento anual' : 'Evento', 'Actividad':evento(x.id).t, 'Asistencia':'Fue',
       'Por qué lo dejó':'', 'Veredicto':etiqueta(D.op.veredicto, x.ver), 'Qué le cambiaría':etiquetas(D.op.cambiosEvento, x.cambios),
       'Por qué ya no':etiquetas(D.op.porqueNo, x.porqueNo),
-      'Nota':(x.ver === 'cambios' ? nota('cambios:' + x.id) : (x.ver === 'no' ? nota('porqueNo:' + x.id) : ''))
+      'Nota':(x.ver === 'cambios' ? notaSi('cambios:' + x.id, x.cambios, D.op.cambiosEvento) : (x.ver === 'no' ? notaSi('porqueNo:' + x.id, x.porqueNo, D.op.porqueNo) : ''))
     };
   }));
 
@@ -1282,7 +1386,7 @@ function armarPaquete() {
                    disposicion:etiqueta(D.op.voluntario, S.vol) };
   }
   return {
-    tipo:'balance', v:1, id:ID, prueba:PREVIEW, segundos:segundos, enviada:new Date().toISOString(),
+    tipo:'balance', v:2, id:ID, prueba:PREVIEW, segundos:segundos, enviada:new Date().toISOString(),
     r:r, fila:fila, actividades:actividades, cita:S.coordinara.trim().slice(0, 500), voluntario:voluntario,
     disposicion:S.vol
   };
@@ -1384,7 +1488,7 @@ function portada() {
     '<div class="globo">No vengo por aplausos. Si algo no te gustó, o si nunca fuiste a nada, eso es justo lo que necesito saber.</div></div>' +
     '<div class="p-acciones">' + acciones + '</div>' +
     (estado === 'abierta' && !(enviada && !(enviada.prueba && !PREVIEW)) ? '<a class="p-link" href="' + resultados + '">Ver cómo va →</a>' : '') +
-    '<p class="p-letra">Para estudiantes de los tres programas, docentes y administrativos del Campus Concá.<br>No pedimos tu nombre. Este teléfono guarda un número al azar para no contar dos veces la misma respuesta.</p>' +
+    '<p class="p-letra">Para estudiantes de los tres programas, docentes y todo el personal del Campus Concá: limpieza, jardinería, vigilancia y oficina.<br>No pedimos tu nombre. Este teléfono guarda un número al azar para no contar dos veces la misma respuesta.</p>' +
     '</section>';
   var bE = $('#b-empezar'), bS = $('#b-seguir'), bO = $('#b-otra');
   if (bE) bE.onclick = function () { almacen.quitar(K.borrador); S = estadoVacio(); mostrar('rol', 1); };

@@ -27,6 +27,9 @@
  *
  * En público solo salen sumas. Un grupo con menos de MIN_GRUPO respuestas no se desglosa, y una
  * palabra o un taller escrito a mano aparece hasta que lo repiten al menos MIN_PALABRA personas.
+ * El área del personal (limpieza, jardinería, vigilancia, oficina) va solo a la columna «Área (personal)»
+ * de Respuestas: no entra al JSON ni a los resultados, para que nadie quede expuesto por su área.
+ * Lo escrito en las opciones «Otra» va pegado a su respuesta en Respuestas y Actividades, entre «».
  *
  * Si cambias este código: Implementar → Gestionar implementaciones → lápiz →
  * Versión: Nueva versión → Implementar. Así la misma URL /exec sirve el código nuevo.
@@ -42,14 +45,16 @@ var COL_JSON = 'Datos (no editar)';
 var FIJAS_RESP = ['Fecha', 'ID', 'Vigente', 'Prueba', 'Duración (s)'];
 // Columnas que manda la página hoy. Si la página manda una nueva, se agrega sola antes de COL_JSON.
 var COLS_RESP = [
-  'Quién', 'Grupo', 'Martes 12:10', 'Talleres', 'Eventos', 'Frenos', 'Por dónde enterarse', 'Para sumarse',
+  'Quién', 'Grupo', 'Área (personal)', 'Martes 12:10', 'Talleres', 'Eventos', 'Frenos', 'Por dónde enterarse', 'Para sumarse',
   'Tallerista: ¿otra vez?', 'Tallerista: le hizo falta', 'Palabra', 'Qué le dejó', 'Gente nueva',
   'Si ya no hubiera Franja', 'Eventos o talleres',
-  'Maíz: Deporte y torneos', 'Maíz: Arte, música y danza', 'Maíz: Cuerpo y bienestar', 'Maíz: Idiomas y mente',
-  'Maíz: Oficios y saberes', 'Maíz: Fiestas del campus', 'Maíz: Mercadito y trueque', 'Maíz: Tiempo libre, sin nada',
-  'Torneo de enero', 'Por qué fue (estudiantes)', 'Clase a la hora de la Franja (estudiantes)',
-  'Clases perdidas por eventos (docentes)', 'Trabajo extra', 'Tipo de trabajo extra',
-  'Salir del puesto (administrativos)', 'Taller que pide', 'Si coordinara la Franja'
+  'Maíz: Deporte y movimiento', 'Maíz: Arte y cultura', 'Maíz: Saberes y oficios', 'Maíz: Fiestas y mercadito',
+  'Maíz: Tiempo libre', 'Maíz: Otra cosa', 'Maíz: cuál otra cosa',
+  'Torneo de enero', 'Clase a la hora de la Franja (estudiantes)', 'Sin puntos, ¿habría ido? (estudiantes)',
+  'Clases perdidas por eventos (docentes)', 'Clase o junta a la hora de la Franja (docentes)',
+  'Salir del puesto (administrativos)', 'Aviso de los eventos (administrativos)',
+  'Trabajo extra', 'Tipo de trabajo extra', 'Qué le ayudaría (administrativos)',
+  'Taller que pide', 'Si coordinara la Franja'
 ];
 var FIJAS_ACT = ['Fecha', 'ID', 'Vigente', 'Prueba', 'Quién'];
 var COLS_ACT = ['Tipo', 'Actividad', 'Asistencia', 'Por qué lo dejó', 'Veredicto', 'Qué le cambiaría', 'Por qué ya no', 'Nota'];
@@ -58,8 +63,8 @@ var COLS_VOL = ['Fecha', 'Nombre', 'WhatsApp', 'Qué podría dar u organizar', '
 
 var ROLES = { prepa:'Estudiante de prepa', pas:'Estudiante de PAS', agro:'Estudiante de Agroindustrial', docente:'Docente', admin:'Administrativo' };
 var SEGMENTOS = { todos:null, prepa:['prepa'], lic:['pas', 'agro'], docentes:['docente'], admin:['admin'] };
-var UNICAS = ['martes', 'talOtra', 'gente', 'sin', 'balance', 'torneo', 'porque', 'choque', 'suspension', 'carga', 'salir'];
-var VARIAS = ['frenos', 'canal', 'sumarme', 'talFalto', 'dejo', 'cargaTipo', 'deseo'];
+var UNICAS = ['martes', 'talOtra', 'gente', 'sin', 'balance', 'torneo', 'porque', 'choque', 'suspension', 'carga', 'salir', 'aviso'];
+var VARIAS = ['frenos', 'canal', 'sumarme', 'talFalto', 'dejo', 'respeto', 'cargaTipo', 'ayuda', 'deseo'];
 var GROSERIAS = ['pendejo', 'pendeja', 'pendejada', 'puto', 'puta', 'putos', 'chingada', 'chingadera', 'chingar', 'verga',
   'culero', 'culera', 'mierda', 'pinche', 'cabron', 'cabrona', 'joto', 'estupido', 'estupida', 'idiota', 'imbecil',
   'mamada', 'mamadas', 'zorra', 'perra', 'maricon', 'pito', 'ojete', 'pendejos', 'naca', 'naco', 'jodido', 'jodida'];
@@ -260,6 +265,7 @@ function sumar(L) {
   a.palabras = nube(L.map(function (r) { return r.palabra; }));
   a.deseosEscritos = nube(L.map(function (r) { return r.deseoOtro; }));
   a.torneosEscritos = nube(L.map(function (r) { return r.torneoOtro; }));
+  a.maizEscritos = nube(L.map(function (r) { return r.maizOtro; }));
   return a;
 }
 
@@ -333,6 +339,7 @@ function limpiarR(r) {
   o.palabra = texto(r.palabra, 24).toLowerCase();
   o.deseoOtro = texto(r.deseoOtro, 60);
   o.torneoOtro = o.torneo === 'otro' ? texto(r.torneoOtro, 40) : '';
+  o.maizOtro = (o.maiz && o.maiz.otra > 0) ? texto(r.maizOtro, 60) : '';
   return o;
 }
 

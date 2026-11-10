@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=4"></script>
+<script src="evaluacion-datos.js?v=5"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -248,19 +248,38 @@ var TABS = [
 ];
 var GRUPO_SEG = { prepa:'estudiante', lic:'estudiante', docentes:'docente', admin:'admin' };
 var CITA_SEG = { prepa:['Estudiante de prepa'], lic:['Estudiante de PAS', 'Estudiante de Agroindustrial'], docentes:['Docente'], admin:['Administrativo'] };
+/* Etiquetas para «Todo el campus» cuando una opción se dice distinto según quién responde. */
 var TODOS = {
   'frenos:choque':'Tenía clase o trabajo, o no podía dejar su puesto',
-  'canal:whatsapp':'El WhatsApp de su grupo', 'canal:clase':'Que se lo digan en clase o en junta',
-  'sumarme:cuenta':'Que cuente o se reconozca (o tener permiso)'
+  'frenos:pena':'Le dio pena, o sintió que no era para su grupo',
+  'canal:whatsapp':'El WhatsApp de su grupo', 'canal:clase':'Que se lo digan en clase, en junta o su jefe',
+  'sumarme:cuenta':'Que cuente o se reconozca (o tener permiso)',
+  'motivos:choque':'Se le juntaba con clase, juntas o su puesto'
 };
 var MARTES = {
-  taller:'En un taller', dando:'Dando un taller', comer:'Comiendo o descansando', tarea:'Haciendo tarea o estudiando',
-  amigos:'Con sus amigos, platicando', clase:'En clase o con algún maestro', fuera:'Fuera del campus',
-  trabajo:'Trabajando: planear, calificar, papeles', atender:'Atendiendo estudiantes', junta:'En junta o comisión',
-  puesto:'En su puesto, atendiendo', apoyo:'Apoyando algún evento de la Franja'
+  taller:'En un taller', dando:'Dando un taller', libre:'Comiendo, descansando o platicando',
+  escuela:'Con cosas de la escuela (estudiantes)', trabajo:'Trabajando (docentes)', puesto:'En su puesto (personal)',
+  fuera:'Fuera del campus o en otro turno', otra:'Otra cosa'
 };
 var MARTES_E = {};
 ['estudiante', 'docente', 'admin'].forEach(function (g) { D.op.martes[g].forEach(function (o) { MARTES_E[o.id] = o.e; }); });
+/* «¿Qué te cargó más?» tiene una lista por grupo y por área; aquí se juntan en una sola.
+   Las opciones que se repiten entre listas usan su nombre corto («r»). */
+var CARGA = (function () {
+  var c = D.op.cargaTipo, vistos = {}, todas = [];
+  ['docente', 'limpieza', 'jardineria', 'vigilancia', 'oficina', 'admin'].forEach(function (k) {
+    (c[k] || []).forEach(function (o) {
+      if (vistos[o.id]) return;
+      vistos[o.id] = true;
+      todas.push({ id:o.id, e:o.e, t:o.r || o.t });
+    });
+  });
+  return todas;
+})();
+/* Los motivos de quien lo dejó y de quien nunca llegó, juntos para la gráfica de bajas. */
+var MOTIVOS = D.op.motivos.concat(D.op.motivosNunca.filter(function (o) {
+  return !D.op.motivos.some(function (x) { return x.id === o.id; });
+}));
 
 /* ---------------- ayudas ---------------- */
 function $(s) { return document.querySelector(s); }
@@ -285,8 +304,10 @@ function etq(lista, id, clave) {
   var o = lista.filter(function (x) { return x.id === id; })[0];
   if (!o) return id;
   if (typeof o.t === 'string') return o.t;
+  // En un grupo, la redacción de ese grupo; en el personal, la general (nunca la de un área).
   var g = GRUPO_SEG[SEG];
-  return g ? o.t[g] : (TODOS[clave + ':' + id] || o.t.estudiante);
+  if (g && o.t[g]) return o.t[g];
+  return TODOS[clave + ':' + id] || o.t.estudiante || o.t.admin || o.t.docente || id;
 }
 function emo(lista, id) { var o = lista.filter(function (x) { return x.id === id; })[0]; return o && o.e ? o.e : ''; }
 function seg() { return DATOS && DATOS.seg ? DATOS.seg[SEG] : null; }
@@ -356,6 +377,12 @@ function poquitas(n) { return 'Solo ' + (n === 1 ? 'una persona contestó' : n +
 function barras(items, base, opts) {
   opts = opts || {};
   var lista = items.filter(function (x) { return x.n > 0 || opts.todos; });
+  // minN: una opción que solo tiene un área del personal no se muestra si la eligió una sola persona.
+  var sueltas = 0;
+  if (opts.minN) {
+    sueltas = lista.filter(function (x) { return x.n > 0 && x.n < opts.minN; }).length;
+    lista = lista.filter(function (x) { return x.n >= opts.minN; });
+  }
   if (!opts.fijo) lista.sort(function (a, b) { return b.n - a.n; });
   if (opts.max) lista = lista.slice(0, opts.max);
   if (!lista.length || !base) return { el:vacio(opts.vacio || 'Todavía no hay respuestas para esto.'), tabla:null };
@@ -371,6 +398,9 @@ function barras(items, base, opts) {
     ]);
     return conTip(fila, (opts.soloN ? x.n + (x.n === 1 ? ' persona' : ' personas') : p + '%') + '\n' + x.t + (opts.soloN ? '' : '\n' + x.n + ' de ' + base));
   }));
+  if (sueltas) cont.appendChild(h('p', { class:'sub', style:'margin:8px 0 0',
+    text:sueltas === 1 ? 'Otra opción la eligió una sola persona; no se muestra para que nadie quede expuesto.'
+      : 'Otras ' + sueltas + ' opciones las eligió una sola persona cada una; no se muestran para que nadie quede expuesto.' }));
   var tabla = tablaDe(['Respuesta', 'Personas', opts.soloN ? '' : '%'].filter(Boolean),
     lista.map(function (x) { return opts.soloN ? [x.t, x.n] : [x.t, x.n, pct(x.n, base) + '%']; }));
   return { el:cont, tabla:tabla };
@@ -498,7 +528,7 @@ function panorama(a) {
   var m = a.martes || {}, bm = a.base.martes || 0;
   var b3 = barras(Object.keys(MARTES).map(function (k) { return { id:k, e:MARTES_E[k] || '', t:MARTES[k], n:m[k] || 0 }; }), bm);
   r.appendChild(tarjeta('Es martes, 12:10. ¿Dónde están?', 'Lo que la gente hace casi siempre en el horario de la Franja.', b3.el,
-    'si el horario está libre de verdad: «en clase» y «en su puesto» son horas que la Franja no alcanzó.', b3.tabla, 'ancha'));
+    'si el horario está libre de verdad: «con cosas de la escuela», «trabajando» y «en su puesto» son horas que la Franja no alcanzó.', b3.tabla, 'ancha'));
   return r;
 }
 
@@ -528,11 +558,11 @@ function actividades(a) {
 function porQueNo(a) {
   var r = h('div', { class:'rejilla dos' });
   var b1 = barras(itemsDe(D.op.frenos, a.frenos, 'frenos'), a.base.frenos, { vacio:'Nadie de este grupo dejó de entrar a un taller… o todavía no contestan.' });
-  r.appendChild(tarjeta('¿Qué los frenó?', 'Quienes no entraron a ningún taller (' + (a.base.frenos || 0) + '). Hasta tres razones por persona.', b1.el,
+  r.appendChild(tarjeta('¿Qué los frenó?', 'Quienes no entraron a ningún taller (' + (a.base.frenos || 0) + '). Hasta dos razones por persona.', b1.el,
     'qué arreglar primero para que en enero se sumen los que no vinieron.', b1.tabla));
   var b2 = barras(itemsDe(D.op.sumarme, a.sumarme, 'sumarme'), a.base.sumarme);
   r.appendChild(tarjeta('¿Qué haría que se sumen?', 'Las mismas personas, hasta dos opciones.', b2.el,
-    'qué cambiar en el diseño: oferta, horario, aviso o reconocimiento.', b2.tabla));
+    'qué cambiar en el diseño: la oferta, el formato (suelto o semanal), la compañía o el reconocimiento.', b2.tabla));
   var b3 = barras(itemsDe(D.op.canal, a.canal, 'canal'), a.base.canal, { vacio:'Nadie dijo que no se enteró.' });
   r.appendChild(tarjeta('¿Por dónde se habrían enterado?', 'Solo quienes dijeron que no se enteraron a tiempo (' + (a.base.canal || 0) + ').', b3.el,
     'por dónde mandar la convocatoria de enero.', b3.tabla));
@@ -548,7 +578,7 @@ function porQueNo(a) {
     { t:'Lo dejó a medias', n:asist.deje, color:'var(--r2)' }, { t:'Nunca fue', n:asist.nunca, color:'var(--r1)', tinta:'#1A3A2A' }
   ], { nombre:'Asistencia a los talleres' });
   var bajas = asist.deje + asist.nunca;
-  var b4 = barras(itemsDe(D.op.motivos, motivos), bajas, { vacio:'Nadie ha dicho que dejó un taller.' });
+  var b4 = barras(itemsDe(MOTIVOS, motivos, 'motivos'), bajas, { vacio:'Nadie ha dicho que dejó un taller.' });
   r.appendChild(tarjeta('Los que se apuntaron y se fueron', 'Asistencia en ' + suma(asist) + ' inscripciones a talleres, y por qué se fueron quienes lo dejaron o nunca llegaron (' + bajas + ').',
     h('div', null, [s.el, h('div', { style:'height:14px' }), b4.el]),
     'qué cuidar para que un taller no se vacíe a medio semestre.', s.tabla));
@@ -571,8 +601,11 @@ function enero(a) {
   var r = h('div', { class:'rejilla dos' });
   var mz = a.maiz || { total:0, suma:{} };
   var b1 = barras(D.maiz.map(function (m) { return { e:m.e, t:m.t, n:mz.suma[m.id] || 0 }; }), mz.total, { todos:true });
-  r.appendChild(tarjeta('La milpa de enero', 'Cada persona repartió diez maíces donde quiere que crezca la Franja. Porcentaje de los ' + (mz.total || 0) + ' maíces sembrados por ' + (mz.personas || 0) + ' personas.',
-    b1.el, 'hacia dónde crece la oferta: qué tipo de talleres y eventos abrir, y cuánto espacio dejar libre.', b1.tabla));
+  var mOtros = (a.maizEscritos || []).slice(0, 8);
+  var cuerpoM = h('div', null, [b1.el, mOtros.length ? h('p', { class:'sub', style:'margin:12px 0 0' }, [h('b', { text:'En «otra cosa» sembraron: ' }),
+    mOtros.map(function (w) { return w.t + ' (' + w.n + ')'; }).join(', ') + '.']) : null]);
+  r.appendChild(tarjeta('La milpa de enero', 'Cada persona repartió diez maíces donde quiere que crezca la Franja. Porcentaje de los ' + (mz.total || 0) + ' maíces sembrados por ' + (mz.personas || 0) + ' personas. Lo escrito en «otra cosa» aparece cuando lo repiten al menos dos.',
+    cuerpoM, 'hacia dónde crece la oferta: qué tipo de talleres y eventos abrir, y cuánto espacio dejar libre.', b1.tabla));
   var bal = a.balance || {};
   var s = segmentada([
     { t:'Menos eventos: que los talleres avancen', n:bal.talleres || 0, color:'var(--c-igual)' },
@@ -603,48 +636,75 @@ function grupos(a) {
   var r = h('div', { class:'rejilla dos' });
   var hay = false;
   function poner(t) { r.appendChild(t); hay = true; }
+  var base = a.base || {};
+  /* ---------- estudiantes ---------- */
   if (SEG === 'todos' || SEG === 'prepa' || SEG === 'lic') {
-    if (a.base.porque) {
-      var b1 = barras(itemsDe(D.op.porque, a.porque), a.base.porque, { fijo:true, todos:true });
-      poner(tarjeta('Estudiantes: ¿por qué fueron?', 'Solo estudiantes que participaron (' + a.base.porque + ').', b1.el,
-        'si los puntos y créditos siguen siendo necesarios o la gente ya va por gusto.', b1.tabla));
-    }
-    if (a.base.choque) {
+    if (base.choque) {
       var ch = a.choque || {};
       var s1 = segmentada([
         { t:'Nunca', n:ch.nunca || 0, color:'var(--c-igual)' }, { t:'Una o dos veces', n:ch.pocas || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
-        { t:'Seguido', n:ch.seguido || 0, color:'var(--c-no)' }
+        { t:'Tres veces o más', n:ch.seguido || 0, color:'var(--c-no)' }
       ], { nombre:'Clase a la hora de la Franja' });
-      poner(tarjeta('Estudiantes: ¿les pusieron clase a la hora de la Franja?', 'Clase, examen o tarea en ese horario (' + a.base.choque + ' estudiantes).', s1.el,
+      poner(tarjeta('Estudiantes: ¿les pusieron clase a la hora de la Franja?', 'Clase, examen o práctica en ese horario, en todo el semestre (' + base.choque + ' estudiantes).', s1.el,
         'si hay que recordarle a las coordinaciones que ese horario no se toca.', s1.tabla));
     }
+    if (base.porque) {
+      var b1 = barras(itemsDe(D.op.porque, a.porque), base.porque, { fijo:true, todos:true });
+      poner(tarjeta('Estudiantes: sin puntos ni créditos, ¿habrían ido igual?', 'Solo estudiantes que participaron (' + base.porque + ').', b1.el,
+        'si los puntos y créditos siguen siendo necesarios o la gente ya va por gusto.', b1.tabla));
+    }
   }
-  if ((SEG === 'todos' || SEG === 'docentes') && a.base.suspension) {
-    var su = a.suspension || {};
-    var s2 = segmentada([
-      { t:'Al contrario, perdieron más', n:su.mas || 0, color:'var(--c-no)' }, { t:'No notaron diferencia', n:su.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
-      { t:'Sí, perdieron menos', n:su.menos || 0, color:'var(--c-igual)' }
-    ], { nombre:'Clases perdidas por eventos' });
-    poner(tarjeta('Docentes: ¿perdieron menos clases por eventos?', 'Uno de los motivos de la Franja era dejar de suspender clases (' + a.base.suspension + ' docentes).', s2.el,
-      'si la Franja cumple con no quitarle horas a las materias, y si se puede mostrar a la institución.', s2.tabla));
+  /* ---------- docentes ---------- */
+  if (SEG === 'todos' || SEG === 'docentes') {
+    if (base.suspension) {
+      var su = a.suspension || {};
+      var s2 = segmentada([
+        { t:'Al contrario, perdieron más', n:su.mas || 0, color:'var(--c-no)' }, { t:'No notaron diferencia', n:su.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
+        { t:'Sí, perdieron menos', n:su.menos || 0, color:'var(--c-igual)' }, { t:'No saben: es su primer semestre', n:su.nose || 0, color:'var(--rejilla)', tinta:'#1A3A2A' }
+      ], { nombre:'Clases perdidas por eventos' });
+      poner(tarjeta('Docentes: ¿perdieron menos clases por eventos?', 'Uno de los motivos de la Franja era dejar de suspender clases (' + base.suspension + ' docentes).', s2.el,
+        'si la Franja cumple con no quitarle horas a las materias, y si se puede mostrar a la institución.', s2.tabla));
+    }
+    if (base.respeto) {
+      var b5 = barras(itemsDe(D.op.respeto, a.respeto), base.respeto, { fijo:true });
+      poner(tarjeta('Docentes: ¿usaron la hora de la Franja para clase o junta?', 'Y por qué, cuando pasó (' + base.respeto + ' docentes; pueden marcar varias razones).', b5.el,
+        'a quién le toca arreglarlo: el horario oficial (coordinación académica), las juntas (dirección) o las prácticas de campo (un acuerdo aparte).', b5.tabla));
+    }
   }
-  if ((SEG === 'todos' || SEG === 'docentes' || SEG === 'admin') && a.base.carga) {
+  /* ---------- personal: limpieza, jardinería, vigilancia y oficina, siempre juntos ---------- */
+  if (SEG === 'todos' || SEG === 'admin') {
+    if (base.salir) {
+      var b3 = barras(itemsDe(D.op.salir, a.salir), base.salir, { fijo:true, todos:true });
+      poner(tarjeta('Administrativos: ¿pudieron darse un rato?', 'La Franja también es para el personal de limpieza, jardinería, vigilancia y oficina (' + base.salir + ' personas).', b3.el,
+        'si hace falta un acuerdo con las jefaturas, o actividades pensadas para el personal.', b3.tabla));
+    }
+    if (base.aviso) {
+      var av = a.aviso || {};
+      var s5 = segmentada([
+        { t:'Con una semana o más', n:av.semana || 0, color:'var(--r4)' }, { t:'Dos o tres días antes', n:av.dias || 0, color:'var(--r3)' },
+        { t:'Un día antes o el mismo día', n:av.encima || 0, color:'var(--r2)' }, { t:'No les avisaban', n:av.nunca || 0, color:'var(--c-no)' }
+      ], { nombre:'Aviso de los eventos' });
+      poner(tarjeta('Administrativos: ¿les avisaban con tiempo de los eventos?', 'Los días en que llega más gente o se mueve el campus (' + base.aviso + ' personas).', s5.el,
+        'con cuánta anticipación avisar a limpieza, jardinería, vigilancia y oficina antes de cada evento.', s5.tabla));
+    }
+  }
+  if ((SEG === 'todos' || SEG === 'docentes' || SEG === 'admin') && base.carga) {
     var ca = a.carga || {};
     var s3 = segmentada([
       { t:'Nada', n:ca.nada || 0, color:'var(--r1)', tinta:'#1A3A2A' }, { t:'Poco', n:ca.poco || 0, color:'var(--r2)' },
       { t:'Bastante', n:ca.bastante || 0, color:'var(--r3)' }, { t:'Demasiado', n:ca.demasiado || 0, color:'var(--r4)' }
     ], { nombre:'Trabajo extra' });
-    var b2 = barras(itemsDe(D.op.cargaTipo, a.cargaTipo), a.base.cargaTipo, { vacio:'Nadie dijo que le cargaron bastante.' });
+    var b2 = barras(itemsDe(CARGA, a.cargaTipo), base.cargaTipo, { vacio:'Nadie dijo que le cargaron bastante.', minN:2 });
     poner(tarjeta((SEG === 'admin' ? 'Administrativos' : SEG === 'docentes' ? 'Docentes' : 'Docentes y administrativos') + ': ¿trabajo extra?',
-      'Lo que no se ve también cuenta (' + a.base.carga + ' personas). Abajo, de qué tipo, entre quienes dijeron «bastante» o «demasiado».',
-      h('div', null, [s3.el, h('div', { style:'height:14px' }), b2.el]), 'cómo repartir la carga de los eventos: limpieza, vigilancia, montaje.', s3.tabla));
+      'Lo que no se ve también cuenta (' + base.carga + ' personas). Abajo, qué cargó más a quienes dijeron «bastante» o «demasiado»; cada quien vio las tareas de su trabajo.',
+      h('div', null, [s3.el, h('div', { style:'height:14px' }), b2.el]), 'cómo repartir la carga de los eventos: limpieza, vigilancia, montaje, papeleo y clases que se mueven.', s3.tabla));
   }
-  if ((SEG === 'todos' || SEG === 'admin') && a.base.salir) {
-    var b3 = barras(itemsDe(D.op.salir, a.salir), a.base.salir, { fijo:true, todos:true });
-    poner(tarjeta('Administrativos: ¿pudieron darse un rato?', 'La Franja también es para el personal (' + a.base.salir + ' administrativos).', b3.el,
-      'si hace falta un acuerdo con las jefaturas, o actividades pensadas para el personal.', b3.tabla));
+  if ((SEG === 'todos' || SEG === 'admin') && base.ayuda) {
+    var b6 = barras(itemsDe(D.op.ayuda, a.ayuda, 'ayuda'), base.ayuda);
+    poner(tarjeta('Administrativos: ¿qué les ayudaría en los eventos de ' + D.anio + '?', 'Hasta dos opciones por persona (' + base.ayuda + ' personas).', b6.el,
+      'qué va en la lista de cada evento: quién recoge, quién pasa la lista de visitantes, cómo se compensa el tiempo extra.', b6.tabla));
   }
-  if (a.base.talOtra) {
+  if (base.talOtra) {
     var to = a.talOtra || {};
     var s4 = segmentada([
       { t:'No', n:to.no || 0, color:'var(--c-no)' }, { t:'Sí, con cambios', n:to.cambios || 0, color:'var(--c-cambios)' },
@@ -735,6 +795,8 @@ function metodo() {
     'Respuestas anónimas de estudiantes de prepa y de las dos licenciaturas, docentes y administrativos del Campus Concá, del ' + dia(D.abre) + ' al ' + dia(D.cierra) + ' de 2026. ' +
     'Cada teléfono cuenta una vez: si alguien vuelve a contestar, vale su última respuesta. Un grupo se desglosa cuando tiene al menos ' + MIN + ' respuestas, para que nadie quede expuesto. ' +
     'Las palabras y los talleres escritos a mano aparecen cuando dos o más personas los repiten, y las citas se publican después de que la coordinación las lee. ' +
+    'Lo que cada quien escribió en «Otra» lo lee la coordinación en la hoja de cálculo y no se publica. ' +
+    'El personal contesta según su área (limpieza, jardinería, vigilancia u oficina), pero aquí siempre sale junto, y una tarea propia de un área aparece solo si la eligieron dos personas o más. ' +
     'Los porcentajes se calculan sobre quienes contestaron cada pregunta.']));
 }
 
