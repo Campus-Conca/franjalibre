@@ -61,15 +61,17 @@ window.EVAL = {
   ],
 
   /* Eventos del semestre. «con» completa la frase «¿Qué hacemos en enero con…?»
-     «disfraz» viste al conejo guía igual que en el cartel de ese evento. */
+     «disfraz» viste al conejo guía igual que en el cartel de ese evento.
+     Un evento sin «fecha» sale en el pasaporte desde el primer día.
+     Los ids no pueden repetir los de los talleres (ya hay un taller «basquetbol»). */
   eventos: [
     { id:'feria',      e:'🎪', t:'Feria de Intercambio de Saberes', corto:'Feria de Saberes', fecha:'2026-08-27', cuando:'Jueves 27 de agosto', con:'la Feria de Saberes', cat:'saberes' },
     { id:'mercadito',  e:'🛒', t:'Mercadito y trueque', corto:'Mercadito', fecha:'2026-08-27', cuando:'Cuatro fechas, de agosto a noviembre', con:'el Mercadito y el trueque', cat:'mercadito' },
-    { id:'maiz',       e:'🌽', t:'Día del Maíz', corto:'Día del Maíz', fecha:'2026-09-29', cuando:'Martes 29 de septiembre', con:'el Día del Maíz', cat:'fiestas', disfraz:'palma', anual:true },
     { id:'disfraces',  e:'🦸', t:'Concurso de disfraces', corto:'Disfraces', fecha:'2026-10-29', cuando:'Día de Muertos · jueves 29 de octubre', con:'el concurso de disfraces', cat:'fiestas', disfraz:'mascara', anual:true },
+    { id:'torneo-futbol',     e:'⚽', t:'Torneo de fútbol', corto:'Fútbol', cuando:'Semestre 2026-2', con:'el torneo de fútbol', cat:'deporte', disfraz:'banda' },
+    { id:'torneo-basquetbol', e:'🏀', t:'Torneo de básquetbol', corto:'Básquetbol', cuando:'Semestre 2026-2', con:'el torneo de básquetbol', cat:'deporte', disfraz:'banda' },
     { id:'voleibol',   e:'🏐', t:'Torneo de voleibol mixto', corto:'Voleibol', fecha:'2026-11-05', cuando:'Jueves de 11:00 a 12:00', con:'el torneo de voleibol', cat:'deporte', disfraz:'banda' },
-    { id:'posada',     e:'🪅', t:'Posada navideña', corto:'Posada', fecha:'2026-11-24', cuando:'Martes 24 de noviembre', con:'la Posada', cat:'fiestas', disfraz:'venda', anual:true },
-    { id:'cierre',     e:'🎉', t:'Cierre y muestra de talleres', corto:'Cierre', fecha:'2026-11-26', cuando:'Jueves 26 de noviembre', con:'el cierre y la muestra', cat:'fiestas' }
+    { id:'posada',     e:'🪅', t:'Posada navideña', corto:'Posada', fecha:'2026-11-24', cuando:'Martes 24 de noviembre', con:'la Posada', cat:'fiestas', disfraz:'venda', anual:true }
   ],
 
   /* Las ocho macetas de los diez maíces */

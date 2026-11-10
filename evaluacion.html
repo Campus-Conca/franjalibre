@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=3"></script>
+<script src="evaluacion-datos.js?v=4"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -1378,7 +1378,7 @@ function portada() {
     tira + '<section class="portada">' +
     '<div class="p-flag">Franja Libre · Balance ' + esc(D.semestre) + '</div>' +
     '<h1 class="p-titulo">¿Qué se <span>queda?</span></h1>' +
-    '<p class="p-lead">Talleres, Mercadito, Feria de Saberes, Día del Maíz, concurso de disfraces, voleibol y posada. Ahora decides tú qué sigue en ' + esc(D.anio) + ', qué cambia y qué ya no.</p>' +
+    '<p class="p-lead">Talleres, Mercadito, Feria de Saberes, concurso de disfraces, torneos de fútbol, básquetbol y voleibol, y posada. Ahora decides tú qué sigue en ' + esc(D.anio) + ', qué cambia y qué ya no.</p>' +
     '<div class="p-pills"><span>⏱️ 5 minutos o menos</span><span>🙈 Anónimo</span><span>📊 Resultados públicos</span></div>' +
     '<div class="p-conejo"><div class="cuerpo">' + conejo({ expr:'guino', cuerpo:true }) + '</div>' +
     '<div class="globo">No vengo por aplausos. Si algo no te gustó, o si nunca fuiste a nada, eso es justo lo que necesito saber.</div></div>' +
@@ -1391,8 +1391,12 @@ function portada() {
   if (bS) bS.onclick = function () {
     S = Object.assign(estadoVacio(), borr.S);
     S.inicio = Date.now() - Math.min(240e3, Math.max(0, (borr.guardado || Date.now()) - (borr.S.inicio || Date.now())));
-    historial = borr.historial || [];
-    mostrar(borr.actual, 1);
+    // Un borrador viejo puede traer un evento o un taller que ya se quitó de la lista: se descarta.
+    S.eventos = (S.eventos || []).filter(function (id) { return evento(id); });
+    S.talleres = (S.talleres || []).filter(function (id) { return taller(id); });
+    var ks = ruta().map(clave);
+    historial = (borr.historial || []).filter(function (k) { return ks.indexOf(k) >= 0; });
+    mostrar(ks.indexOf(borr.actual) >= 0 ? borr.actual : (historial.pop() || 'rol'), 1);
   };
   if (bO) bO.onclick = function () { almacen.quitar(K.borrador); S = estadoVacio(); mostrar('rol', 1); };
   window.scrollTo(0, 0);
