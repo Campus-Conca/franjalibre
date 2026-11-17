@@ -27,7 +27,7 @@ const PLATAFORMAS = ['', 'iPhone', 'Android', 'No sé'];
 const ZONA = 'America/Mexico_City';
 
 const CFG_DEF = [
-  ['CIERRE', '2026-11-19 18:00', 'Fecha y hora (centro de México) en que la hoja deja de aceptar registros. Vacío = abierta.'],
+  ['CIERRE', '2026-11-22 23:59', 'Fecha y hora (centro de México) en que la hoja deja de aceptar registros. Vacío = abierta.'],
   ['TAMANO_EQUIPO', 6, 'Personas por equipo.'],
   ['MIN_EQUIPOS', 5, 'El rally necesita al menos cinco sobres (A a E).'],
   ['MAX_EQUIPOS', 10, 'Hay diez sobres (A a J).'],
