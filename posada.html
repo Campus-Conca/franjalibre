@@ -148,13 +148,13 @@ footer{max-width:42rem;margin:0 auto;padding:0 18px 36px;text-align:center;font-
     "lugar": "Patio central del edificio académico, Campus Concá (UAQ)",
     "inicioUTC": "20261124T150000Z",
     "finUTC": "20261124T190000Z",
-    "descripcion": "A las 9:00 en el patio central; de ahí, al arcotecho para el rally. Trae vaso, plato y cuchara."
+    "descripcion": "A las 9:00 en el patio central; de ahí, al arcotecho para el rally. Trae tu vaso."
   },
   "datos": [
     ["Cuándo", "Martes 24 de noviembre, desde las 9:00"],
     ["Dónde", "Patio central del edificio académico; de ahí caminamos al arcotecho"],
     ["Rally", "De 9:30 a 11:05. Luego vienen el convivio y las piñatas"],
-    ["Trae", "Vaso, plato y cuchara, y tenis para caminar"],
+    ["Trae", "Tu vaso y tenis para caminar"],
     ["Inscripción", "{cierre}"]
   ],
   "adscripciones": [
@@ -165,7 +165,6 @@ footer{max-width:42rem;margin:0 auto;padding:0 18px 36px;text-align:center;font-
     {"id": "Administrativo", "texto": "Personal del campus", "tipo": "adulto"}
   ],
   "semestres": ["1°", "2°", "3°", "4°", "5°", "6°", "7°", "8°", "9°"],
-  "grupos": [["", "Uno solo"], ["A", "A"], ["B", "B"], ["C", "C"], ["D", "D"]],
   "sexos": ["Mujer", "Hombre", "Prefiero no decir"],
   "plataformas": ["iPhone", "Android", "No sé"],
   "appUrl": "",
@@ -263,10 +262,6 @@ function htmlForma() {
       ${chips("semestre", CONF.semestres, "chicos")}
       <p class="error" id="e-semestre"></p>
     </fieldset>
-    <fieldset class="campo">
-      <legend>Grupo <span class="opc">si en tu semestre hay más de uno</span></legend>
-      ${chips("grupo", CONF.grupos, "chicos")}
-    </fieldset>
   </div>
   <div class="sub campo" id="b-adulto" hidden>
     <label for="area">Área o materia <span class="opc">opcional</span></label>
@@ -328,7 +323,7 @@ function htmlListo(d) {
     <button class="btn sec" type="button" data-a="compartir">Invitar a alguien</button>
     ${cerrado() ? "" : `<button class="btn texto" type="button" data-a="corregir">Corregir mis datos</button>`}
   </div>
-  <p>Trae vaso, plato y cuchara.</p>
+  <p>Trae tu vaso.</p>
 </div>`;
 }
 
@@ -368,7 +363,6 @@ function preparaForma() {
   const base = editando || lee(LS.borrador) || {};
   ["nombre", "area", "whatsapp", "detalle"].forEach(k => { if (base[k]) f.elements[k].value = base[k]; });
   ["adscripcion", "semestre", "sexo", "celular", "plataforma", "ajuste"].forEach(k => poneRadio(f, k, base[k]));
-  poneRadio(f, "grupo", base.grupo || "");
   const actualiza = () => {
     const ads = ADS[valorRadio(f, "adscripcion")];
     $("#b-estudiante").hidden = !ads || ads.tipo !== "estudiante";
@@ -391,7 +385,7 @@ function junta(f) {
     nombre: f.elements.nombre.value.replace(/\s+/g, " ").trim(),
     adscripcion: valorRadio(f, "adscripcion"),
     semestre: est ? valorRadio(f, "semestre") : "",
-    grupo: est ? valorRadio(f, "grupo") : "",
+    grupo: "",
     area: ads && !est ? f.elements.area.value.trim() : "",
     sexo: valorRadio(f, "sexo"),
     whatsapp: f.elements.whatsapp.value.trim(),
