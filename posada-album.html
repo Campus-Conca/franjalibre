@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El álbum del viento · Fotos del rally de la posada</title>
+<meta name="description" content="Las mejores fotos del rally «El soplo de Ehécatl», la posada 2026 del Campus Concá: piñatas hechas con el cuerpo, retos de equipo, selfies de ruta y la foto con Ehécatl.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#15123a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2315123a'/%3E%3Cpath d='M32 33c0-3 4-3 4 0 0 5-8 5-8 0 0-7 12-7 12 0 0 9-16 9-16 0 0-11 20-11 20 0' fill='none' stroke='%23f6aa1c' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+<style>
+@font-face{font-family:"Fraunces";font-weight:900;font-style:normal;font-display:swap;src:url(posada-fotos/fraunces-900.woff2) format("woff2")}
+:root{
+  --noche:#15123a; --noche-2:#221d55; --noche-3:#2c2470; --viento:#3fe0cf; --papel:#fbf4e6; --tinta:#1a1535;
+  --picado:#ec4b85; --cempa:#f6aa1c; --ehecatl:#e0482f; --ok:#1f8a57; --indigo:#4a3fa3; --lila:#a58be0;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --ancho:70rem;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--noche) radial-gradient(120% 50rem at 80% 0%, #2c2470 0%, transparent 60%) no-repeat;color:var(--papel);font:18px/1.5 var(--body);-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+img{max-width:100%}
+button{font:inherit;color:inherit}
+a{color:var(--viento)}
+.picado{display:block;width:100%;height:46px}
+.envoltura{max-width:var(--ancho);margin:0 auto;padding:0 18px}
+.antetitulo{margin:0;font-size:13px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--viento)}
+h1{margin:6px 0 0;font:900 clamp(44px,11vw,84px)/.96 var(--display);letter-spacing:-.01em}
+h1 span{color:var(--cempa)}
+h2{margin:4px 0 8px;font:900 clamp(30px,6vw,44px)/1.05 var(--display)}
+.entrada{margin:0;max-width:40rem;font-size:19px;color:#e6e1fb}
+.entrada strong{color:var(--cempa)}
+
+/* ── Portada ── */
+.cabeza{position:relative;padding:6px 0 10px}
+.hero{display:grid;gap:10px;align-items:center}
+.hero-arte{position:relative;justify-self:center;width:min(78%,330px);aspect-ratio:1.15}
+.hero-arte .ehe{position:absolute;right:0;top:0;width:66%;height:auto;animation:flota 6s ease-in-out infinite;filter:drop-shadow(0 14px 22px rgba(0,0,0,.45))}
+.hero-arte .cj{position:absolute;left:0;bottom:0;width:40%;height:auto;animation:brinca 1.6s ease-in-out infinite;filter:drop-shadow(0 10px 14px rgba(0,0,0,.4))}
+.hero-arte svg{position:absolute;inset:6% -20% auto -20%;width:140%;height:auto;opacity:.5;pointer-events:none}
+@keyframes flota{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(1.5deg)}}
+@keyframes brinca{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.cifras{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 0;padding:0;list-style:none}
+.cifras li{background:var(--noche-2);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:10px 14px;font-size:15px;line-height:1.3;color:#d8d3f0}
+.cifras b{display:block;font:900 26px/1 var(--display);color:var(--cempa)}
+.indice{display:flex;gap:8px;margin:18px -18px 0;padding:4px 18px 10px;overflow-x:auto;scrollbar-width:none}
+.indice::-webkit-scrollbar{display:none}
+.indice a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:44px;padding:8px 16px;border-radius:999px;background:var(--papel);color:var(--tinta);font-weight:700;font-size:16px;text-decoration:none}
+.indice a:hover,.indice a:focus-visible{background:var(--cempa)}
+
+section{padding:44px 0 6px;scroll-margin-top:8px}
+.foto{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:inherit}
+.foto img{display:block;width:100%;height:auto;border-radius:inherit;background:#0e0b2a}
+.foto:focus-visible{outline:4px solid var(--viento);outline-offset:3px}
+.sello{display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:14px;letter-spacing:.02em}
+.sello i{width:12px;height:12px;border-radius:50%;background:var(--c,#fff);flex:0 0 auto}
+
+/* ── 1. Tendedero de piñatas ── */
+.tendedero{display:flex;margin:22px -18px 0;padding:0 18px 26px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#5b5299 transparent}
+.colgada{flex:0 0 auto;width:min(72vw,270px);padding:46px 14px 0;scroll-snap-align:center;
+  background:linear-gradient(#d9cfe9,#d9cfe9) 0 14px/100% 2px no-repeat}
+.colgada.ancha{width:min(86vw,380px)}
+.colgada figure{position:relative;margin:0;transform-origin:50% -32px;animation:mece 4.6s ease-in-out infinite alternate}
+.colgada:nth-child(even) figure{animation-duration:5.4s;animation-direction:alternate-reverse}
+.colgada:nth-child(3n) figure{animation-duration:6.2s}
+.colgada figure::before{content:"";position:absolute;left:50%;top:-32px;width:2px;height:32px;background:#d9cfe9}
+.colgada figure::after{content:"";position:absolute;left:50%;top:-40px;width:14px;height:14px;margin-left:-7px;border-radius:4px 4px 7px 7px;background:var(--c)}
+@keyframes mece{from{transform:rotate(-2.6deg)}to{transform:rotate(2.6deg)}}
+.marco{background:var(--papel);color:var(--tinta);padding:9px 9px 12px;border-radius:14px;box-shadow:0 14px 28px rgba(5,3,20,.5);border-bottom:8px solid var(--c)}
+.marco .foto{border-radius:8px}
+.marco figcaption{padding:10px 4px 0}
+.premio{margin:3px 0 0;font:900 20px/1.15 var(--display)}
+.desliza{margin:10px 0 0;font-size:15px;color:#a9a3cf}
+
+/* ── 2. Adivina el reto ── */
+.marcador{display:inline-flex;align-items:center;gap:10px;margin:16px 0 0;padding:8px 16px;border-radius:999px;background:var(--noche-2);border:1px solid rgba(255,255,255,.14);font-weight:700}
+.marcador b{font:900 24px/1 var(--display);color:var(--cempa)}
+.retos{display:grid;gap:18px;margin-top:20px;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.reto{background:var(--papel);color:var(--tinta);border-radius:22px;padding:10px 10px 16px;box-shadow:0 12px 30px rgba(5,3,20,.45);display:flex;flex-direction:column}
+.reto .foto{border-radius:14px}
+.reto .foto img{aspect-ratio:4/3;object-fit:cover}
+.reto .sello{margin:12px 6px 0;color:#4d4672}
+.reto .pregunta{margin:2px 6px 10px;font:900 21px/1.15 var(--display)}
+.opciones{display:grid;gap:8px;padding:0 4px}
+.opciones button{min-height:48px;padding:10px 14px;text-align:left;border:2px solid #cfc5e3;border-radius:14px;background:#fff;font-weight:700;font-size:17px;cursor:pointer;transition:background .15s,border-color .15s,transform .15s}
+.opciones button:hover:not(:disabled){border-color:var(--indigo);transform:translateY(-1px)}
+.opciones button:focus-visible{outline:3px solid var(--indigo);outline-offset:2px}
+.opciones button:disabled{cursor:default;opacity:.55}
+.opciones button.buena{background:#dff3e8;border-color:var(--ok);color:#0f5a36;opacity:1}
+.opciones button.mala{background:#fde3dd;border-color:var(--ehecatl);color:#8a2413;opacity:1}
+.revela{margin:12px 6px 0;padding:12px 14px;border-radius:14px;background:#e9e4fb;color:#2f2770;font-size:16px}
+.revela b{display:block;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+
+/* ── 3. Muro de selfies ── */
+.muro{margin-top:26px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px 14px}
+.polaroid{position:relative;display:flex;flex-direction:column;margin:0;background:#fff;color:var(--tinta);padding:8px 8px 10px;border-radius:6px;box-shadow:0 10px 22px rgba(5,3,20,.5);transform:rotate(var(--giro,0deg));transition:transform .2s}
+.polaroid:hover{transform:rotate(0) scale(1.02);z-index:2}
+.polaroid::before{content:"";position:absolute;left:50%;top:-10px;width:74px;height:22px;margin-left:-37px;background:var(--c);opacity:.85;transform:rotate(calc(var(--giro,0deg) * -2));border-radius:2px}
+.polaroid .foto{border-radius:3px}
+.polaroid .foto img{aspect-ratio:4/3;object-fit:cover}
+.polaroid.alta{grid-row:span 2}
+.polaroid.alta .foto{position:relative;flex:1;min-height:220px}
+.polaroid.alta .foto img{position:absolute;inset:0;height:100%;aspect-ratio:auto}
+.polaroid figcaption{padding:8px 2px 0;font-size:15px;line-height:1.3}
+.polaroid figcaption b{display:block;font:900 17px/1.2 var(--display)}
+
+/* ── 4. Ehécatl ── */
+.entro{position:relative}
+.cita{margin:18px 0 0;padding:16px 18px;border-left:6px solid var(--cempa);background:var(--noche-2);border-radius:0 18px 18px 0;max-width:38rem;font:900 22px/1.25 var(--display)}
+.cita small{display:block;margin-top:6px;font:400 15px/1.4 var(--body);color:#c9c3ea}
+.rafaga{display:grid;gap:14px 10px;margin-top:24px;grid-template-columns:repeat(6,1fr);align-items:start}
+.rafaga figure{grid-column:span 2;margin:0;background:var(--noche-2);border-radius:14px;padding:6px 6px 10px;border:1px solid rgba(255,255,255,.12)}
+.rafaga figure.ancha{grid-column:1 / -1}
+.rafaga .foto{border-radius:9px}
+.rafaga figcaption{padding:10px 6px 0}
+
+/* ── 5. La olla del ponche ── */
+.olla{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.olla button{min-height:46px;padding:8px 16px 8px 12px;border-radius:999px;border:2px solid rgba(255,255,255,.22);background:var(--noche-2);font-weight:700;font-size:16px;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.olla button i{width:14px;height:14px;border-radius:50%;background:var(--c)}
+.olla button[aria-pressed=true]{background:var(--papel);color:var(--tinta);border-color:var(--papel)}
+.olla button:focus-visible{outline:3px solid var(--viento);outline-offset:2px}
+.ficha{margin-top:18px;background:var(--papel);color:var(--tinta);border-radius:22px;padding:18px 0 8px;box-shadow:0 12px 30px rgba(5,3,20,.45);border-top:10px solid var(--c)}
+.ficha header{padding:0 18px}
+.ficha h3{margin:0;font:900 32px/1.05 var(--display)}
+.ficha p{margin:4px 0 0;color:#4d4672;font-size:16px}
+.tira{display:flex;gap:12px;overflow-x:auto;padding:16px 18px 14px;scroll-snap-type:x proximity;scrollbar-width:thin}
+.paso{flex:0 0 auto;width:min(70vw,250px);margin:0;scroll-snap-align:start}
+.paso .foto{border-radius:12px}
+.paso .foto img{aspect-ratio:4/5;object-fit:cover}
+.paso figcaption{padding:8px 2px 0;font-size:15px;line-height:1.3}
+.paso .hora{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--tinta);color:var(--papel);font-weight:700;font-size:13px;font-variant-numeric:tabular-nums}
+.paso b{display:block;margin-top:4px;font:900 18px/1.2 var(--display)}
+
+/* ── Visor ── */
+dialog.visor{width:100vw;height:100vh;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:rgba(10,8,32,.96);color:var(--papel)}
+dialog.visor::backdrop{background:rgba(10,8,32,.9)}
+.visor-caja{height:100%;display:grid;grid-template-rows:auto 1fr auto;gap:6px;padding:10px}
+.visor-barra{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.visor-barra span{font-size:14px;color:#a9a3cf;font-variant-numeric:tabular-nums}
+.visor button{min-width:48px;min-height:48px;border:0;border-radius:999px;background:var(--noche-3);font-weight:700;font-size:17px;cursor:pointer;padding:0 16px}
+.visor button:hover{background:var(--indigo)}
+.visor button:focus-visible{outline:3px solid var(--viento)}
+.visor-foto{min-height:0;display:flex;align-items:center;justify-content:center;gap:8px}
+.visor-foto img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:12px;min-width:0;flex:0 1 auto}
+.visor-foto button{flex:0 0 auto;padding:0;font-size:24px}
+.visor-pie{text-align:center;padding:4px 8px 10px;font-size:17px}
+.visor-pie b{font:900 20px/1.2 var(--display);color:var(--cempa)}
+
+footer{max-width:42rem;margin:0 auto;padding:50px 18px 40px;text-align:center;font-size:15px;color:#a9a3cf}
+footer .aviso{margin:0 0 16px;padding:14px 16px;border-radius:16px;background:var(--noche-2);color:#d8d3f0;font-size:16px}
+footer nav{display:flex;flex-wrap:wrap;justify-content:center;gap:4px 18px}
+footer nav a{display:inline-block;padding:12px 6px;font-weight:700}
+
+@media (min-width:720px){
+  .hero{grid-template-columns:1.3fr 1fr}
+  .hero-arte{width:100%;max-width:400px}
+  .muro{grid-template-columns:repeat(3,1fr);gap:26px 20px}
+  .rafaga{gap:18px}
+  .rafaga figure{padding:8px 8px 12px;border-radius:18px}
+  .rafaga figure.ancha{grid-column:span 2;align-self:center}
+  .visor-caja{padding:18px 24px}
+}
+@media (min-width:1000px){
+  .muro{grid-template-columns:repeat(4,1fr)}
+  .tendedero{flex-wrap:wrap;justify-content:center;overflow:visible;margin:22px 0 0;padding:0;row-gap:26px}
+  .colgada{width:25%;padding:46px 16px 0}
+  .colgada.ancha{width:33.333%}
+  .desliza{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+@media print{body{background:#fff;color:#000}.indice,.olla,.picado{display:none}}
+</style>
+</head>
+<body>
+<svg class="picado" viewBox="0 0 400 46" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 3 Q200 12 400 3" stroke="#d9cfe9" stroke-width="1.5" fill="none" opacity=".5"/>
+  <g id="banderas"></g>
+</svg>
+
+<header class="cabeza envoltura">
+  <div class="hero">
+    <div>
+      <p class="antetitulo">Posada 2026 · Campus Concá · Martes 24 de noviembre</p>
+      <h1>El álbum del <span>viento</span></h1>
+      <p class="entrada" style="margin-top:14px">Ehécatl bajó del cerro, sopló y desarmó la posada. Nueve equipos con nombre de ingrediente del ponche salieron a rescatar la piñata, el palo, los dulces y el paliacate. <strong>Esto fue lo que quedó en sus cámaras.</strong></p>
+    </div>
+    <div class="hero-arte" aria-hidden="true">
+      <svg viewBox="0 0 320 200"><g fill="none" stroke="#3fe0cf" stroke-width="3" stroke-linecap="round"><path d="M10 60 Q90 30 150 62 T300 54"/><path d="M30 110 Q120 80 190 112 T310 104" opacity=".7"/><path d="M60 158 Q140 132 210 158" opacity=".5"/><path d="M262 54c14 0 16-18 2-18-8 0-10 9-3 10"/></g></svg>
+      <img class="ehe" src="posada-fotos/ehecatl.webp" alt="" width="552" height="640">
+      <img class="cj" src="posada-fotos/conejo.webp" alt="" width="180" height="250">
+    </div>
+  </div>
+  <ul class="cifras" aria-label="El rally en números">
+    <li><b>9</b>equipos revueltos</li>
+    <li><b id="n-fotos">51</b>fotos en este álbum</li>
+    <li><b>10:34</b>la primera piñata, de Jamaica</li>
+    <li><b>11:32</b>la última foto con Ehécatl</li>
+  </ul>
+  <nav class="indice" aria-label="Partes del álbum">
+    <a href="#pinatas">Piñatas de siete picos</a>
+    <a href="#retos">Adivina el reto</a>
+    <a href="#ruta">Selfies de ruta</a>
+    <a href="#ehecatl">Con Ehécatl</a>
+    <a href="#equipos">Por equipo</a>
+  </nav>
+</header>
+
+<main class="envoltura">
+
+  <section id="pinatas" aria-labelledby="t-pinatas">
+    <p class="antetitulo">La prueba para poder salir</p>
+    <h2 id="t-pinatas">Siete picos, cero cartón</h2>
+    <p class="entrada">Antes de soltar a los equipos, el conejo pidió una prueba de que sí eran equipo: una piñata de siete picos hecha con el cuerpo. Aquí cuelgan las nueve, cada una con el premio que el conejo le inventó.</p>
+    <div class="tendedero" id="tendedero" tabindex="0" aria-label="Las nueve piñatas, colgadas en fila"></div>
+    <p class="desliza">Desliza hacia un lado para verlas todas. Toca una foto para verla en grande.</p>
+  </section>
+
+  <section id="retos" aria-labelledby="t-retos">
+    <p class="antetitulo">A media ruta, un reto distinto para cada equipo</p>
+    <h2 id="t-retos">¿Qué les pidió el conejo?</h2>
+    <p class="entrada">A cada equipo le tocó posar para una foto diferente. Mira la foto y adivina cuál de los tres retos era el suyo.</p>
+    <p class="marcador" aria-live="polite"><b id="aciertos">0</b><span id="marcador-txt">de 9 adivinados</span></p>
+    <div class="retos" id="lista-retos"></div>
+  </section>
+
+  <section id="ruta" aria-labelledby="t-ruta">
+    <p class="antetitulo">Tres paradas por equipo, una foto en cada una</p>
+    <h2 id="t-ruta">Por aquí pasó el viento</h2>
+    <p class="entrada">Cada pista mandaba a un rincón del campus, y para abrir la pregunta había que tomarse una foto ahí. Estas son las selfies que mejor salieron.</p>
+    <div class="muro" id="muro"></div>
+  </section>
+
+  <section id="ehecatl" class="entro" aria-labelledby="t-ehecatl">
+    <p class="antetitulo">El final</p>
+    <h2 id="t-ehecatl">Y Ehécatl entró a la posada</h2>
+    <p class="entrada">Sonó el caracol, todos gritaron «¡Pásale, Ehécatl!» y el viento por fin tuvo su invitación. Luego cada equipo lo buscó con la cámara del celular para tomarse la foto con él.</p>
+    <p class="cita">«Bueno. Pero me guardan ponche.»<small>Ehécatl, al entrar a su primera posada.</small></p>
+    <div class="rafaga" id="rafaga"></div>
+  </section>
+
+  <section id="equipos" aria-labelledby="t-equipos">
+    <p class="antetitulo">El rally de cada equipo, foto por foto</p>
+    <h2 id="t-equipos">La olla del ponche</h2>
+    <p class="entrada">Escoge un ingrediente y mira el camino completo de ese equipo, en el orden en que llegaron sus fotos.</p>
+    <div class="olla" id="olla" role="group" aria-label="Equipos"></div>
+    <div class="ficha" id="ficha" aria-live="polite"></div>
+  </section>
+</main>
+
+<footer>
+  <p class="aviso">¿Sales en una foto y prefieres que no esté aquí? Dile al profe Lalo y la quitamos.</p>
+  <nav>
+    <a href="posada.html">La página del rally</a>
+    <a href="index.html">Volver a la Franja Libre</a>
+  </nav>
+  <p>Posada navideña 2026 · Campus Concá · UAQ</p>
+</footer>
+
+<dialog class="visor" id="visor" aria-label="Foto en grande">
+  <div class="visor-caja">
+    <div class="visor-barra">
+      <span id="visor-cuenta"></span>
+      <button type="button" id="visor-cerrar">Cerrar ✕</button>
+    </div>
+    <div class="visor-foto">
+      <button type="button" id="visor-antes" aria-label="Foto anterior">‹</button>
+      <img id="visor-img" alt="">
+      <button type="button" id="visor-despues" aria-label="Foto siguiente">›</button>
+    </div>
+    <p class="visor-pie" id="visor-pie"></p>
+  </div>
+</dialog>
+
+<!-- Todo lo que puede cambiar vive aquí: equipos, premios, retos y qué fotos salen en cada parte. -->
+<script type="application/json" id="datos">
+{
+  "carpeta": "posada-fotos/",
+  "equipos": {
+    "a": {"nombre": "Canela", "color": "#e08a3c", "rescato": "el palo",
+          "premio": "Picos en fila india",
+          "lugares": ["Caja de abejas trompetilla", "Tinaco junto a la cancha", "Cartel «Preparando el terreno»"],
+          "horas": {"pinata": "10:37", "l1": "10:38", "l2": "10:47", "reto": "10:47", "l3": "10:48", "ehecatl": "10:59"}},
+    "b": {"nombre": "Piloncillo", "color": "#c9a063", "rescato": "el paliacate",
+          "premio": "La más frondosa",
+          "lugares": ["Jaula del gas", "Lámina del girasol", "Mural de las manos"],
+          "horas": {"pinata": "10:36", "l1": "10:42", "l2": "10:45", "reto": "10:48", "l3": "10:49", "ehecatl": "11:03"}},
+    "c": {"nombre": "Guayaba", "color": "#f2a0b5", "rescato": "los dulces",
+          "premio": "La de pico al cielo",
+          "lugares": ["Letrero de los cuisillos", "Pared de generaciones", "Lámina del nopal"],
+          "horas": {"pinata": "10:36", "l1": "10:38", "l2": "10:47", "reto": "10:49", "l3": "10:49", "ehecatl": "11:32"}},
+    "d": {"nombre": "Tejocote", "color": "#f6aa1c", "rescato": "la piñata",
+          "premio": "La piñata en pirámide",
+          "lugares": ["Ajedrez de la biblioteca", "Plano del campus", "Letrero de la diosa Cachum"],
+          "horas": {"pinata": "10:37", "l1": "10:39", "l2": "10:46", "reto": "10:48", "l3": "10:51"}},
+    "e": {"nombre": "Caña", "color": "#b7d36b", "rescato": "el palo",
+          "premio": "La más sonriente",
+          "lugares": ["La palapa", "Lámina del zorrillo", "El extintor"],
+          "horas": {"pinata": "10:37", "l1": "10:41", "l2": "10:47", "reto": "10:50", "l3": "10:54", "ehecatl": "11:15"}},
+    "f": {"nombre": "Jamaica", "color": "#e2466f", "rescato": "el paliacate",
+          "premio": "La que ya traía gorro",
+          "lugares": ["Cartel de las mariposas", "Con Ehécatl en su letrero", "Tinaco de lluvia"],
+          "horas": {"pinata": "10:34", "l1": "10:36", "l2": "10:40", "reto": "10:44", "l3": "10:45", "ehecatl": "10:57"}},
+    "g": {"nombre": "Ciruela", "color": "#a58be0", "rescato": "los dulces",
+          "premio": "La minimalista: los picos van por dentro",
+          "lugares": ["Carteles de cámara trampa", "Esqueleto del gigante", "Foto de las gradas"],
+          "horas": {"pinata": "10:39", "l1": "10:42", "l2": "10:47", "reto": "10:48", "l3": "10:50", "ehecatl": "11:10"}},
+    "h": {"nombre": "Manzana", "color": "#e0482f", "rescato": "la piñata",
+          "premio": "La única que se ve desde el cielo",
+          "lugares": ["Pérgola de la enredadera", "Letrero de Ehécatl", "Lámina del coralillo"],
+          "horas": {"pinata": "10:39", "l1": "10:41", "l2": "10:48", "reto": "10:50", "l3": "10:51"}},
+    "j": {"nombre": "Naranja", "color": "#ff8a2a", "rescato": "la piñata",
+          "premio": "La de dos pisos",
+          "lugares": ["Vitrina del armadillo", "Letrero Senderos de Concá", "Cartel de los quelites"],
+          "horas": {"pinata": "10:36", "l1": "10:38", "l2": "10:45", "reto": "10:47", "l3": "10:50"}}
+  },
+  "anchas": ["c-pinata", "g-pinata", "h-pinata", "j-pinata", "b-ehecatl", "c-ehecatl", "g-ehecatl"],
+  "pinatas": ["h", "f", "j", "a", "e", "d", "c", "b", "g"],
+  "retos": {
+    "nacimiento": ["Nacimiento viviente", "Repártanse los papeles —la estrella, el burrito, los pastores y los Reyes Magos— y posen como nacimiento."],
+    "zapatos": ["Torre de zapatos", "Cada quien pone un zapato. Armen la torre más alta que se sostenga sola y tómenle foto con todo el equipo detrás."],
+    "soplo": ["El soplo de Ehécatl", "Posen como si un viento fortísimo los empujara a todos hacia el mismo lado."],
+    "fila": ["Fila sin palabras", "Acomódense del más bajito al más alto sin hablar. Cuando estén listos, tómense la foto."],
+    "pie": ["Todos en un pie", "Tómense una foto en la que nadie toque el piso con los dos pies."],
+    "pastorela": ["Pastorela exprés", "Alguien es el diablo y los demás son pastores que no le hacen caso."],
+    "letra": ["La letra del equipo", "Formen en el piso la letra G con mochilas, suéteres y lo que traigan. Tómenle foto desde arriba."],
+    "cien": ["Foto de hace cien años", "Posen como en una foto de familia de hace cien años: serios, tiesos y con alguien sentado al centro."],
+    "coro": ["Coro congelado", "Posen como si cantaran un villancico a todo pulmón, con la boca bien abierta."],
+    "animal": ["Un animal de la sierra", "Entre todos formen un solo animal de la Sierra Gorda: alguien es la cabeza, otros las patas y alguien la cola."]
+  },
+  "adivina": [
+    {"eq": "b", "es": "zapatos", "opciones": ["zapatos", "letra", "fila"]},
+    {"eq": "h", "es": "cien", "opciones": ["coro", "fila", "cien"]},
+    {"eq": "c", "es": "soplo", "opciones": ["pastorela", "soplo", "coro"]},
+    {"eq": "g", "es": "letra", "opciones": ["animal", "letra", "zapatos"]},
+    {"eq": "a", "es": "nacimiento", "opciones": ["coro", "pie", "nacimiento"]},
+    {"eq": "j", "es": "animal", "opciones": ["animal", "pie", "nacimiento"]},
+    {"eq": "d", "es": "fila", "opciones": ["cien", "fila", "nacimiento"]},
+    {"eq": "f", "es": "pastorela", "opciones": ["fila", "soplo", "pastorela"]},
+    {"eq": "e", "es": "pie", "opciones": ["pie", "cien", "pastorela"]}
+  ],
+  "muro": ["a-l2", "b-l3", "f-l2", "g-l2", "d-l3", "h-l1", "f-l3", "e-l1", "c-l1", "b-l1", "j-l1", "h-l2"],
+  "rafaga": ["a", "f", "e", "b", "g", "c"],
+  "altas": ["e-l1"],
+  "burlas": ["Fiuuu… no. Ese no era.", "Casi. Ehécatl se ríe.", "Frío, frío. Como el viento."]
+}
+</script>
+
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("datos").textContent);
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const EQ = D.equipos;
+const ANCHAS = new Set(D.anchas);
+
+/* Papel picado de la portada */
+(() => {
+  const col = ["#ec4b85", "#f6aa1c", "#3fe0cf", "#a58be0"], n = 12, ww = 400 / n;
+  let g = "";
+  for (let i = 0; i < n; i++) {
+    const x = i * ww, y = 4 + Math.sin((i + .5) / n * Math.PI) * 6;
+    g += `<g transform="translate(${x + 2} ${y})"><path d="M0 0h${ww - 4}v30l-${(ww - 4) / 4} -6l-${(ww - 4) / 4} 6l-${(ww - 4) / 4} -6l-${(ww - 4) / 4} 6z" fill="${col[i % 4]}"/><circle cx="${(ww - 4) / 2}" cy="13" r="4.5" fill="#15123a"/></g>`;
+  }
+  $("#banderas").innerHTML = g;
+})();
+
+/* Qué es cada foto: de la clave «a-l2» salen el texto corto, el pie y la descripción */
+function info(clave) {
+  const [l, tipo] = clave.split("-"), e = EQ[l];
+  let titulo, alt;
+  if (tipo === "pinata") { titulo = "Piñata de siete picos"; alt = `El equipo ${e.nombre} forma con el cuerpo una piñata de siete picos`; }
+  else if (tipo === "reto") { const r = D.retos[D.adivina.find(x => x.eq === l).es]; titulo = "Reto: " + r[0]; alt = `El equipo ${e.nombre} posa para su reto de equipo`; }
+  else if (tipo === "ehecatl") { titulo = "Con Ehécatl"; alt = `El equipo ${e.nombre} en su foto con Ehécatl, que aparece dibujado volando sobre ellos`; }
+  else { const i = +tipo[1] - 1; titulo = e.lugares[i]; alt = `Selfie del equipo ${e.nombre} en su parada ${i + 1} de la ruta: ${e.lugares[i]}`; }
+  return {l, tipo, e, titulo, alt, hora: e.horas[tipo], src: D.carpeta + clave + ".jpg"};
+}
+const sello = e => `<span class="sello" style="--c:${e.color}"><i></i>Equipo ${esc(e.nombre)}</span>`;
+const boton = (clave, grupo, altOculto) => {
+  const f = info(clave);
+  return `<button type="button" class="foto" data-foto="${clave}" data-grupo="${grupo}"><img src="${f.src}" alt="${esc(altOculto || f.alt)}" loading="lazy" decoding="async"></button>`;
+};
+
+/* 1. Tendedero */
+$("#tendedero").innerHTML = D.pinatas.map(l => {
+  const e = EQ[l], k = l + "-pinata";
+  return `<div class="colgada${ANCHAS.has(k) ? " ancha" : ""}" style="--c:${e.color}"><figure><div class="marco">${boton(k, "pinatas")}<figcaption>${sello(e)}<p class="premio">${esc(e.premio)}</p></figcaption></div></figure></div>`;
+}).join("");
+
+/* 2. Adivina el reto */
+let aciertos = 0, resueltos = 0;
+$("#lista-retos").innerHTML = D.adivina.map((q, i) => {
+  const e = EQ[q.eq];
+  return `<article class="reto" data-i="${i}">
+    ${boton(q.eq + "-reto", "retos", `Foto del reto del equipo ${e.nombre}`)}
+    ${sello(e)}
+    <p class="pregunta">¿Cuál era su reto?</p>
+    <div class="opciones">${q.opciones.map(o => `<button type="button" data-o="${o}">${esc(D.retos[o][0])}</button>`).join("")}</div>
+    <p class="revela" hidden></p>
+  </article>`;
+}).join("");
+$("#lista-retos").addEventListener("click", ev => {
+  const b = ev.target.closest(".opciones button"); if (!b || b.disabled) return;
+  const art = b.closest(".reto"), q = D.adivina[+art.dataset.i], bien = b.dataset.o === q.es, rev = art.querySelector(".revela");
+  if (!bien && !art.dataset.fallo) {            // un segundo intento antes de destapar
+    art.dataset.fallo = "1"; b.classList.add("mala"); b.disabled = true;
+    rev.hidden = false; rev.textContent = D.burlas[(+art.dataset.i) % D.burlas.length] + " Te queda un intento.";
+    return;
+  }
+  art.querySelectorAll(".opciones button").forEach(x => { x.disabled = true; if (x.dataset.o === q.es) x.classList.add("buena"); });
+  if (!bien) b.classList.add("mala");
+  if (bien && !art.dataset.fallo) aciertos++;
+  resueltos++;
+  const r = D.retos[q.es];
+  rev.hidden = false;
+  rev.innerHTML = `<b>${bien ? "¡Eso! " : "Era este: "}${esc(r[0])}</b>El conejo les dijo: «${esc(r[1])}»`;
+  $("#aciertos").textContent = aciertos;
+  $("#marcador-txt").textContent = resueltos === D.adivina.length
+    ? `de 9 a la primera. ${aciertos >= 8 ? "Tú estuviste ahí, ¿verdad?" : aciertos >= 5 ? "Nada mal." : "El viento te despeinó."}`
+    : "de 9 adivinados a la primera";
+});
+
+/* 3. Muro de selfies */
+$("#muro").innerHTML = D.muro.map((k, i) => {
+  const f = info(k), giro = [-2.2, 1.6, -1, 2.4, -1.8, 1.1][i % 6];
+  return `<figure class="polaroid${(D.altas || []).includes(k) ? " alta" : ""}" style="--c:${f.e.color};--giro:${giro}deg">${boton(k, "muro")}<figcaption><b>${esc(f.titulo)}</b>${sello(f.e)}</figcaption></figure>`;
+}).join("");
+
+/* 4. Con Ehécatl */
+$("#rafaga").innerHTML = D.rafaga.map(l => {
+  const k = l + "-ehecatl", e = EQ[l];
+  return `<figure class="${ANCHAS.has(k) ? "ancha" : ""}">${boton(k, "rafaga")}<figcaption>${sello(e)}</figcaption></figure>`;
+}).join("");
+
+/* 5. La olla del ponche */
+const ORDEN = ["pinata", "l1", "l2", "reto", "l3", "ehecatl"];
+const ETIQ = {pinata: "La salida", l1: "Parada 1", l2: "Parada 2", reto: "A media ruta", l3: "Parada 3", ehecatl: "El final"};
+$("#olla").innerHTML = Object.keys(EQ).map(l => `<button type="button" data-eq="${l}" aria-pressed="false" style="--c:${EQ[l].color}"><i></i>${esc(EQ[l].nombre)}</button>`).join("");
+function ficha(l) {
+  const e = EQ[l], pasos = ORDEN.filter(t => e.horas[t]);
+  document.querySelectorAll("#olla button").forEach(b => b.setAttribute("aria-pressed", b.dataset.eq === l));
+  const el = $("#ficha"); el.style.setProperty("--c", e.color);
+  el.innerHTML = `<header><h3>Equipo ${esc(e.nombre)}</h3><p>Le tocó rescatar <strong>${esc(e.rescato)}</strong>. ${pasos.length} fotos, de las ${e.horas.pinata} a las ${e.horas[pasos[pasos.length - 1]]}.</p></header>
+  <div class="tira" tabindex="0" aria-label="Las fotos del equipo ${esc(e.nombre)}, en orden">${pasos.map(t => {
+    const f = info(l + "-" + t);
+    return `<figure class="paso">${boton(l + "-" + t, "ficha")}<figcaption><span class="hora">${f.hora}</span> ${ETIQ[t]}<b>${esc(f.titulo)}</b></figcaption></figure>`;
+  }).join("")}</div>`;
+}
+$("#olla").addEventListener("click", ev => { const b = ev.target.closest("button[data-eq]"); if (b) ficha(b.dataset.eq); });
+ficha("f");
+
+$("#n-fotos").textContent = Object.values(EQ).reduce((n, e) => n + Object.keys(e.horas).length, 0);
+
+/* Visor: toca una foto y se abre en grande; las flechas recorren las de esa misma parte */
+const visor = $("#visor");
+let lista = [], pos = 0, origen = null;
+function pinta() {
+  const f = info(lista[pos]);
+  $("#visor-img").src = f.src; $("#visor-img").alt = f.alt;
+  $("#visor-pie").innerHTML = `<b>${esc(f.titulo)}</b><br>Equipo ${esc(f.e.nombre)}${f.hora ? " · " + f.hora : ""}`;
+  $("#visor-cuenta").textContent = `${pos + 1} de ${lista.length}`;
+  const uno = lista.length < 2; $("#visor-antes").hidden = uno; $("#visor-despues").hidden = uno;
+}
+const mueve = d => { pos = (pos + d + lista.length) % lista.length; pinta(); };
+document.addEventListener("click", ev => {
+  const b = ev.target.closest("button.foto"); if (!b) return;
+  origen = b;
+  lista = [...document.querySelectorAll(`button.foto[data-grupo="${b.dataset.grupo}"]`)].map(x => x.dataset.foto);
+  pos = Math.max(0, lista.indexOf(b.dataset.foto));
+  pinta();
+  if (visor.showModal) visor.showModal(); else visor.setAttribute("open", "");
+});
+$("#visor-cerrar").addEventListener("click", () => visor.close());
+$("#visor-antes").addEventListener("click", () => mueve(-1));
+$("#visor-despues").addEventListener("click", () => mueve(1));
+visor.addEventListener("click", ev => { if (ev.target === visor || ev.target.classList.contains("visor-foto")) visor.close(); });
+visor.addEventListener("keydown", ev => { if (ev.key === "ArrowLeft") mueve(-1); if (ev.key === "ArrowRight") mueve(1); });
+visor.addEventListener("close", () => { if (origen) origen.focus(); });
+let x0 = null;
+visor.addEventListener("touchstart", ev => { x0 = ev.touches[0].clientX; }, {passive: true});
+visor.addEventListener("touchend", ev => { if (x0 === null) return; const dx = ev.changedTouches[0].clientX - x0; x0 = null; if (Math.abs(dx) > 50) mueve(dx < 0 ? 1 : -1); }, {passive: true});
+</script>
+</body>
+</html>
