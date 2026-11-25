@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=6"></script>
+<script src="evaluacion-datos.js?v=7"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -585,16 +585,17 @@ function porQueNo(a) {
   return r;
 }
 
+/* Lo que piden para enero: una barra por categoría y, de cada una, lo que escribieron en su renglón.
+   Las fichas de la primera versión de la pregunta (deseoAntes) se suman a su categoría. */
 function deseosDe(a) {
-  var cuenta = {};
-  D.op.deseo.forEach(function (o) { cuenta[o.t] = { e:o.e, t:o.t, n:(a.deseo || {})[o.id] || 0 }; });
-  (a.deseosEscritos || []).forEach(function (w) {
-    var igual = D.op.deseo.filter(function (o) { return normal(o.t) === normal(w.t); })[0];
-    var k = igual ? igual.t : w.t.charAt(0).toUpperCase() + w.t.slice(1);
-    if (!cuenta[k]) cuenta[k] = { e:'✏️', t:k, n:0 };
-    cuenta[k].n += w.n;
+  var d = a.deseo || {}, det = a.deseoDetalle || {}, antes = D.op.deseoAntes || {};
+  return D.op.deseo.map(function (o) {
+    var n = d[o.id] || 0, cuenta = {}, orden = [];
+    function mas(t, k) { var c = normal(t); if (!c || !k) return; if (!cuenta[c]) { cuenta[c] = { t:t, n:0 }; orden.push(c); } cuenta[c].n += k; }
+    Object.keys(antes).forEach(function (id) { if (antes[id].c === o.id) { n += d[id] || 0; mas(antes[id].t, d[id] || 0); } });
+    (det[o.id] || []).forEach(function (w) { mas(w.t, w.n); });
+    return { id:o.id, e:o.e, t:o.t, n:n, escritos:orden.map(function (c) { return cuenta[c]; }).sort(function (x, y) { return y.n - x.n; }).slice(0, 8) };
   });
-  return Object.keys(cuenta).map(function (k) { return cuenta[k]; });
 }
 
 function enero(a) {
@@ -621,9 +622,18 @@ function enero(a) {
   r.appendChild(tarjeta('El torneo del próximo semestre', 'Solo quienes sembraron algún maíz en deporte (' + (a.base.torneo || 0) + '). Lo escrito en «otro» aparece cuando lo repiten al menos dos.', cuerpoT,
     'de qué deporte se arma el torneo interno, antes de abrir el registro.', b2.tabla));
   var des = deseosDe(a);
-  var b3 = barras(des, 1, { soloN:true, max:10, vacio:'Todavía no hay talleres pedidos.' });
-  r.appendChild(tarjeta('Los talleres que piden', 'Personas que lo pidieron. Lo escrito a mano aparece cuando lo repiten al menos dos.', b3.el,
-    'a quién buscar como tallerista para enero.', b3.tabla));
+  var b3 = barras(des, 1, { soloN:true, todos:true, vacio:'Todavía nadie pide nada.' });
+  function dicen(w) { return w.t + ' (' + w.n + ')'; }
+  var lineas = des.filter(function (x) { return x.escritos.length; }).map(function (x) {
+    return h('p', { class:'sub', style:'margin:10px 0 0' }, [h('b', { text:x.e + ' ' + x.t + ': ' }), x.escritos.map(dicen).join(', ') + '.']);
+  });
+  // Un script que todavía no separa lo escrito por categoría lo entrega todo junto.
+  if (!a.deseoDetalle && (a.deseosEscritos || []).length) {
+    lineas.push(h('p', { class:'sub', style:'margin:10px 0 0' }, [h('b', { text:'Escribieron: ' }), a.deseosEscritos.slice(0, 10).map(dicen).join(', ') + '.']));
+  }
+  r.appendChild(tarjeta('Lo que piden para enero', 'Personas que eligieron cada categoría (hasta dos por persona). Debajo, lo que escribieron al decir cuál: aparece cuando lo repiten al menos dos.',
+    h('div', null, [b3.el].concat(lineas)),
+    'qué tipo de talleres abrir y a quién buscar como tallerista para enero.', b3.tabla));
   if (SEG === 'todos' && DATOS.voluntarios) {
     r.appendChild(tarjeta('Se ofrecieron', null,
       h('div', { class:'heroe' }, [h('b', { text:String(DATOS.voluntarios) }), h('span', { text:DATOS.voluntarios === 1 ? 'persona dijo que se anima a dar un taller u organizar algo en enero.' : 'personas dijeron que se animan a dar un taller u organizar algo en enero.' })]),

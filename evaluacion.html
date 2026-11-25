@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=6"></script>
+<script src="evaluacion-datos.js?v=7"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -393,7 +393,7 @@ function estadoVacio() {
     maiz:maiz, maizSaltado:false, maizOtro:'', torneo:null, torneoOtro:'',
     porque:null, choque:null, suspension:null, respeto:[], carga:null, cargaTipo:[],
     salir:null, aviso:null, ayuda:[],
-    deseo:[], deseoOtro:'', coordinara:'',
+    deseo:[], deseoTxt:{}, deseoOtro:'', coordinara:'',
     vol:null, volNombre:'', volTel:'', volQue:'', notas:{}
   };
 }
@@ -816,9 +816,9 @@ function definir(p) {
       b:'Nadie sabe mejor que tú cómo se hace tu trabajo.', ops:D.op.ayuda, val:function () { return S.ayuda; }
     };
     case 'deseo': return {
-      tipo:'varios', chips:true, opcional:true, max:2, t:'¿Qué taller nuevo te gustaría en enero?',
-      s:'Elige hasta dos, o escribe el tuyo.', b:'Si nadie lo pide, nadie lo abre.', cara:'feliz',
-      ops:D.op.deseo, val:function () { return S.deseo; }, otro:true
+      tipo:'detalle', opcional:true, max:2, t:'Para enero, ¿qué te gustaría que hubiera?',
+      s:'Elige hasta dos. Si ya tienes algo en mente, escríbelo.', b:'Si nadie lo pide, nadie lo abre.', cara:'feliz',
+      ops:D.op.deseo, val:function () { return S.deseo; }, txt:function () { return S.deseoTxt; }
     };
     case 'coordinara': return {
       tipo:'abierta', t:'Si tú coordinaras la Franja, ¿qué cambiarías primero?',
@@ -859,7 +859,7 @@ function mostrar(k, dir) {
     (c.s ? '<p class="sub">' + esc(c.s) + '</p>' : '') + '<div class="cuerpo"></div>';
   var cuerpo = $('.cuerpo', el);
   var pie = configurarPie(c);
-  ({ uno:cuerpoUno, numeros:cuerpoUno, varios:cuerpoVarios, pasaporte:cuerpoPasaporte, veredicto:cuerpoVeredicto,
+  ({ uno:cuerpoUno, numeros:cuerpoUno, varios:cuerpoVarios, detalle:cuerpoDetalle, pasaporte:cuerpoPasaporte, veredicto:cuerpoVeredicto,
      palabra:cuerpoPalabra, abierta:cuerpoAbierta, maiz:cuerpoMaiz, voluntario:cuerpoVoluntario })[c.tipo](c, cuerpo, pie);
   dibujarBarra(p);
   void el.offsetWidth;
@@ -1022,6 +1022,52 @@ function cuerpoVarios(c, cuerpo, pie) {
       }
       refrescar(); guardarBorrador();
       if (o.texto && sel.indexOf(o.id) >= 0 && nota) setTimeout(function () { nota.focus(); }, 60);
+    });
+  });
+  refrescar();
+}
+
+/* ---------- varias respuestas, cada una con su renglón para decir cuál ----------
+   Las opciones son categorías amplias. Al elegir una se abre debajo un renglón que pide
+   especificar: opcional, salvo en la opción con «texto» («Otra cosa»), que sin eso no dice nada. */
+function cuerpoDetalle(c, cuerpo, pie) {
+  var sel = c.val(), T = c.txt();
+  cuerpo.innerHTML = '<div class="ops">' + c.ops.map(function (o) {
+    var ph = esc(o.ph || 'Escríbelo aquí');
+    return '<button type="button" class="op multi" data-id="' + o.id + '" aria-pressed="false">' +
+      (o.e ? '<span class="e" aria-hidden="true">' + o.e + '</span>' : '') +
+      '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(txt(o.s)) + '</span>' : '') + '</span>' +
+      '<span class="caja" aria-hidden="true"></span></button>' +
+      '<div class="nota-wrap" data-de="' + o.id + '" style="margin-top:-2px" hidden><label class="sr" for="det-' + o.id + '">' + ph + '</label>' +
+      '<input id="det-' + o.id + '" class="nota" type="text" maxlength="60" placeholder="' + ph + '" autocomplete="off"></div>';
+  }).join('') + '</div>';
+  function campo(id) { return $('#det-' + id, cuerpo); }
+  function validar() {
+    var falta = c.ops.filter(function (o) { return o.texto && sel.indexOf(o.id) >= 0 && !String(T[o.id] || '').trim(); })[0];
+    if (falta) { pie.listo(false, 'Escribe cuál ↑'); return; }
+    pie.listo(true, sel.length ? 'Siguiente →' : 'Saltar →');
+  }
+  function refrescar() {
+    c.ops.forEach(function (o) {
+      var b = $('[data-id="' + o.id + '"]', cuerpo), on = sel.indexOf(o.id) >= 0;
+      b.classList.toggle('si', on);
+      b.setAttribute('aria-pressed', on);
+      b.disabled = !on && !!c.max && sel.length >= c.max;
+      $('[data-de="' + o.id + '"]', cuerpo).hidden = !on;
+    });
+    validar();
+  }
+  c.ops.forEach(function (o) {
+    var inp = campo(o.id);
+    inp.value = T[o.id] || '';
+    inp.addEventListener('input', function () { T[o.id] = inp.value; validar(); guardarBorrador(); });
+    inp.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { ev.preventDefault(); inp.blur(); } });
+    $('[data-id="' + o.id + '"]', cuerpo).addEventListener('click', function () {
+      var i = sel.indexOf(o.id);
+      if (i >= 0) sel.splice(i, 1);
+      else if (!c.max || sel.length < c.max) sel.push(o.id);
+      refrescar(); guardarBorrador();
+      if (sel.indexOf(o.id) >= 0) setTimeout(function () { inp.focus(); }, 60);
     });
   });
   refrescar();
@@ -1296,6 +1342,9 @@ function armarPaquete() {
   }
   function con(texto, n) { return texto + (n ? ' — «' + n + '»' : ''); }
   function lista(k, ops) { return con(etiquetas(ops, S[k]), notaSi(k, S[k], ops)); }
+  // Lo que piden para enero: cada categoría elegida con lo que escribieron en su renglón (si escribieron).
+  var deseoIds = S.deseo.filter(function (id) { return busca(D.op.deseo, id); }), deseoDet = {};
+  deseoIds.forEach(function (id) { var v = String(S.deseoTxt[id] || '').replace(/\s+/g, ' ').trim().slice(0, 60); if (v) deseoDet[id] = v; });
   function una(k, ops) { return con(etiqueta(ops, S[k]), notaSi(k, [S[k]], ops)); }
 
   var talleresR = S.talleres.map(function (id) {
@@ -1322,7 +1371,9 @@ function armarPaquete() {
     suspension:vis.suspension ? S.suspension : null, respeto:vis.respeto ? S.respeto.slice() : [],
     carga:vis.carga ? S.carga : null, cargaTipo:vis.cargaTipo ? S.cargaTipo.slice() : [],
     salir:vis.salir ? S.salir : null, aviso:vis.aviso ? S.aviso : null, ayuda:vis.ayuda ? S.ayuda.slice() : [],
-    deseo:S.deseo.slice(), deseoOtro:S.deseoOtro.trim().slice(0, 60)
+    deseo:deseoIds, deseoDetalle:deseoDet,
+    // deseoOtro: lo primero que escribió, para un script que todavía no lea deseoDetalle.
+    deseoOtro:deseoIds.map(function (id) { return deseoDet[id]; }).filter(Boolean)[0] || ''
   };
 
   var g = rol ? rol.grupo : '';
@@ -1359,7 +1410,7 @@ function armarPaquete() {
   fila['Trabajo extra'] = etiqueta(D.op.carga, r.carga);
   fila['Tipo de trabajo extra'] = si('cargaTipo', lista('cargaTipo', listaCarga()));
   fila['Qué le ayudaría (administrativos)'] = si('ayuda', lista('ayuda', D.op.ayuda));
-  fila['Taller que pide'] = [etiquetas(D.op.deseo, r.deseo), r.deseoOtro].filter(Boolean).join(' · ');
+  fila['Taller que pide'] = deseoIds.map(function (id) { return con(etiqueta(D.op.deseo, id), deseoDet[id]); }).join(' · ');
   fila['Si coordinara la Franja'] = S.coordinara.trim().slice(0, 500);
 
   var actividades = talleresR.map(function (x) {
@@ -1498,6 +1549,14 @@ function portada() {
     // Un borrador viejo puede traer un evento o un taller que ya se quitó de la lista: se descarta.
     S.eventos = (S.eventos || []).filter(function (id) { return evento(id); });
     S.talleres = (S.talleres || []).filter(function (id) { return taller(id); });
+    // Lo mismo con las fichas de talleres de la primera versión: lo que había escrito pasa a «Otra cosa».
+    S.deseo = (S.deseo || []).filter(function (id) { return busca(D.op.deseo, id); });
+    S.deseoTxt = S.deseoTxt || {};
+    if (S.deseoOtro && S.deseoOtro.trim() && !S.deseoTxt.otra) {
+      S.deseoTxt.otra = S.deseoOtro;
+      if (S.deseo.indexOf('otra') < 0 && S.deseo.length < 2) S.deseo.push('otra');
+    }
+    S.deseoOtro = '';
     var ks = ruta().map(clave);
     historial = (borr.historial || []).filter(function (k) { return ks.indexOf(k) >= 0; });
     mostrar(ks.indexOf(borr.actual) >= 0 ? borr.actual : (historial.pop() || 'rol'), 1);
@@ -1688,21 +1747,21 @@ function cargarCampus(res) {
         html += '<div class="dato"><span class="n">' + mx.e + '</span><span>Lo más sembrado para enero hasta ahora: <b>' + esc(mx.t) + '</b>.</span></div>';
       }
       var pedido = tallerMasPedido(t);
-      if (pedido) html += '<div class="dato"><span class="n">🙋</span><span>El taller nuevo más pedido: <b>' + esc(pedido) + '</b>.</span></div>';
+      if (pedido) html += '<div class="dato"><span class="n">🙋</span><span>Lo más pedido para enero: <b>' + esc(pedido.charAt(0).toLowerCase() + pedido.slice(1)) + '</b>.</span></div>';
       caja.innerHTML = html;
     })
     .catch(function () {});
 }
 
 function normal(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-zñ0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
-/* Junta las fichitas elegidas con lo escrito a mano que coincide con alguna */
+/* La categoría más pedida para enero («Otra cosa» no compite: no es una categoría).
+   Las fichas de la primera versión se suman a la suya. */
 function tallerMasPedido(t) {
-  var cuenta = {};
-  D.op.deseo.forEach(function (o) { cuenta[o.t] = (t.deseo && t.deseo[o.id]) || 0; });
-  (t.deseosEscritos || []).forEach(function (w) {
-    var igual = D.op.deseo.filter(function (o) { return normal(o.t) === normal(w.t); })[0];
-    var k = igual ? igual.t : w.t.charAt(0).toUpperCase() + w.t.slice(1);
-    cuenta[k] = (cuenta[k] || 0) + w.n;
+  var d = t.deseo || {}, cuenta = {};
+  D.op.deseo.forEach(function (o) { if (!o.texto) cuenta[o.t] = d[o.id] || 0; });
+  Object.keys(D.op.deseoAntes || {}).forEach(function (id) {
+    var o = busca(D.op.deseo, D.op.deseoAntes[id].c);
+    if (o && cuenta[o.t] != null) cuenta[o.t] += d[id] || 0;
   });
   var mejor = Object.keys(cuenta).sort(function (a, b) { return cuenta[b] - cuenta[a]; })[0];
   return mejor && cuenta[mejor] > 0 ? mejor : '';

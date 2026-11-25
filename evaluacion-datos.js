@@ -389,16 +389,25 @@ window.EVAL = {
       { id:'otra',      e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué te ayudaría?' }
     ],
 
-    /* Talleres nuevos: uno por cada hueco de la oferta actual (cocina y primeros auxilios
-       para saberes y oficios, foto y canto para arte, defensa personal para movimiento).
-       Lo demás se escribe en el renglón de «otro taller». */
+    /* Lo que piden para enero. A propósito son categorías amplias y no talleres con nombre:
+       una lista de talleres concretos empuja a escoger de ahí. Al tocar una categoría se abre
+       un renglón para decir cuál («ph» es la pregunta de ese renglón). En las tres primeras
+       el renglón es opcional; en «Otra cosa» (texto:true) hay que escribirlo. */
     deseo: [
-      { id:'cocina',   e:'🍳', t:'Cocina' },
-      { id:'auxilios', e:'🩹', t:'Primeros auxilios' },
-      { id:'foto',     e:'📷', t:'Fotografía y video' },
-      { id:'defensa',  e:'🥋', t:'Defensa personal' },
-      { id:'canto',    e:'🎤', t:'Canto o banda' }
+      { id:'deporte',  e:'🏐', t:'Más deportes', ph:'¿Qué deporte tienes en mente?' },
+      { id:'arte',     e:'🎨', t:'Más actividades artísticas', ph:'¿Qué actividad artística tienes en mente?' },
+      { id:'practico', e:'🧰', t:'Cosas prácticas', s:'Oficios y saberes para la vida diaria', ph:'¿Qué te gustaría aprender a hacer?' },
+      { id:'otra',     e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué otra cosa? Escríbela' }
     ],
+    /* Las fichas de la primera versión de la pregunta (24 de noviembre). Quien alcanzó a
+       elegir una se suma en los resultados a la categoría «c», con su nombre «t» como detalle. */
+    deseoAntes: {
+      cocina:   { c:'practico', t:'cocina' },
+      auxilios: { c:'practico', t:'primeros auxilios' },
+      foto:     { c:'arte',     t:'fotografía y video' },
+      canto:    { c:'arte',     t:'canto o banda' },
+      defensa:  { c:'deporte',  t:'defensa personal' }
+    },
     voluntario: [
       { id:'si',     e:'🙋', t:'¡Sí, cuenta conmigo!' },
       { id:'talvez', e:'🤔', t:'Tal vez, platiquemos' },

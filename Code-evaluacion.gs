@@ -263,7 +263,17 @@ function sumar(L) {
     if (s > 0) { a.maiz.personas++; a.maiz.total += s; }
   });
   a.palabras = nube(L.map(function (r) { return r.palabra; }));
-  a.deseosEscritos = nube(L.map(function (r) { return r.deseoOtro; }));
+  // Lo que piden para enero: lo escrito al decir cuál, junto (deseosEscritos) y por categoría (deseoDetalle).
+  // Una respuesta guardada antes de este cambio solo trae deseoOtro.
+  var escritos = [], porCat = {};
+  L.forEach(function (r) {
+    var d = r.deseoDetalle || {}, ks = Object.keys(d);
+    if (!ks.length) { if (r.deseoOtro) escritos.push(r.deseoOtro); return; }
+    ks.forEach(function (k) { escritos.push(d[k]); (porCat[k] = porCat[k] || []).push(d[k]); });
+  });
+  a.deseosEscritos = nube(escritos);
+  a.deseoDetalle = {};
+  Object.keys(porCat).forEach(function (k) { a.deseoDetalle[k] = nube(porCat[k]); });
   a.torneosEscritos = nube(L.map(function (r) { return r.torneoOtro; }));
   a.maizEscritos = nube(L.map(function (r) { return r.maizOtro; }));
   return a;
@@ -338,6 +348,11 @@ function limpiarR(r) {
   }
   o.palabra = texto(r.palabra, 24).toLowerCase();
   o.deseoOtro = texto(r.deseoOtro, 60);
+  // Lo escrito en el renglón de cada categoría elegida (solo de las que sí eligió).
+  o.deseoDetalle = {};
+  if (r.deseoDetalle && typeof r.deseoDetalle === 'object') {
+    o.deseo.forEach(function (k) { var v = texto(r.deseoDetalle[k], 60); if (v) o.deseoDetalle[k] = v; });
+  }
   o.torneoOtro = o.torneo === 'otro' ? texto(r.torneoOtro, 40) : '';
   o.maizOtro = (o.maiz && o.maiz.otra > 0) ? texto(r.maizOtro, 60) : '';
   return o;
