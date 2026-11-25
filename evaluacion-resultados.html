@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=7"></script>
+<script src="evaluacion-datos.js?v=8"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -611,10 +611,11 @@ function enero(a) {
   var s = segmentada([
     { t:'Menos eventos: que los talleres avancen', n:bal.talleres || 0, color:'var(--c-igual)' },
     { t:'Así como estuvo', n:bal.igual || 0, color:'var(--c-neutro)', tinta:'#1A3A2A' },
-    { t:'Más eventos, aunque haya menos talleres', n:bal.eventos || 0, color:'var(--c-azul)' }
+    { t:'Más eventos, aunque haya menos talleres', n:bal.eventos || 0, color:'var(--c-azul)' },
+    { t:'Que haya evento sin suspender los talleres', n:bal.juntos || 0, color:'var(--c-p3)', tinta:'#1A3A2A' }
   ], { nombre:'Eventos o talleres' });
   r.appendChild(tarjeta('¿Fiesta o constancia?', 'Los días de evento se suspenden los talleres. Esto prefieren para enero.', s.el,
-    'cuántos eventos caben en el semestre sin romper el ritmo de los talleres.', s.tabla));
+    'cuántos eventos caben en el semestre sin romper el ritmo de los talleres, y si conviene que el día de evento los talleres sigan.', s.tabla));
   var b2 = barras(itemsDe(D.op.torneo, a.torneo), a.base.torneo, { vacio:'Todavía nadie que haya sembrado en deporte elige.' });
   var escritos = (a.torneosEscritos || []).slice(0, 8);
   var cuerpoT = h('div', null, [b2.el, escritos.length ? h('p', { class:'sub', style:'margin:12px 0 0' }, [h('b', { text:'En «otro deporte» escribieron: ' }),

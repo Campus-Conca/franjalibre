@@ -260,7 +260,8 @@ window.EVAL = {
     balance: [
       { id:'talleres', e:'🧩', t:'Menos eventos: que los talleres avancen' },
       { id:'igual',    e:'⚖️', t:'Así como estuvo' },
-      { id:'eventos',  e:'🎪', t:'Más eventos, aunque haya menos talleres' }
+      { id:'eventos',  e:'🎪', t:'Más eventos, aunque haya menos talleres' },
+      { id:'juntos',   e:'🤹', t:'Que haya evento sin suspender los talleres', s:'Los dos el mismo día: cada quien elige a cuál va' }
     ],
     torneo: [
       { id:'futbol',     e:'⚽', t:'Fútbol' },

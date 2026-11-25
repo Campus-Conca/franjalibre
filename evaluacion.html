@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, interactive-widget=resizes-content">
 <title>¿Qué se queda? · Balance de la Franja Libre · Campus Concá UAQ</title>
 <meta name="description" content="Balance de la Franja Libre 2026-2. Cinco minutos y anónimo: decide qué sigue en 2027, qué cambia y qué ya no.">
 <meta property="og:title" content="¿Qué se queda en la Franja Libre?">
@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=7"></script>
+<script src="evaluacion-datos.js?v=8"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -253,6 +253,9 @@ textarea.campo { min-height:130px; resize:vertical; line-height:1.45; }
   position:fixed; left:0; right:0; bottom:0; z-index:8; padding:12px 16px calc(12px + env(safe-area-inset-bottom));
   background:linear-gradient(rgba(247,244,228,0), var(--cs) 30%);
 }
+/* Con el teclado abierto el pie se pega justo encima de él (ver «EL TECLADO Y EL BOTÓN») y se hace más delgado. */
+.pie-accion.teclado { padding-top:8px; padding-bottom:8px; background:var(--cs); box-shadow:0 -1px 0 rgba(26,58,42,.12); }
+.pie-accion.teclado .btn-sig { padding:11px 22px; }
 .pie-in { max-width:528px; margin:0 auto; display:flex; gap:10px; align-items:center; }
 .btn-sig, .btn-grande {
   flex:1; border:0; border-radius:999px; background:var(--vp); color:var(--cr); font-size:17px; font-weight:700;
@@ -755,7 +758,7 @@ function definir(p) {
     };
     case 'balance': return {
       tipo:'uno', t:'Los días de evento se suspenden los talleres. Para enero, ¿qué prefieres?',
-      b:'Fiesta o constancia: no se puede todo.', cara:'pensando',
+      b:'Fiesta, constancia… o ver si caben las dos.', cara:'pensando',
       ops:D.op.balance, val:function () { return S.balance; }, set:function (v) { S.balance = v; }
     };
     case 'maiz': return {
@@ -870,6 +873,46 @@ function mostrar(k, dir) {
   guardarBorrador();
 }
 
+/* ======================================================================
+   EL TECLADO Y EL BOTÓN
+   En el teléfono, al escribir en un renglón el teclado tapaba «Siguiente» y había que
+   cerrarlo para seguir. Tres cuidados:
+   · Android: interactive-widget=resizes-content (en la etiqueta viewport) encoge la página
+     con el teclado, y el pie fijo queda encima de él sin más.
+   · iPhone: la página no se encoge, así que se mide cuánto tapa el teclado (visualViewport)
+     y el pie se sube esa distancia.
+   · En los dos: el renglón en que se escribe se acomoda para que quede a la vista, arriba del pie.
+   ====================================================================== */
+(function () {
+  var pie = $('#pie'), vv = window.visualViewport;
+  function escribiendo() {
+    var a = document.activeElement;
+    return a && (a.tagName === 'TEXTAREA' || (a.tagName === 'INPUT' && /^(text|tel|search|email|number|)$/.test(a.type))) ? a : null;
+  }
+  function acomodar() {
+    var a = escribiendo();
+    // Lo que el teclado tapa por abajo (cero si la página ya se encogió sola o si hay zoom con los dedos).
+    var tapa = vv && vv.scale < 1.05 ? Math.max(0, Math.round(window.innerHeight - vv.height - vv.offsetTop)) : 0;
+    if (tapa < 80) tapa = 0;
+    pie.style.bottom = tapa ? tapa + 'px' : '';
+    document.body.style.paddingBottom = tapa ? tapa + 'px' : '';
+    var chico = (vv ? vv.height : window.innerHeight) < 520;
+    pie.classList.toggle('teclado', !!a && (tapa > 0 || chico));
+    if (!a) return;
+    // El renglón debe quedar a la vista entre el borde de arriba y el pie.
+    var r = a.getBoundingClientRect(), arriba = vv ? vv.offsetTop : 0, alto = vv ? vv.height : window.innerHeight;
+    var libre = alto - (pie.hidden ? 0 : pie.offsetHeight) - 14;
+    var sobra = (r.bottom - arriba) - libre;
+    if (sobra > 0) window.scrollBy(0, sobra);
+    else if (r.top - arriba < 8) window.scrollBy(0, r.top - arriba - 8);
+  }
+  var t1, t2;
+  function luego() { clearTimeout(t1); clearTimeout(t2); t1 = setTimeout(acomodar, 60); t2 = setTimeout(acomodar, 420); }
+  if (vv) { vv.addEventListener('resize', luego); vv.addEventListener('scroll', luego); }
+  document.addEventListener('focusin', luego);
+  document.addEventListener('focusout', luego);
+})();
+
 function configurarPie(c) {
   var pie = $('#pie'), btn = $('#btn-sig');
   var auto = c.tipo === 'uno' || c.tipo === 'numeros' || c.tipo === 'veredicto';
@@ -916,7 +959,7 @@ function cuerpoUno(c, cuerpo, pie) {
     return '<button type="button" class="op' + (v === o.id ? ' si' : '') + '" data-id="' + o.id + '">' + izq +
       '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(txt(o.s)) + '</span>' : '') + '</span></button>' +
       (o.texto ? '<div class="nota-wrap" style="margin-top:-2px" hidden><label class="sr" for="nota-uno">' + esc(ph) + '</label>' +
-        '<input id="nota-uno" class="nota" type="text" maxlength="' + (c.textoMax || 60) + '" placeholder="' + esc(ph) + '" autocomplete="off"></div>' : '');
+        '<input id="nota-uno" class="nota" type="text" enterkeyhint="done" maxlength="' + (c.textoMax || 60) + '" placeholder="' + esc(ph) + '" autocomplete="off"></div>' : '');
   }).join('') + '</div>';
   // Una opción con «texto» (como «Otra cosa») no avanza sola: abre un renglón y espera a que lo escriban.
   var nota = $('#nota-uno', cuerpo);
@@ -970,7 +1013,7 @@ function cuerpoVarios(c, cuerpo, pie) {
   if (conTexto) {
     var ph = c.otro ? 'Otro taller: escríbelo aquí' : 'Escríbelo aquí';
     html += '<div class="nota-wrap"' + (c.otro ? '' : ' hidden') + '><label class="sr" for="nota">' + ph + '</label>' +
-      '<input id="nota" class="nota" type="text" maxlength="' + (c.otro ? 60 : 160) + '" placeholder="' + ph + '" autocomplete="off"></div>';
+      '<input id="nota" class="nota" type="text" enterkeyhint="done" maxlength="' + (c.otro ? 60 : 160) + '" placeholder="' + ph + '" autocomplete="off"></div>';
   }
   cuerpo.innerHTML = html;
   var nota = $('.nota', cuerpo);
@@ -1039,7 +1082,7 @@ function cuerpoDetalle(c, cuerpo, pie) {
       '<span class="tx">' + esc(txt(o.t)) + (o.s ? '<span class="s">' + esc(txt(o.s)) + '</span>' : '') + '</span>' +
       '<span class="caja" aria-hidden="true"></span></button>' +
       '<div class="nota-wrap" data-de="' + o.id + '" style="margin-top:-2px" hidden><label class="sr" for="det-' + o.id + '">' + ph + '</label>' +
-      '<input id="det-' + o.id + '" class="nota" type="text" maxlength="60" placeholder="' + ph + '" autocomplete="off"></div>';
+      '<input id="det-' + o.id + '" class="nota" type="text" enterkeyhint="done" maxlength="60" placeholder="' + ph + '" autocomplete="off"></div>';
   }).join('') + '</div>';
   function campo(id) { return $('#det-' + id, cuerpo); }
   function validar() {
@@ -1196,7 +1239,7 @@ function cuerpoMaiz(c, cuerpo, pie) {
   html += '</div>';
   // La maceta de «Otra cosa» abre un renglón: lo sembrado ahí no sirve si no se sabe qué es.
   html += '<div class="nota-wrap maiz-otra" hidden><label class="sr" for="maiz-otra">¿Qué otra cosa quieres que crezca?</label>' +
-    '<input id="maiz-otra" class="nota" type="text" maxlength="60" placeholder="¿Qué otra cosa quieres que crezca?" autocomplete="off"></div>';
+    '<input id="maiz-otra" class="nota" type="text" enterkeyhint="done" maxlength="60" placeholder="¿Qué otra cosa quieres que crezca?" autocomplete="off"></div>';
   cuerpo.innerHTML = html;
   var otraM = D.maiz.filter(function (m) { return m.texto; })[0];
   var otraIn = $('#maiz-otra', cuerpo);
