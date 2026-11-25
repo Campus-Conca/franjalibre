@@ -236,6 +236,70 @@ window.EVAL = {
       { id:'nada',        e:'👌', t:'Nada, estuvo bien', solo:true },
       { id:'otra',        e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué te hizo falta?' }
     ],
+    /* ---------- Del otro lado: quienes dieron taller u organizaron ----------
+       «papel» detecta a quien sostuvo la Franja además de vivirla. De ahí salen dos ramas:
+       instructores (taller de cada semana) y organizadores (torneo o evento). Estas respuestas
+       van solo a la hoja de la coordinación: no se publican. */
+    papel: [
+      { id:'taller', e:'🧑‍🏫', t:'Di un taller cada semana', s:'Fui instructor o instructora' },
+      { id:'organizo', e:'🎪', t:'Organicé un evento o un torneo', s:'También si arbitraste o si diste un taller en la Feria de Saberes' },
+      { id:'apoyo',  e:'🙌', t:'Eché la mano', s:'Ayudé en un taller, monté, cuidé o recogí' },
+      { id:'nada',   e:'🙂', t:'No, ninguna de esas', solo:true }
+    ],
+    /* Cuál taller dio y cuál evento organizó salen de las listas «talleres» y «eventos» de arriba:
+       la página arma las opciones sola. Ahí la respuesta deja de ser anónima para la coordinación,
+       y la pantalla lo avisa. Un taller de categoría «deporte» abre la pregunta de cancha y equipo;
+       un evento de categoría «deporte» (los torneos) abre la de arbitraje y partidos. */
+    /* Qué le movería a su taller: horario, espacio, regla de inscripción, niveles y cierre del semestre. */
+    talMejora: [
+      { id:'horario', e:'⏰', t:'El horario, o más tiempo por sesión' },
+      { id:'espacio', e:'📍', t:'Cambiar de espacio' },
+      { id:'grupo',   e:'👥', t:'Grupo fijo desde el inicio', s:'Que no entren y salgan a medio semestre' },
+      { id:'niveles', e:'🎯', t:'Separar por niveles', s:'Principiantes por un lado, avanzados por otro' },
+      { id:'muestra', e:'🎪', t:'Cerrar con una muestra o presentación' },
+      { id:'otra',    e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué le moverías?' }
+    ],
+    /* Solo talleres de deporte: espacio compartido, clima, equipo y lesiones. */
+    talDeporte: [
+      { id:'cancha',   e:'🏟️', t:'Compartir la cancha o el espacio', s:'Con otro taller, con el torneo o con clases' },
+      { id:'clima',    e:'☀️', t:'El calor y el sol a esa hora', s:'Faltó sombra o agua' },
+      { id:'equipo',   e:'🏐', t:'Equipo: faltó o estaba en mal estado', s:'Balones, redes, tapetes, bocina' },
+      { id:'lesiones', e:'🩹', t:'Lesiones, y no tener botiquín a la mano' },
+      { id:'nada',     e:'👌', t:'Nada, todo bien', solo:true },
+      { id:'otra',     e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué fue lo difícil?' }
+    ],
+    talLista: [
+      { id:'facil',  e:'👍', t:'Bien: la pasé casi siempre' },
+      { id:'olvido', e:'🙈', t:'Se me olvidaba seguido' },
+      { id:'falla',  e:'📵', t:'Me falló la app o la señal' },
+      { id:'nouse',  e:'✋', t:'No la usé' }
+    ],
+    /* Qué le faltó a quien organizó: calendario, presupuesto, voluntarios, reglas claras y difusión. */
+    orgFalto: [
+      { id:'tiempo',   e:'⏳', t:'Tiempo: se decidió o se avisó muy encima' },
+      { id:'recursos', e:'💰', t:'Dinero o materiales', s:'Premios, comida, equipo, impresiones' },
+      { id:'manos',    e:'🙋', t:'Manos para montar, cuidar y recoger' },
+      { id:'claridad', e:'🧭', t:'Saber qué me tocaba y quién decidía', s:'Permisos, espacios, a quién pedirle qué' },
+      { id:'difusion', e:'📣', t:'Difusión: que la gente se enterara y llegara' },
+      { id:'nada',     e:'👌', t:'Nada, salió bien', solo:true },
+      { id:'otra',     e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué te hizo falta?' }
+    ],
+    /* Solo torneos: duración, arbitraje, compromiso de los equipos, cancha y juego limpio. */
+    orgTorneo: [
+      { id:'tiempo',    e:'⏱️', t:'Más tiempo por partido', s:'El rato de la Franja no alcanza' },
+      { id:'arbitraje', e:'🧑‍⚖️', t:'Arbitraje: más árbitros o reglas más claras' },
+      { id:'equipos',   e:'📋', t:'Equipos que no llegaban o se salían' },
+      { id:'cancha',    e:'🏟️', t:'Cancha y balones' },
+      { id:'respeto',   e:'🤝', t:'Juego limpio: hubo pleitos o faltas de respeto' },
+      { id:'nada',      e:'👌', t:'Nada, salió bien', solo:true },
+      { id:'otra',      e:'✏️', t:'Otra cosa', texto:true, ph:'¿Qué arreglarías?' }
+    ],
+    orgOtra: [
+      { id:'si',     e:'✅', t:'Sí, cuenta conmigo' },
+      { id:'equipo', e:'🤝', t:'Sí, pero con un equipo y tareas repartidas' },
+      { id:'rotar',  e:'🔁', t:'Que ahora le toque a alguien más' },
+      { id:'no',     e:'✋', t:'No: no vale el esfuerzo' }
+    ],
     /* Lo que deja la Franja, en los cuatro propósitos que la sostienen. */
     dejo: [
       { id:'bienestar', e:'💪', t:'Sentirme mejor', s:'Moverme, despejarme, darme un respiro' },

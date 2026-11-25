@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="evaluacion-datos.js?v=8"></script>
+<script src="evaluacion-datos.js?v=9"></script>
 <style>
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 [hidden] { display:none !important; }
@@ -392,6 +392,8 @@ function estadoVacio() {
     v:2, inicio:Date.now(), rol:null, area:null, martes:null,
     talleres:[], ningunTaller:false, eventos:[], ningunEvento:false, act:{},
     frenos:[], canal:[], sumarme:[], talOtra:null, talFalto:[],
+    papel:[], talCual:[], orgCual:[], talMejora:[], talDeporte:[], talLista:null,
+    orgFalto:[], orgTorneo:[], orgOtra:null, ladoNota:'',
     palabra:'', dejo:[], gente:null, sin:null, balance:null,
     maiz:maiz, maizSaltado:false, maizOtro:'', torneo:null, torneoOtro:'',
     porque:null, choque:null, suspension:null, respeto:[], carga:null, cargaTipo:[],
@@ -447,9 +449,28 @@ function eventosVisibles() {
   var hoy = hoyConca();
   return D.eventos.filter(function (e) { return !e.fecha || e.fecha <= hoy || PREVIEW; });
 }
-function esTallerista() { return S.martes === 'dando'; }
+/* Quién sostuvo la Franja además de vivirla: lo dice la pantalla «papel», no la del martes
+   (quien da taller en jueves, o entrena un deporte, no está «dando» el martes a las 12:10). */
+function tienePapel(id) { return (S.papel || []).indexOf(id) >= 0; }
+function esTallerista() { return tienePapel('taller'); }
+var TIPO_TALLER = { deporte:'Deporte y movimiento', arte:'Arte y cultura', saberes:'Saberes y oficios' };
+function esOrganizador() { return tienePapel('organizo'); }
+/* Opciones de «¿qué taller diste?» y «¿qué organizaste?»: salen del catálogo, más un renglón libre. */
+function opsTalleres(conDia) {   // conDia: para la hoja, donde «Pintura» de martes y de jueves deben distinguirse
+  return D.talleres.map(function (t) { return { id:t.id, e:t.e, t:conDia ? t.t + ' (' + t.dia.toLowerCase() + ')' : t.t, s:t.dia + ' · ' + t.hora }; })
+    .concat([{ id:'otro', e:'✏️', t:'Otro taller', texto:true, ph:'¿Cuál?' }]);
+}
+function opsEventos() {
+  return eventosVisibles().map(function (x) { return { id:x.id, e:x.e, t:x.t, s:x.cuando }; })
+    .concat([{ id:'otro', e:'✏️', t:'Otro evento', texto:true, ph:'¿Cuál?' }]);
+}
+function algunoDeporte(ids, catalogo) {
+  return (ids || []).some(function (id) { var o = busca(catalogo, id); return !!o && o.cat === 'deporte'; });
+}
+function dioDeporte() { return algunoDeporte(S.talCual, D.talleres); }
+function organizoTorneo() { return algunoDeporte(S.orgCual, D.eventos); }
 function participo() {
-  return esTallerista() || S.eventos.length > 0 ||
+  return esTallerista() || esOrganizador() || S.eventos.length > 0 ||
     S.talleres.some(function (id) { var a = S.act[id]; return a && a.asist && a.asist !== 'nunca'; });
 }
 var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
@@ -534,6 +555,7 @@ function ruta() {
   L.push({ k:'rol', sec:0 });
   if (g === 'admin') L.push({ k:'area', sec:0 });
   L.push({ k:'martes', sec:0 });
+  L.push({ k:'papel', sec:0 });
   L.push({ k:'talleres', sec:1 });
   L.push({ k:'eventos', sec:1 });
   var sinTaller = S.talleres.length === 0;
@@ -542,7 +564,23 @@ function ruta() {
     if (S.frenos.indexOf('enterar') >= 0) L.push({ k:'canal', sec:1 });
     L.push({ k:'sumarme', sec:1 });
   }
-  if (esTallerista()) { L.push({ k:'talOtra', sec:1 }); L.push({ k:'talFalto', sec:1 }); }
+  // Rama de instructores: tipo de taller, si lo repetiría (y qué le movería), qué le faltó, lo propio del deporte y el pase de lista.
+  if (esTallerista()) {
+    L.push({ k:'talCual', sec:1 });
+    L.push({ k:'talOtra', sec:1 });
+    if (S.talOtra === 'cambios') L.push({ k:'talMejora', sec:1 });
+    L.push({ k:'talFalto', sec:1 });
+    if (dioDeporte()) L.push({ k:'talDeporte', sec:1 });
+    L.push({ k:'talLista', sec:1 });
+  }
+  // Rama de organizadores: qué faltó, lo propio de los torneos y si lo volvería a organizar.
+  if (esOrganizador()) {
+    L.push({ k:'orgCual', sec:1 });
+    L.push({ k:'orgFalto', sec:1 });
+    if (organizoTorneo()) L.push({ k:'orgTorneo', sec:1 });
+    L.push({ k:'orgOtra', sec:1 });
+  }
+  if (esTallerista() || esOrganizador()) L.push({ k:'ladoNota', sec:1 });
   var tarjetas = [];
   S.talleres.forEach(function (id) {
     L.push({ k:'asist', id:id, sec:2 });
@@ -624,6 +662,12 @@ function definir(p) {
       tipo:'uno', t:'Es martes, 12:10. ¿Dónde te encontramos casi siempre?', b:'Con la mano en el corazón: aquí nadie pasa lista.', cara:'guino',
       ops:D.op.martes[g], val:function () { return S.martes; }, set:function (v) { S.martes = v; }
     };
+    case 'papel': return {
+      tipo:'varios', t:'Este semestre, ¿te tocó dar un taller u organizar algo?', s:'Elige las que apliquen.', cara:'guino',
+      b:S.martes === 'dando' ? 'Ya me dijiste que a esa hora das taller: márcalo aquí. ¿Hubo algo más?'
+                             : 'La Franja la sostiene gente del campus. ¿Fuiste una de esas personas?',
+      ops:D.op.papel, val:function () { return S.papel; }
+    };
     case 'talleres': {
       var grupos = [];
       ['Martes', 'Jueves', 'Martes y jueves'].forEach(function (dia) {
@@ -671,6 +715,45 @@ function definir(p) {
         ops:D.op.sumarme, val:function () { return S.sumarme; }
       };
     }
+    case 'talCual': return {
+      tipo:'varios', t:'¿Qué taller diste?', s:'Marca todos los que diste. Aquí la coordinación sí sabrá de qué taller hablas.',
+      b:'Ahora, unas solo para quienes dieron taller.', cara:'feliz',
+      ops:opsTalleres(), val:function () { return S.talCual; }
+    };
+    case 'orgCual': return {
+      tipo:'varios', t:'¿Qué organizaste?', s:'Marca todos. Aquí la coordinación sí sabrá de qué evento hablas.',
+      b:'Ahora, lo de organizar. Gracias por sacarlo adelante.', cara:'feliz',
+      ops:opsEventos(), val:function () { return S.orgCual; }
+    };
+    case 'talMejora': return {
+      tipo:'varios', t:'Para enero, ¿qué le moverías a tu taller?', s:'Elige hasta dos.', max:2, cara:'pensando',
+      b:'Dijiste «con cambios». ¿Cuáles?', ops:D.op.talMejora, val:function () { return S.talMejora; }
+    };
+    case 'talDeporte': return {
+      tipo:'varios', t:'En tu taller de deporte, ¿qué fue lo más difícil?', s:'Elige las que apliquen.', cara:'pensando', disfraz:'banda',
+      b:'Esta es solo para talleres de deporte y movimiento.', ops:D.op.talDeporte, val:function () { return S.talDeporte; }
+    };
+    case 'talLista': return {
+      tipo:'uno', t:'¿Cómo te fue con el pase de lista en el celular?',
+      b:'Con esa lista se cuentan los puntos y los créditos.', cara:'neutral',
+      ops:D.op.talLista, val:function () { return S.talLista; }, set:function (v) { S.talLista = v; }
+    };
+    case 'orgFalto': return {
+      tipo:'varios', t:'Para organizar, ¿qué te hizo falta?', s:'Elige las que apliquen.', cara:'pensando',
+      b:'¿Qué habría hecho la diferencia?', ops:D.op.orgFalto, val:function () { return S.orgFalto; }
+    };
+    case 'orgTorneo': return {
+      tipo:'varios', t:'En el torneo, ¿qué hay que arreglar primero?', s:'Elige hasta dos.', max:2, cara:'pensando', disfraz:'banda',
+      b:'Tú lo viste desde la cancha.', ops:D.op.orgTorneo, val:function () { return S.orgTorneo; }
+    };
+    case 'orgOtra': return {
+      tipo:'uno', t:'¿Lo organizarías otra vez?', b:'Sin compromiso: es para saber con quién se cuenta.', cara:'guino',
+      ops:D.op.orgOtra, val:function () { return S.orgOtra; }, set:function (v) { S.orgOtra = v; }
+    };
+    case 'ladoNota': return {
+      tipo:'abierta', campo:'ladoNota', ph:'Necesito…', t:'Tu lista para enero: ¿qué necesitas, en concreto?',
+      b:'Con cantidades si puedes: «diez balones», «una bocina», «la llave del salón». Lo lee la coordinación, completo.', cara:'feliz'
+    };
     case 'talOtra': return {
       tipo:'uno', t:'Diste un taller. ¿Lo darías otra vez en enero?', b:'Gracias por darlo. Ahora, sin pena:', cara:'feliz',
       ops:D.op.talOtra, val:function () { return S.talOtra; }, set:function (v) { S.talOtra = v; }
@@ -1216,11 +1299,12 @@ function cuerpoPalabra(c, cuerpo, pie) {
 /* ---------- pregunta abierta ---------- */
 function cuerpoAbierta(c, cuerpo, pie) {
   cuerpo.innerHTML = '<label class="sr" for="abierta">Tu respuesta</label>' +
-    '<textarea id="abierta" class="campo" maxlength="500" placeholder="Yo cambiaría…"></textarea><div class="contador"></div>';
+    '<textarea id="abierta" class="campo" maxlength="500" placeholder="' + esc(c.ph || 'Yo cambiaría…') + '"></textarea><div class="contador"></div>';
   var ta = $('#abierta'), cont = $('.contador', cuerpo);
-  ta.value = S.coordinara;
+  var campo = c.campo || 'coordinara';   // dónde se guarda: «coordinara» o la lista de instructores y organizadores
+  ta.value = S[campo] || '';
   function validar() { var v = ta.value.trim(); cont.textContent = ta.value.length + ' / 500'; pie.listo(true, v ? 'Siguiente →' : 'Saltar →'); }
-  ta.addEventListener('input', function () { S.coordinara = ta.value; validar(); guardarBorrador(); });
+  ta.addEventListener('input', function () { S[campo] = ta.value; validar(); guardarBorrador(); });
   validar();
 }
 
@@ -1406,6 +1490,11 @@ function armarPaquete() {
     rol:S.rol, martes:S.martes, talleres:talleresR, eventos:eventosR,
     frenos:vis.frenos ? S.frenos.slice() : [], canal:vis.canal ? S.canal.slice() : [], sumarme:vis.sumarme ? S.sumarme.slice() : [],
     talOtra:vis.talOtra ? S.talOtra : null, talFalto:vis.talFalto ? S.talFalto.slice() : [],
+    papel:(S.papel || []).slice(), talCual:vis.talCual ? S.talCual.slice() : [], orgCual:vis.orgCual ? S.orgCual.slice() : [],
+    talMejora:vis.talMejora ? S.talMejora.slice() : [], talDeporte:vis.talDeporte ? S.talDeporte.slice() : [],
+    talLista:vis.talLista ? S.talLista : null,
+    orgFalto:vis.orgFalto ? S.orgFalto.slice() : [], orgTorneo:vis.orgTorneo ? S.orgTorneo.slice() : [],
+    orgOtra:vis.orgOtra ? S.orgOtra : null,
     palabra:S.palabra.trim().toLowerCase().slice(0, 24),
     dejo:vis.dejo ? S.dejo.slice() : [], gente:vis.gente ? S.gente : null,
     sin:S.sin, balance:S.balance, maiz:maiz, maizOtro:maizOtro, torneo:vis.torneo ? S.torneo : null,
@@ -1435,6 +1524,19 @@ function armarPaquete() {
     'Para sumarse': si('sumarme', lista('sumarme', D.op.sumarme)),
     'Tallerista: ¿otra vez?': etiqueta(D.op.talOtra, r.talOtra),
     'Tallerista: le hizo falta': si('talFalto', lista('talFalto', D.op.talFalto)),
+    // Columnas nuevas: la hoja las agrega sola la primera vez que llegan.
+    'Dio u organizó': si('papel', lista('papel', D.op.papel)),
+    'Tallerista: qué taller dio': si('talCual', lista('talCual', opsTalleres(true))),
+    'Tallerista: tipo de taller': r.talCual.map(function (id) { var o = busca(D.talleres, id); return o ? TIPO_TALLER[o.cat] : ''; })
+      .filter(function (x, i, a) { return x && a.indexOf(x) === i; }).join(' · '),
+    'Tallerista: qué le movería': si('talMejora', lista('talMejora', D.op.talMejora)),
+    'Tallerista de deporte: lo más difícil': si('talDeporte', lista('talDeporte', D.op.talDeporte)),
+    'Tallerista: pase de lista': etiqueta(D.op.talLista, r.talLista),
+    'Organizador: qué organizó': si('orgCual', lista('orgCual', opsEventos())),
+    'Organizador: le hizo falta': si('orgFalto', lista('orgFalto', D.op.orgFalto)),
+    'Organizador de torneo: qué arreglar': si('orgTorneo', lista('orgTorneo', D.op.orgTorneo)),
+    'Organizador: ¿otra vez?': etiqueta(D.op.orgOtra, r.orgOtra),
+    'Lista para enero (talleristas y organizadores)': vis.ladoNota ? String(S.ladoNota || '').trim().slice(0, 500) : '',
     'Palabra': r.palabra,
     'Qué le dejó': si('dejo', lista('dejo', D.op.dejo)),
     'Gente nueva': etiqueta(D.op.gente, r.gente),
@@ -1697,8 +1799,10 @@ function dibujarTarjeta(paq) {
     var nt = r.talleres.filter(function (t) { return t.asist && t.asist !== 'nunca'; }).length, ne = r.eventos.length;
     var y = 610;
     x.fillStyle = '#1A3A2A';
-    if (r.martes === 'dando') {
-      x.font = '700 46px "Instrument Sans", sans-serif'; x.fillText('Di un taller', 84, y); y += 60;
+    var pap = r.papel || (r.martes === 'dando' ? ['taller'] : []);
+    var hice = pap.indexOf('taller') >= 0 ? 'Di un taller' : (pap.indexOf('organizo') >= 0 ? (algunoDeporte(r.orgCual, D.eventos) ? 'Organicé un torneo' : 'Organicé un evento') : '');
+    if (hice) {
+      x.font = '700 46px "Instrument Sans", sans-serif'; x.fillText(hice, 84, y); y += 60;
       if (nt || ne) { x.font = '600 38px "Instrument Sans", sans-serif'; x.fillText('y estuve en ' + cuenta(nt, 'taller', 'talleres') + ' y ' + cuenta(ne, 'evento', 'eventos'), 84, y); y += 56; }
     } else if (nt || ne) {
       x.font = '600 36px "Instrument Sans", sans-serif'; x.fillStyle = '#5E6D63'; x.fillText('Estuve en', 84, y); y += 70;
