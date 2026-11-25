@@ -30,7 +30,7 @@ window.EVAL = {
   semestre: '2026-2',
   proximo: 'enero–junio 2027',
   anio: '2027',      // el año de las fiestas anuales que se evalúan
-  abre:   '2026-11-26T11:00:00-06:00',   // jueves del cierre de la Franja
+  abre:   '2026-11-24T00:00:00-06:00',   // adelantado: abre desde el martes 24
   cierra: '2026-12-11T23:59:00-06:00',
   url: 'https://franjalibre.campusconcauaq.workers.dev/evaluacion',
   minimoGrupo: 5,   // un grupo con menos respuestas no se desglosa en público
